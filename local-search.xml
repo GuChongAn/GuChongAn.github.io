@@ -8,7 +8,7 @@
     <link href="/2023/11/09/How-to-Use-Hexo/"/>
     <url>/2023/11/09/How-to-Use-Hexo/</url>
     
-    <content type="html"><![CDATA[]]></content>
+    <content type="html"><![CDATA[<h2 id="Hexo-Github博客系统搭建流程记录"><a href="#Hexo-Github博客系统搭建流程记录" class="headerlink" title="Hexo + Github博客系统搭建流程记录"></a>Hexo + Github博客系统搭建流程记录</h2><blockquote><p>本文将简要记录利用Hexo和Github搭建自己博客系统的流程，包含以下内容</p><ol><li>Hexo的下载和使用</li><li>Hexo主题更换 </li><li>Github部署Hexo博客</li></ol></blockquote><h3 id="1-Hexo的下载和使用"><a href="#1-Hexo的下载和使用" class="headerlink" title="1) Hexo的下载和使用"></a>1) Hexo的下载和使用</h3><p>其实跟着<a href="https://hexo.io/zh-cn/docs/setup">Hexo</a>的文档就行了，我的下载和使用过程也没有遇到什么大问题，所以简要记录流程如下</p><ol><li>安装</li></ol><p>先安装<strong>Git</strong>和<strong>Node.js</strong>，然后利用npm安装<strong>Hexo</strong></p><p><code>$ npm install -g hexo-cli</code></p><ol start="2"><li>建站</li></ol><p> 创建一个空文件夹<code>folder</code>，在该文件夹下执行如下指令</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash">hexo init &lt;folder&gt;</span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash"><span class="hljs-built_in">cd</span> &lt;folder&gt;</span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash">npm install</span><br></code></pre></td></tr></table></figure><ol start="3"><li>配置</li></ol><p>对照Hexo文档的<a href="https://hexo.io/zh-cn/docs/configuration">配置页面</a>更改<code>&lt;folder&gt;</code>下的配置文件<code>_config.yml</code></p><p>4. </p>]]></content>
     
     
     
