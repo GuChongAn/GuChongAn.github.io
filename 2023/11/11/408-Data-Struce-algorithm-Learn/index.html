@@ -16,21 +16,18 @@
   <meta name="author" content="Chongan">
   <meta name="keywords" content="">
   
-    <meta name="description" content="408 数据结构算法题总结 本文记录笔者在学习408数据结构算法题过程中的一些思考和总结，大体如下 1）算法模板（快速排序等） 2）题目总结  1）算法模板我认为408数据结构的算法题只有一个模板需要熟记，就是快速排序算法，其他的模板用上的概率都不大 快速排序123456789101112131415161718void QuickSort(int A[], int L, int R) &amp;#123">
+    <meta name="description" content="408 数据结构算法题总结  本文记录笔者在学习408数据结构算法题过程中的一些思考和总结，大体如下 1）算法模板（快速排序等） 2）题目总结  1）算法模板 我认为408数据结构的算法题只有一个模板需要熟记，就是快速排序算法，其他的模板用上的概率都不大 快速排序 123456789101112131415161718void QuickSort(int A[], int L, int R) &amp;#">
 <meta property="og:type" content="article">
 <meta property="og:title" content="408 数据结构算法题总结">
 <meta property="og:url" content="http://example.com/2023/11/11/408-Data-Struce-algorithm-Learn/index.html">
 <meta property="og:site_name" content="Chongan&#39;s blog">
-<meta property="og:description" content="408 数据结构算法题总结 本文记录笔者在学习408数据结构算法题过程中的一些思考和总结，大体如下 1）算法模板（快速排序等） 2）题目总结  1）算法模板我认为408数据结构的算法题只有一个模板需要熟记，就是快速排序算法，其他的模板用上的概率都不大 快速排序123456789101112131415161718void QuickSort(int A[], int L, int R) &amp;#123">
+<meta property="og:description" content="408 数据结构算法题总结  本文记录笔者在学习408数据结构算法题过程中的一些思考和总结，大体如下 1）算法模板（快速排序等） 2）题目总结  1）算法模板 我认为408数据结构的算法题只有一个模板需要熟记，就是快速排序算法，其他的模板用上的概率都不大 快速排序 123456789101112131415161718void QuickSort(int A[], int L, int R) &amp;#">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2018/12/14/160_statement.png">
-<meta property="og:image" content="https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2018/12/07/circularlinkedlist_test2.png">
 <meta property="article:published_time" content="2023-11-11T15:30:47.000Z">
-<meta property="article:modified_time" content="2023-11-15T03:09:20.097Z">
+<meta property="article:modified_time" content="2023-11-15T03:15:10.317Z">
 <meta property="article:author" content="Chongan">
 <meta property="article:tag" content="408">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2018/12/14/160_statement.png">
   
   
   
@@ -276,54 +273,87 @@
             
               <div class="markdown-body">
                 
-                <h1 id="408-数据结构算法题总结"><a href="#408-数据结构算法题总结" class="headerlink" title="408 数据结构算法题总结"></a>408 数据结构算法题总结</h1><blockquote>
+                <h1 id="数据结构算法题总结">408 数据结构算法题总结</h1>
+<blockquote>
 <p>本文记录笔者在学习408数据结构算法题过程中的一些思考和总结，大体如下</p>
 <p>1）算法模板（快速排序等）</p>
 <p>2）题目总结</p>
 </blockquote>
-<h2 id="1）算法模板"><a href="#1）算法模板" class="headerlink" title="1）算法模板"></a>1）算法模板</h2><p>我认为408数据结构的算法题只有一个模板需要熟记，就是快速排序算法，其他的模板用上的概率都不大</p>
-<h4 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">void</span> <span class="hljs-title function_">QuickSort</span><span class="hljs-params">(<span class="hljs-type">int</span> A[], <span class="hljs-type">int</span> L, <span class="hljs-type">int</span> R)</span> &#123;<br>    <span class="hljs-keyword">if</span>(L &gt;= R) <span class="hljs-keyword">return</span>;<br>    <span class="hljs-type">int</span> M = Partion(A, L, R);<br>    QuickSort(A, L, M<span class="hljs-number">-1</span>);<br>    QuickSort(A, M+<span class="hljs-number">1</span>, R);<br>&#125;<br><br><span class="hljs-type">int</span> <span class="hljs-title function_">Partion</span><span class="hljs-params">(<span class="hljs-type">int</span> A[], <span class="hljs-type">int</span> L, <span class="hljs-type">int</span> R)</span> &#123;<br>    <span class="hljs-type">int</span> mid = A[L];<br>    <span class="hljs-keyword">while</span>(L &lt; R) &#123;<br>        <span class="hljs-keyword">while</span>(A[R]&gt;=mid &amp;&amp; L&lt;R) R--;<br>       	A[L] = A[R];<br>        <span class="hljs-keyword">while</span>(A[L]&lt;=mid &amp;&amp; L&lt;R) L++;<br>        A[R] = A[L];<br>    &#125;<br>    A[L] = mid;<br>    retruen L;<br>&#125;<br></code></pre></td></tr></table></figure>
-
-<h4 id="二分查找"><a href="#二分查找" class="headerlink" title="二分查找"></a>二分查找</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs c">```<br><br>#### KMP算法<br><br>```c<br><br></code></pre></td></tr></table></figure>
-
-<h2 id="2）题目总结"><a href="#2）题目总结" class="headerlink" title="2）题目总结"></a>2）题目总结</h2><p>通过几个典型题目，记录408数据结构的算法题可能会用到的几个做题思路</p>
-<h4 id="双指针"><a href="#双指针" class="headerlink" title="双指针"></a>双指针</h4><ol>
-<li><a href="https://link.zhihu.com/?target=https://leetcode-cn.com/problems/diao-zheng-shu-zu-shun-xu-shi-qi-shu-wei-yu-ou-shu-qian-mian-lcof/">剑指 Offer 21. 调整数组顺序使奇数位于偶数前面</a></li>
+<h2 id="算法模板">1）算法模板</h2>
+<p>我认为408数据结构的算法题只有一个模板需要熟记，就是快速排序算法，其他的模板用上的概率都不大</p>
+<h4 id="快速排序">快速排序</h4>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">void</span> <span class="hljs-title function_">QuickSort</span><span class="hljs-params">(<span class="hljs-type">int</span> A[], <span class="hljs-type">int</span> L, <span class="hljs-type">int</span> R)</span> &#123;<br>    <span class="hljs-keyword">if</span>(L &gt;= R) <span class="hljs-keyword">return</span>;<br>    <span class="hljs-type">int</span> M = Partion(A, L, R);<br>    QuickSort(A, L, M<span class="hljs-number">-1</span>);<br>    QuickSort(A, M+<span class="hljs-number">1</span>, R);<br>&#125;<br><br><span class="hljs-type">int</span> <span class="hljs-title function_">Partion</span><span class="hljs-params">(<span class="hljs-type">int</span> A[], <span class="hljs-type">int</span> L, <span class="hljs-type">int</span> R)</span> &#123;<br>    <span class="hljs-type">int</span> mid = A[L];<br>    <span class="hljs-keyword">while</span>(L &lt; R) &#123;<br>        <span class="hljs-keyword">while</span>(A[R]&gt;=mid &amp;&amp; L&lt;R) R--;<br>       	A[L] = A[R];<br>        <span class="hljs-keyword">while</span>(A[L]&lt;=mid &amp;&amp; L&lt;R) L++;<br>        A[R] = A[L];<br>    &#125;<br>    A[L] = mid;<br>    retruen L;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h4 id="二分查找">二分查找</h4>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs c">```<br><br>#### KMP算法<br><br>```c<br><br></code></pre></td></tr></table></figure>
+<h2 id="题目总结">2）题目总结</h2>
+<p>通过几个典型题目，记录408数据结构的算法题可能会用到的几个做题思路</p>
+<h4 id="双指针">双指针</h4>
+<ol type="1">
+<li><a
+href="https://link.zhihu.com/?target=https%3A//leetcode-cn.com/problems/diao-zheng-shu-zu-shun-xu-shi-qi-shu-wei-yu-ou-shu-qian-mian-lcof/">剑指
+Offer 21. 调整数组顺序使奇数位于偶数前面</a></li>
 </ol>
-<p> 一道不太典型的双指针的题，指针分别指向数组的头尾，然后交换头尾元素</p>
-<ol start="2">
-<li><a href="https://link.zhihu.com/?target=https://leetcode-cn.com/problems/liang-ge-lian-biao-de-di-yi-ge-gong-gong-jie-dian-lcof/">剑指 Offer 52. 两个链表的第一个公共节点</a></li>
+<p>一道不太典型的双指针的题，指针分别指向数组的头尾，然后交换头尾元素</p>
+<ol start="2" type="1">
+<li><a
+href="https://link.zhihu.com/?target=https%3A//leetcode-cn.com/problems/liang-ge-lian-biao-de-di-yi-ge-gong-gong-jie-dian-lcof/">剑指
+Offer 52. 两个链表的第一个公共节点</a></li>
 </ol>
-<p><img src="https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2018/12/14/160_statement.png" srcset="/img/loading.gif" lazyload></p>
-<p> 最直接的想法肯定是算出两个链表的长度，把长链表后移，然后同时遍历，看有没有公共节点，这样时间复杂都也是O(n)，但是代码有点长，这里有一个更巧妙的解法，</p>
+<p><img
+src="https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2018/12/14/160_statement.png" srcset="/img/loading.gif" lazyload /></p>
+<p>最直接的想法肯定是算出两个链表的长度，把长链表后移，然后同时遍历，看有没有公共节点，这样时间复杂都也是O(n)，但是代码有点长，这里有一个更巧妙的解法，</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs c">ListNode *<span class="hljs-title function_">getIntersectionNode</span><span class="hljs-params">(ListNode *headA, ListNode *headB)</span> &#123;<br>    ListNode* a = headA, *b = headB;<br>    <span class="hljs-keyword">while</span>(a != b) &#123;<br>        A = A!=nullptr?A-&gt;next:headB;<br>        B = B!=nullptr?B-&gt;next:headA;<br>    &#125;<br>    <span class="hljs-keyword">return</span> A;<br>&#125;<br></code></pre></td></tr></table></figure>
-
-<p>A B链表同时遍历，遍历完自己之后，再从另一个的头开始遍历，如果存在公共节点，两者会在公共节点处相遇，如果不存在，两者会同时指向NULL</p>
-<ol start="3">
-<li><a href="https://link.zhihu.com/?target=https://leetcode-cn.com/problems/linked-list-cycle-ii/">142. 环形链表 II</a></li>
+<p>A
+B链表同时遍历，遍历完自己之后，再从另一个的头开始遍历，如果存在公共节点，两者会在公共节点处相遇，如果不存在，两者会同时指向NULL</p>
+<ol start="3" type="1">
+<li><a
+href="https://link.zhihu.com/?target=https%3A//leetcode-cn.com/problems/linked-list-cycle-ii/">142.
+环形链表 II</a></li>
 </ol>
-<p><img src="https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2018/12/07/circularlinkedlist_test2.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<figure>
+<img
+src="https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2018/12/07/circularlinkedlist_test2.png" srcset="/img/loading.gif" lazyload
+alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
 <p>类似的题目一般都可以拥双指针法解决，比如找环，找公共尾部，找尾部节点等，大体上都是根据双指针的关系推理出要找的点的位置，例如本题使用快慢指针，有<code>fast=2slow</code>，然后如果有环，则存在两者相遇时有，<code>fast=slow+nb</code>，所以可以求出<code>fast=2nb; slow=nb</code>，而环的入口节点的位置在<code>a+nb</code>，所以设置两个指针，从slow和头节点的位置同时后移，相遇则为环入口</p>
-<h4 id="反转链表"><a href="#反转链表" class="headerlink" title="反转链表"></a>反转链表</h4><ol>
-<li><a href="https://link.zhihu.com/?target=https://leetcode-cn.com/problems/fan-zhuan-lian-biao-lcof/">剑指 Offer 24. 反转链表</a></li>
+<h4 id="反转链表">反转链表</h4>
+<ol type="1">
+<li><a
+href="https://link.zhihu.com/?target=https%3A//leetcode-cn.com/problems/fan-zhuan-lian-biao-lcof/">剑指
+Offer 24. 反转链表</a></li>
 </ol>
 <p>注意区分一下有无头节点，无头节点就直接<code>return prev</code>，有头节点就<code>head-&gt;next=prev</code>，然后再return，除了链表，数组也可以通过双指针，一个指头一个指尾，然后换位置，直到指针交错的方式反转</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs c">ListNode* <span class="hljs-title function_">reverseList</span><span class="hljs-params">(ListNode* head)</span> &#123;<br>	ListNode* prev = <span class="hljs-literal">NULL</span>, *curr = head;<br>    <span class="hljs-keyword">while</span>(curr) &#123;<br>        ListNode* next = curr-&gt;next;<br>        curr-&gt;next = prev;<br>        prev = curr;<br>        curr = next;<br>    &#125;<br>    <span class="hljs-keyword">return</span> prev;<br>&#125;<br></code></pre></td></tr></table></figure>
-
-<h4 id="空间换时间"><a href="#空间换时间" class="headerlink" title="空间换时间"></a>空间换时间</h4><ol>
-<li><a href="https://link.zhihu.com/?target=https://leetcode-cn.com/problems/shu-zu-zhong-chu-xian-ci-shu-chao-guo-yi-ban-de-shu-zi-lcof/">剑指 Offer 39. 数组中出现次数超过一半的数字</a></li>
+<h4 id="空间换时间">空间换时间</h4>
+<ol type="1">
+<li><a
+href="https://link.zhihu.com/?target=https%3A//leetcode-cn.com/problems/shu-zu-zhong-chu-xian-ci-shu-chao-guo-yi-ban-de-shu-zi-lcof/">剑指
+Offer 39. 数组中出现次数超过一半的数字</a></li>
 </ol>
 <p>这种题（在408考试中）最直接的想法是空间换时间，通过数组来记录每个数字的个数，然后遍历这个数组，但是这个题目进了一步，题设数组中可能存在负数，这时候直接用个数组来记录就有点麻烦了，所以有两个思路，一个是那就把记录数字个数的数组换成字典，另一个就是<strong>多数（摩尔）投票法</strong></p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">int</span> <span class="hljs-title function_">majorityElement</span><span class="hljs-params">(<span class="hljs-type">int</span> nums[], <span class="hljs-type">int</span> len)</span> &#123;<br>    <span class="hljs-type">int</span> x = <span class="hljs-number">0</span>, voteNum = <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; len; i++) &#123;<br>        <span class="hljs-keyword">if</span>(voteNum == <span class="hljs-number">0</span>) &#123;<br>            x = nums[i];<br>            voteNum = <span class="hljs-number">1</span>;<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            <span class="hljs-keyword">if</span>(x == nums[i])<br>                voteNum++;<br>            <span class="hljs-keyword">else</span><br>                voteNum--;<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-type">int</span> xNum = <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; len; i++) <br>        <span class="hljs-keyword">if</span>(nums[i] == x)<br>            xNum++;<br>    <span class="hljs-keyword">if</span>(xNum &gt; stock.size()/<span class="hljs-number">2</span>)<br>        <span class="hljs-keyword">return</span> x;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
-
-<p>思路比较简单，就是用一个变量x保存现在最多的元素，用voteNum保存投票数，遍历数组，<code>nums[i]==x</code>则voteNum++，否则–，如果voteNum为0，则换x，遍历完得到的x就是数组中最多的元素</p>
-<h4 id="简单动态规划"><a href="#简单动态规划" class="headerlink" title="简单动态规划"></a>简单动态规划</h4><p>我认为考到动态规划上面的可能性，不是不大，而是微乎其微，所以这里只记录一个极简单的动态规划题目</p>
-<ol>
-<li><a href="https://link.zhihu.com/?target=https://leetcode-cn.com/problems/lian-xu-zi-shu-zu-de-zui-da-he-lcof/">剑指 Offer 42. 连续子数组的最大和</a></li>
+<p>思路比较简单，就是用一个变量x保存现在最多的元素，用voteNum保存投票数，遍历数组，<code>nums[i]==x</code>则voteNum++，否则--，如果voteNum为0，则换x，遍历完得到的x就是数组中最多的元素</p>
+<p>#### 简单动态规划</p>
+<p>我认为考到动态规划上面的可能性，不是不大，而是微乎其微，所以这里只记录一个极简单的动态规划题目</p>
+<ol type="1">
+<li><a
+href="https://link.zhihu.com/?target=https%3A//leetcode-cn.com/problems/lian-xu-zi-shu-zu-de-zui-da-he-lcof/">剑指
+Offer 42. 连续子数组的最大和</a></li>
 </ol>
-<p>动态规划问题，首先判断子问题是什么，本题可设为以位置i结尾的数组的最大和，以此构建动态规划数组dp，有<code>dp[0]=nums[0]</code>，然后构建转移方程<br>$$<br>dp[i] &#x3D;<br>\begin{cases}<br>dp[i-1] + nums[i],\quad dp[i-1]\geq0\<br>nums[i],\qquad \qquad \qquad dp[i-1]&lt;0<br>\end{cases}<br>$$<br>有了子问题，初始状态和转移方程，动态规划的代码其实不难写</p>
-<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p> [1] <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/286811053">408数据结构-算法题专烂栏</a></p>
-<p> [2] </p>
+<p>动态规划问题，首先判断子问题是什么，本题可设为以位置i结尾的数组的最大和，以此构建动态规划数组dp，有<code>dp[0]=nums[0]</code>，然后构建转移方程</p>
+<p><span class="math display">\[
+dp[i] =
+\begin{cases}
+dp[i-1] + nums[i],\quad dp[i-1]\geq0\\
+nums[i],\qquad \qquad \qquad dp[i-1]&lt;0
+\end{cases}
+\]</span></p>
+<p>有了子问题，初始状态和转移方程，动态规划的代码其实不难写</p>
+<h3 id="参考">参考</h3>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/286811053">408数据结构-算法题专烂栏</a></p>
+<p>[2]</p>
 
                 
               </div>
@@ -461,6 +491,12 @@
 
 
   
+
+
+  
+  
+
+
 
 
 
@@ -654,6 +690,49 @@
 
 
   <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
 
   <script  src="/js/local-search.js" ></script>
 
