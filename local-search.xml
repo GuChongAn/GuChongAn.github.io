@@ -23,11 +23,11 @@
   
   
   <entry>
-    <title>Build Your Own Text Editor</title>
+    <title>《Build Your Own Text Editor》阅读记录</title>
     <link href="/2023/12/25/Build-Your-Own-Text-Editor/"/>
     <url>/2023/12/25/Build-Your-Own-Text-Editor/</url>
     
-    <content type="html"><![CDATA[<h1 id="构建你自己的文本编辑器">构建你自己的文本编辑器</h1><blockquote><p>一本很有意思的小书，几乎是手把手的带读者写成了一个小巧的文本编辑器，适合刚学完c语言的人阅读</p></blockquote><h2 id="他讲了什么">1）他讲了什么</h2><h2 id="学到了什么">2）学到了什么</h2><h2 id="问题解答和补充">3）问题、解答和补充</h2><h2 id="参考资料">参考资料</h2>]]></content>
+    <content type="html"><![CDATA[<h1 id="build-your-own-text-editor阅读记录">《Build Your Own TextEditor》阅读记录</h1><blockquote><p><a href="https://viewsourcecode.org/snaptoken/kilo/"><strong>BuildYour Own TextEditor</strong></a>，一本很有意思的小书，几乎是手把手的带读者写成了一个小巧的文本编辑器，适合刚学完c语言的人阅读</p></blockquote><h4 id="raw-mode-和-canonical-mode是什么">1 Raw mode 和 Canonicalmode是什么</h4><blockquote><p>However, by default your terminal starts in <strong>canonicalmode</strong>, also called <strong>cooked mode</strong>. In this mode,keyboard input is only sent to your program when the user pressesEnter.</p><p>We want to process each keypress as it comes in, so we can respond toit immediately. What we want is <strong>raw mode</strong></p></blockquote><h3 id="section">2</h3><h2 id="参考资料">参考资料</h2><ol type="1"><li><a href="https://viewsourcecode.org/snaptoken/kilo/"><strong>BuildYour Own Text Editor</strong></a></li></ol>]]></content>
     
     
     
