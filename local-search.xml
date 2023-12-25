@@ -4,6 +4,25 @@
   
   
   <entry>
+    <title>我的学习计划</title>
+    <link href="/2023/12/25/Learn-Plan/"/>
+    <url>/2023/12/25/Learn-Plan/</url>
+    
+    <content type="html"><![CDATA[<h1 id="我的学习计划">我的学习计划</h1><h2 id="计划事项">1）计划事项</h2><ul class="task-list"><li><p><label><input type="checkbox" />阅读</label></p><ul class="task-list"><li><label><input type="checkbox" />Build Your Own TextEditor</label></li><li><label><input type="checkbox" />CSAPP</label></li></ul></li><li><p><label><input type="checkbox" />论文</label></p><ul class="task-list"><li><label><input type="checkbox" />AlexNet</label></li></ul></li><li><p><label><input type="checkbox" />学习</label></p><ul class="task-list"><li><label><input type="checkbox" />NJU-PA</label></li></ul></li></ul><h2 id="学习总结">2）学习总结</h2>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>plan</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>Build Your Own Text Editor</title>
     <link href="/2023/12/25/Build-Your-Own-Text-Editor/"/>
     <url>/2023/12/25/Build-Your-Own-Text-Editor/</url>
