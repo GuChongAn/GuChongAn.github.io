@@ -44,25 +44,6 @@
   
   
   <entry>
-    <title>408 计算机网络总结</title>
-    <link href="/2023/11/14/408-Network/"/>
-    <url>/2023/11/14/408-Network/</url>
-    
-    <content type="html"><![CDATA[<h1 id="计算机网络总结">408 计算机网络总结</h1><h2 id="协议一览">1）协议一览</h2><p>只总结记录我认为需要区分在那层，端口号是多少的几个协议</p><table><thead><tr class="header"><th>协议</th><th>层</th><th>端口</th></tr></thead><tbody><tr class="odd"><td>PPP</td><td>数据链路层</td><td></td></tr><tr class="even"><td>ARP</td><td>网络层（TCP/IP）：链路层（OSI）</td><td></td></tr><tr class="odd"><td>DHCP</td><td>应用层</td><td>UDP</td></tr><tr class="even"><td>ICMP</td><td>网络层（IP的附属协议）</td><td></td></tr><tr class="odd"><td>RIP</td><td>应用层</td><td>UDP：520</td></tr><tr class="even"><td>OSPF</td><td>网络层</td><td></td></tr><tr class="odd"><td>BGP</td><td>应用层</td><td>TCP</td></tr><tr class="even"><td>DNS</td><td>应用层</td><td>UDP：53</td></tr><tr class="odd"><td>FTP</td><td>应用层</td><td>TCP：20/21（数据/控制)</td></tr><tr class="even"><td>SMTP</td><td>应用层</td><td>TCP：25</td></tr><tr class="odd"><td>POP</td><td>应用层</td><td>TCP：110</td></tr><tr class="even"><td>HTTP</td><td>应用层</td><td>TCP：80</td></tr></tbody></table>]]></content>
-    
-    
-    
-    <tags>
-      
-      <tag>408</tag>
-      
-    </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
     <title>408 数据结构算法题总结</title>
     <link href="/2023/11/11/408-Data-Struce-algorithm-Learn/"/>
     <url>/2023/11/11/408-Data-Struce-algorithm-Learn/</url>
