@@ -24,7 +24,7 @@
 <meta property="og:description" content="Vim 使用记录  记录在使用vim的过程中遇到的遇到的问题和解决办法，或者想要完成的操作  1 批量替换 推荐阅读：Find and Replace in Vim&#x2F;Vi  基础操作  替换命令的格式为:[range]s&#x2F;&amp;#123;pattern&amp;#125;&#x2F;&amp;#123;string&amp;#125;&#x2F;[flags] [count] 表示将[range]s中的每一行符合&amp;#123;pattern&amp;#1">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-12-27T10:25:21.000Z">
-<meta property="article:modified_time" content="2023-12-27T11:00:30.188Z">
+<meta property="article:modified_time" content="2023-12-28T12:53:09.872Z">
 <meta property="article:author" content="Chongan">
 <meta property="article:tag" content="tool">
 <meta name="twitter:card" content="summary_large_image">
@@ -220,7 +220,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          573 字
+          1.3k 字
         
       </span>
     
@@ -231,7 +231,7 @@
         
         
         
-          5 分钟
+          11 分钟
         
       </span>
     
@@ -295,11 +295,51 @@ and Replace in Vim/Vi</a></p>
 <p><code>:s/\&lt;foo\&gt;/bar/</code>表示将foo这个单词替换为bar，<code>&lt;foo&gt;</code>表示搜索单词</p>
 <p><code>:s</code>可以进入substitute的历史记录</p>
 <p><code>:%s/\s+$//e</code>表示删除每行的末尾空格，<code>e</code>表示没有搜索到也不报错，<code>\s</code>在正则表达式中表示空格</p>
+<h4 id="多行操作visual-mode">2 多行操作（Visual mode）</h4>
+<p>推荐阅读：<a
+target="_blank" rel="noopener" href="https://dev.to/iggredible/mastering-visual-mode-in-vim-15pl">Mastering
+Visual Mode in Vim</a></p>
+<blockquote>
+<p>Visual mode can be useful if you want to target a specific group of
+text that doesn't follow distinguishable pattern.</p>
+</blockquote>
+<ul>
+<li>进入visual mode</li>
+</ul>
+<p>Vim的visual
+mode有三种模式，通过输入：<code>v</code>进入字符模式，<code>V</code>进入行模式，<code>Ctrl-v</code>进入块模式</p>
+<p>在块模式下，vim允许使用者按照行列来选取一个块</p>
+<p><code>gv</code>可以进入上一次进入的visual模式，并保持上一次选取的内容</p>
+<p><code>o</code>在visual
+mode中移动光标到选中部分的开始或结尾，而不改变选中部分</p>
+<ul>
+<li>visual mode下的操作</li>
+</ul>
+<p>在选择需要操作的部分后，可以执行如下操作：<code>u</code>变为小写，<code>U</code>变为大写，<code>d</code>删除，<code>c</code>改变，<code>y</code>复制，<code>&gt;</code>缩进，<code>&lt;</code>回缩，<code>ctrl-a/ctrl-x</code>用于增加或者减少光标选中的数字</p>
+<p>ex
+command（例如subsitute命令）在visual模式下，会默认在选中部分执行</p>
+<p><code>.</code>表示重复上一次操作</p>
+<p>在块模式下，选中要操作的多个行后，键入<code>A</code>或者<code>I</code>进行输入，然后推出visual
+mode，该输入操作会在选中的每个行复制</p>
+<p>在insert mode下，可以通过<code>ctrl-o + command</code>执行normal
+mode下的命令，例如<code>ctrl-o v</code>可以进入visual mode</p>
+<ul>
+<li>select mode</li>
+</ul>
+<p>可以通过<code>gh gH gCtrl-h</code>进入和visual mode相同的几个select
+mode，在select
+mode下，和正常的文本编辑器类似，可以直接输入某个字符替换选中的部分</p>
 <h2 id="参考资料">参考资料</h2>
 <ol type="1">
-<li><a
+<li><p><a
 target="_blank" rel="noopener" href="https://vegastack.com/tutorials/find-and-replace-in-vim-vi/">Find
-and Replace in Vim/Vi</a></li>
+and Replace in Vim/Vi</a></p></li>
+<li><p><a
+target="_blank" rel="noopener" href="https://opensource.com/article/19/2/getting-started-vim-visual-mode">Getting
+started with Vim visual mode</a></p></li>
+<li><p><a
+target="_blank" rel="noopener" href="https://dev.to/iggredible/mastering-visual-mode-in-vim-15pl">Mastering
+Visual Mode in Vim</a></p></li>
 </ol>
 
                 
