@@ -24,7 +24,7 @@
 <meta property="og:description" content="Vim 使用记录  记录在使用vim的过程中遇到的遇到的问题和解决办法，或者想要完成的操作  一 使用技巧 1 批量替换 推荐阅读：Find and Replace in Vim&#x2F;Vi  基础操作  替换命令的格式为:[range]s&#x2F;&amp;#123;pattern&amp;#125;&#x2F;&amp;#123;string&amp;#125;&#x2F;[flags] [count] 表示将[range]s中的每一行符合&amp;#123;pat">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-12-27T10:25:21.000Z">
-<meta property="article:modified_time" content="2023-12-30T06:24:19.373Z">
+<meta property="article:modified_time" content="2023-12-30T17:48:20.530Z">
 <meta property="article:author" content="Chongan">
 <meta property="article:tag" content="tool">
 <meta name="twitter:card" content="summary_large_image">
@@ -220,7 +220,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3.1k 字
+          3.8k 字
         
       </span>
     
@@ -231,7 +231,7 @@
         
         
         
-          27 分钟
+          33 分钟
         
       </span>
     
@@ -342,7 +342,7 @@ target="_blank" rel="noopener" href="https://github.com/folke/lazy.nvim">lazy.nv
 <li>安装和配置</li>
 </ul>
 <p>在plugins/theme.lua文件中作如下配置</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs lua"><span class="hljs-comment">-- Color Theme</span><br>&#123;<br>  <span class="hljs-string">&quot;folke/tokyonight.nvim&quot;</span>,<br>  lazy = <span class="hljs-literal">false</span>,<br>  priority = <span class="hljs-number">1000</span>,<br>  <span class="hljs-built_in">config</span> = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span><br>      vim.cmd(<span class="hljs-string">[[colorscheme tokyonight-moon]]</span>)<br>  <span class="hljs-keyword">end</span>,<br>&#125;,<br><br><span class="hljs-comment">-- Bottom Line</span><br>&#123;<br>    <span class="hljs-string">&quot;nvim-lualine/lualine.nvim&quot;</span>,<br>    dependencies = &#123; <span class="hljs-string">&#x27;nvim-tree/nvim-web-devicons&#x27;</span> &#125;, <br>    options = &#123;<br>        theme = <span class="hljs-string">&#x27;tokyonight&#x27;</span>,<br>    &#125;,<br>    <span class="hljs-built_in">config</span> = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span><br>        <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;lualine&#x27;</span>).setup()<br>    <span class="hljs-keyword">end</span>,<br>&#125;<br></code></pre></td></tr></table></figure>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs lua"><span class="hljs-comment">-- Color Theme</span><br>&#123;<br>  <span class="hljs-string">&quot;folke/tokyonight.nvim&quot;</span>,<br>  lazy = <span class="hljs-literal">false</span>,<br>  priority = <span class="hljs-number">1000</span>,<br>  <span class="hljs-built_in">config</span> = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span><br>      vim.cmd(<span class="hljs-string">[[colorscheme tokyonight-moon]]</span>)<br>  <span class="hljs-keyword">end</span>,<br>&#125;,<br><br><span class="hljs-comment">-- Bottom Line</span><br>&#123;<br>    <span class="hljs-string">&quot;nvim-lualine/lualine.nvim&quot;</span>,<br>    dependencies = &#123; <span class="hljs-string">&#x27;nvim-tree/nvim-web-devicons&#x27;</span> &#125;, <br>    options = &#123;<br>        theme = <span class="hljs-string">&#x27;tokyonight&#x27;</span>,<br>    &#125;,<br>    <span class="hljs-built_in">config</span> = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span><br>        <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;lualine&#x27;</span>).setup()<br>    <span class="hljs-keyword">end</span>,<br>&#125;<br><br><span class="hljs-comment">-- Open Dashboard</span><br>&#123;<br>    <span class="hljs-string">&quot;goolord/alpha-nvim&quot;</span>,<br>    dependencies = &#123; <span class="hljs-string">&#x27;nvim-tree/nvim-web-devicons&#x27;</span> &#125;,<br>    <span class="hljs-built_in">config</span> = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span><br>        <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;alpha&#x27;</span>).setup(<br>            <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;alpha.themes.dashboard&#x27;</span>).<span class="hljs-built_in">config</span><br>        )<br>    <span class="hljs-keyword">end</span><br>&#125;<br></code></pre></td></tr></table></figure>
 <h4 id="文件目录">3 文件目录</h4>
 <ul>
 <li>安装</li>
@@ -367,6 +367,17 @@ target="_blank" rel="noopener" href="https://github.com/folke/lazy.nvim">lazy.nv
 <p><code>:TSInstall &lt;language&gt;</code>手动下载选定语言的分析器</p>
 <p><code>:TSInstallInfo</code>查看一下在的分析器信息</p>
 <p><code>zc</code>关闭折叠，<code>zo</code>打开折叠，<code>zM</code>折叠所有，<code>zR</code>打开所有</p>
+<h4 id="浮动终端内置终端">5 浮动终端（内置终端）</h4>
+<ul>
+<li>安装</li>
+</ul>
+<p>在plugins/toggleterm.lua文件中作如下配置</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs lua"><span class="hljs-keyword">return</span> &#123;<br>    &#123;<br>        <span class="hljs-string">&quot;akinsho/toggleterm.nvim&quot;</span>,<br>        version = <span class="hljs-string">&quot;*&quot;</span>,<br>        keys = &#123;<br>            &#123; <span class="hljs-string">&quot;&lt;C-t&gt;&quot;</span>, <span class="hljs-string">&quot;&lt;cmd&gt;ToggleTerm direction=float&lt;cr&gt;&quot;</span>, desc = <span class="hljs-string">&quot;NewTerm&quot;</span> &#125;,<br>        &#125;,<br>        <span class="hljs-built_in">config</span> = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span><br>            <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;toggleterm&quot;</span>).setup &#123;&#125;<br>        <span class="hljs-keyword">end</span><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<ul>
+<li>使用</li>
+</ul>
+<p><code>:ToggleTerm direction=float/horizontal/Vertical dir=~/xxx size=40</code>可以打开终端</p>
+<p>配置了快捷键<code>&lt;C-t&gt;</code>打开浮动窗口</p>
 <h2 id="参考资料">参考资料</h2>
 <ol type="1">
 <li><p><a
