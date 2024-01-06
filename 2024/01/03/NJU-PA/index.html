@@ -16,22 +16,22 @@
   <meta name="author" content="Chongan">
   <meta name="keywords" content="">
   
-    <meta name="description" content="Linux 使用记录 1 终端模拟器和Shell 配置">
+    <meta name="description" content="NJU-PA 一 学习记录 1 GDB的使用  开始  编译c代码，添加-g选项表明要使用gdb调试，gcc -g -o test test.c 调试某程序，gdb test set &lt;args&gt;，在run之前，为test传参，等于test &lt;args&gt;  查看代码（list或者l）  l，列出程序代码（连续执行会接着上一次命令输出） l &lt;num&gt;，展示为中心">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Linux使用记录">
-<meta property="og:url" content="http://example.com/2023/12/31/Linux-Use/index.html">
+<meta property="og:title" content="Chongan&#39;s blog">
+<meta property="og:url" content="http://example.com/2024/01/03/NJU-PA/index.html">
 <meta property="og:site_name" content="Chongan&#39;s blog">
-<meta property="og:description" content="Linux 使用记录 1 终端模拟器和Shell 配置">
+<meta property="og:description" content="NJU-PA 一 学习记录 1 GDB的使用  开始  编译c代码，添加-g选项表明要使用gdb调试，gcc -g -o test test.c 调试某程序，gdb test set &lt;args&gt;，在run之前，为test传参，等于test &lt;args&gt;  查看代码（list或者l）  l，列出程序代码（连续执行会接着上一次命令输出） l &lt;num&gt;，展示为中心">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-12-31T03:10:29.000Z">
-<meta property="article:modified_time" content="2023-12-31T03:11:30.040Z">
+<meta property="article:published_time" content="2024-01-02T16:07:50.000Z">
+<meta property="article:modified_time" content="2024-01-06T11:03:51.127Z">
 <meta property="article:author" content="Chongan">
-<meta property="article:tag" content="tool">
+<meta property="article:tag" content="learn">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>Linux使用记录 - Chongan&#39;s blog</title>
+  <title>Chongan&#39;s blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -197,7 +197,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="Linux使用记录"></span>
+            <span id="subtitle" data-typed-text=""></span>
           
         </div>
 
@@ -208,8 +208,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-12-31 11:10" pubdate>
-          2023年12月31日 上午
+        <time datetime="2024-01-03 00:07" pubdate>
+          2024年1月3日 凌晨
         </time>
       </span>
     
@@ -220,7 +220,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          23 字
+          2.3k 字
         
       </span>
     
@@ -231,7 +231,7 @@
         
         
         
-          1 分钟
+          19 分钟
         
       </span>
     
@@ -268,13 +268,125 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">Linux使用记录</h1>
+            <h1 id="seo-header"></h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="linux-使用记录">Linux 使用记录</h1>
-<h4 id="终端模拟器和shell-配置">1 终端模拟器和Shell 配置</h4>
+                <h1 id="nju-pa">NJU-PA</h1>
+<h2 id="一-学习记录">一 学习记录</h2>
+<h4 id="gdb的使用">1 GDB的使用</h4>
+<ul>
+<li>开始
+<ul>
+<li>编译c代码，添加<code>-g</code>选项表明要使用gdb调试，<code>gcc -g -o test test.c</code></li>
+<li>调试某程序，<code>gdb test</code></li>
+<li><code>set &lt;args&gt;</code>，在run之前，为test传参，等于<code>test &lt;args&gt;</code></li>
+</ul></li>
+<li>查看代码（<code>list</code>或者<code>l</code>）
+<ul>
+<li><code>l</code>，列出程序代码（连续执行会接着上一次命令输出）</li>
+<li><code>l &lt;num&gt;</code>，展示<num>为中心10行代码</li>
+<li><code>l &lt;funName&gt;</code>，展示函数<funName>的代码</li>
+</ul></li>
+<li>断点设置（<code>break</code>或<code>b</code>）
+<ul>
+<li><code>b &lt;fileName&gt;:&lt;num&gt;</code>，<fileName>文件的在第<num>行设置断点</li>
+<li><code>b &lt;funName&gt;</code>，在函数<funName>打断点</li>
+<li><code>info b</code>，查看断点</li>
+<li><code>delete b</code>，删除断点；<code>delete breakpoints</code>，删除所有断点</li>
+<li><code>enable/disable b</code>，启用/禁用断点</li>
+</ul></li>
+<li>程序执行
+<ul>
+<li><code>r</code>，运行代码（没有断点就运行完）</li>
+<li><code>c</code>，执行到下一个断点处</li>
+<li><code>n</code>，单步执行，不进入函数</li>
+<li><code>s</code>，单步执行，进入函数</li>
+<li><code>finish</code>，执行完当前函数</li>
+<li><code>until &lt;num&gt;</code>，执行到<num>行</li>
+</ul></li>
+<li>其他
+<ul>
+<li><code>p x</code>，输出变量；<code>set x=1</code>，设置变量</li>
+<li><code>info registers</code>，打印寄存器的值</li>
+<li><code>x/[n\]\[f]\[u] EXPR</code>，查看内存<EXPR>位置的值，n是单元数，f是格式（例如x，o），u是单元单位（例如b=byte，h=2*byte）</li>
+</ul></li>
+</ul>
+<h4 id="macro-magic-检测宏是否被定义">2 Macro magic
+检测宏是否被定义</h4>
+<ul>
+<li><p>基础知识</p>
+<ul>
+<li><p>直接使用ifdef，<code>#ifdef xxx #endif</code></p></li>
+<li><p><code>"" #marco</code>，#表示将后面跟着的宏转为字符串，紧连的两个字符串会被拼接</p></li>
+<li><p><code>a ## b</code>，将两个宏拼接起来</p></li>
+<li><p>在有<code>#</code>和<code>##</code>的地方，宏不会展开</p></li>
+</ul></li>
+<li><p>基本思路</p></li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-keyword">define</span> str_temp(x) #x</span><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> str(x) str_temp(x)</span><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> ISDEF(macro) (strcmp(<span class="hljs-string">&quot;&quot;</span> #macro, <span class="hljs-string">&quot;&quot;</span> str(macro)) != 0) </span><br><span class="hljs-comment">// 前者不会展开，直接就是macro，后者把macro展开成对应的定义，如果两者不同，这宏被定义了</span><br></code></pre></td></tr></table></figure>
+<ul>
+<li>NEMU实现
+<ul>
+<li>问题一：ISDEF得到的是0，1，不是True，False</li>
+<li>问题二：ISDEF调用了函数，不能直接得到0，1</li>
+</ul></li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-comment">// 不难解释，通过PREFIX_1和_0，我们将TRUE和FALSE函数引入了宏中</span><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> concat(a,b) a ## b</span><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> MUX(a, b, sel) sel(a, b)</span><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> MUX_MID(a, b, p, sel) MUX(a, b, concat(p, sel))</span><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> MUX_OUT(a, b, sel) MUX_MID(a, b, PREFIX_, sel)</span><br><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> TRUE(a, b) a</span><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> False(a, b) b</span><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> PREFIX_1(a, b) TRUE(a, b)</span><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> PREFIX_0(a, b) FALSE(a, b)</span><br><br><span class="hljs-comment">// 利用逗号，实现返回0，1的操作</span><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> choose2nd(a, b, ...) b</span><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> PREFIX_t t,</span><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> choose2nd_mid(p_macro, a, b) choose2nd(p_macro a, b)</span><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> choose2nd_out(macro, a, b) choose2nd_mid(concat(PREFIX_, macro), a, b)</span><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> IFDEF(macro) choose2nd_out(macro, 1, 0)</span><br></code></pre></td></tr></table></figure>
+<h4 id="static的作用">3 static的作用</h4>
+<ul>
+<li>隐藏，static修饰的变量或者函数只在当前文件可见</li>
+<li>内容持久，static的变量在程序开始时初始化，存储在静态存储区</li>
+<li>默认初始化，static的变量默认初始化为0</li>
+</ul>
+<h4 id="how-debuggers-work">4 How debuggers work</h4>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">long</span> <span class="hljs-title function_">ptrace</span><span class="hljs-params">(<span class="hljs-keyword">enum</span> __ptrace_request request, <span class="hljs-type">pid_t</span> pid, <span class="hljs-type">void</span> *addr, <span class="hljs-type">void</span> *data)</span>;<br></code></pre></td></tr></table></figure>
+<ul>
+<li>基本操作
+<ul>
+<li>fork出一个子进程，然后子进程执行<code>ptrace(PTRAC_TRACEME, 0, 0, 0)</code>让父进程trace自己</li>
+<li>父进程wait子进程的执行，子进程会在excel的程序的第一条指令停止</li>
+<li>父进程调用<code>ptrace(PTRACE_SINGLESTEP, child_pid, 0, 0)</code>单步执行</li>
+<li>也可以调用<code>ptrace(PTRACE_GETREGS, pid, 0, &amp;reg)</code>获取寄存器</li>
+<li>也可以调用<code>ptrace(PTRACE_PEEKTEXT, pid, regs.eip, 0)</code>获取当前指令</li>
+</ul></li>
+<li>Breakpoint
+<ul>
+<li>断点的实现其实就是将<code>int 3</code>写到需要打断点的汇编代码的第一个字节</li>
+<li><code>int 3</code>正好是一个字节，可以写入到任何一字节或多字节的指令的第一个字节处</li>
+</ul></li>
+</ul>
+<h2 id="二-踩坑记录">二 踩坑记录</h2>
+<h4 id="neovim使用lsp-clangd时无法正确识别include-file.h">1
+neovim使用lsp clangd时，无法正确识别<code>#include "file.h"</code></h4>
+<ul>
+<li>解决思路：在lsp_config项目中找到clangd的官方网站，发现可以用bear生成complie_commands.json来解决</li>
+<li>具体步骤：
+<ul>
+<li>下载bear，<code>pacman -S bear</code></li>
+<li>生成complie_commands.json，<code>make clean; bear -- make</code></li>
+</ul></li>
+</ul>
+<h4 id="表达式求值空格一直无法检测">2 表达式求值空格一直无法检测</h4>
+<ul>
+<li>很简单，因为strtok没有把整个表达式提取出来，只提取了第一个空格前面的部分</li>
+</ul>
+<h4 id="pa1.2-测试报错">3 PA1.2 测试报错</h4>
+<ul>
+<li>要先初始化regex。。。</li>
+</ul>
+<h2 id="references">References</h2>
+<ol type="1">
+<li><a
+target="_blank" rel="noopener" href="https://eli.thegreenplace.net/2011/01/27/how-debuggers-work-part-2-breakpoints">How
+debuggers work</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.bilibili.com/read/cv15072569/">nju-pa摸鱼记</a>
+(思考记录，无题目讲解)</li>
+<li><a
+target="_blank" rel="noopener" href="https://stackoverflow.com/questions/26099745/test-if-preprocessor-symbol-is-defined-inside-macro">Test
+if preprocessor symbol is defined inside macro</a></li>
+</ol>
 
                 
               </div>
@@ -287,7 +399,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/tool/" class="print-no-link">#tool</a>
+        <a href="/tags/learn/" class="print-no-link">#learn</a>
       
     </div>
   
@@ -299,8 +411,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>Linux使用记录</div>
-      <div>http://example.com/2023/12/31/Linux-Use/</div>
+      <div></div>
+      <div>http://example.com/2024/01/03/NJU-PA/</div>
     </div>
     <div class="license-meta">
       
@@ -312,7 +424,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2023年12月31日</div>
+          <div>2024年1月3日</div>
         </div>
       
       
@@ -344,18 +456,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/01/03/NJU-PA/" title="">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile"></span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/12/27/Vim-Use/" title="Vim 使用记录">
-                        <span class="hidden-mobile">Vim 使用记录</span>
+                      <a href="/2023/12/31/Linux-Use/" title="Linux使用记录">
+                        <span class="hidden-mobile">Linux使用记录</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
