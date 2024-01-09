@@ -24,7 +24,7 @@
 <meta property="og:description" content="NJU-PA 一 学习记录 1 GDB的使用  开始  编译c代码，添加-g选项表明要使用gdb调试，gcc -g -o test test.c 调试某程序，gdb test set &lt;args&gt;，在run之前，为test传参，等于test &lt;args&gt;  查看代码（list或者l）  l，列出程序代码（连续执行会接着上一次命令输出） l &lt;num&gt;，展示为中心">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-01-02T16:07:50.000Z">
-<meta property="article:modified_time" content="2024-01-06T11:07:16.865Z">
+<meta property="article:modified_time" content="2024-01-08T13:12:42.684Z">
 <meta property="article:author" content="Chongan">
 <meta property="article:tag" content="learn">
 <meta name="twitter:card" content="summary_large_image">
@@ -220,7 +220,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.3k 字
+          3.5k 字
         
       </span>
     
@@ -231,7 +231,7 @@
         
         
         
-          19 分钟
+          30 分钟
         
       </span>
     
@@ -334,11 +334,18 @@
 </ul></li>
 </ul>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-comment">// 不难解释，通过PREFIX_1和_0，我们将TRUE和FALSE函数引入了宏中</span><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> concat(a,b) a ## b</span><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> MUX(a, b, sel) sel(a, b)</span><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> MUX_MID(a, b, p, sel) MUX(a, b, concat(p, sel))</span><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> MUX_OUT(a, b, sel) MUX_MID(a, b, PREFIX_, sel)</span><br><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> TRUE(a, b) a</span><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> False(a, b) b</span><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> PREFIX_1(a, b) TRUE(a, b)</span><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> PREFIX_0(a, b) FALSE(a, b)</span><br><br><span class="hljs-comment">// 利用逗号，实现返回0，1的操作</span><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> choose2nd(a, b, ...) b</span><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> PREFIX_t t,</span><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> choose2nd_mid(p_macro, a, b) choose2nd(p_macro a, b)</span><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> choose2nd_out(macro, a, b) choose2nd_mid(concat(PREFIX_, macro), a, b)</span><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> IFDEF(macro) choose2nd_out(macro, 1, 0)</span><br></code></pre></td></tr></table></figure>
-<h4 id="static的作用">3 static的作用</h4>
+<h4 id="static和volatile的作用">3 static和volatile的作用</h4>
 <ul>
-<li>隐藏，static修饰的变量或者函数只在当前文件可见</li>
-<li>内容持久，static的变量在程序开始时初始化，存储在静态存储区</li>
-<li>默认初始化，static的变量默认初始化为0</li>
+<li><p>static</p>
+<ul>
+<li><p>隐藏，static修饰的变量或者函数只在当前文件可见</p></li>
+<li><p>内容持久，static的变量在程序开始时初始化，存储在静态存储区</p></li>
+<li><p>默认初始化，static的变量默认初始化为0</p></li>
+</ul></li>
+<li><p>volatile</p>
+<ul>
+<li>volatile和const对应，指出修饰的变量可能被其他地方改变，所以每次都需要重新读取</li>
+</ul></li>
 </ul>
 <h4 id="how-debuggers-work">4 How debuggers work</h4>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">long</span> <span class="hljs-title function_">ptrace</span><span class="hljs-params">(<span class="hljs-keyword">enum</span> __ptrace_request request, <span class="hljs-type">pid_t</span> pid, <span class="hljs-type">void</span> *addr, <span class="hljs-type">void</span> *data)</span>;<br></code></pre></td></tr></table></figure>
@@ -356,6 +363,79 @@
 <li>断点的实现其实就是将<code>int 3</code>写到需要打断点的汇编代码的第一个字节</li>
 <li><code>int 3</code>正好是一个字节，可以写入到任何一字节或多字节的指令的第一个字节处</li>
 </ul></li>
+</ul>
+<h4 id="统计代码行数">5 统计代码行数</h4>
+<p><code>find . -type -f -name "\*.c" -o -name "\*.h" | xagrs cat | grep -v '^\s*$' | wc -l</code></p>
+<h4 id="make的使用">6 Make的使用</h4>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs makefile">%.o : %.c<br>	<span class="hljs-variable">$(CC)</span> -o <span class="hljs-variable">$@</span> <span class="hljs-variable">$&lt;</span><br>    @<span class="hljs-comment"># comment</span><br>    <br><span class="hljs-meta"><span class="hljs-keyword">.PHONY</span>: clean</span><br><span class="hljs-section">clean:</span><br>	rm *.o<br></code></pre></td></tr></table></figure>
+<ul>
+<li><p>语法</p>
+<ul>
+<li>make会默认打印每条命令，在前面加<code>@</code>取消回声</li>
+<li><code>%.o : %.c</code>模式匹配文件夹下的所有.c文件</li>
+<li>判断
+<ul>
+<li><code>ifeq ($(CC), gcc)   xxxx  else  xxxx  endif</code></li>
+</ul></li>
+</ul></li>
+<li><p>变量</p>
+<ul>
+<li><code>VAR = value</code> 允许递归扩展</li>
+<li><code>VAR := value</code>在定义时展开</li>
+<li><code>$(value)</code>取变量</li>
+<li>内置变量
+<ul>
+<li><code>$(MAKECMDGOALS)</code>就是<code>make xxx</code>的xxx</li>
+<li><code>$(CC)</code>当前使用的编译器</li>
+</ul></li>
+<li>自动变量
+<ul>
+<li><code>$@</code>当前目标</li>
+<li><code>$&lt;</code>第一个依赖</li>
+<li><code>$?</code>需要更新的依赖</li>
+<li><code>$^</code>所有依赖</li>
+</ul></li>
+</ul></li>
+<li><p>函数</p>
+<ul>
+<li><code>src := $(shell echo src/&#123;00..99&#125;.txt)</code>
+执行shell命令</li>
+<li><code>src := $(wildcard src/*.txt)</code>
+<ul>
+<li>替换通配符</li>
+<li>没有匹配到模式会返回空</li>
+</ul></li>
+<li><code>$(findstring find, in1 in2 in3)</code> 判断in中是否有find</li>
+<li><code>$(info text ...)</code> 打印信息</li>
+<li><code>$(basename src/file.c)</code> 提取除开文件后缀的部分</li>
+<li><code>$(notdir src/file.c)</code>
+<ul>
+<li>提取文件名</li>
+<li>通常有<code>$(base $(notdir src/file.c))</code></li>
+</ul></li>
+<li><code>$(filter pattern...,text)</code>
+返回text中匹配match的部分（pattern可以是%.c）</li>
+<li><code>$(subst from,to,text)</code>
+执行替换text中的from会被替换为to</li>
+<li><code>$(word 2, a b c)</code>返回a b c中的第二个</li>
+<li><code>$(flavor variable)</code>检查变量是否被定义（是递归还是非递归定义）
+<ul>
+<li>返回undefined/recursive/simple</li>
+</ul></li>
+<li><code>$(abspath names...)</code> 返回绝对路径</li>
+<li><code>$(addsuffix .c,foo bar)</code> 添加后缀</li>
+<li><code>$(addprefix src/,foo bar)</code> 添加前缀</li>
+<li><code>$(join a b,.c .o)</code> 返回 a.c b.o</li>
+</ul></li>
+<li><p>其他</p>
+<ul>
+<li><p>用<code>.PHONY:</code>标识伪装目标</p></li>
+<li><p>每行命令在一个单独的shell中执行（可以通过<code>;</code>将多个命令放在一行）</p></li>
+</ul></li>
+</ul>
+<h4 id="git-的使用">7 Git 的使用</h4>
+<ul>
+<li>回退的某个commit <code>git reset --hard &lt;commit&gt;</code></li>
 </ul>
 <h2 id="二-踩坑记录">二 踩坑记录</h2>
 <h4 id="neovim使用lsp-clangd时无法正确识别include-file.h">1
@@ -376,6 +456,11 @@ neovim使用lsp clangd时，无法正确识别<code>#include "file.h"</code></h4
 <ul>
 <li>要先初始化regex。。。</li>
 </ul>
+<h4 id="pa-2.1-符号扩展">4 PA 2.1 符号扩展</h4>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-keyword">define</span> SEXT(x, len) (&#123; struct &#123; int64_t n : len; &#125; __x = &#123; .n = x &#125;; (uint64_t)__x.n; &#125;)</span><br></code></pre></td></tr></table></figure>
+<ul>
+<li>值得注意的是，符号扩展的操作其实是在<code>(uint64_t)__x.n</code>完成的，因为此时__x.n是int64_n类型的变量，在强转为无符号整型前，会自动作符号扩展</li>
+</ul>
 <h2 id="references">References</h2>
 <ol type="1">
 <li><a
@@ -386,6 +471,8 @@ debuggers work</a></li>
 <li><a
 target="_blank" rel="noopener" href="https://stackoverflow.com/questions/26099745/test-if-preprocessor-symbol-is-defined-inside-macro">Test
 if preprocessor symbol is defined inside macro</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.ruanyifeng.com/blog/2015/02/make.html">Make
+命令教程（阮一峰）</a></li>
 </ol>
 
                 
