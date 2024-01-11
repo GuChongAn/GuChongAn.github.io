@@ -24,7 +24,7 @@
 <meta property="og:description" content="NJU-PA 一 学习记录 1 GDB的使用  开始  编译c代码，添加-g选项表明要使用gdb调试，gcc -g -o test test.c 调试某程序，gdb test set &lt;args&gt;，在run之前，为test传参，等于test &lt;args&gt;  查看代码（list或者l）  l，列出程序代码（连续执行会接着上一次命令输出） l &lt;num&gt;，展示为中心">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-01-02T16:07:50.000Z">
-<meta property="article:modified_time" content="2024-01-08T13:12:42.684Z">
+<meta property="article:modified_time" content="2024-01-11T08:55:14.309Z">
 <meta property="article:author" content="Chongan">
 <meta property="article:tag" content="learn">
 <meta name="twitter:card" content="summary_large_image">
@@ -220,7 +220,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3.5k 字
+          4.4k 字
         
       </span>
     
@@ -231,7 +231,7 @@
         
         
         
-          30 分钟
+          37 分钟
         
       </span>
     
@@ -334,7 +334,7 @@
 </ul></li>
 </ul>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-comment">// 不难解释，通过PREFIX_1和_0，我们将TRUE和FALSE函数引入了宏中</span><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> concat(a,b) a ## b</span><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> MUX(a, b, sel) sel(a, b)</span><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> MUX_MID(a, b, p, sel) MUX(a, b, concat(p, sel))</span><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> MUX_OUT(a, b, sel) MUX_MID(a, b, PREFIX_, sel)</span><br><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> TRUE(a, b) a</span><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> False(a, b) b</span><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> PREFIX_1(a, b) TRUE(a, b)</span><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> PREFIX_0(a, b) FALSE(a, b)</span><br><br><span class="hljs-comment">// 利用逗号，实现返回0，1的操作</span><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> choose2nd(a, b, ...) b</span><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> PREFIX_t t,</span><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> choose2nd_mid(p_macro, a, b) choose2nd(p_macro a, b)</span><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> choose2nd_out(macro, a, b) choose2nd_mid(concat(PREFIX_, macro), a, b)</span><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> IFDEF(macro) choose2nd_out(macro, 1, 0)</span><br></code></pre></td></tr></table></figure>
-<h4 id="static和volatile的作用">3 static和volatile的作用</h4>
+<h4 id="staticvolatileextern的作用">3 static/volatile/extern的作用</h4>
 <ul>
 <li><p>static</p>
 <ul>
@@ -345,6 +345,10 @@
 <li><p>volatile</p>
 <ul>
 <li>volatile和const对应，指出修饰的变量可能被其他地方改变，所以每次都需要重新读取</li>
+</ul></li>
+<li><p>extern</p>
+<ul>
+<li>修饰的变量可以直接在其他文件中引用</li>
 </ul></li>
 </ul>
 <h4 id="how-debuggers-work">4 How debuggers work</h4>
@@ -437,6 +441,47 @@
 <ul>
 <li>回退的某个commit <code>git reset --hard &lt;commit&gt;</code></li>
 </ul>
+<h4 id="elf文件">8 ELF文件</h4>
+<ul>
+<li>在Linux系统中，源码编译后的目标文件（.o）、目标文件链接后的可执行文件（.elf）、动态链接库（.so）和静态链接库（.a）都以elf文件的格式存储</li>
+<li>readelf</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs shell">readelf <br>	-a a.elf # 显示所有信息<br>	-h a.elf # 显示Elf header<br>	-l ...   # 显示program header<br>	-S ...   # 显示section header<br>	-s ...   # 显示符号表中的项<br>	-e ...   # 等于-h -l -S<br>	-x &lt;number or name&gt;  # 显示段中内容<br></code></pre></td></tr></table></figure>
+<ul>
+<li><p>ELF Header（Elf_Ehdr）</p>
+<ul>
+<li>ELF魔数，elf文件的开头几个字节是（0x7f e l f）</li>
+<li>ELF文件类型（e_type）
+<ul>
+<li>可重定位文件（ETL_REL），一般为.o文件或.a文件</li>
+<li>可执行文件（ET_EXEC）</li>
+<li>共享目标文件（ET_DYN），一般为.so文件</li>
+</ul></li>
+</ul></li>
+<li><p>ELF Section Header Table（Elf_Shdr的数组）</p>
+<ul>
+<li>节点名（sh_name），保存在字符串表（也是某一节）中，sh_name是在该表中的偏移值</li>
+<li>节类型（sh_type）和节标志位（sh_flag）</li>
+<li>节偏移（sh_offset），表示该节在文件中的偏移</li>
+<li>节链接信息（sh_link/sh_info），如果节和链接有关（如重定位表、符号表）
+<ul>
+<li>SHT_DYNAMIC，该节使用的字符串表在节头表中的下标</li>
+<li>SHT_HSA，该节使用的符号表在节头表中的下标</li>
+</ul></li>
+<li>节项大小（sh_entsize），如果节包含了一些固定大小的项，则为该项大小，否则为0</li>
+</ul></li>
+<li><p>ELF Sections</p>
+<ul>
+<li><p>text节保存有程序代码指令</p></li>
+<li><p>rodata节保存了只读的数据</p></li>
+<li><p>data节保存了初始化的全局变量等数据</p></li>
+<li><p>dynsym节保存有从共享库导入的动态符号表</p></li>
+<li><p>dynstr节保存了动态链接字符串表</p></li>
+<li><p>symtab节保存了符号信息</p></li>
+<li><p>strtab节保存了符号的字符串（会被symtab引用）</p></li>
+<li><p>符号表（包括dynsym和symtab）中保存Elf_sym数据结构，dynsym是symtab的子集</p></li>
+</ul></li>
+</ul>
 <h2 id="二-踩坑记录">二 踩坑记录</h2>
 <h4 id="neovim使用lsp-clangd时无法正确识别include-file.h">1
 neovim使用lsp clangd时，无法正确识别<code>#include "file.h"</code></h4>
@@ -461,6 +506,10 @@ neovim使用lsp clangd时，无法正确识别<code>#include "file.h"</code></h4
 <ul>
 <li>值得注意的是，符号扩展的操作其实是在<code>(uint64_t)__x.n</code>完成的，因为此时__x.n是int64_n类型的变量，在强转为无符号整型前，会自动作符号扩展</li>
 </ul>
+<h4 id="strcmp函数">5 strcmp函数</h4>
+<ul>
+<li>函数返回0表示两个字符串相等</li>
+</ul>
 <h2 id="references">References</h2>
 <ol type="1">
 <li><a
@@ -473,6 +522,10 @@ target="_blank" rel="noopener" href="https://stackoverflow.com/questions/2609974
 if preprocessor symbol is defined inside macro</a></li>
 <li><a target="_blank" rel="noopener" href="https://www.ruanyifeng.com/blog/2015/02/make.html">Make
 命令教程（阮一峰）</a></li>
+<li><a
+target="_blank" rel="noopener" href="http://chuquan.me/2018/05/21/elf-introduce/">计算机那些事(4)——ELF文件结构</a></li>
+<li><a
+target="_blank" rel="noopener" href="https://wangchujiang.com/linux-command/c/readelf.html">readelf</a></li>
 </ol>
 
                 
