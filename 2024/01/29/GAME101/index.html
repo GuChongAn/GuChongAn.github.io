@@ -16,15 +16,15 @@
   <meta name="author" content="Chongan">
   <meta name="keywords" content="">
   
-    <meta name="description" content="现代计算机图形学入门（GAME101）  2024-01-29 至  一 学习记录">
+    <meta name="description" content="现代计算机图形学入门（GAME101）  2024-01-29 至  一 学习记录 01 Overview of Computer Graphics 如题，对图形学和本课程的一个总览  什么是图形学（和计算机视觉的区别，模型和数据视角） 图形学的应用 课程的主题  光栅化 曲线和曲面（几何） 光线追踪 模拟   02 Review of Linear Algebra 对线性代数的一个回顾  向量（">
 <meta property="og:type" content="article">
 <meta property="og:title" content="现代计算机图形学入门（GAME101）">
 <meta property="og:url" content="http://example.com/2024/01/29/GAME101/index.html">
 <meta property="og:site_name" content="Chongan&#39;s blog">
-<meta property="og:description" content="现代计算机图形学入门（GAME101）  2024-01-29 至  一 学习记录">
+<meta property="og:description" content="现代计算机图形学入门（GAME101）  2024-01-29 至  一 学习记录 01 Overview of Computer Graphics 如题，对图形学和本课程的一个总览  什么是图形学（和计算机视觉的区别，模型和数据视角） 图形学的应用 课程的主题  光栅化 曲线和曲面（几何） 光线追踪 模拟   02 Review of Linear Algebra 对线性代数的一个回顾  向量（">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-01-29T10:07:07.000Z">
-<meta property="article:modified_time" content="2024-01-29T10:09:01.857Z">
+<meta property="article:modified_time" content="2024-02-02T09:23:19.403Z">
 <meta property="article:author" content="Chongan">
 <meta property="article:tag" content="Course">
 <meta name="twitter:card" content="summary_large_image">
@@ -220,7 +220,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          35 字
+          1.4k 字
         
       </span>
     
@@ -231,7 +231,7 @@
         
         
         
-          1 分钟
+          12 分钟
         
       </span>
     
@@ -279,6 +279,105 @@ id="现代计算机图形学入门game101">现代计算机图形学入门（GAME
 <p>2024-01-29 至</p>
 </blockquote>
 <h2 id="一-学习记录">一 学习记录</h2>
+<h3 id="overview-of-computer-graphics">01 Overview of Computer
+Graphics</h3>
+<p>如题，对图形学和本课程的一个总览</p>
+<ul>
+<li>什么是图形学（和计算机视觉的区别，模型和数据视角）</li>
+<li>图形学的应用</li>
+<li>课程的主题
+<ul>
+<li>光栅化</li>
+<li>曲线和曲面（几何）</li>
+<li>光线追踪</li>
+<li>模拟</li>
+</ul></li>
+</ul>
+<h3 id="review-of-linear-algebra">02 Review of Linear Algebra</h3>
+<p>对线性代数的一个回顾</p>
+<ul>
+<li>向量（加法，点乘，叉乘以及图形学中的应用）</li>
+<li>矩阵（矩阵乘法，转置和逆矩阵）</li>
+<li>矩阵和向量</li>
+</ul>
+<h3 id="transformation">03 Transformation</h3>
+<p>变换的基础操作</p>
+<ul>
+<li>拉伸，旋转和拉扯（Scale，Rotate and Shear）</li>
+<li>平移 -&gt; 齐次坐标</li>
+<li>多个变换的合成</li>
+<li>三维空间的变换</li>
+</ul>
+<h3 id="transformation-cont.">04 Transformation Cont.</h3>
+<p>变换的补充</p>
+<ul>
+<li>三维空间的变换（旋转，Rodrigues' Rotation Formula任意轴）</li>
+<li>Viewing Transformation（观测变换 MVP）
+<ul>
+<li>View/Camera Trans（model +
+view，平移加旋转使Camera到原点并y为up方向，-z为look-at方向）</li>
+<li>Projection Trans
+<ul>
+<li>Orthographic
+projection（抛弃z坐标的简单方法/将长方体移到原点并拉伸为正方体）</li>
+<li>Perspective projection（1.
+pers-&gt;ortho矩阵，通过将frustum压成cube得到 2. ortho projection）</li>
+</ul></li>
+</ul></li>
+</ul>
+<h3 id="rasterization-1triangles">05 Rasterization 1（Triangles）</h3>
+<p>光栅化 =屏幕化，就是把model打到屏幕上</p>
+<ul>
+<li>Perspective Projection补充（Field-of-view，fovY and aspect
+ratio）</li>
+<li>Cannoical Cube to Screen（坐标）</li>
+<li>成像设备</li>
+<li>Triangles（Sampling + 判断是否在三角形内部，叉乘）</li>
+<li>锯齿问题</li>
+</ul>
+<h3 id="rasterization-2antialiasing">06 Rasterization
+2（Antialiasing）</h3>
+<p>讲了如何抗锯齿，但是大部分的内容在将信号处理的基础（数学上的东西很少，直观上的东西很多）</p>
+<ul>
+<li>Aliasing Artifacts的出现是因为信号频率高而采样频率低</li>
+<li>抗锯齿方法
+<ul>
+<li>先滤波再采样</li>
+<li>MSAA</li>
+<li>FXAA（Fast Approximate AA） and TAA（Temporal AA）</li>
+</ul></li>
+<li>傅立叶变换</li>
+<li>Filtering = Convolution = Averaging</li>
+<li>Sampling = Repeating Frequency Contents</li>
+<li>Super resolution</li>
+</ul>
+<h2 id="二-实验记录">二 实验记录</h2>
+<h3 id="pa0-实验准备">PA0 实验准备</h3>
+<ul>
+<li>参考<a target="_blank" rel="noopener" href="https://wiki.archlinuxcn.org/wiki/VirtualBox">Arch Wiki
+VirtualBox</a>完成Virtual Box的安装
+<ul>
+<li>清华网盘失效了，不想用百度网盘，在网上搜了一下，不提交作业的话好像可以不用虚拟机</li>
+</ul></li>
+<li>下载Eigen库，按照INSTALL文件的指示install</li>
+<li>然后按照pdf完成作业即可</li>
+</ul>
+<h3 id="pa1-旋转与投影">PA1 旋转与投影</h3>
+<ul>
+<li>配置opencv
+<ul>
+<li>注意下载后要把/usr/include/opencv4/opencv2文件夹直接链接到/usr/include</li>
+<li>还要下载依赖 vtk hdf5 glew</li>
+</ul></li>
+<li>本次作业也不难，照着PPT写就行了</li>
+<li>在阅读框架后，有一些c++知识需要补充
+<ul>
+<li><code>map.emplace('a', 1)</code>向map中添加项</li>
+<li><code>std::fill(arr, arr+n, 0)</code>将指定数组的值置为0</li>
+<li><code>auto</code>定义一个不会改编的变量，<code>auto&amp;</code>定义一个可能改变的变量</li>
+</ul></li>
+</ul>
+<h3 id="pa2">PA2</h3>
 
                 
               </div>
@@ -347,6 +446,12 @@ id="现代计算机图形学入门game101">现代计算机图形学入门（GAME
                 <div class="post-prevnext my-3">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/2024/03/12/iie-interview/" title="iie-interview">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">iie-interview</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">

@@ -16,22 +16,22 @@
   <meta name="author" content="Chongan">
   <meta name="keywords" content="">
   
-    <meta name="description" content="深入理解计算机系统（CSAPP） 一 阅读记录 第1章 计算机系统漫游 其实就是大概讲了一下后面章节具体会讲什么内容，  （软件）hello world程序从人类阅读的文本角度到计算机理解的二进制文件，再经历  1234gcc -E hello.c -o hello.i # 预处理gcc -S hello.i -o hello.s # 编译（c程序-&gt;汇编程序）gcc -c hello.i">
+    <meta name="description" content="信息工程研究所（IIE）复试记录 一 准备条目  身份资料  有效身份证&#x2F;准考证 《报考研究生政审表》（盖章） 《考生复试登记表》 毕业证书、学位证书 本科成绩单（盖章） 个人简历 英语成绩证明 论文 获奖证书  复试准备  简历项目熟悉 英语自我介绍 英语问答 面经整理和阅读 机试准备">
 <meta property="og:type" content="article">
-<meta property="og:title" content="深入理解计算机系统（CSAPP）">
-<meta property="og:url" content="http://example.com/2024/01/29/CSAPP/index.html">
+<meta property="og:title" content="iie-interview">
+<meta property="og:url" content="http://example.com/2024/03/12/iie-interview/index.html">
 <meta property="og:site_name" content="Chongan&#39;s blog">
-<meta property="og:description" content="深入理解计算机系统（CSAPP） 一 阅读记录 第1章 计算机系统漫游 其实就是大概讲了一下后面章节具体会讲什么内容，  （软件）hello world程序从人类阅读的文本角度到计算机理解的二进制文件，再经历  1234gcc -E hello.c -o hello.i # 预处理gcc -S hello.i -o hello.s # 编译（c程序-&gt;汇编程序）gcc -c hello.i">
+<meta property="og:description" content="信息工程研究所（IIE）复试记录 一 准备条目  身份资料  有效身份证&#x2F;准考证 《报考研究生政审表》（盖章） 《考生复试登记表》 毕业证书、学位证书 本科成绩单（盖章） 个人简历 英语成绩证明 论文 获奖证书  复试准备  简历项目熟悉 英语自我介绍 英语问答 面经整理和阅读 机试准备">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-01-29T10:04:27.000Z">
-<meta property="article:modified_time" content="2024-03-12T07:18:33.732Z">
+<meta property="article:published_time" content="2024-03-12T07:19:37.000Z">
+<meta property="article:modified_time" content="2024-03-12T07:27:02.132Z">
 <meta property="article:author" content="Chongan">
-<meta property="article:tag" content="Read">
+<meta property="article:tag" content="blog">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>深入理解计算机系统（CSAPP） - Chongan&#39;s blog</title>
+  <title>iie-interview - Chongan&#39;s blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -197,7 +197,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="深入理解计算机系统（CSAPP）"></span>
+            <span id="subtitle" data-typed-text="iie-interview"></span>
           
         </div>
 
@@ -208,8 +208,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-01-29 18:04" pubdate>
-          2024年1月29日 晚上
+        <time datetime="2024-03-12 15:19" pubdate>
+          2024年3月12日 下午
         </time>
       </span>
     
@@ -220,7 +220,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          603 字
+          122 字
         
       </span>
     
@@ -231,7 +231,7 @@
         
         
         
-          6 分钟
+          2 分钟
         
       </span>
     
@@ -268,68 +268,36 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">深入理解计算机系统（CSAPP）</h1>
+            <h1 id="seo-header">iie-interview</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="深入理解计算机系统csapp">深入理解计算机系统（CSAPP）</h1>
-<h2 id="一-阅读记录">一 阅读记录</h2>
-<h3 id="第1章-计算机系统漫游">第1章 计算机系统漫游</h3>
-<p>其实就是大概讲了一下后面章节具体会讲什么内容，</p>
-<ul>
-<li>（软件）hello
-world程序从人类阅读的文本角度到计算机理解的二进制文件，再经历</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs shell">gcc -E hello.c -o hello.i # 预处理<br>gcc -S hello.i -o hello.s # 编译（c程序-&gt;汇编程序）<br>gcc -c hello.i -o hello.o # 汇编（汇编程序-&gt;机器指令）<br>gcc -o hello.o hello.c # 链接（printf.o + hello.o) <br></code></pre></td></tr></table></figure>
-<ul>
-<li>（硬件）在shell中输入hello后，hello world程序是如何执行的
-<ul>
-<li>磁盘 -&gt; 内存 -&gt; cache -&gt; cpu</li>
+                <h1 id="信息工程研究所iie复试记录">信息工程研究所（IIE）复试记录</h1>
+<h3 id="一-准备条目">一 准备条目</h3>
+<ul class="task-list">
+<li><label><input type="checkbox" />身份资料</label>
+<ul class="task-list">
+<li><label><input type="checkbox" />有效身份证/准考证</label></li>
+<li><label><input
+type="checkbox" />《报考研究生政审表》（盖章）</label></li>
+<li><label><input type="checkbox" />《考生复试登记表》</label></li>
+<li><label><input type="checkbox" />毕业证书、学位证书</label></li>
+<li><label><input type="checkbox" />本科成绩单（盖章）</label></li>
+<li><label><input type="checkbox" />个人简历</label></li>
+<li><label><input type="checkbox" />英语成绩证明</label></li>
+<li><label><input type="checkbox" />论文</label></li>
+<li><label><input type="checkbox" />获奖证书</label></li>
 </ul></li>
-<li>（软硬件之间）操作系统
-<ul>
-<li>进程抽象运行的程序</li>
-<li>文件抽象设备</li>
-<li>虚拟内存抽象存储设备</li>
-</ul></li>
-<li>网络通讯 + 其他
-<ul>
-<li>Amdahl 定律 <span class="math inline">\(T_{new} = T_{old}[(1-\alpha)
-+ \alpha/k]\)</span></li>
-<li>并发和并行</li>
-<li>抽象</li>
+<li><label><input type="checkbox" />复试准备</label>
+<ul class="task-list">
+<li><label><input type="checkbox" />简历项目熟悉</label></li>
+<li><label><input type="checkbox" />英语自我介绍</label></li>
+<li><label><input type="checkbox" />英语问答</label></li>
+<li><label><input type="checkbox" />面经整理和阅读</label></li>
+<li><label><input type="checkbox" />机试准备</label></li>
 </ul></li>
 </ul>
-<h3 id="第2章-信息的表示和处理">第2章 信息的表示和处理</h3>
-<p>总体可以分为三个部分，二进制、整数和浮点数</p>
-<ul>
-<li>二进制
-<ul>
-<li>进制转换</li>
-<li>大端小端（大端人，小端非人）</li>
-<li>布尔运算和逻辑运算</li>
-<li>c语言的类型</li>
-</ul></li>
-<li>整数表示
-<ul>
-<li>无符号数和补码（有符号数）以及它们之间的转换</li>
-<li>截断和位扩展</li>
-<li>c语言中的无符号数和有符号数</li>
-</ul></li>
-<li>整数运算
-<ul>
-<li>补码和无符号数的加减乘除</li>
-<li>乘以常数和处以2的幂</li>
-</ul></li>
-<li>浮点数
-<ul>
-<li>IEEE 浮点表示</li>
-<li>规格化，非规格化和特殊值（零/无穷/NaN）</li>
-<li>舍入（向偶数舍入/向零舍入）</li>
-</ul></li>
-</ul>
-<h3 id="第3章-程序的机器级表示">第3章 程序的机器级表示</h3>
 
                 
               </div>
@@ -342,7 +310,7 @@ world程序从人类阅读的文本角度到计算机理解的二进制文件，
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/Read/" class="print-no-link">#Read</a>
+        <a href="/tags/blog/" class="print-no-link">#blog</a>
       
     </div>
   
@@ -354,8 +322,8 @@ world程序从人类阅读的文本角度到计算机理解的二进制文件，
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>深入理解计算机系统（CSAPP）</div>
-      <div>http://example.com/2024/01/29/CSAPP/</div>
+      <div>iie-interview</div>
+      <div>http://example.com/2024/03/12/iie-interview/</div>
     </div>
     <div class="license-meta">
       
@@ -367,7 +335,7 @@ world程序从人类阅读的文本角度到计算机理解的二进制文件，
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年1月29日</div>
+          <div>2024年3月12日</div>
         </div>
       
       
@@ -399,18 +367,12 @@ world程序从人类阅读的文本角度到计算机理解的二进制文件，
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/01/29/GAME101/" title="现代计算机图形学入门（GAME101）">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">现代计算机图形学入门（GAME101）</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/01/03/NJU-PA/" title="南京大学 Programming Assignment（NJU-PA）">
-                        <span class="hidden-mobile">南京大学 Programming Assignment（NJU-PA）</span>
+                      <a href="/2024/01/29/GAME101/" title="现代计算机图形学入门（GAME101）">
+                        <span class="hidden-mobile">现代计算机图形学入门（GAME101）</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
