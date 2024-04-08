@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="https://www.facebook.com/2008/fbml" xmlns:og="http://ogp.me/ns#">
  <head>
   <title>
-   我的博客计划 - Chongan's website
+   我的博客规划以及学习安排 - Chongan's website
   </title>
   <!-- Using the latest rendering mode for IE -->
   <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
@@ -73,8 +73,8 @@
      <article>
       <header class="page-header">
        <h1>
-        <a href="https://guchongan.github.io/2024/我的博客计划" rel="bookmark" title="我的博客计划">
-         我的博客计划
+        <a href="https://guchongan.github.io/2024/我的博客规划以及学习安排" rel="bookmark" title="我的博客规划以及学习安排">
+         我的博客规划以及学习安排
         </a>
        </h1>
       </header>
@@ -104,6 +104,80 @@
         </div>
        </div>
        <!-- /.entry-content -->
+       <html>
+        <body>
+         <p>
+          昨天刚出了考研复试的结果，我终于从前端时间身体上空下来但是精神上还是紧绷的状态过渡到了真正放松空闲的状态，从今天到计划报道的9月1号，中间有整整4个半月多的时间，我计划在这段时间整理下我的博客写作流程、写一些博客、完成一些学习任务，这篇文章就是我这段时间的规划以及我博客网站的实现方法。
+         </p>
+         <h2>
+          一 Chongan’s website 由来与实现
+         </h2>
+         <p>
+          我之前尝试过自己租服务器搭建博客网站，或者在github仓库中使用hexo框架部署静态网站，但是都没有坚持写作下去，我分析除了主观精神上的因素外，主要有以下几点原因：
+         </p>
+         <ul>
+          <li>
+           自己租服务器过于麻烦，特别是我当时为了练习又自己写了一套前后端的系统，写的过程就耗费了大量的热情，而且写得不好，用起来也不顺手
+          </li>
+          <li>
+           hexo还算好用，但是用着用着总感觉是别人的东西，没学过PHP所以也不想去看它的具体实现
+          </li>
+          <li>
+           之前写作的博客总会逐渐沦为记笔记的模式，失去了博客展现给大家的特点，逐渐也丧失了写作的热情
+          </li>
+         </ul>
+         <p>
+          针对以上的问题，我决定自己管理github的仓库，自己写脚本处理markdown到html的转换，同时注意写作的问题，坚持博客式的写作风格，这就有了现在的Chongan‘s website。接下来我简要介绍我是如何从markdown格式的博客得到现在的网页的（下述的具体代码参见
+          <a href="https://github.com/GuChongAn/GuChongAn.github.io">
+           Chongan's website仓库
+          </a>
+          ），
+         </p>
+         <h4>
+          01 主页、博客页面以及其他页面的生成
+         </h4>
+         <p>
+          主页的生成主要需要两个方面的内容，
+         </p>
+         <ul>
+          <li>
+           主页模板，这个没有什么好说的，大家在网上可以自由寻找自己喜欢的模板
+          </li>
+          <li>
+           主页展示的内容，这个需要根据当时的博客写作情况通过脚本进行更新
+          </li>
+         </ul>
+         <p>
+          我将所有markdown格式的博客存储在Blog文件夹下，然后在generateIndex.py脚本中遍历Blog文件夹，使用mistune库处理markdown文件，获取每篇博文的相关信息，筛选出最近的十篇文章，然后使用BeautifulSoup处理html文件，更新主页中的展示博文和最近文章列表。
+         </p>
+         <p>
+          然后是每篇博文各自的页面，与主页的生成类似，都是用mistune处理markdown文件，然后将生成的html插入到准备好的模板中，值得注意的是博文的路径利用了github page的默认设置，我将每篇博文的名字作为文件夹并在每个文夹下面放置index.html作为对应博文的页面，这样就可以用
+          <code>
+           http://guchongan.github.io/2024/xxxx
+          </code>
+          而不是
+          <code>
+           xxxx.html
+          </code>
+          来访问网页
+         </p>
+         <p>
+          至于about页面，我是直接写的静态网页， 没有利用脚本生成，因为我觉得它修改的频率并不高
+         </p>
+         <p>
+          而博客的archives页面，
+         </p>
+         <h4>
+          02  自动化流程
+         </h4>
+         <h2>
+          二 学习和博客写作计划
+         </h2>
+         <p>
+          在接下来的4个半月时间里，
+         </p>
+        </body>
+       </html>
       </div>
       <hr/>
       <div class="dotted-links">
