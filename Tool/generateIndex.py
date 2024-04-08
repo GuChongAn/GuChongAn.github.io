@@ -43,7 +43,7 @@ for blog in blogFiles:
 article = soup.article
 
 # article's href, name, time
-article.a['href'] = "https://guchongan.github.io/" + blogFiles[0]['path']
+article.a['href'] = "https://guchongan.github.io/" + blogFiles[0]['url']
 article.a.string = blogFiles[0]['name']
 tmpDate = blogFiles[0]['date']
 article.time.string = tmpDate[0:4] + '.' + tmpDate[4:6] + '.' + tmpDate[6:8]
