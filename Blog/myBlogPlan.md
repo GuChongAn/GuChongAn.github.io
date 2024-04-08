@@ -17,7 +17,7 @@ keywords: plan
 
 针对以上的问题，我决定自己管理github的仓库，自己写脚本处理markdown到html的转换，同时注意写作的问题，坚持博客式的写作风格，这就有了现在的Chongan‘s website。接下来我简要介绍我是如何从markdown格式的博客得到现在的网页的（下述的具体代码参见[Chongan's website仓库](https://github.com/GuChongAn/GuChongAn.github.io)），
 
-#### 01 主页、博客页面以及其他页面的生成
+### 01 主页、博客页面以及其他页面的生成
 
 主页的生成主要需要两个方面的内容，
 
@@ -32,7 +32,7 @@ keywords: plan
 
 而博客的archives页面，
 
-#### 02  自动化流程
+### 02  自动化流程
 
 ## 二 学习和博客写作计划
 
