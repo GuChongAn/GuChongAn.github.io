@@ -62,9 +62,10 @@ for year in blogByYears.keys():
     for blog in blogByYears[year]:
         tmp = '''<tr>
                     <td style=\"padding-right: 10px"> {}: </td>
-                    <td> <a href=\"{}\"> xxxx </a> </td>
+                    <td> <a href=\"{}\"> {} </a> </td>
             </tr>'''.format(blog['date'][0:4] + '.' + blog['date'][4:6] + '.' + blog['date'][6:8],
-                            "https://guchongan.github.io/" + blog['url'])
+                            "https://guchongan.github.io/" + blog['url'],
+                            blog['name'])
         tmpSoup = BeautifulSoup(tmp, 'html.parser')
         table.append(tmpSoup)
     with open(os.path.join("../archives/", year, 'index.html'), 'w') as f:
