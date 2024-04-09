@@ -57,6 +57,7 @@ with open("../Template/archive-page.html", 'r+') as f:
 soup = BeautifulSoup(file, 'lxml')
 
 for year in blogByYears.keys():
+    soup.section.h1.string = "Archive for " + str(year)
     table = soup.table
     table.clear()
     for blog in blogByYears[year]:
