@@ -34,7 +34,7 @@ for blog in blogFiles:
             </tr>'''.format(blog['date'][0:4] + '.' + blog['date'][4:6] + '.' + blog['date'][6:8],
                             "http://guchongan.github.io/" + blog['url'],
                             blog['name'])
-    trSoup = BeautifulSoup(tmp, 'lxml')
+    trSoup = BeautifulSoup(tmp, 'html.parser')
     archiveList.append(trSoup)
 
 
