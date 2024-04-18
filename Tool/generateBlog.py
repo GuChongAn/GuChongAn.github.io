@@ -29,6 +29,10 @@ def generateOneBlog(fileName):
     # set blog content
     content.select(".entry-content")[0].append(BeautifulSoup(blog.blog, 'lxml'))
 
+    # set imag path
+    for image in content.img:
+        image['src'] = os.path.join("..", image['src'])
+
     # write html
     tmpPath = os.path.join("..", blog.info['date'][0:4])
     if not os.path.exists(tmpPath):
