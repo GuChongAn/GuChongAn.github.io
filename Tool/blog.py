@@ -14,7 +14,10 @@ class myBlogRenderer(mistune.HTMLRenderer):
             lexer = get_lexer_by_name(info, stripall=True)
             formatter = HtmlFormatter()
             return highlight(code, lexer, formatter)
-        return '<pre><code>' + mistune.excpae(code) + '</code></pre>'
+        return '<pre><code>' + mistune.escpae(code) + '</code></pre>'
+
+    def inline_math(self, text):
+        return '<span class="math">$' + mistune.escape(text) + '$</span>'
 
 
 class Blog():
