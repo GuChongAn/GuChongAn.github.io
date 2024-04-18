@@ -348,5 +348,20 @@ $$
   </script>
   <script src="./css/bootstrap.min.js">
   </script>
+  <script type="text/x-mathjax-config">
+   var articlemathId = document.getElementById("articleContent");
+	var commentmathId = document.getElementById("commentlist-container");
+	MathJax.Hub.Config({
+		tex2jax: {
+			inlineMath: [ ['$','$'] ], //行内公式
+			displayMath: [ ['$$','$$'] ], //行间公式
+			skipTags: ['script', 'noscript', 'style', 'textarea', 'pre','code','a'], //渲染时跳过的html标签
+			ignoreClass: "summary", //忽略的class
+		}
+	});
+	MathJax.Hub.Queue(["Typeset", MathJax.Hub, articlemathId, commentmathId]); //指定渲染的html块，可以为多个
+  </script>
+  <script src="https://cdn.bootcss.com/mathjax/2.7.7/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script>
  </body>
 </html>
