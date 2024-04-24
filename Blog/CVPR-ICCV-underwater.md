@@ -1,5 +1,5 @@
 ---
-name: [Read Paper] CVPR/ICCV/WACV23 underwater相关文章总结
+name: [Read Paper] CVPR/ICCV/WACV23 underwater相关文章总结（上）
 date: 20240418
 description: CVPR/ICCV/WACV23 underwater相关文章阅读和总结
 keywords: readpaper
@@ -52,7 +52,7 @@ $$
 
 经典的无监督学习方法，损失函数是个分数，分子部分是学生网络对无标签输入的输出和bank中伪标签的感知损失，分母部分是学生网络对无标签输入的输出和对应无标签输入的感知损失，其实就是让学生网络的输出和bank的记录更近，和原始输入更远
 
-文章思路很简单，就是想办法把无标签的数据用上，学生教师网络只是个框架，bank和对比学习只是把无标签数据更好用上的方法。第一遍通读下来，有疑问的地方可能有两个，
+文章思路很简单，就是想办法把无标签的数据用上，学生教师网络只是个框架，bank和对比学习只是把无标签数据更好用上的方法。第一遍通读下来，有疑问的地方可能有三个，
 
 - data augmentation
 
@@ -73,7 +73,7 @@ def data_aug(images):
 
 - 训练步骤
 
-本文没有详细介绍它的训练过程，但本文又有无标签数据又有有标签数据，又是学生教师两个网络，所以我认为还是需要明确一下训练步骤，在阅读代码后，我总结如下，bank在实际实现上就是把那些图存在了一个文件夹下面，
+本文没有详细介绍它的训练过程，但本文又有无标签数据又有有标签数据，又是学生教师两个网络，所以我认为还是需要明确一下训练步骤，在阅读代码后，我总结如下，其中bank在实际实现上就是把那些图存在了一个文件夹下面，
 
 ```python
 for epoch in range(start, end):
@@ -94,7 +94,7 @@ for epoch in range(start, end):
 
 - Illumination Map
 
-本文模型有两个输出，除了正常的水下图像外，还有个illumination map，但是本文美解释该图是如何生成的，只抛了个引用[55]Ye, Tian, et al. Underwater Light Field Retention : Neural Rendering for Underwater Imaging.我扫了一眼这篇文章以及代码，其实就是多次高斯模糊再过个log后和原本的图相加，
+本文模型有两个输入，除了正常的水下图像外，还有个illumination map，但是本文没解释该图是如何生成的，只抛了个引用[55]Ye, Tian, et al. Underwater Light Field Retention : Neural Rendering for Underwater Imaging.我扫了一眼这篇文章以及代码，其实就是多次高斯模糊再过个log后和原本的图相加，
 
 ```python
 def luminance_estimation(img):
