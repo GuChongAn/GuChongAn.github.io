@@ -72,15 +72,15 @@
    <div class="row">
     <article>
      <h1>
-      <a href="https://guchongan.github.io/2024/plan2404">
-       [总结] 2024年4月学习总结
+      <a href="https://guchongan.github.io/2024/TransBertGPT">
+       [Read Paper] Transformer + Bert + GPT123 大模型基础论文
       </a>
      </h1>
      <span class="published">
       <i class="fa fa-calendar">
       </i>
       <time>
-       2024.05.01
+       2024.05.08
       </time>
      </span>
      <br/>
@@ -89,178 +89,157 @@
       <html>
        <body>
         <p>
-         5月1日凌晨3点14分，昨天喝了霸王茶姬的金丝小种，睡不着，所以起来写个4月份学习的总结以及做5月份的规划。4月的总结分成三个部分，
+         补下大模型的基础，读一下经典的大模型论文并作总结，包括下述几篇论文，在李沐老师PPT上偷了这张图，
         </p>
-        <ul>
-         <li>
-          项目，代码占主要内容的工作或者学习
-         </li>
-         <li>
-          论文阅读，看的论文的总结和评价
-         </li>
-         <li>
-          学习总结，专业课程或者其他方面的学习总结
-         </li>
-        </ul>
-        <h3>
-         一 项目
-        </h3>
         <p>
-         4月的项目主要是成功完了博客的实现，并写了三篇博客
+         <img alt="4.png" src="../image/2024/4.png"/>
         </p>
         <ul>
          <li>
           <p>
-           2024.04.24  [
-           <a href="http://guchongan.github.io/2024/CogModel">
-            Read Paper] CogVLM&amp;CogAgent 两篇视觉大语言模型
+           <a href="https://arxiv.org/abs/1706.03762">
+            Attention is all you need
            </a>
+           （Transformer）
           </p>
          </li>
          <li>
           <p>
-           2024.04.18  [
-           <a href="http://guchongan.github.io/2024/CVPR-ICCV-underwater">
-            Read Paper] CVPR/ICCV/WACV23 underwater相关文章总结（上）
+           <a href="https://arxiv.org/abs/1810.04805">
+            BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding
            </a>
+           （BERT）
           </p>
          </li>
          <li>
           <p>
-           2024.04.08
-           <a href="http://guchongan.github.io/2024/myBlogPlan">
-            我的博客规划以及学习安排
+           <a href="https://s3-us-west-2.amazonaws.com/openai-assets/research-covers/language-unsupervised/language_understanding_paper.pdf">
+            Improving Language Understanding by Generative Pre-Training
            </a>
+           （GPT1）
+          </p>
+         </li>
+         <li>
+          <p>
+           <a href="https://d4mucfpksywv.cloudfront.net/better-language-models/language_models_are_unsupervised_multitask_learners.pdf">
+            Language Models are Unsupervised Multitask Learners
+           </a>
+           （GPT2）
+          </p>
+         </li>
+         <li>
+          <p>
+           <a href="https://arxiv.org/abs/2005.14165">
+            Language Models are Few-Shot Learners
+           </a>
+           （GPT3）
           </p>
          </li>
         </ul>
         <p>
-         博客系统的实现见仓库
-         <a href="https://github.com/GuChongAn/GuChongAn.github.io">
-          GuChongAn.github.io
-         </a>
-         下的
+         接下来先看Attention is all you need，也就是Transformer这篇文章，
+        </p>
+        <h2>
+         [NIPS] Attention is all you need
+        </h2>
+        <p>
+         <img alt="5.png" src="../image/2024/5.png"/>
+        </p>
+        <p>
+         之前本科的时候很早就看过Tranformer相关的论文，总的算下来这是第三次通读这篇文章了，相比于前两次聚焦于文章的写作，模型的架构，代码的实现等等，这次多了一些感慨。正如作者在摘要中所说，Transformer是一个
          <code>
-          Tool
+          simple
          </code>
-         文件夹
-        </p>
-        <h3>
-         二 论文阅读
-        </h3>
-        <p>
-         4月读了四篇论文
+         的网络，但正是这样一个简单的网络，简单的架构，作为一个起点，就像萨拉热窝的那颗子弹，掀起了令人难以置信的人工智能发展的浪潮。以至于我开始幻想，在我的有生之年真的可以看见，甚至参与到通用强人工智能的出现中来。好的，还是闲话少说，这里就不再详细过Transformer的模型了，主要是讨论几个我阅读过程中产生的疑惑，
         </p>
         <ul>
          <li>
-          <a href="https://openaccess.thecvf.com/content/CVPR2023/html/Huang_Contrastive_Semi-Supervised_Learning_for_Underwater_Image_Restoration_via_Reliable_Bank_CVPR_2023_paper.html">
-           [CVPR23]Contrastive Semi-Supervised Learning for Underwater Image Restoration via Reliable Bank
-          </a>
-          （水下图像+增强/恢复）
+          encoder-decoder结构
          </li>
         </ul>
         <p>
-         个人评价，在CVPR接受的论文中可以排到后20%，内容上没什么创新点，就是学生教师网络的小改进（Reliable Bank）加无监督学习（对比学习），写作上就是CVPR的平均水平
+         正如上图所言，Tansformer是一个典型的编码器解码器的结构，但是和计算机视觉中常见的encoder-decoder结构不同，计算机视觉中这类的结构通常伴随着数据维度的变化，在编码器端一般是通道数的增加以及特征图size的减小，解码器端则相反。可是Transformer整体过下来，它的每个block的输入和输出的大小一直是没有改变的，网上也没有找到相关的讨论或者解答，我个人认为，这两者的不同是因为任务的不同，Tansformer处理序列任务，序列的长度本身就带有一定的信息，所以保持不变的维度，一方面简化了模型的设计，另一方面可以更好的保留序列长度的信息。
+        </p>
+        <p>
+         当然，如果只讨论Transformer模型的设计，当然每个block的输入输出的维度不可以变化，我在前面讨论的意思主要是，为什么不设计CV的那种形式，同时肯定也伴随着一些其他设计的改变。
         </p>
         <ul>
          <li>
+          Masked Multi-Head self-attention
+         </li>
+        </ul>
+        <p>
+         每个文章的初读者大概都会对它这个掩码注意力的掩码部分产生疑惑，这其实主要是因为这篇文章的作者在写作的时候并没有想到文章会有如此大的影响力，它所计划面对的读者主要还是之前做过机器翻译，或者其他的序列任务的那群人，所以少阐述了一些基础知识。
+        </p>
+        <p>
+         Transformer在推理部分的伪代码应该是这样的，
+        </p>
+        <div class="highlight">
+         <pre><span></span><span class="k">def</span> <span class="nf">inference</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">output_len</span><span class="p">):</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">make_model</span><span class="p">()</span>
+    <span class="n">output</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">encoder_output</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">encoder</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">output</span><span class="p">)</span>
+   
+	<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">output_len</span><span class="p">):</span>
+        <span class="n">tmp</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">decoder</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">output</span><span class="p">)</span>
+        <span class="n">output</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">tmp</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">output</span>
+</pre>
+        </div>
+        <p>
+         不是像常见的CV的模型那样，直接
+         <code>
+          output = model(input)
+         </code>
+         ，而是一次一次的迭代，每次只预测下一个词，这就是所谓自回归auto-regressive。下一步来解释mask其实就很好理解了，在训练的时候，我其实知道想要的output是什么，所以模型输入的output就是lable，所以需要mask掉还没有推理出的部分，而测试的时候，模型是一个词一个词的预测的，这时候输入的output，就是之前时刻的输出加上padding把维度塞满。
+        </p>
+        <h2>
+         [arXiv] BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding
+        </h2>
+        <p>
+         <img alt="6.png" src="../image/2024/6.png"/>
+        </p>
+        <h2>
+         总结
+        </h2>
+        <p>
+         xxx
+        </p>
+        <h2>
+         参考
+        </h2>
+        <ul>
+         <li>
           <p>
-           <a href="https://arxiv.org/abs/2311.03079">
-            [arXiv]CogVLM: Visual Expert for Pretrained Language Models
+           <a href="https://nlp.seas.harvard.edu/annotated-transformer/#background">
+            The Annotated Transformer
            </a>
-           （视觉大语言模型）
+           （对Transformer论文的注释和pytorch的代码实现）
           </p>
          </li>
          <li>
           <p>
-           <a href="https://arxiv.org/abs/2312.08914">
-            [CVPR24]CogAgent: A Visual Language Model for GUI Agents
+           <a href="https://www.bilibili.com/video/BV1pu411o7BE/?spm_id_from=333.788&amp;vd_source=e7ac9aab3df6169a28cceb590ccf0b65">
+            Transformer论文逐段精读【论文精读】
            </a>
-           （视觉大语言模型）
+          </p>
+         </li>
+         <li>
+          <p>
+           <a href="https://www.bilibili.com/video/BV1PL411M7eQ/?spm_id_from=333.788&amp;vd_source=e7ac9aab3df6169a28cceb590ccf0b65">
+            BERT 论文逐段精读【论文精读】
+           </a>
+          </p>
+         </li>
+         <li>
+          <p>
+           <a href="https://www.bilibili.com/video/BV1AF411b7xQ/?spm_id_from=333.788&amp;vd_source=e7ac9aab3df6169a28cceb590ccf0b65">
+            GPT，GPT-2，GPT-3 论文精读【论文精读】
+           </a>
           </p>
          </li>
         </ul>
-        <p>
-         这两篇论文都是清华和智谱的作品，值得注意的是，两篇论文都是开源的，虽然我觉得写作上都有点没讲清楚的感觉，也可能是我在大语言模型方面读的论文太少了，缺少了一些不言自明的基础知识，两篇文章都对典型的Transformer做了一些框架上的修改，前者是在每个Transformer Block中加入了处理图像特征的分支，后者是加了一个high resolution的分支模块，用交叉注意力把high resolution的特征加入到大模型中
-        </p>
-        <ul>
-         <li>
-          Retrieval-Augmented Generation for Large Language Models: A Survey（RAG综述）
-         </li>
-        </ul>
-        <p>
-         看了综述之后没继续看RAG的论文，所以对这个领域还是只有一点浅薄的了解，也不好妄加评判这篇文章写得如何，但是我看有个Notion页面，做了在线实时的RAG方向论文的整理，感觉应该是有用的
-        </p>
-        <h3>
-         三 学习总结
-        </h3>
-        <p>
-         4月原计划开展了3个方面的学习
-        </p>
-        <ul>
-         <li>
-          数学分析
-         </li>
-        </ul>
-        <p>
-         买了张筑生老师的《数学分析新讲》和配套的习题集，完成了第一章实数部分的学习，其实就是讲了规范小数，上下确界，加法乘法，有序域的概念以及确界原理的证明。
-        </p>
-        <ul>
-         <li>
-          日语
-         </li>
-        </ul>
-        <p>
-         学完了五十音，现在刚开始《新标日》的第一课
-        </p>
-        <ul>
-         <li>
-          《CSAPP》和《中国通史》
-         </li>
-        </ul>
-        <p>
-         原本计划看，结果没看
-        </p>
-        <h3>
-         四 5月规划
-        </h3>
-        <p>
-         首先是论文阅读的计划，5月计划读这几个方面的论文，
-        </p>
-        <ul>
-         <li>
-          大模型的基础论文（Transformer、BERT、GPT、LLaMa 四篇）
-         </li>
-         <li>
-          Stable diffusion（LDM + DM 两篇）
-         </li>
-         <li>
-          视觉RAG（暂时只找到 一篇）
-         </li>
-        </ul>
-        <p>
-         目前规划要读的有7篇文章，读完之后5月份计划再读至少三篇，凑足10篇文章，可能会从李沐的精读论文系列中找要读的文章。
-        </p>
-        <p>
-         然后是学习上的规划，
-        </p>
-        <ul>
-         <li>
-          数学分析，计划把《数学分析新讲》第一本书看完
-         </li>
-         <li>
-          日语计划每天学一点，至少保持一周2课的进度
-         </li>
-         <li>
-          《CSAPP》至少看完第四章
-         </li>
-         <li>
-          《中国通史》计划每天晚上睡前看看
-         </li>
-        </ul>
-        <p>
-         还有作息，5月要调整一下作息，不能再每天特晚睡特早起了，然后每天也要稍微锻炼下，走走路
-        </p>
        </body>
       </html>
      </div>
@@ -271,6 +250,16 @@
     </h3>
     <table class="archive-list">
      <tbody>
+      <tr>
+       <td style="padding-right: 10px">
+        2024.05.08:
+       </td>
+       <td>
+        <a href="http://guchongan.github.io/2024/TransBertGPT">
+         [Read Paper] Transformer + Bert + GPT123 大模型基础论文
+        </a>
+       </td>
+      </tr>
       <tr>
        <td style="padding-right: 10px">
         2024.05.01:

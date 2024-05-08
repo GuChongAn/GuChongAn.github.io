@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="https://www.facebook.com/2008/fbml" xmlns:og="http://ogp.me/ns#">
+ <head>
+  <title>
+   [Read Paper] Transformer + Bert + GPT123 大模型基础论文 - Chongan's website
+  </title>
+  <!-- Using the latest rendering mode for IE -->
+  <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <link href="../../image/favicon.ico" rel="icon"/>
+  <link href="../../css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+  <link href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+  <link href="../../css/vs.css" rel="stylesheet" type="text/css"/>
+  <link href="../../css/style.css" rel="stylesheet" type="text/css"/>
+ </head>
+ <body>
+  <!-- navbar -->
+  <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+   <div class="container">
+    <div class="navbar-header">
+     <button class="navbar-toggle" data-target=".navbar-ex1-collapse" data-toggle="collapse" type="button">
+      <span class="sr-only">
+       Toggle navigation
+      </span>
+      <span class="icon-bar">
+      </span>
+      <span class="icon-bar">
+      </span>
+      <span class="icon-bar">
+      </span>
+     </button>
+     <a class="navbar-brand" href="https://guchongan.github.io/">
+      <img height="32" src="../../image/favicon-32x32.png" width="32"/>
+      Gu Chongan's website
+     </a>
+    </div>
+    <div class="collapse navbar-collapse navbar-ex1-collapse">
+     <ul class="nav navbar-nav navbar-right">
+      <li>
+       <a href="https://guchongan.github.io/about">
+        <i class="fa fa-question">
+        </i>
+        <span class="icon-label">
+         About
+        </span>
+       </a>
+      </li>
+      <li>
+       <a href="https://guchongan.github.io/projects">
+        <i class="fa fa-github">
+        </i>
+        <span class="icon-label">
+         Projects
+        </span>
+       </a>
+      </li>
+      <li>
+       <a href="https://guchongan.github.io/archives">
+        <i class="fa fa-th-list">
+        </i>
+        <span class="icon-label">
+         Archives
+        </span>
+       </a>
+      </li>
+     </ul>
+    </div>
+   </div>
+  </div>
+  <div class="container">
+   <div class="row">
+    <section id="content">
+     <article>
+      <header class="page-header">
+       <h1>
+        <a href="https://guchongan.github.io/2024/[Read Paper] Transformer + Bert + GPT123 大模型基础论文" rel="bookmark" title="[Read Paper] Transformer + Bert + GPT123 大模型基础论文">
+         [Read Paper] Transformer + Bert + GPT123 大模型基础论文
+        </a>
+       </h1>
+      </header>
+      <div class="entry-content">
+       <div class="panel">
+        <div class="panel-body">
+         <footer class="post-info">
+          <span class="published">
+           <i class="fa fa-calendar">
+           </i>
+           <time>
+            2024.05.08
+           </time>
+          </span>
+          <span class="label label-default">
+           Tags
+          </span>
+          <html>
+           <body>
+            <a>
+             readpaper
+            </a>
+           </body>
+          </html>
+         </footer>
+         <!-- /.post-info -->
+        </div>
+       </div>
+       <!-- /.entry-content -->
+       <html>
+        <body>
+         <p>
+          补下大模型的基础，读一下经典的大模型论文并作总结，包括下述几篇论文，在李沐老师PPT上偷了这张图，
+         </p>
+         <p>
+          <img alt="4.png" src="../../image/2024/4.png"/>
+         </p>
+         <ul>
+          <li>
+           <p>
+            <a href="https://arxiv.org/abs/1706.03762">
+             Attention is all you need
+            </a>
+            （Transformer）
+           </p>
+          </li>
+          <li>
+           <p>
+            <a href="https://arxiv.org/abs/1810.04805">
+             BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding
+            </a>
+            （BERT）
+           </p>
+          </li>
+          <li>
+           <p>
+            <a href="https://s3-us-west-2.amazonaws.com/openai-assets/research-covers/language-unsupervised/language_understanding_paper.pdf">
+             Improving Language Understanding by Generative Pre-Training
+            </a>
+            （GPT1）
+           </p>
+          </li>
+          <li>
+           <p>
+            <a href="https://d4mucfpksywv.cloudfront.net/better-language-models/language_models_are_unsupervised_multitask_learners.pdf">
+             Language Models are Unsupervised Multitask Learners
+            </a>
+            （GPT2）
+           </p>
+          </li>
+          <li>
+           <p>
+            <a href="https://arxiv.org/abs/2005.14165">
+             Language Models are Few-Shot Learners
+            </a>
+            （GPT3）
+           </p>
+          </li>
+         </ul>
+         <p>
+          接下来先看Attention is all you need，也就是Transformer这篇文章，
+         </p>
+         <h2>
+          [NIPS] Attention is all you need
+         </h2>
+         <p>
+          <img alt="5.png" src="../../image/2024/5.png"/>
+         </p>
+         <p>
+          之前本科的时候很早就看过Tranformer相关的论文，总的算下来这是第三次通读这篇文章了，相比于前两次聚焦于文章的写作，模型的架构，代码的实现等等，这次多了一些感慨。正如作者在摘要中所说，Transformer是一个
+          <code>
+           simple
+          </code>
+          的网络，但正是这样一个简单的网络，简单的架构，作为一个起点，就像萨拉热窝的那颗子弹，掀起了令人难以置信的人工智能发展的浪潮。以至于我开始幻想，在我的有生之年真的可以看见，甚至参与到通用强人工智能的出现中来。好的，还是闲话少说，这里就不再详细过Transformer的模型了，主要是讨论几个我阅读过程中产生的疑惑，
+         </p>
+         <ul>
+          <li>
+           encoder-decoder结构
+          </li>
+         </ul>
+         <p>
+          正如上图所言，Tansformer是一个典型的编码器解码器的结构，但是和计算机视觉中常见的encoder-decoder结构不同，计算机视觉中这类的结构通常伴随着数据维度的变化，在编码器端一般是通道数的增加以及特征图size的减小，解码器端则相反。可是Transformer整体过下来，它的每个block的输入和输出的大小一直是没有改变的，网上也没有找到相关的讨论或者解答，我个人认为，这两者的不同是因为任务的不同，Tansformer处理序列任务，序列的长度本身就带有一定的信息，所以保持不变的维度，一方面简化了模型的设计，另一方面可以更好的保留序列长度的信息。
+         </p>
+         <p>
+          当然，如果只讨论Transformer模型的设计，当然每个block的输入输出的维度不可以变化，我在前面讨论的意思主要是，为什么不设计CV的那种形式，同时肯定也伴随着一些其他设计的改变。
+         </p>
+         <ul>
+          <li>
+           Masked Multi-Head self-attention
+          </li>
+         </ul>
+         <p>
+          每个文章的初读者大概都会对它这个掩码注意力的掩码部分产生疑惑，这其实主要是因为这篇文章的作者在写作的时候并没有想到文章会有如此大的影响力，它所计划面对的读者主要还是之前做过机器翻译，或者其他的序列任务的那群人，所以少阐述了一些基础知识。
+         </p>
+         <p>
+          Transformer在推理部分的伪代码应该是这样的，
+         </p>
+         <div class="highlight">
+          <pre><span></span><span class="k">def</span> <span class="nf">inference</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">output_len</span><span class="p">):</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">make_model</span><span class="p">()</span>
+    <span class="n">output</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">encoder_output</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">encoder</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">output</span><span class="p">)</span>
+   
+	<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">output_len</span><span class="p">):</span>
+        <span class="n">tmp</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">decoder</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">output</span><span class="p">)</span>
+        <span class="n">output</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">tmp</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">output</span>
+</pre>
+         </div>
+         <p>
+          不是像常见的CV的模型那样，直接
+          <code>
+           output = model(input)
+          </code>
+          ，而是一次一次的迭代，每次只预测下一个词，这就是所谓自回归auto-regressive。下一步来解释mask其实就很好理解了，在训练的时候，我其实知道想要的output是什么，所以模型输入的output就是lable，所以需要mask掉还没有推理出的部分，而测试的时候，模型是一个词一个词的预测的，这时候输入的output，就是之前时刻的输出加上padding把维度塞满。
+         </p>
+         <h2>
+          [arXiv] BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding
+         </h2>
+         <p>
+          <img alt="6.png" src="../../image/2024/6.png"/>
+         </p>
+         <h2>
+          总结
+         </h2>
+         <p>
+          xxx
+         </p>
+         <h2>
+          参考
+         </h2>
+         <ul>
+          <li>
+           <p>
+            <a href="https://nlp.seas.harvard.edu/annotated-transformer/#background">
+             The Annotated Transformer
+            </a>
+            （对Transformer论文的注释和pytorch的代码实现）
+           </p>
+          </li>
+          <li>
+           <p>
+            <a href="https://www.bilibili.com/video/BV1pu411o7BE/?spm_id_from=333.788&amp;vd_source=e7ac9aab3df6169a28cceb590ccf0b65">
+             Transformer论文逐段精读【论文精读】
+            </a>
+           </p>
+          </li>
+          <li>
+           <p>
+            <a href="https://www.bilibili.com/video/BV1PL411M7eQ/?spm_id_from=333.788&amp;vd_source=e7ac9aab3df6169a28cceb590ccf0b65">
+             BERT 论文逐段精读【论文精读】
+            </a>
+           </p>
+          </li>
+          <li>
+           <p>
+            <a href="https://www.bilibili.com/video/BV1AF411b7xQ/?spm_id_from=333.788&amp;vd_source=e7ac9aab3df6169a28cceb590ccf0b65">
+             GPT，GPT-2，GPT-3 论文精读【论文精读】
+            </a>
+           </p>
+          </li>
+         </ul>
+        </body>
+       </html>
+      </div>
+      <hr/>
+      <div class="dotted-links">
+       <p class="align-center">
+        For comments, please send me
+        <a href="hu197136@gmail.com">
+         <i class="fa fa-envelope-o">
+         </i>
+         an email
+        </a>
+        .
+       </p>
+      </div>
+     </article>
+    </section>
+   </div>
+  </div>
+  <footer>
+   <div class="container">
+    <hr/>
+    <div class="row">
+     <div class="col-xs-10">
+      © 2024-2024 Gu Chongan
+     </div>
+     <div class="col-xs-2">
+      <p class="pull-right">
+       <i class="fa fa-arrow-up">
+       </i>
+       <a href="#">
+        Back to top
+       </a>
+      </p>
+     </div>
+    </div>
+   </div>
+  </footer>
+  <script src="../../css/jquery-2.2.4.min.js">
+  </script>
+  <script src="../../css/bootstrap.min.js">
+  </script>
+  <script type="text/x-mathjax-config">
+   var articlemathId = document.getElementById("articleContent");
+	var commentmathId = document.getElementById("commentlist-container");
+	MathJax.Hub.Config({
+		tex2jax: {
+			inlineMath: [ ['$','$'] ], //行内公式
+			displayMath: [ ['$$','$$'] ], //行间公式
+			skipTags: ['script', 'noscript', 'style', 'textarea', 'pre','code','a'], //渲染时跳过的html标签
+			ignoreClass: "summary", //忽略的class
+		}
+	});
+	MathJax.Hub.Queue(["Typeset", MathJax.Hub, articlemathId, commentmathId]); //指定渲染的html块，可以为多个
+  </script>
+  <script src="https://cdn.bootcss.com/mathjax/2.7.7/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script>
+ </body>
+</html>
