@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="https://www.facebook.com/2008/fbml" xmlns:og="http://ogp.me/ns#">
+ <head>
+  <title>
+   [Read Paper] DDPM 和 LDM 两篇扩散模型的论文 - Chongan's website
+  </title>
+  <!-- Using the latest rendering mode for IE -->
+  <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <link href="../../image/favicon.ico" rel="icon"/>
+  <link href="../../css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+  <link href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+  <link href="../../css/vs.css" rel="stylesheet" type="text/css"/>
+  <link href="../../css/style.css" rel="stylesheet" type="text/css"/>
+ </head>
+ <body>
+  <!-- navbar -->
+  <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+   <div class="container">
+    <div class="navbar-header">
+     <button class="navbar-toggle" data-target=".navbar-ex1-collapse" data-toggle="collapse" type="button">
+      <span class="sr-only">
+       Toggle navigation
+      </span>
+      <span class="icon-bar">
+      </span>
+      <span class="icon-bar">
+      </span>
+      <span class="icon-bar">
+      </span>
+     </button>
+     <a class="navbar-brand" href="https://guchongan.github.io/">
+      <img height="32" src="../../image/favicon-32x32.png" width="32"/>
+      Gu Chongan's website
+     </a>
+    </div>
+    <div class="collapse navbar-collapse navbar-ex1-collapse">
+     <ul class="nav navbar-nav navbar-right">
+      <li>
+       <a href="https://guchongan.github.io/about">
+        <i class="fa fa-question">
+        </i>
+        <span class="icon-label">
+         About
+        </span>
+       </a>
+      </li>
+      <li>
+       <a href="https://guchongan.github.io/projects">
+        <i class="fa fa-github">
+        </i>
+        <span class="icon-label">
+         Projects
+        </span>
+       </a>
+      </li>
+      <li>
+       <a href="https://guchongan.github.io/archives">
+        <i class="fa fa-th-list">
+        </i>
+        <span class="icon-label">
+         Archives
+        </span>
+       </a>
+      </li>
+     </ul>
+    </div>
+   </div>
+  </div>
+  <div class="container">
+   <div class="row">
+    <section id="content">
+     <article>
+      <header class="page-header">
+       <h1>
+        <a href="https://guchongan.github.io/2024/[Read Paper] DDPM 和 LDM 两篇扩散模型的论文" rel="bookmark" title="[Read Paper] DDPM 和 LDM 两篇扩散模型的论文">
+         [Read Paper] DDPM 和 LDM 两篇扩散模型的论文
+        </a>
+       </h1>
+      </header>
+      <div class="entry-content">
+       <div class="panel">
+        <div class="panel-body">
+         <footer class="post-info">
+          <span class="published">
+           <i class="fa fa-calendar">
+           </i>
+           <time>
+            2024.05.16
+           </time>
+          </span>
+          <span class="label label-default">
+           Tags
+          </span>
+          <html>
+           <body>
+            <a>
+             readpaper
+            </a>
+           </body>
+          </html>
+         </footer>
+         <!-- /.post-info -->
+        </div>
+       </div>
+       <!-- /.entry-content -->
+       <html>
+        <body>
+         <p>
+          按照之前计划，打算读扩散模型相关的两篇文章，
+         </p>
+         <ul>
+          <li>
+           <a href="https://arxiv.org/abs/2006.11239">
+            Denoising Diffusion Probabilistic Models
+           </a>
+           （DDPM）
+          </li>
+          <li>
+           <a href="https://arxiv.org/abs/2112.10752">
+            High-Resolution Image Synthesis with Latent Diffusion Models
+           </a>
+           （LDM）
+          </li>
+         </ul>
+         <p>
+          结果读的时候发现这两篇文章，特别是前者，数学上的东西比较多，缺了一些基础知识，读起来有些困难，所以和之前总结式的笔记不同，这次计划做一次精读，先来看Denoising Diffusion Probabilistic Models这篇文章，
+         </p>
+         <h2>
+          [NeurIPS] Denoising Diffusion Probabilistic Models
+         </h2>
+         <h3>
+          Abstract
+         </h3>
+         <blockquote>
+          <p>
+           We present high quality image synthesis results using diffusion probabilistic models, a class of latent variable models inspired by considerations from nonequilibrium thermodynamics.
+          </p>
+         </blockquote>
+         <p>
+          latent variable model，就是计算latent变量的模型，以问卷举例，显式变量是问卷中问题的答案，隐式变量就是我们问问卷想要调查的那个问题，也有点类似全连接神经网络中隐藏层的意思
+         </p>
+         <blockquote>
+          <p>
+           Our best results are obtained by training on a weighted variational bound designed according to a novel connection between diffusion probabilistic models and denoising score matching with Langevin dynamics, and our models naturally admit a progressive lossy decompression scheme that can be interpreted as a generalization of autoregressive decoding.
+          </p>
+         </blockquote>
+         <p>
+          weighted variational bound，联系后文，就是
+          <strong>
+           xxx
+          </strong>
+         </p>
+         <p>
+          denoising score matching with Langevin dynamics，联系后文，就是
+          <strong>
+           xxx
+          </strong>
+         </p>
+         <p>
+          autoregressive decoding，Transformer也是自回归模型，一步一步迭代计算结果
+         </p>
+         <p>
+          所谓渐进有损压缩策略可以解释为自回归模型的泛化，意思是
+          <strong>
+           xxx
+          </strong>
+         </p>
+         <h3>
+          1 Introduction
+         </h3>
+         <blockquote>
+          <p>
+           ...... there have been remarkable advances in energy-based modeling and score matching that have produced images comparable to those of GANs.
+          </p>
+         </blockquote>
+         <p>
+          energy-based modeling，一类生成模型的总称
+         </p>
+         <blockquote>
+          <p>
+           ...... A diffusion probabilistic model is a parameterized Markov chain trained using variational inference to produce samples matching the data after finite time.
+          </p>
+         </blockquote>
+         <p>
+          Markov chain，就是一组随机过程，满足某一项的概率只与它的前一项相关，即
+         </p>
+         <div class="math">
+          $$
+P(X_{t}|X_{t-1}X_{t-2}...X_0) = P(X_t|X_{t-1})
+$$
+         </div>
+         <p>
+          variational inference，原本要求分布p，但是p不好求，就把问题分解为，1）找到和p相近的分布q，2）把q优化为p
+         </p>
+         <blockquote>
+          <p>
+           ...... it is sufficient to set the sampling chain transitions to conditional Gaussians too
+          </p>
+         </blockquote>
+         <p>
+          conditional Gaussians，高斯分布就是正态分布，条件高斯分布就是对于一个多元高斯分布，在已知一些值的情况下，其余变量的高斯分布
+         </p>
+         <blockquote>
+          <p>
+           ...... an equivalence with denoising score matching over multiple noise levels during training and with annealed(退火) Langevin dynamics during sampling.
+          </p>
+         </blockquote>
+         <p>
+          在训练过程中多个噪声级别上的去噪分数匹配和在采样过程中郎之万动力学的等价性，
+         </p>
+         <h3>
+          2 Background
+         </h3>
+        </body>
+       </html>
+      </div>
+      <hr/>
+      <div class="dotted-links">
+       <p class="align-center">
+        For comments, please send me
+        <a href="hu197136@gmail.com">
+         <i class="fa fa-envelope-o">
+         </i>
+         an email
+        </a>
+        .
+       </p>
+      </div>
+     </article>
+    </section>
+   </div>
+  </div>
+  <footer>
+   <div class="container">
+    <hr/>
+    <div class="row">
+     <div class="col-xs-10">
+      © 2024-2024 Gu Chongan
+     </div>
+     <div class="col-xs-2">
+      <p class="pull-right">
+       <i class="fa fa-arrow-up">
+       </i>
+       <a href="#">
+        Back to top
+       </a>
+      </p>
+     </div>
+    </div>
+   </div>
+  </footer>
+  <script src="../../css/jquery-2.2.4.min.js">
+  </script>
+  <script src="../../css/bootstrap.min.js">
+  </script>
+  <script type="text/x-mathjax-config">
+   var articlemathId = document.getElementById("articleContent");
+	var commentmathId = document.getElementById("commentlist-container");
+	MathJax.Hub.Config({
+		tex2jax: {
+			inlineMath: [ ['$','$'] ], //行内公式
+			displayMath: [ ['$$','$$'] ], //行间公式
+			skipTags: ['script', 'noscript', 'style', 'textarea', 'pre','code','a'], //渲染时跳过的html标签
+			ignoreClass: "summary", //忽略的class
+		}
+	});
+	MathJax.Hub.Queue(["Typeset", MathJax.Hub, articlemathId, commentmathId]); //指定渲染的html块，可以为多个
+  </script>
+  <script src="https://cdn.bootcss.com/mathjax/2.7.7/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script>
+ </body>
+</html>

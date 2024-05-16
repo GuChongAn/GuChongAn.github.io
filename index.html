@@ -72,15 +72,15 @@
    <div class="row">
     <article>
      <h1>
-      <a href="https://guchongan.github.io/2024/TransBertGPT">
-       [Read Paper] Transformer + Bert + GPT123 大模型基础论文
+      <a href="https://guchongan.github.io/2024/DDPM-LDM">
+       [Read Paper] DDPM 和 LDM 两篇扩散模型的论文
       </a>
      </h1>
      <span class="published">
       <i class="fa fa-calendar">
       </i>
       <time>
-       2024.05.08
+       2024.05.16
       </time>
      </span>
      <br/>
@@ -89,215 +89,111 @@
       <html>
        <body>
         <p>
-         补下大模型的基础，读一下经典的大模型论文并作总结，包括下述几篇论文，在李沐老师PPT上偷了这张图，
-        </p>
-        <p>
-         <img alt="4.png" src="../image/2024/4.png"/>
+         按照之前计划，打算读扩散模型相关的两篇文章，
         </p>
         <ul>
          <li>
-          <p>
-           <a href="https://arxiv.org/abs/1706.03762">
-            Attention is all you need
-           </a>
-           （Transformer）
-          </p>
+          <a href="https://arxiv.org/abs/2006.11239">
+           Denoising Diffusion Probabilistic Models
+          </a>
+          （DDPM）
          </li>
          <li>
-          <p>
-           <a href="https://arxiv.org/abs/1810.04805">
-            BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding
-           </a>
-           （BERT）
-          </p>
-         </li>
-         <li>
-          <p>
-           <a href="https://s3-us-west-2.amazonaws.com/openai-assets/research-covers/language-unsupervised/language_understanding_paper.pdf">
-            Improving Language Understanding by Generative Pre-Training
-           </a>
-           （GPT1）
-          </p>
-         </li>
-         <li>
-          <p>
-           <a href="https://d4mucfpksywv.cloudfront.net/better-language-models/language_models_are_unsupervised_multitask_learners.pdf">
-            Language Models are Unsupervised Multitask Learners
-           </a>
-           （GPT2）
-          </p>
-         </li>
-         <li>
-          <p>
-           <a href="https://arxiv.org/abs/2005.14165">
-            Language Models are Few-Shot Learners
-           </a>
-           （GPT3）
-          </p>
+          <a href="https://arxiv.org/abs/2112.10752">
+           High-Resolution Image Synthesis with Latent Diffusion Models
+          </a>
+          （LDM）
          </li>
         </ul>
         <p>
-         接下来先看Attention is all you need，也就是Transformer这篇文章，
+         结果读的时候发现这两篇文章，特别是前者，数学上的东西比较多，缺了一些基础知识，读起来有些困难，所以和之前总结式的笔记不同，这次计划做一次精读，先来看Denoising Diffusion Probabilistic Models这篇文章，
         </p>
         <h2>
-         [NIPS] Attention is all you need
+         [NeurIPS] Denoising Diffusion Probabilistic Models
         </h2>
+        <h3>
+         Abstract
+        </h3>
+        <blockquote>
+         <p>
+          We present high quality image synthesis results using diffusion probabilistic models, a class of latent variable models inspired by considerations from nonequilibrium thermodynamics.
+         </p>
+        </blockquote>
         <p>
-         <img alt="5.png" src="../image/2024/5.png"/>
+         latent variable model，就是计算latent变量的模型，以问卷举例，显式变量是问卷中问题的答案，隐式变量就是我们问问卷想要调查的那个问题，也有点类似全连接神经网络中隐藏层的意思
+        </p>
+        <blockquote>
+         <p>
+          Our best results are obtained by training on a weighted variational bound designed according to a novel connection between diffusion probabilistic models and denoising score matching with Langevin dynamics, and our models naturally admit a progressive lossy decompression scheme that can be interpreted as a generalization of autoregressive decoding.
+         </p>
+        </blockquote>
+        <p>
+         weighted variational bound，联系后文，就是
+         <strong>
+          xxx
+         </strong>
         </p>
         <p>
-         之前本科的时候很早就看过Tranformer相关的论文，总的算下来这是第三次通读这篇文章了，相比于前两次聚焦于文章的写作，模型的架构，代码的实现等等，这次多了一些感慨。正如作者在摘要中所说，Transformer是一个
-         <code>
-          simple
-         </code>
-         的网络，但正是这样一个简单的网络，简单的架构，作为一个起点，就像萨拉热窝的那颗子弹，掀起了令人难以置信的人工智能发展的浪潮。以至于我开始幻想，在我的有生之年真的可以看见，甚至参与到通用强人工智能的出现中来。好的，还是闲话少说，这里就不再详细过Transformer的模型了，主要是讨论几个我阅读过程中产生的疑惑，
-        </p>
-        <ul>
-         <li>
-          encoder-decoder结构
-         </li>
-        </ul>
-        <p>
-         正如上图所言，Tansformer是一个典型的编码器解码器的结构，但是和计算机视觉中常见的encoder-decoder结构不同，计算机视觉中这类的结构通常伴随着数据维度的变化，在编码器端一般是通道数的增加以及特征图size的减小，解码器端则相反。可是Transformer整体过下来，它的每个block的输入和输出的大小一直是没有改变的，网上也没有找到相关的讨论或者解答，我个人认为，这两者的不同是因为任务的不同，Tansformer处理序列任务，序列的长度本身就带有一定的信息，所以保持不变的维度，一方面简化了模型的设计，另一方面可以更好的保留序列长度的信息。
+         denoising score matching with Langevin dynamics，联系后文，就是
+         <strong>
+          xxx
+         </strong>
         </p>
         <p>
-         当然，如果只讨论Transformer模型的设计，当然每个block的输入输出的维度不可以变化，我在前面讨论的意思主要是，为什么不设计CV的那种形式，同时肯定也伴随着一些其他设计的改变。
-        </p>
-        <ul>
-         <li>
-          Masked Multi-Head self-attention
-         </li>
-        </ul>
-        <p>
-         每个文章的初读者大概都会对它这个掩码注意力的掩码部分产生疑惑，这其实主要是因为这篇文章的作者在写作的时候并没有想到文章会有如此大的影响力，它所计划面对的读者主要还是之前做过机器翻译，或者其他的序列任务的那群人，所以少阐述了一些基础知识。
+         autoregressive decoding，Transformer也是自回归模型，一步一步迭代计算结果
         </p>
         <p>
-         Transformer在推理部分的伪代码应该是这样的，
+         所谓渐进有损压缩策略可以解释为自回归模型的泛化，意思是
+         <strong>
+          xxx
+         </strong>
         </p>
-        <div class="highlight">
-         <pre><span></span><span class="k">def</span> <span class="nf">inference</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">output_len</span><span class="p">):</span>
-    <span class="n">model</span> <span class="o">=</span> <span class="n">make_model</span><span class="p">()</span>
-    <span class="n">output</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-    <span class="n">encoder_output</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">encoder</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">output</span><span class="p">)</span>
-   
-	<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">output_len</span><span class="p">):</span>
-        <span class="n">tmp</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">decoder</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">output</span><span class="p">)</span>
-        <span class="n">output</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">tmp</span><span class="p">)</span>
-    
-    <span class="k">return</span> <span class="n">output</span>
-</pre>
+        <h3>
+         1 Introduction
+        </h3>
+        <blockquote>
+         <p>
+          ...... there have been remarkable advances in energy-based modeling and score matching that have produced images comparable to those of GANs.
+         </p>
+        </blockquote>
+        <p>
+         energy-based modeling，一类生成模型的总称
+        </p>
+        <blockquote>
+         <p>
+          ...... A diffusion probabilistic model is a parameterized Markov chain trained using variational inference to produce samples matching the data after finite time.
+         </p>
+        </blockquote>
+        <p>
+         Markov chain，就是一组随机过程，满足某一项的概率只与它的前一项相关，即
+        </p>
+        <div class="math">
+         $$
+P(X_{t}|X_{t-1}X_{t-2}...X_0) = P(X_t|X_{t-1})
+$$
         </div>
         <p>
-         不是像常见的CV的模型那样，直接
-         <code>
-          output = model(input)
-         </code>
-         ，而是一次一次的迭代，每次只预测下一个词，这就是所谓自回归auto-regressive。下一步来解释mask其实就很好理解了，在训练的时候，我其实知道想要的output是什么，所以模型输入的output就是lable，需要mask掉还没有推理出的部分，而测试的时候，模型是一个词一个词的预测的，这时候输入的output，就是之前时刻的输出加上padding把维度塞满。
+         variational inference，原本要求分布p，但是p不好求，就把问题分解为，1）找到和p相近的分布q，2）把q优化为p
         </p>
-        <h2>
-         [arXiv] BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding
-        </h2>
+        <blockquote>
+         <p>
+          ...... it is sufficient to set the sampling chain transitions to conditional Gaussians too
+         </p>
+        </blockquote>
         <p>
-         <img alt="6.png" src="../image/2024/6.png"/>
+         conditional Gaussians，高斯分布就是正态分布，条件高斯分布就是对于一个多元高斯分布，在已知一些值的情况下，其余变量的高斯分布
         </p>
+        <blockquote>
+         <p>
+          ...... an equivalence with denoising score matching over multiple noise levels during training and with annealed(退火) Langevin dynamics during sampling.
+         </p>
+        </blockquote>
         <p>
-         BERT的结构其实就是一个Transformer的编码器，它在文中甚至都没有对这方面作过多的介绍，而是直接引用了Tranformer的论文和代码。确实，BERT这篇文章我认为不应该重点关注它的结构，而应该关注以下两个方面，
+         在训练过程中多个噪声级别上的去噪分数匹配和在采样过程中郎之万动力学的等价性，
         </p>
-        <ul>
-         <li>
-          bidirectional Transformer
-         </li>
-        </ul>
-        <p>
-         相比于Tranformer以及GPT这类自回归的模型，一步一步通过之前的词预测下一个词，也就是BERT所说的，它们只能看到左边的信息，BERT可以做到双向的信息获取，类似于完形填空，关注的是上下文的信息。所以BERT无论是在训练的时候，还是在推理的时候，都和前面讲的自回归的模型不同，BERT是输入一个句子直接得到一个同样维度的对应输出，而不是一步一步的迭代。
-        </p>
-        <p>
-         当然大家也可以发现，对于有些任务双向信息其实是不存在的，如果是理解类的任务当然好，比如预训练中的Next Sentence Prediction，但如果遇到就是需要一个词一个词往外蹦的这类任务，比如机器翻译，BERT可能表现就不是那么好了。
-        </p>
-        <ul>
-         <li>
-          Pre-training BERT
-         </li>
-        </ul>
-        <p>
-         除了输入输出上的设计，要理解上下文信息，当然要做对应的预训练，大语言模型预训练应该选择什么任务一直是很重要的问题，BERT选择了两个任务，一个是Masked Language Model，把一个句子中的一些词 掩去，然后让BERT输出对这些词的预测，另一个是前面提到的NSP，输入两个句子，判断它们是否是连续的关系。前者的选择其实很顺理成章，做完形填空来提高理解上下文的能力，我们在外语学习中也会做这样的操作，后者的选择我认为是考虑到在可能的测试集中存在的多句子的任务，又不可能在文本蕴含之类的任务上直接做训练，因为后面还有微调的步骤，所以这里找了一个最简单的两个句子的任务做预训练。
-        </p>
-        <h2>
-         Improving Language Understanding by Generative Pre-Training 和 Language Models are Unsupervised Multitask/Few-Shot Learners
-        </h2>
-        <p>
-         <img alt="7.png" src="../image/2024/7.png"/>
-        </p>
-        <p>
-         GPT1/2/3三篇文章我打算放在一起讨论，因为三篇在整体的设计上其实是类似，差别主要在讲的故事，模型的参数量以及数据集的规模上。与BERT相同，GPT应该的关注的点也不是它使用了Transformer的解码器，而应该是以下三个方面，
-        </p>
-        <ul>
-         <li>
-          GPT有没有双向或者说学习上下文的能力
-         </li>
-        </ul>
-        <p>
-         按BERT的说法，GPT是个单向的模型，只能从左看到右，但是我们考虑两者都跑过实验的文本蕴含（Entailment）的任务，输入两句话判断它们间的关系，在这类任务上，自编码的模型也好，自回归的模型也罢，都是从一个输入直接得到一个概率，BERT比GPT在这类任务上多的只是预训练的步骤中做了个完形填空。
-        </p>
-        <ul>
-         <li>
-          Pre-training
-         </li>
-        </ul>
-        <p>
-         GPT1的预训练很简单，就是个语言模型，预测下一个词的概率，GPT2/3保持了这一观点，一以贯之的继续使用语言模型来作预训练
-        </p>
-        <ul>
-         <li>
-          Few-Shot Learner
-         </li>
-        </ul>
-        <p>
-         以前在计算机视觉中就听过one-shot或者few-shot的概念，但是和GPT系列中的Few-shot有所不同，GPT中Few-Shot是把特定任务的少量样本作为提示词输入模型，同时不做训练，不改编模型的参数，而CV中的Few-shot通常是把这些少量的样本纳入到训练过程中来，需要改变模型的参数。
-        </p>
-        <p>
-         GPT2和3虽然分别想讲多任务学习和少样本学习的故事，但在模型和训练的设计上实际相比GPT1没有作出更多的改变
-        </p>
-        <h2>
-         总结
-        </h2>
-        <p>
-         读了这几篇文章，心生很多感慨，一方面感慨于Transformer刚发表的时候它的作者肯定也想不到会产生如此广泛的影响，另一方面也感慨于OpenAI“重剑无锋”式的设计理念。在补了大模型的几篇基础论文后，接下计划读三个方面的文章，一个是视觉大语言模型和VIT相关的文章，一个是RAG，特别是多模态RAG相关的文章，后又就是扩散模型有点感兴趣，打算读两篇
-        </p>
-        <h2>
-         参考
-        </h2>
-        <ul>
-         <li>
-          <p>
-           <a href="https://nlp.seas.harvard.edu/annotated-transformer/#background">
-            The Annotated Transformer
-           </a>
-           （对Transformer论文的注释和pytorch的代码实现）
-          </p>
-         </li>
-         <li>
-          <p>
-           <a href="https://www.bilibili.com/video/BV1pu411o7BE/?spm_id_from=333.788&amp;vd_source=e7ac9aab3df6169a28cceb590ccf0b65">
-            Transformer论文逐段精读【论文精读】
-           </a>
-          </p>
-         </li>
-         <li>
-          <p>
-           <a href="https://www.bilibili.com/video/BV1PL411M7eQ/?spm_id_from=333.788&amp;vd_source=e7ac9aab3df6169a28cceb590ccf0b65">
-            BERT 论文逐段精读【论文精读】
-           </a>
-          </p>
-         </li>
-         <li>
-          <p>
-           <a href="https://www.bilibili.com/video/BV1AF411b7xQ/?spm_id_from=333.788&amp;vd_source=e7ac9aab3df6169a28cceb590ccf0b65">
-            GPT，GPT-2，GPT-3 论文精读【论文精读】
-           </a>
-          </p>
-         </li>
-        </ul>
+        <h3>
+         2 Background
+        </h3>
        </body>
       </html>
      </div>
@@ -308,6 +204,16 @@
     </h3>
     <table class="archive-list">
      <tbody>
+      <tr>
+       <td style="padding-right: 10px">
+        2024.05.16:
+       </td>
+       <td>
+        <a href="http://guchongan.github.io/2024/DDPM-LDM">
+         [Read Paper] DDPM 和 LDM 两篇扩散模型的论文
+        </a>
+       </td>
+      </tr>
       <tr>
        <td style="padding-right: 10px">
         2024.05.08:
