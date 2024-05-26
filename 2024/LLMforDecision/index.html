@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="https://www.facebook.com/2008/fbml" xmlns:og="http://ogp.me/ns#">
  <head>
   <title>
-   Archives for year - Chongan's website
+   大模型辅助决策调研记录 - Chongan's website
   </title>
   <!-- Using the latest rendering mode for IE -->
   <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
@@ -70,81 +70,64 @@
   <div class="container">
    <div class="row">
     <section id="content">
-     <h1>
-      Archive for 2024
-     </h1>
-     <table class="archive-list">
-      <tr>
-       <td style="padding-right: 10px">
-        2024.05.24:
-       </td>
-       <td>
-        <a href="https://guchongan.github.io/2024/LLMforDecision">
+     <article>
+      <header class="page-header">
+       <h1>
+        <a href="https://guchongan.github.io/2024/大模型辅助决策调研记录" rel="bookmark" title="大模型辅助决策调研记录">
          大模型辅助决策调研记录
         </a>
-       </td>
-      </tr>
-      <tr>
-       <td style="padding-right: 10px">
-        2024.05.16:
-       </td>
-       <td>
-        <a href="https://guchongan.github.io/2024/DDPM-LDM">
-         [Read Paper] DDPM 和 LDM 两篇扩散模型的论文
+       </h1>
+      </header>
+      <div class="entry-content">
+       <div class="panel">
+        <div class="panel-body">
+         <footer class="post-info">
+          <span class="published">
+           <i class="fa fa-calendar">
+           </i>
+           <time>
+            2024.05.24
+           </time>
+          </span>
+          <span class="label label-default">
+           Tags
+          </span>
+          <html>
+           <body>
+            <a>
+             research
+            </a>
+           </body>
+          </html>
+         </footer>
+         <!-- /.post-info -->
+        </div>
+       </div>
+       <!-- /.entry-content -->
+       <html>
+        <body>
+         <p>
+          老师说新接了个项目，需要用大模型辅助完成决策的任务，让我做个调研，整个任务大概的流程应该如下图，
+         </p>
+         <p>
+          <img alt="LLMforDicsion" src="../../image/2024/LLMforDicision.png"/>
+         </p>
+        </body>
+       </html>
+      </div>
+      <hr/>
+      <div class="dotted-links">
+       <p class="align-center">
+        For comments, please send me
+        <a href="hu197136@gmail.com">
+         <i class="fa fa-envelope-o">
+         </i>
+         an email
         </a>
-       </td>
-      </tr>
-      <tr>
-       <td style="padding-right: 10px">
-        2024.05.08:
-       </td>
-       <td>
-        <a href="https://guchongan.github.io/2024/TransBertGPT">
-         [Read Paper] Transformer + Bert + GPT123 大模型基础论文
-        </a>
-       </td>
-      </tr>
-      <tr>
-       <td style="padding-right: 10px">
-        2024.05.01:
-       </td>
-       <td>
-        <a href="https://guchongan.github.io/2024/plan2404">
-         [总结] 2024年4月学习总结
-        </a>
-       </td>
-      </tr>
-      <tr>
-       <td style="padding-right: 10px">
-        2024.04.24:
-       </td>
-       <td>
-        <a href="https://guchongan.github.io/2024/CogModel">
-         [Read Paper] CogVLM&amp;CogAgent 两篇视觉大语言模型
-        </a>
-       </td>
-      </tr>
-      <tr>
-       <td style="padding-right: 10px">
-        2024.04.18:
-       </td>
-       <td>
-        <a href="https://guchongan.github.io/2024/CVPR-ICCV-underwater">
-         [Read Paper] CVPR/ICCV/WACV23 underwater相关文章总结（上）
-        </a>
-       </td>
-      </tr>
-      <tr>
-       <td style="padding-right: 10px">
-        2024.04.08:
-       </td>
-       <td>
-        <a href="https://guchongan.github.io/2024/myBlogPlan">
-         我的博客规划以及学习安排
-        </a>
-       </td>
-      </tr>
-     </table>
+        .
+       </p>
+      </div>
+     </article>
     </section>
    </div>
   </div>
@@ -167,9 +150,24 @@
     </div>
    </div>
   </footer>
-  <script src="./css/jquery-2.2.4.min.js">
+  <script src="../../css/jquery-2.2.4.min.js">
   </script>
-  <script src="./css/bootstrap.min.js">
+  <script src="../../css/bootstrap.min.js">
+  </script>
+  <script type="text/x-mathjax-config">
+   var articlemathId = document.getElementById("articleContent");
+	var commentmathId = document.getElementById("commentlist-container");
+	MathJax.Hub.Config({
+		tex2jax: {
+			inlineMath: [ ['$','$'] ], //行内公式
+			displayMath: [ ['$$','$$'] ], //行间公式
+			skipTags: ['script', 'noscript', 'style', 'textarea', 'pre','code','a'], //渲染时跳过的html标签
+			ignoreClass: "summary", //忽略的class
+		}
+	});
+	MathJax.Hub.Queue(["Typeset", MathJax.Hub, articlemathId, commentmathId]); //指定渲染的html块，可以为多个
+  </script>
+  <script src="https://cdn.bootcss.com/mathjax/2.7.7/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
   </script>
  </body>
 </html>
