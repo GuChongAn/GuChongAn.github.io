@@ -25,7 +25,7 @@ class Blog():
         self.path = path
         self.name, _ = os.path.splitext(os.path.basename(path))
 
-        with open(path, 'r') as f:
+        with open(path, 'r', encoding='UTF8') as f:
             md = f.read()
 
         markdown = mistune.create_markdown(renderer=myBlogRenderer(), plugins=['math'])

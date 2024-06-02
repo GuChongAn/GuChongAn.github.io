@@ -3,17 +3,17 @@ from bs4 import BeautifulSoup
 from blog import Blog
 
 
-with open("../Template/archive.html", 'r+') as f:
+with open("d:/Desktop/GuChongAn.github.io/Template/archive.html", 'r+', encoding='UTF8') as f:
     file = f.read()
 
 soup = BeautifulSoup(file, 'lxml')
 
 # get all blog infomation
 blogFiles = []
-for file in os.listdir("../Blog"):
-    tmpBlog = Blog(os.path.join("../Blog", file))
+for file in os.listdir("d:/Desktop/GuChongAn.github.io/Blog"):
+    tmpBlog = Blog(os.path.join("d:/Desktop/GuChongAn.github.io/Blog", file))
     tmpInfo = {}
-    tmpInfo['path'] = os.path.join("../Blog", file)
+    tmpInfo['path'] = os.path.join("d:/Desktop/GuChongAn.github.io/Blog", file)
     tmpInfo['url'] = os.path.join(tmpBlog.info['date'][0:4], file.split('.')[0])
     tmpInfo['name'] = tmpBlog.info['name']
     tmpInfo['date'] = tmpBlog.info['date']
@@ -44,14 +44,14 @@ for year, num in years.items():
         os.makedirs(tmpPath)
 
 # write html
-with open("../archives/index.html", 'w') as f:
+with open("d:/Desktop/GuChongAn.github.io/archives/index.html", 'w', encoding='UTF8') as f:
     f.write(soup.prettify())
 
 print("\033[33m[Generate]\033[0m Archive page generated successfully")
 
 
 # generate for year
-with open("../Template/archive-page.html", 'r+') as f:
+with open("d:/Desktop/GuChongAn.github.io/Template/archive-page.html", 'r+', encoding='UTF8') as f:
     file = f.read()
 
 soup = BeautifulSoup(file, 'lxml')
@@ -69,7 +69,7 @@ for year in blogByYears.keys():
                             blog['name'])
         tmpSoup = BeautifulSoup(tmp, 'html.parser')
         table.append(tmpSoup)
-    with open(os.path.join("../archives/", year, 'index.html'), 'w') as f:
+    with open(os.path.join("../archives/", year, 'index.html'), 'w', encoding='UTF8') as f:
         f.write(soup.prettify())
 
 print("\033[33m[Generate]\033[0m Archive page for year generated successfully")

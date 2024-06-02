@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 from blog import Blog
 
 
-with open("../index.html", 'r+') as f:
+with open("d:/Desktop/GuChongAn.github.io/Template/index.html", 'r+', encoding='UTF8') as f:
     file = f.read()
 
 soup = BeautifulSoup(file, 'lxml')
@@ -14,10 +14,10 @@ archiveList = soup.tbody
 
 # get ten file
 blogFiles = []
-for file in os.listdir("../Blog"):
-    tmpBlog = Blog(os.path.join("../Blog", file))
+for file in os.listdir("d:/Desktop/GuChongAn.github.io/Blog"):
+    tmpBlog = Blog(os.path.join("d:/Desktop/GuChongAn.github.io/Blog", file))
     tmpInfo = {}
-    tmpInfo['path'] = os.path.join("../Blog", file)
+    tmpInfo['path'] = os.path.join("d:/Desktop/GuChongAn.github.io/Blog", file)
     tmpInfo['url'] = os.path.join(tmpBlog.info['date'][0:4], file.split('.')[0])
     tmpInfo['name'] = tmpBlog.info['name']
     tmpInfo['date'] = tmpBlog.info['date']
@@ -55,7 +55,7 @@ content.clear()
 content.append(BeautifulSoup(tmpBlog.blog, 'lxml'))
 
 # write html
-with open("../index.html", 'w') as f:
+with open("d:/Desktop/GuChongAn.github.io/index.html", 'w', encoding='UTF8') as f:
     f.write(soup.prettify())
 
 print("\033[33m[Generate]\033[0m Home page generated successfully")
