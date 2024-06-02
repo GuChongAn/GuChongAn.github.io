@@ -1,5 +1,3 @@
-#!/bin/bash
-
 python generateIndex.py
 python generateBlog.py
 python generateArchive.py
