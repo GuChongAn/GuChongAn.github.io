@@ -71,15 +71,15 @@
    <div class="row">
     <article>
      <h1>
-      <a href="https://guchongan.github.io/2024\csapp-4">
-       [CSAPP] 第3章 程序的机器级表示
+      <a href="https://guchongan.github.io/2024\plan2405">
+       [总结] 2024年5月学习总结
       </a>
      </h1>
      <span class="published">
       <i class="fa fa-calendar">
       </i>
       <time>
-       2024.05.29
+       2024.06.02
       </time>
      </span>
      <br/>
@@ -88,170 +88,190 @@
       <html>
        <body>
         <p>
-         刚读完了CSAPP的第3章程序的机器级表示，也完成了对应的两个lab（boom lab和attrack lab），总结阅读和实验过程中的收获如下，
-        </p>
-        <h2>
-         知识整理
-        </h2>
-        <h3>
-         3.1-3 历史观点\程序编码\数据格式
-        </h3>
-        <p>
-         没什么好总结的，都是些概念性的东西
-        </p>
-        <h3>
-         3.4 访问信息
-        </h3>
-        <ul>
-         <li>
-          <p>
-           整数寄存器
-          </p>
-         </li>
-         <li>
-          <p>
-           寻址方式
-          </p>
-         </li>
-         <li>
-          <p>
-           数据传送指令（mov，movzbw，movsbw，cltq %eax符号扩展到%rax）
-          </p>
-         </li>
-         <li>
-          <p>
-           栈操作（push，pop）
-          </p>
-         </li>
-        </ul>
-        <h3>
-         3.5 算数和逻辑操作
-        </h3>
-        <ul>
-         <li>
-          算数和逻辑操作指令（leaq，sal/shl，sar算数右移/shr逻辑右移）
-         </li>
-         <li>
-          特殊操作（imul，mul，idiv，div，cqto %rax符号扩展到%rdx:%rax）
-         </li>
-        </ul>
-        <h3>
-         3.6 控制
-        </h3>
-        <ul>
-         <li>
-          条件码（CF，ZF，SF，OF）
-         </li>
-         <li>
-          比较和测试指令（cmp，test）
-         </li>
-         <li>
-          SET指令（setz D：D &lt;- ZF）
-         </li>
-         <li>
-          跳转指令（jmp）
-         </li>
-         <li>
-          条件分支的实现（跳转，条件传送）
-         </li>
-         <li>
-          循环（do-while，while，for）
-         </li>
-         <li>
-          switch（跳转表）
-         </li>
-        </ul>
-        <h3>
-         3.7 过程
-        </h3>
-        <ul>
-         <li>
-          运行时栈
-         </li>
-         <li>
-          控制转移（call，ret）
-         </li>
-         <li>
-          数据传送（%rdi %rsi %rdx %rcx，栈 16(%rsp)）
-         </li>
-         <li>
-          栈上的存储（局部变量，数组）
-         </li>
-         <li>
-          寄存器的保存（调用者\被调用者保存）
-         </li>
-         <li>
-          递归
-         </li>
-        </ul>
-        <h3>
-         3.8-9 数组分配和访问\异质的数据结构
-        </h3>
-        <ul>
-         <li>
-          <p>
-           数组地址计算
-          </p>
-         </li>
-         <li>
-          <p>
-           结构体（对齐 K字节的对象地址是K的倍数）
-          </p>
-         </li>
-        </ul>
-        <h3>
-         3.10 机器级程序
-        </h3>
-        <ul>
-         <li>
-          GDB的使用（layout asm/regs/src）
-         </li>
-         <li>
-          内存越界和缓存溢出
-         </li>
-        </ul>
-        <h3>
-         3.11 浮点代码
-        </h3>
-        <ul>
-         <li>
-          浮点寄存器（%ymm0-15）
-         </li>
-         <li>
-          和整数操作类似
-         </li>
-        </ul>
-        <h2>
-         实验总结
-        </h2>
-        <h3>
-         1 boom lab
-        </h3>
-        <p>
-         在完成boom lab之前，对这一实验的大名早有耳闻，花了两天的时间把它完成后，确实感叹于世界顶级的计算机课程实验的设计。boom lab以一种有趣且强制的方式，让学生学会了三样东西，
+         6月2日晚20时45分，来作个5月份学习的总结以及做6月份的规划，5月的总结分成两个部分，
         </p>
         <ul>
          <li>
-          GDB的使用
+          论文阅读，看的论文的总结和评价
          </li>
          <li>
-          机器代码的阅读
+          学习总结，专业课程或者其他方面的学习总结
+         </li>
+        </ul>
+        <h3>
+         一 论文阅读
+        </h3>
+        <p>
+         5月总共读了
+         <strong>
+          11
+         </strong>
+         篇论文，首先读了Transformer，BERT和GPT123 五篇文章，写博客作了总结，
+        </p>
+        <ul>
+         <li>
+          <p>
+           <a href="https://arxiv.org/abs/1706.03762">
+            Attention is all you need
+           </a>
+           （Transformer）
+          </p>
          </li>
          <li>
-          机器代码和高级语言程序的对应
+          <p>
+           <a href="https://arxiv.org/abs/1810.04805">
+            BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding
+           </a>
+           （BERT）
+          </p>
+         </li>
+         <li>
+          <p>
+           <a href="https://s3-us-west-2.amazonaws.com/openai-assets/research-covers/language-unsupervised/language_understanding_paper.pdf">
+            Improving Language Understanding by Generative Pre-Training
+           </a>
+           （GPT1）
+          </p>
+         </li>
+         <li>
+          <p>
+           <a href="https://d4mucfpksywv.cloudfront.net/better-language-models/language_models_are_unsupervised_multitask_learners.pdf">
+            Language Models are Unsupervised Multitask Learners
+           </a>
+           （GPT2）
+          </p>
+         </li>
+         <li>
+          <p>
+           <a href="https://arxiv.org/abs/2005.14165">
+            Language Models are Few-Shot Learners
+           </a>
+           （GPT3）
+          </p>
          </li>
         </ul>
         <p>
-         这个实验最难的其实是入手的时候，在没有熟练掌握打断点，单步执行机器指令等GDB基本操作之前，我也不小心把Boom弄炸了一次。但是在炸了一次之后，我学会了使用layout asm/regs实时查看代码和寄存器变化，后面几个任务因为之前其实学过一遍汇编语言，所以还算简单，当然最后一个任务还是有点繁琐，机器代码确实不应该由人来阅读和模拟。
+         然后读了扩散模型相关的两篇文章，也写了博客总结，
+        </p>
+        <ul>
+         <li>
+          <a href="https://arxiv.org/abs/2006.11239">
+           Denoising Diffusion Probabilistic Models
+          </a>
+          （DDPM）
+         </li>
+         <li>
+          <a href="https://arxiv.org/abs/2112.10752">
+           High-Resolution Image Synthesis with Latent Diffusion Models
+          </a>
+          （LDM）
+         </li>
+        </ul>
+        <p>
+         还读了RAG相关的两篇文章，
+        </p>
+        <ul>
+         <li>
+          <a href="https://arxiv.org/abs/2309.17133">
+           Fine-grained Late-interaction Multi-modal Retrieval for Retrieval Augmented Visual Question Answering
+          </a>
+         </li>
+        </ul>
+        <p>
+         <img alt="image-20240602210639964" src="../image/2024/image-20240602210639964.png"/>
+        </p>
+        <ul>
+         <li>
+          <a href="https://arxiv.org/abs/2211.12561">
+           Retrieval-Augmented Multimodal Language Modeling
+          </a>
+         </li>
+        </ul>
+        <p>
+         <img alt="image-20240602210758007" src="../image/2024/image-20240602210758007.png"/>
+        </p>
+        <p>
+         读了大模型Agent相关的两篇文章，
+        </p>
+        <ul>
+         <li>
+          <a href="https://arxiv.org/abs/2308.00352">
+           MetaGPT: Meta Programming for A Multi-Agent Collaborative Framework
+          </a>
+         </li>
+        </ul>
+        <p>
+         <img alt="image-20240602210832901" src="../image/2024/image-20240602210832901.png"/>
+        </p>
+        <ul>
+         <li>
+          <a href="https://arxiv.org/abs/2302.01560">
+           Describe, Explain, Plan and Select: Interactive Planning with Large Language Models Enables Open-World Multi-Task Agents
+          </a>
+         </li>
+        </ul>
+        <p>
+         <img alt="image-20240602210857941" src="../image/2024/image-20240602210857941.png"/>
         </p>
         <h3>
-         2 attrack lab
+         二 学习总结
         </h3>
         <p>
-         之前上操作系统或者类似的课程的时候，经常听说缓冲区溢出攻击之类的操作，但是都是耳朵上听了一下，实际的实验却一次也没有过，这次完成了attrack lab才切切实实的了解到缓冲区溢出攻击到底是如何操作的。
+         5月原开展了2个方面的学习
+        </p>
+        <ul>
+         <li>
+          数学分析
+         </li>
+        </ul>
+        <p>
+         《数学分析新讲》看完了第2章，但是还没有作总结和习题，6月应重点完成该项学习
+        </p>
+        <ul>
+         <li>
+          《CSAPP》
+         </li>
+        </ul>
+        <p>
+         看完了第3章，完成了总结和两个lab，有一定收获，特别时锻炼了gdb的使用，复习了汇编语言
+        </p>
+        <h3>
+         三 6月规划
+        </h3>
+        <p>
+         首先是论文阅读的计划，6月计划先读一下几个方面的文章
+        </p>
+        <ul>
+         <li>
+          <p>
+           InstructGPT、llama、Toolformer三篇
+          </p>
+         </li>
+         <li>
+          <p>
+           VIT和视觉大预言模型相关文章
+          </p>
+         </li>
+        </ul>
+        <p>
+         主要从李沐的精读论文系列中找要读的文章。
         </p>
         <p>
-         总的来说，这个lab的难度相对较低，除了最后一个任务有些繁琐之外，其他几个任务都是按部就班就可以完成的，在完成这个lab的过程中，又更进一步的锻炼了GDB的使用，机器级程序的理解。
+         然后是学习上的规划，
+        </p>
+        <ul>
+         <li>
+          数学分析，计划把《数学分析新讲》第一本书看完
+         </li>
+         <li>
+          《CSAPP》至少看完第四章
+         </li>
+         <li>
+          《中国通史》计划每天晚上睡前看看
+         </li>
+        </ul>
+        <p>
+         还有作息，6月不能再颓废下去了
         </p>
        </body>
       </html>
@@ -263,6 +283,16 @@
     </h3>
     <table class="archive-list">
      <tbody>
+      <tr>
+       <td style="padding-right: 10px">
+        2024.06.02:
+       </td>
+       <td>
+        <a href="http://guchongan.github.io/2024\plan2405">
+         [总结] 2024年5月学习总结
+        </a>
+       </td>
+      </tr>
       <tr>
        <td style="padding-right: 10px">
         2024.05.29:
@@ -365,6 +395,19 @@
   <script src="./css/jquery-2.2.4.min.js">
   </script>
   <script src="./css/bootstrap.min.js">
+  </script>
+  <script type="text/x-mathjax-config">
+   var articlemathId = document.getElementById("articleContent");
+	var commentmathId = document.getElementById("commentlist-container");
+	MathJax.Hub.Config({
+		tex2jax: {
+			inlineMath: [ ['$','$'] ], //行内公式
+			displayMath: [ ['$$','$$'] ], //行间公式
+			skipTags: ['script', 'noscript', 'style', 'textarea', 'pre','code','a'], //渲染时跳过的html标签
+			ignoreClass: "summary", //忽略的class
+		}
+	});
+	MathJax.Hub.Queue(["Typeset", MathJax.Hub, articlemathId, commentmathId]); //指定渲染的html块，可以为多个
   </script>
  </body>
 </html>
