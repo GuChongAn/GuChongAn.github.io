@@ -71,15 +71,15 @@
    <div class="row">
     <article>
      <h1>
-      <a href="https://guchongan.github.io/2024\plan2405">
-       [总结] 2024年5月学习总结
+      <a href="https://guchongan.github.io/2024\InstructLLAMATool">
+       [Read Paper] InstruceGPT、LLAMA和Toolformer三篇论文
       </a>
      </h1>
      <span class="published">
       <i class="fa fa-calendar">
       </i>
       <time>
-       2024.06.02
+       2024.06.03
       </time>
      </span>
      <br/>
@@ -88,191 +88,119 @@
       <html>
        <body>
         <p>
-         6月2日晚20时45分，来作个5月份学习的总结以及做6月份的规划，5月的总结分成两个部分，
+         按照之前计划，读了三篇大语言模型相关的论文
         </p>
         <ul>
          <li>
-          论文阅读，看的论文的总结和评价
-         </li>
-         <li>
-          学习总结，专业课程或者其他方面的学习总结
-         </li>
-        </ul>
-        <h3>
-         一 论文阅读
-        </h3>
-        <p>
-         5月总共读了
-         <strong>
-          11
-         </strong>
-         篇论文，首先读了Transformer，BERT和GPT123 五篇文章，写博客作了总结，
-        </p>
-        <ul>
-         <li>
-          <p>
-           <a href="https://arxiv.org/abs/1706.03762">
-            Attention is all you need
-           </a>
-           （Transformer）
-          </p>
-         </li>
-         <li>
-          <p>
-           <a href="https://arxiv.org/abs/1810.04805">
-            BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding
-           </a>
-           （BERT）
-          </p>
-         </li>
-         <li>
-          <p>
-           <a href="https://s3-us-west-2.amazonaws.com/openai-assets/research-covers/language-unsupervised/language_understanding_paper.pdf">
-            Improving Language Understanding by Generative Pre-Training
-           </a>
-           （GPT1）
-          </p>
-         </li>
-         <li>
-          <p>
-           <a href="https://d4mucfpksywv.cloudfront.net/better-language-models/language_models_are_unsupervised_multitask_learners.pdf">
-            Language Models are Unsupervised Multitask Learners
-           </a>
-           （GPT2）
-          </p>
-         </li>
-         <li>
-          <p>
-           <a href="https://arxiv.org/abs/2005.14165">
-            Language Models are Few-Shot Learners
-           </a>
-           （GPT3）
-          </p>
-         </li>
-        </ul>
-        <p>
-         然后读了扩散模型相关的两篇文章，也写了博客总结，
-        </p>
-        <ul>
-         <li>
-          <a href="https://arxiv.org/abs/2006.11239">
-           Denoising Diffusion Probabilistic Models
-          </a>
-          （DDPM）
-         </li>
-         <li>
-          <a href="https://arxiv.org/abs/2112.10752">
-           High-Resolution Image Synthesis with Latent Diffusion Models
-          </a>
-          （LDM）
-         </li>
-        </ul>
-        <p>
-         还读了RAG相关的两篇文章，
-        </p>
-        <ul>
-         <li>
-          <a href="https://arxiv.org/abs/2309.17133">
-           Fine-grained Late-interaction Multi-modal Retrieval for Retrieval Augmented Visual Question Answering
+          <a href="https://arxiv.org/abs/2302.04761">
+           Toolformer: Language Models Can Teach Themselves to Use Tools
           </a>
          </li>
-        </ul>
-        <p>
-         <img alt="image-20240602210639964" src="../image/2024/image-20240602210639964.png"/>
-        </p>
-        <ul>
          <li>
-          <a href="https://arxiv.org/abs/2211.12561">
-           Retrieval-Augmented Multimodal Language Modeling
+          <a href="https://arxiv.org/abs/2302.13971">
+           LLaMA: Open and Efficient Foundation Language Models
           </a>
          </li>
-        </ul>
-        <p>
-         <img alt="image-20240602210758007" src="../image/2024/image-20240602210758007.png"/>
-        </p>
-        <p>
-         读了大模型Agent相关的两篇文章，
-        </p>
-        <ul>
          <li>
-          <a href="https://arxiv.org/abs/2308.00352">
-           MetaGPT: Meta Programming for A Multi-Agent Collaborative Framework
+          <a href="https://arxiv.org/abs/2203.02155">
+           Training language models to follow instructions with human feedback
           </a>
+          （InstructGPT）
          </li>
         </ul>
         <p>
-         <img alt="image-20240602210832901" src="../image/2024/image-20240602210832901.png"/>
+         我们先来看Toolformer这篇文章，
+        </p>
+        <h2>
+         [arXiv] Toolformer: Language Models Can Teach Themselves to Use Tools
+        </h2>
+        <p>
+         <img alt="image-20240607154047607" src="../image/2024/image-20240607154047607.png"/>
+        </p>
+        <p>
+         Toolformer的思路总结起来其实就一句话，用带Tool调用标记的数据集微调了一个LLM。当然其中还是有很多的技术细节，值得关注地方如下，
+        </p>
+        <p>
+         如上图所示，Toolformer的第一步是生成一个有API调用的数据集（LM Dataset -&gt; LM Dataset with API Calls），上图只是一种宏观的视角，具体来说，第1步是通过还没微调的LLM的完成的，将LM Dataset的数据输入，要求LLM输出带有API Calls的输出，如下图所示，
+        </p>
+        <p>
+         <img alt="image-20240607154737487" src="../image/2024/image-20240607154737487.png"/>
+        </p>
+        <p>
+         有了API Calls，下一步就是执行，然后判断那个调用是有效的，将有效的留下。这个判断通过计算
+        </p>
+        <div class="math">
+         $$
+L_i^--L_i^+ \geq \alpha_f
+$$
+        </div>
+        <p>
+         来实现，其中
+         <span class="math">
+          $L_i^-=min(L_i(\beta),L_i(e(c_i,\beta)))$
+         </span>
+         ，
+         <span class="math">
+          $L_i^+=L_i(e(c_i,r_i))$
+         </span>
+         分别表示没有API调用或者仅接受API调用的输入时的损失，以及接受API调用和回复的损失，这个损失通过预测下一个词的概率的交叉熵损失表示，并乘以权重，使得更接近API调用处的权重更大。
+        </p>
+        <p>
+         有了数据集之后就微调，本文在这方面没有什么需要注意的。
+        </p>
+        <h2>
+         Training language models to follow instructions with human feedback
+        </h2>
+        <p>
+         <img alt="image-20240607155855041" src="../image/2024/image-20240607155855041.png"/>
+        </p>
+        <p>
+         大名鼎鼎的InstructGPT论文，遵循了Open AI一贯的写作风格，不像论文反倒像篇技术报告，具体的技术了内容其实就只如上图所示，
         </p>
         <ul>
          <li>
-          <a href="https://arxiv.org/abs/2302.01560">
-           Describe, Explain, Plan and Select: Interactive Planning with Large Language Models Enables Open-World Multi-Task Agents
-          </a>
+          人工标注数据集
          </li>
         </ul>
         <p>
-         <img alt="image-20240602210857941" src="../image/2024/image-20240602210857941.png"/>
-        </p>
-        <h3>
-         二 学习总结
-        </h3>
-        <p>
-         5月原开展了2个方面的学习
+         他们通过人工标注了一批数据，对于某个问题希望大模型的回复。
         </p>
         <ul>
          <li>
-          数学分析
+          奖励模型
          </li>
         </ul>
         <p>
-         《数学分析新讲》看完了第2章，但是还没有作总结和习题，6月应重点完成该项学习
+         但是只用人工标注花费太大，所以他们训练了个reward model，将大模型对于某个问题的回答输出多次，人工进行排序，将排序结果作为标签，训练一个reward model
         </p>
         <ul>
          <li>
-          《CSAPP》
+          通过奖励模型作强化学习
          </li>
         </ul>
         <p>
-         看完了第3章，完成了总结和两个lab，有一定收获，特别时锻炼了gdb的使用，复习了汇编语言
+         将LLM对于某个问题的输出输入奖励模型，并把奖励模型的输出作为大模型更新的约束
         </p>
-        <h3>
-         三 6月规划
-        </h3>
         <p>
-         首先是论文阅读的计划，6月计划先读一下几个方面的文章
+         然后就是Open AI一贯的大批量的实验，这里不做赘述
+        </p>
+        <h2>
+         LLaMA: Open and Efficient Foundation Language Models
+        </h2>
+        <p>
+         看完其实才知道LLaMA除了结果和开源外，在模型设计上其实没有什么特别需要关注的地方，文中说对模型架构有三点主要改进，
         </p>
         <ul>
          <li>
-          <p>
-           InstructGPT、llama、Toolformer三篇
-          </p>
+          Pre-normalization，在每个子层之前作RMSNorm
          </li>
          <li>
-          <p>
-           VIT和视觉大预言模型相关文章
-          </p>
+          SwiGLU激活函数，一个相比ReLU更好的激活函数，在负数区间处理更细节
+         </li>
+         <li>
+          Rotary Embeddings，相对位置嵌入，可以更好的处理长输入
          </li>
         </ul>
-        <p>
-         主要从李沐的精读论文系列中找要读的文章。
-        </p>
-        <p>
-         然后是学习上的规划，
-        </p>
-        <ul>
-         <li>
-          数学分析，计划把《数学分析新讲》第一本书看完
-         </li>
-         <li>
-          《CSAPP》至少看完第四章
-         </li>
-         <li>
-          《中国通史》计划每天晚上睡前看看
-         </li>
-        </ul>
-        <p>
-         还有作息，6月不能再颓废下去了
-        </p>
        </body>
       </html>
      </div>
@@ -283,6 +211,16 @@
     </h3>
     <table class="archive-list">
      <tbody>
+      <tr>
+       <td style="padding-right: 10px">
+        2024.06.03:
+       </td>
+       <td>
+        <a href="http://guchongan.github.io/2024\InstructLLAMATool">
+         [Read Paper] InstruceGPT、LLAMA和Toolformer三篇论文
+        </a>
+       </td>
+      </tr>
       <tr>
        <td style="padding-right: 10px">
         2024.06.02:
