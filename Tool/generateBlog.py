@@ -6,12 +6,12 @@ from blog import Blog
 
 def generateOneBlog(fileName):
     # get blog template
-    with open("d:/Desktop/GuChongAn.github.io/Template/blog.html", 'r+', encoding='UTF8') as f:
+    with open("C:/Users/86181/Desktop/GuChongAn.github.io/Template/blog.html", 'r+', encoding='UTF8') as f:
         file = f.read()
     soup = BeautifulSoup(file, 'lxml')
 
     # get blog information
-    blog = Blog(os.path.join("d:/Desktop/GuChongAn.github.io/Blog", fileName))
+    blog = Blog(os.path.join("C:/Users/86181/Desktop/GuChongAn.github.io/Blog", fileName))
 
     # set title
     soup.title.string = blog.info['name'] + " - Chongan's website"
@@ -52,7 +52,7 @@ if len(sys.argv) > 1:
     fileName = sys.argv[1]
 
 if all:
-    for file in os.listdir("d:/Desktop/GuChongAn.github.io/Blog/"):
+    for file in os.listdir("C:/Users/86181/Desktop/GuChongAn.github.io/Blog/"):
         generateOneBlog(file)
     print("\033[33m[Generate]\033[0m All blog html generated successfully")
 else:
