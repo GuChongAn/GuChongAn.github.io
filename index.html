@@ -71,15 +71,15 @@
    <div class="row">
     <article>
      <h1>
-      <a href="https://guchongan.github.io/2024\InstructLLAMATool">
-       [Read Paper] InstruceGPT、LLAMA和Toolformer三篇论文
+      <a href="https://guchongan.github.io/2024\VitSwinMAE">
+       [Read Paper] 6.7-6.14 论文阅读（Vision Transformer）
       </a>
      </h1>
      <span class="published">
       <i class="fa fa-calendar">
       </i>
       <time>
-       2024.06.03
+       2024.06.14
       </time>
      </span>
      <br/>
@@ -88,119 +88,266 @@
       <html>
        <body>
         <p>
-         按照之前计划，读了三篇大语言模型相关的论文
+         计划从这次总结开始，按每周一次做论文阅读的总结，正好老师也要求写周报，就没必要写两次论文总结。这周计划读两个方面的文章，一个是补基础，读Vision Transformer相关的文章，读了三篇
         </p>
         <ul>
          <li>
-          <a href="https://arxiv.org/abs/2302.04761">
-           Toolformer: Language Models Can Teach Themselves to Use Tools
-          </a>
+          <p>
+           <a href="https://arxiv.org/abs/2103.14030">
+            Swin Transformer: Hierarchical Vision Transformer using Shifted Windows
+           </a>
+          </p>
          </li>
          <li>
-          <a href="https://arxiv.org/abs/2302.13971">
-           LLaMA: Open and Efficient Foundation Language Models
-          </a>
+          <p>
+           <a href="https://arxiv.org/abs/2111.06377">
+            Masked Autoencoders Are Scalable Vision Learners
+           </a>
+           （MAE）
+          </p>
          </li>
          <li>
-          <a href="https://arxiv.org/abs/2203.02155">
-           Training language models to follow instructions with human feedback
-          </a>
-          （InstructGPT）
+          <p>
+           <a href="https://arxiv.org/abs/2010.11929">
+            An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale
+           </a>
+           （ViT）
+          </p>
          </li>
         </ul>
         <p>
-         我们先来看Toolformer这篇文章，
+         另一个是读文本总结相关的文章，略读了两篇，
+        </p>
+        <ul>
+         <li>
+          <a href="https://arxiv.org/abs/2303.15621">
+           ChatGPT as a Factual Inconsistency Evaluator for Text Summarization
+          </a>
+         </li>
+         <li>
+          <a href="https://arxiv.org/abs/2302.08081">
+           Exploring the Limits of ChatGPT for Query or Aspect-based Text Summarization
+          </a>
+         </li>
+        </ul>
+        <p>
+         但是我发现应该是大模型出来以后，文本总结就开始围绕大模型进行研究了，主要研究大模型做文本总结的一些特性，例如幻觉等问题，关于文本总结自身，好像没有特别多的说法。
         </p>
         <h2>
-         [arXiv] Toolformer: Language Models Can Teach Themselves to Use Tools
+         [arXiv] An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale
         </h2>
         <p>
-         <img alt="image-20240607154047607" src="../image/2024/image-20240607154047607.png"/>
+         <img alt="image-20240613132610468" src="../image/2024/image-20240613132610468.png"/>
         </p>
         <p>
-         Toolformer的思路总结起来其实就一句话，用带Tool调用标记的数据集微调了一个LLM。当然其中还是有很多的技术细节，值得关注地方如下，
+         ViT论文的思路其实很简单，就是把Transformer尽量不做过多的改动，直接用到CV（特别是图像分类）的任务上来，值得注意的可能有几个技术和实验上的细节，
+        </p>
+        <ul>
+         <li>
+          Linear Projection Layer
+         </li>
+        </ul>
+        <p>
+         一张图像首先会被切割成多个patch，每个patch会被输入一个全连接层，得到一个长度为D的向量（D是超参数）
+        </p>
+        <ul>
+         <li>
+          [class] token
+         </li>
+        </ul>
+        <p>
+         ViT仿照BERT的做法，设置了cls特殊token，使用该token最后的输出作为分类的特征
+        </p>
+        <ul>
+         <li>
+          主要实验结果
+         </li>
+        </ul>
+        <p>
+         <img alt="image-20240613133214955" src="../image/2024/image-20240613133214955.png"/>
         </p>
         <p>
-         如上图所示，Toolformer的第一步是生成一个有API调用的数据集（LM Dataset -&gt; LM Dataset with API Calls），上图只是一种宏观的视角，具体来说，第1步是通过还没微调的LLM的完成的，将LM Dataset的数据输入，要求LLM输出带有API Calls的输出，如下图所示，
+         本文最主要的实验结果其实就是这张图，比较了不同大小的ViT和最好的ResNet之间在不同大小数据训练下的性能差距
+        </p>
+        <h2>
+         [CVPR] Masked Autoencoders Are Scalable Vision Learners
+        </h2>
+        <p>
+         <img alt="image-20240613133428953" src="../image/2024/image-20240613133428953.png"/>
         </p>
         <p>
-         <img alt="image-20240607154737487" src="../image/2024/image-20240607154737487.png"/>
+         MAE的思路也很简单，主要有两个点，
+        </p>
+        <ul>
+         <li>
+          找到了一个Vision Transformer比较适配的自监督任务，对Masked图像的重建（特别是Masked比率较高的图像），文章标题中的Autoencoders的Auto就是自监督的意思（我之前一直没有反应过来）
+         </li>
+         <li>
+          在这个自监督的框架下做了优化，让encoder只处理没masked的图像，使得encoder可以设计得比较大，而对应的，decoder就比较小
+         </li>
+        </ul>
+        <p>
+         所以MAE在概念上其实类似于NLP中的BERT。
+        </p>
+        <h2>
+         [ICCV] Swin Transformer: Hierarchical Vision Transformer using Shifted Windows
+        </h2>
+        <p>
+         如果说ViT对应Tranformer，MAE对应BERT，那Swin Transformer可能就对应于卷积神经网络了，它把卷积神经网络设计的经验用到了Transformer架构中来。
         </p>
         <p>
-         有了API Calls，下一步就是执行，然后判断那个调用是有效的，将有效的留下。这个判断通过计算
+         <img alt="image-20240613134449021" src="../image/2024/image-20240613134449021.png"/>
         </p>
-        <div class="math">
-         $$
-L_i^--L_i^+ \geq \alpha_f
-$$
+        <p>
+         我们按照前向过程的顺序来讨论他的技术细节，
+        </p>
+        <ul>
+         <li>
+          Patch Partition，和前面两篇文章类似，image首先会被分为多个patch（HxWx3 -&gt; H/4 x W/4 x 48）
+         </li>
+         <li>
+          Linear Embeding，和前面两篇文章类似，作投影变换，把48变换为C
+         </li>
+         <li>
+          Swin Transformer Block
+         </li>
+        </ul>
+        <p>
+         Swin Transformer Block中包含了两种不同的注意力基础（W-MSA 固定窗口注意力和 SW-MSA 滑动窗口注意力），如下图所示，
+        </p>
+        <p>
+         <img alt="image-20240613134859793" src="../image/2024/image-20240613134859793.png"/>
+        </p>
+        <p>
+         固定窗口注意力就是把图像分为多个窗口，每个窗口包含多个Patch，每个Patch只与同一窗口的其他Patch做注意力。当然这样有个问题，就是不同窗口间没有交互，所以有了第二步的滑动窗口注意力，将窗口向右下平移，形成新的窗口，再做注意力，当然实际的实现和理论还是有些区别，为了使得窗口的大小一致，便于计算，实际的操作如下图所示，
+        </p>
+        <p>
+         <img alt="image-20240613135319780" src="../image/2024/image-20240613135319780.png"/>
+        </p>
+        <p>
+         新的窗口A C B被移动到了右下角，使得滑动后的窗口还是保持规整的大小，但是新移来的窗口，比如绿色的C，是不应该和同一窗口内的灰色部分做注意力的，本文作者通过巧妙的掩码设计解决了这一问题，
+        </p>
+        <p>
+         <img alt="image-20240613135844521" src="../image/2024/image-20240613135844521.png"/>
+        </p>
+        <p>
+         在QK相乘计算注意力时，为不应该交互的部分加上-100的掩码（在经过softmax函数后，实际接近0）
+        </p>
+        <h2>
+         [arXiv] Text Summarization 两篇
+        </h2>
+        <p>
+         我在谷歌学术上，以Text Summarization为关键词搜索，按引用排序，找到了这两篇文章，但是这两篇文章好像没啥用，所以只做了个略读。
+        </p>
+        <ul>
+         <li>
+          ChatGPT as a Factual Inconsistency Evaluator for Text Summarization
+         </li>
+        </ul>
+        <p>
+         感觉上就是篇技术报告，使用ChatGPT评估文本总结的事实一致性，在蕴含推理（判断摘要与原文档是否一致），摘要排序，一致性评分等三个任务上做了实验。
+        </p>
+        <ul>
+         <li>
+          Exploring the Limits of ChatGPT for Query or Aspect-based Text Summarization
+         </li>
+        </ul>
+        <p>
+         也是篇技术报告，在QMSum（会议记录）、SQuALITY（故事）、CovidET（Reddit帖子）和NEWTS（新闻）四个数据集上评估了ChatGPT的文本总结能力。
+        </p>
+        <h2>
+         LangChain框架
+        </h2>
+        <p>
+         文本摘要的论文没看出东西来，就想着能不能先敲点什么代码，之前师兄提过LangChain，MetaGPT也是用LangChain写的，所以来学下这个框架，按照我对项目的理解，研究了两个demo，
+        </p>
+        <h4>
+         1）Summarize Text
+        </h4>
+        <p>
+         <img alt="image-20240613144419653" src="../image/2024/image-20240613144419653.png"/>
+        </p>
+        <p>
+         LangChain的手册中讲，文本总结主要有三种方法，
+        </p>
+        <ul>
+         <li>
+          Stuff，直接做总结
+         </li>
+         <li>
+          Map Reduce，要做总结的文本切块，分别做总结，然后把这一系列总结合在一起再做最后的总结
+         </li>
+         <li>
+          Refine，迭代的做法，不断对总结做总结直到得到想要的结果
+         </li>
+        </ul>
+        <p>
+         为了避免冗余，实例代码就不附在此处了
+        </p>
+        <h4>
+         2）Build an Extraction Chain
+        </h4>
+        <p>
+         从非结构化数据中提取结构化数据，先设置提取策略，
+        </p>
+        <div class="highlight">
+         <pre><span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span>
+<span class="kn">from</span> <span class="nn">langchain_core.pydantic_v1</span> <span class="kn">import</span> <span class="n">BaseModel</span><span class="p">,</span> <span class="n">Field</span>
+
+<span class="k">class</span> <span class="nc">Person</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Information about a person."""</span>
+    <span class="n">name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">"The name of the person"</span><span class="p">)</span>
+    <span class="n">hair_color</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">"The color of the person's hair if known"</span>
+    <span class="p">)</span>
+    <span class="n">height_in_meters</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">"Height measured in meters"</span>
+    <span class="p">)</span>
+</pre>
         </div>
         <p>
-         来实现，其中
-         <span class="math">
-          $L_i^-=min(L_i(\beta),L_i(e(c_i,\beta)))$
-         </span>
-         ，
-         <span class="math">
-          $L_i^+=L_i(e(c_i,r_i))$
-         </span>
-         分别表示没有API调用或者仅接受API调用的输入时的损失，以及接受API调用和回复的损失，这个损失通过预测下一个词的概率的交叉熵损失表示，并乘以权重，使得更接近API调用处的权重更大。
+         然后构造Chain，
         </p>
+        <div class="highlight">
+         <pre><span></span><span class="n">prompt</span> <span class="o">=</span> <span class="n">ChatPromptTemplate</span><span class="o">.</span><span class="n">from_messages</span><span class="p">(</span>
+    <span class="p">[</span>
+        <span class="p">(</span>
+            <span class="s2">"system"</span><span class="p">,</span>
+            <span class="s2">"You are an expert extraction algorithm. "</span>
+            <span class="s2">"Only extract relevant information from the text. "</span>
+            <span class="s2">"If you do not know the value of an attribute asked to extract, "</span>
+            <span class="s2">"return null for the attribute's value."</span><span class="p">,</span>
+        <span class="p">),</span>
+        <span class="p">(</span><span class="s2">"human"</span><span class="p">,</span> <span class="s2">"</span><span class="si">{text}</span><span class="s2">"</span><span class="p">),</span>
+    <span class="p">]</span>
+<span class="p">)</span>
+<span class="n">llm</span> <span class="o">=</span> <span class="n">ChatMistralAI</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="s2">"mistral-large-latest"</span><span class="p">,</span> <span class="n">temperature</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">runnable</span> <span class="o">=</span> <span class="n">prompt</span> <span class="o">|</span> <span class="n">llm</span><span class="o">.</span><span class="n">with_structured_output</span><span class="p">(</span><span class="n">schema</span><span class="o">=</span><span class="n">Person</span><span class="p">)</span>
+<span class="n">runnable</span><span class="o">.</span><span class="n">invoke</span><span class="p">({</span><span class="s2">"text"</span><span class="p">:</span> <span class="n">text</span><span class="p">})</span>
+</pre>
+        </div>
         <p>
-         有了数据集之后就微调，本文在这方面没有什么需要注意的。
+         LangChain的很多操作还是比较符合直觉的
         </p>
         <h2>
-         Training language models to follow instructions with human feedback
+         参考
         </h2>
-        <p>
-         <img alt="image-20240607155855041" src="../image/2024/image-20240607155855041.png"/>
-        </p>
-        <p>
-         大名鼎鼎的InstructGPT论文，遵循了Open AI一贯的写作风格，不像论文反倒像篇技术报告，具体的技术了内容其实就只如上图所示，
-        </p>
-        <ul>
+        <ol>
          <li>
-          人工标注数据集
-         </li>
-        </ul>
-        <p>
-         他们通过人工标注了一批数据，对于某个问题希望大模型的回复。
-        </p>
-        <ul>
-         <li>
-          奖励模型
-         </li>
-        </ul>
-        <p>
-         但是只用人工标注花费太大，所以他们训练了个reward model，将大模型对于某个问题的回答输出多次，人工进行排序，将排序结果作为标签，训练一个reward model
-        </p>
-        <ul>
-         <li>
-          通过奖励模型作强化学习
-         </li>
-        </ul>
-        <p>
-         将LLM对于某个问题的输出输入奖励模型，并把奖励模型的输出作为大模型更新的约束
-        </p>
-        <p>
-         然后就是Open AI一贯的大批量的实验，这里不做赘述
-        </p>
-        <h2>
-         LLaMA: Open and Efficient Foundation Language Models
-        </h2>
-        <p>
-         看完其实才知道LLaMA除了结果和开源外，在模型设计上其实没有什么特别需要关注的地方，文中说对模型架构有三点主要改进，
-        </p>
-        <ul>
-         <li>
-          Pre-normalization，在每个子层之前作RMSNorm
+          <p>
+           <a href="https://python.langchain.com/v0.2/docs/tutorials/summarization/">
+            Summarize Text | 🦜️🔗 LangChain
+           </a>
+          </p>
          </li>
          <li>
-          SwiGLU激活函数，一个相比ReLU更好的激活函数，在负数区间处理更细节
+          <p>
+           <a href="https://python.langchain.com/v0.2/docs/tutorials/extraction/">
+            Build an Extraction Chain | 🦜️🔗 LangChain
+           </a>
+          </p>
          </li>
-         <li>
-          Rotary Embeddings，相对位置嵌入，可以更好的处理长输入
-         </li>
-        </ul>
+        </ol>
        </body>
       </html>
      </div>
@@ -211,6 +358,16 @@ $$
     </h3>
     <table class="archive-list">
      <tbody>
+      <tr>
+       <td style="padding-right: 10px">
+        2024.06.14:
+       </td>
+       <td>
+        <a href="http://guchongan.github.io/2024\VitSwinMAE">
+         [Read Paper] 6.7-6.14 论文阅读（Vision Transformer）
+        </a>
+       </td>
+      </tr>
       <tr>
        <td style="padding-right: 10px">
         2024.06.03:
