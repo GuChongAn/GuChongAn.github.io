@@ -71,15 +71,15 @@
    <div class="row">
     <article>
      <h1>
-      <a href="https://guchongan.github.io/2024\0614-VitSwinMAE">
-       [Read Paper] 6.7-6.14 论文阅读（ViT/Text Summarization/LangChain）
+      <a href="https://guchongan.github.io/2024\0621-MultiModalQA">
+       [Read Paper] 6.14-6.21 论文阅读（CLIP/Multimodal QA）
       </a>
      </h1>
      <span class="published">
       <i class="fa fa-calendar">
       </i>
       <time>
-       2024.06.14
+       2024.06.21
       </time>
      </span>
      <br/>
@@ -88,266 +88,323 @@
       <html>
        <body>
         <p>
-         计划从这次总结开始，每周做一次论文阅读的总结，正好老师也要求写周报。这周计划读两个方面的文章，一个是补基础，读Vision Transformer相关的文章，读了三篇
+         2024年6月14日到6月21日，本周主要读了多模态QA相关的文章，包括
         </p>
         <ul>
          <li>
           <p>
-           <a href="https://arxiv.org/abs/2103.14030">
-            Swin Transformer: Hierarchical Vision Transformer using Shifted Windows
+           <a href="https://arxiv.org/abs/2104.06039">
+            MultiModalQA: Complex Question Answering over Text, Tables and Images
            </a>
+           （ICLR21）
           </p>
          </li>
          <li>
           <p>
-           <a href="https://arxiv.org/abs/2111.06377">
-            Masked Autoencoders Are Scalable Vision Learners
+           <a href="https://arxiv.org/abs/2109.00590">
+            WebQA: Multihop and Multimodal QA
            </a>
-           （MAE）
+           （CVPR22）
           </p>
          </li>
          <li>
           <p>
-           <a href="https://arxiv.org/abs/2010.11929">
-            An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale
+           <a href="https://aclanthology.org/2022.acl-long.290/">
+            MMCoQA: Conversational Question Answering over Text, Tables, and Images
            </a>
-           （ViT）
+           （ACL22）
+          </p>
+         </li>
+         <li>
+          <p>
+           <a href="https://arxiv.org/abs/2401.08743">
+            MMToM-QA: Multimodal Theory of Mind Question Answering
+           </a>
+           （ACL24）
           </p>
          </li>
         </ul>
         <p>
-         另一个是读文本总结相关的文章，略读了两篇，
+         补基础论文读了一篇CLIP
         </p>
         <ul>
          <li>
-          <a href="https://arxiv.org/abs/2303.15621">
-           ChatGPT as a Factual Inconsistency Evaluator for Text Summarization
+          <a href="https://arxiv.org/abs/2103.00020">
+           Learning Transferable Visual Models From Natural Language Supervision
           </a>
-         </li>
-         <li>
-          <a href="https://arxiv.org/abs/2302.08081">
-           Exploring the Limits of ChatGPT for Query or Aspect-based Text Summarization
-          </a>
+          （ICML21）
          </li>
         </ul>
-        <p>
-         但是我发现应该是大模型出来以后，文本总结就开始围绕大模型进行研究了，主要研究大模型做文本总结的一些特性，例如幻觉等问题，关于文本总结自身，好像没有特别多的说法。
-        </p>
         <h2>
-         [arXiv] An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale
+         [ICLR21] MultiModalQA: Complex Question Answering over Text, Tables and Images
         </h2>
         <p>
-         <img alt="image-20240613132610468" src="../image/2024/image-20240613132610468.png"/>
+         <img alt="image-20240620163907804" src="../image/2024/image-20240620163907804.png"/>
         </p>
         <p>
-         ViT论文的思路其实很简单，就是把Transformer尽量不做过多的改动，直接用到CV（特别是图像分类）的任务上来，值得注意的可能有几个技术和实验上的细节，
+         MultimodalQA，WebQA，MMCoQA这三篇文章在行文上都很类似，都没有过多的讲如何去做QA，而是把主要的篇幅放在了如何构造一个Multimodal QA的数据集上，在MMQA（MultiModalQA论文，简写为MMQA）中，构造MMQA数据集包含以下几步，
         </p>
         <ul>
          <li>
-          Linear Projection Layer
+          <strong>
+           Wikipedia tables as anchors
+          </strong>
+          ，从维基百科的数据集中抽取表格数据作为开始
+         </li>
+         <li>
+          <strong>
+           Connecting Images and Text to Tables
+          </strong>
+          ，将拥有相同实体的图片和文字与上一步抽取的表格联系起来
+         </li>
+         <li>
+          <strong>
+           Generate single modality questions
+          </strong>
+          ，根据不同的模态，分别按照预先设计的模板（Table），众包人工生成（Image），在其他数据集的基础上让众包人工生成（Text）
+         </li>
+         <li>
+          <strong>
+           Generating multimodal complex questions
+          </strong>
+          ，通过预先定义的Compose，Intersect和Compare操作生成多模态的复杂问题
+         </li>
+         <li>
+          Paraphrasing using MAT，人工参与修改问题
+         </li>
+         <li>
+          Add distractors，添加误导负例样本
          </li>
         </ul>
         <p>
-         一张图像首先会被切割成多个patch，每个patch会被输入一个全连接层，得到一个长度为D的向量（D是超参数）
+         总结起来其实就是，先获得相关联的表格，文本，图像数据，然后对每个模态的数据分别生成问题，并单模态问题合并，最后人工改述问题。
+        </p>
+        <p>
+         <img alt="image-20240620165151836" src="../image/2024/image-20240620165151836.png"/>
+        </p>
+        <p>
+         MMQA提出了Multi-Hop Implicit Decomposition（ImplicitDecomp）框架解决多模态问答问题，该框架有如下步骤，
         </p>
         <ul>
          <li>
-          [class] token
+          <strong>
+           问题分类
+          </strong>
+          ，MMQA数据集可以按TextQ、TableQ、Compose(TextQ, TableQ)等分为多个类型，该框架使用了一个BERT模型对问题进行分类
          </li>
-        </ul>
-        <p>
-         ViT仿照BERT的做法，设置了cls特殊token，使用该token最后的输出作为分类的特征
-        </p>
-        <ul>
          <li>
-          主要实验结果
+          <strong>
+           按分类迭代处理
+          </strong>
+          ，问题分类指明了该问题相关的模态，例如上图展示了一个关于图像和文本模态的问题的处理流程，其实就是先过TextQA模块（RoBERT模型），然后合并该模块的输出，再过ImageQA模块（VILBERT Vision-and-Language BERT模型）
          </li>
         </ul>
-        <p>
-         <img alt="image-20240613133214955" src="../image/2024/image-20240613133214955.png"/>
-        </p>
-        <p>
-         本文最主要的实验结果其实就是这张图，比较了不同大小的ViT和最好的ResNet之间在不同大小数据训练下的性能差距
-        </p>
         <h2>
-         [CVPR] Masked Autoencoders Are Scalable Vision Learners
+         [CVPR22] WebQA: Multihop and Multimodal QA
         </h2>
         <p>
-         <img alt="image-20240613133428953" src="../image/2024/image-20240613133428953.png"/>
-        </p>
-        <p>
-         MAE的思路也很简单，主要有两个点，
+         与前面讲的MMQA一样，WebQA首先花了比较多的篇幅讲如何构造数据集，因为这篇文章是bing搜索发表的，所以获取数据的操作和搜索相关，他们默认annotators已经问了一个问题，构造数据集只需要在这个问题的基础基础上，获得答案和上下文
         </p>
         <ul>
          <li>
-          找到了一个Vision Transformer比较适配的自监督任务，对Masked图像的重建（特别是Masked比率较高的图像），文章标题中的Autoencoders的Auto就是自监督的意思（我之前一直没有反应过来）
-         </li>
-         <li>
-          在这个自监督的框架下做了优化，让encoder只处理没masked的图像，使得encoder可以设计得比较大，而对应的，decoder就比较小
+          Answers from Images
          </li>
         </ul>
         <p>
-         所以MAE在概念上其实类似于NLP中的BERT。
-        </p>
-        <h2>
-         [ICCV] Swin Transformer: Hierarchical Vision Transformer using Shifted Windows
-        </h2>
-        <p>
-         如果说ViT对应Tranformer，MAE对应BERT，那Swin Transformer可能就对应于卷积神经网络了，它把卷积神经网络设计的经验用到了Transformer架构中来。
-        </p>
-        <p>
-         <img alt="image-20240613134449021" src="../image/2024/image-20240613134449021.png"/>
-        </p>
-        <p>
-         我们按照前向过程的顺序来讨论他的技术细节，
+         <img alt="image-20240620172809792" src="../image/2024/image-20240620172809792.png"/>
         </p>
         <ul>
          <li>
-          Patch Partition，和前面两篇文章类似，image首先会被分为多个patch（HxWx3 -&gt; H/4 x W/4 x 48）
-         </li>
-         <li>
-          Linear Embeding，和前面两篇文章类似，作投影变换，把48变换为C
-         </li>
-         <li>
-          Swin Transformer Block
+          Answers from Text
          </li>
         </ul>
         <p>
-         Swin Transformer Block中包含了两种不同的注意力基础（W-MSA 固定窗口注意力和 SW-MSA 滑动窗口注意力），如下图所示，
+         <img alt="image-20240620173003381" src="../image/2024/image-20240620173003381.png"/>
         </p>
         <p>
-         <img alt="image-20240613134859793" src="../image/2024/image-20240613134859793.png"/>
-        </p>
-        <p>
-         固定窗口注意力就是把图像分为多个窗口，每个窗口包含多个Patch，每个Patch只与同一窗口的其他Patch做注意力。当然这样有个问题，就是不同窗口间没有交互，所以有了第二步的滑动窗口注意力，将窗口向右下平移，形成新的窗口，再做注意力，当然实际的实现和理论还是有些区别，为了使得窗口的大小一致，便于计算，实际的操作如下图所示，
-        </p>
-        <p>
-         <img alt="image-20240613135319780" src="../image/2024/image-20240613135319780.png"/>
-        </p>
-        <p>
-         新的窗口A C B被移动到了右下角，使得滑动后的窗口还是保持规整的大小，但是新移来的窗口，比如绿色的C，是不应该和同一窗口内的灰色部分做注意力的，本文作者通过巧妙的掩码设计解决了这一问题，
-        </p>
-        <p>
-         <img alt="image-20240613135844521" src="../image/2024/image-20240613135844521.png"/>
-        </p>
-        <p>
-         在QK相乘计算注意力时，为不应该交互的部分加上-100的掩码（在经过softmax函数后，实际接近0）
-        </p>
-        <h2>
-         [arXiv] Text Summarization 两篇
-        </h2>
-        <p>
-         我在谷歌学术上，以Text Summarization为关键词搜索，按引用排序，找到了这两篇文章，但是这两篇文章好像没啥用，所以只做了个略读。
+         然后本文用一个章节讲述了自己的评价指标，主要有三个
         </p>
         <ul>
          <li>
-          ChatGPT as a Factual Inconsistency Evaluator for Text Summarization
+          F1分数，和MMQA类似，本文的框架也要首先判断问题的类型，用F1分数衡量分类能力
+         </li>
+         <li>
+          Fluency，本文通过BARTScore评价回答的流畅性，
          </li>
         </ul>
         <p>
-         感觉上就是篇技术报告，使用ChatGPT评估文本总结的事实一致性，在蕴含推理（判断摘要与原文档是否一致），摘要排序，一致性评分等三个任务上做了实验。
+         <img alt="image-20240620173238325" src="../image/2024/image-20240620173238325.png"/>
+        </p>
+        <p>
+         BARTScore(r, c)表示在给定参考r的情况下，生成候选c的可能性
         </p>
         <ul>
          <li>
-          Exploring the Limits of ChatGPT for Query or Aspect-based Text Summarization
+          Accuracy，针对开放领域和非开放领域的问题，本文采取不同的公式计算准确度，
          </li>
         </ul>
         <p>
-         也是篇技术报告，在QMSum（会议记录）、SQuALITY（故事）、CovidET（Reddit帖子）和NEWTS（新闻）四个数据集上评估了ChatGPT的文本总结能力。
-        </p>
-        <h2>
-         LangChain框架
-        </h2>
-        <p>
-         文本摘要的论文没看出东西来，就想着能不能先敲点什么代码，之前师兄提过LangChain，MetaGPT也是用LangChain写的，所以来学下这个框架，按照我对项目的理解，研究了两个demo，
-        </p>
-        <h4>
-         1）Summarize Text
-        </h4>
-        <p>
-         <img alt="image-20240613144419653" src="../image/2024/image-20240613144419653.png"/>
+         <img alt="image-20240620173501745" src="../image/2024/image-20240620173501745.png"/>
         </p>
         <p>
-         LangChain的手册中讲，文本总结主要有三种方法，
+         对于非开放领域问题，例如颜色，形状等，用F1分数判断是否回答正确，对于开放领域问题，用召回率RE评价准确度，其中K是模型给出的回答的关键词，c是标签
+        </p>
+        <p>
+         本文解决多模态QA的框架也分为两步，
         </p>
         <ul>
-         <li>
-          Stuff，直接做总结
-         </li>
-         <li>
-          Map Reduce，要做总结的文本切块，分别做总结，然后把这一系列总结合在一起再做最后的总结
-         </li>
-         <li>
-          Refine，迭代的做法，不断对总结做总结直到得到想要的结果
-         </li>
-        </ul>
-        <p>
-         为了避免冗余，实例代码就不附在此处了
-        </p>
-        <h4>
-         2）Build an Extraction Chain
-        </h4>
-        <p>
-         从非结构化数据中提取结构化数据，先设置提取策略，
-        </p>
-        <div class="highlight">
-         <pre><span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span>
-<span class="kn">from</span> <span class="nn">langchain_core.pydantic_v1</span> <span class="kn">import</span> <span class="n">BaseModel</span><span class="p">,</span> <span class="n">Field</span>
-
-<span class="k">class</span> <span class="nc">Person</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">"""Information about a person."""</span>
-    <span class="n">name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">"The name of the person"</span><span class="p">)</span>
-    <span class="n">hair_color</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
-        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">"The color of the person's hair if known"</span>
-    <span class="p">)</span>
-    <span class="n">height_in_meters</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
-        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">"Height measured in meters"</span>
-    <span class="p">)</span>
-</pre>
-        </div>
-        <p>
-         然后构造Chain，
-        </p>
-        <div class="highlight">
-         <pre><span></span><span class="n">prompt</span> <span class="o">=</span> <span class="n">ChatPromptTemplate</span><span class="o">.</span><span class="n">from_messages</span><span class="p">(</span>
-    <span class="p">[</span>
-        <span class="p">(</span>
-            <span class="s2">"system"</span><span class="p">,</span>
-            <span class="s2">"You are an expert extraction algorithm. "</span>
-            <span class="s2">"Only extract relevant information from the text. "</span>
-            <span class="s2">"If you do not know the value of an attribute asked to extract, "</span>
-            <span class="s2">"return null for the attribute's value."</span><span class="p">,</span>
-        <span class="p">),</span>
-        <span class="p">(</span><span class="s2">"human"</span><span class="p">,</span> <span class="s2">"</span><span class="si">{text}</span><span class="s2">"</span><span class="p">),</span>
-    <span class="p">]</span>
-<span class="p">)</span>
-<span class="n">llm</span> <span class="o">=</span> <span class="n">ChatMistralAI</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="s2">"mistral-large-latest"</span><span class="p">,</span> <span class="n">temperature</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">runnable</span> <span class="o">=</span> <span class="n">prompt</span> <span class="o">|</span> <span class="n">llm</span><span class="o">.</span><span class="n">with_structured_output</span><span class="p">(</span><span class="n">schema</span><span class="o">=</span><span class="n">Person</span><span class="p">)</span>
-<span class="n">runnable</span><span class="o">.</span><span class="n">invoke</span><span class="p">({</span><span class="s2">"text"</span><span class="p">:</span> <span class="n">text</span><span class="p">})</span>
-</pre>
-        </div>
-        <p>
-         LangChain的很多操作还是比较符合直觉的
-        </p>
-        <h2>
-         参考
-        </h2>
-        <ol>
          <li>
           <p>
-           <a href="https://python.langchain.com/v0.2/docs/tutorials/summarization/">
-            Summarize Text | 🦜️🔗 LangChain
-           </a>
+           <strong>
+            Input Representation
+           </strong>
+           ，对于文本数据用Bert-base-cased tokenizer；对于图像数据，用目标检测模型（Faster RCNN）预测100个区域，然后把目标检测模型中间某一层的输出作为特征
           </p>
          </li>
          <li>
           <p>
-           <a href="https://python.langchain.com/v0.2/docs/tutorials/extraction/">
-            Build an Extraction Chain | 🦜️🔗 LangChain
-           </a>
+           <strong>
+            Source Retrieval
+           </strong>
+           ，&lt;[CLS], si, [SEP], Q, [SEP]&gt;判断si是不是有用的上下文
           </p>
          </li>
-        </ol>
+         <li>
+          <p>
+           <strong>
+            Question Answering
+           </strong>
+           ，&lt;[CLS], S, [SEP], Q,A, [SEP]&gt;生成回答A
+          </p>
+         </li>
+        </ul>
+        <h2>
+         [ACL22] MMCoQA: Conversational Question Answering over Text, Tables, and Images
+        </h2>
+        <p>
+         和前面两篇文章一样，本文先讲了如何构建数据集，但是和前文不同的是，本文构造了一个对话QA的数据集，具体流程如下图所示，
+        </p>
+        <p>
+         <img alt="image-20240620175722734" src="../image/2024/image-20240620175722734.png"/>
+        </p>
+        <p>
+         本文是在MMQA的数据集基础上构造的自己的数据集，
+        </p>
+        <ul>
+         <li>
+          <strong>
+           Potential Conversation
+          </strong>
+          ，在MMQA中挑选具有相同实体的问题作为潜在对话
+         </li>
+         <li>
+          <strong>
+           Decomposed Conversation
+          </strong>
+          ，按照MMQA中问题的分类对上一步挑选的问题进行分解，将问题分解为单模态问题
+         </li>
+         <li>
+          <strong>
+           Refined Conversation
+          </strong>
+          ，人工调整
+         </li>
+        </ul>
+        <p>
+         本文提出了一个Multimodal Conversational QA system with Adaptive Extractors（
+         <strong>
+          MAE
+         </strong>
+         ）解决多模态对话QA问题，MAE主要有三个步骤，
+        </p>
+        <p>
+         <img alt="image-20240620180439464" src="../image/2024/image-20240620180439464.png"/>
+        </p>
+        <ul>
+         <li>
+          <strong>
+           conversational question understanding
+          </strong>
+          ，对话历史和问题被BERT模型编码
+         </li>
+         <li>
+          <strong>
+           multimodal evidence retrieval
+          </strong>
+          ，多模态的Knowledge同样分别别编码，然后按问题编码进行检索
+         </li>
+         <li>
+          <strong>
+           adaptive answer extraction
+          </strong>
+          ，检索后得到多个模态的Knowledge，分别进行处理得到最后的答案
+         </li>
+        </ul>
+        <p>
+         |        | Context | Multimodal               |
+| ------ | ------- | ------------------------ |
+| MMQA   | 无处理  | 迭代                     |
+| WebQA  | 检索    | 图像encode后拼在一起输入 |
+| MMCoQA | 检索    | 分别处理，最后拼接       |
+        </p>
+        <h2>
+         [ACL24] MMToM-QA: Multimodal Theory of Mind Question Answering
+        </h2>
+        <p>
+         和前面三篇Multimodal QA的文章有些不同，本文聚焦一个更小的领域Theory of Mind，我理解就是人类行为相关的问答，文中举了下面这个例子，
+        </p>
+        <p>
+         <img alt="image-20240621012436230" src="../image/2024/image-20240621012436230.png"/>
+        </p>
+        <p>
+         在有视频和文章说明的情况下，判断视频中人物可能的行为。和前三篇文章相同的是，本文也花一定的篇幅讲述了自己构建的数据集，但没有详细讲构建的方法（附录中应该有），只讲了自己数据集的分析，在它的数据集中包含了视频和文本的输入，以及对应的有两个选择的问题。本文数据集包含信念Belief和目标Goal两大类，共七小类的问题，如下图所示，
+        </p>
+        <p>
+         <img alt="image-20240621012821205" src="../image/2024/image-20240621012821205.png"/>
+        </p>
+        <p>
+         然后是本文的方法，Bayesian Inverse Planning Accelerated by Language Models（BIP-ALM），总体流程如下图，
+        </p>
+        <p>
+         <img alt="image-20240621013009488" src="../image/2024/image-20240621013009488.png"/>
+        </p>
+        <ul>
+         <li>
+          Unified Symbolic Representations，就是把视频、文本数据以及问题中的两个假设提取并对齐成上图所示的结果，得到了一系列的States和Actions
+         </li>
+         <li>
+          Inverse Symbolic Planner
+         </li>
+        </ul>
+        <p>
+         <img alt="image-20240621142323459" src="../image/2024/image-20240621142323459.png"/>
+        </p>
+        <p>
+         传统的方法都是用强化学习之类的方法计算上式，它这里用LLM计算，具体来说有如下步骤，
+        </p>
+        <ul>
+         <li>
+          把每步的belief作为目标物体的可能位置
+         </li>
+         <li>
+          对LLM输入state st，goal g，估计的belief b和行为 at，计算该行为at的概率
+         </li>
+         <li>
+          遍历计算出上式，得到结果
+         </li>
+        </ul>
+        <h2>
+         [ICML21] Learning Transferable Visual Models From Natural Language Supervision
+        </h2>
+        <p>
+         CLIP的思路其实很简单，就是用对比学习目标来supervision一个image的encoder，具体内容其实就是下面两张图，本周主要还是看多模态QA，这个是上周末看的，所以只在这里做个简单的记录
+        </p>
+        <p>
+         <img alt="image-20240620181318024" src="../image/2024/image-20240620181318024.png"/>
+        </p>
+        <p>
+         <img alt="image-20240620181405874" src="../image/2024/image-20240620181405874.png"/>
+        </p>
        </body>
       </html>
      </div>
@@ -360,11 +417,11 @@
      <tbody>
       <tr>
        <td style="padding-right: 10px">
-        2024.06.14:
+        2024.06.21:
        </td>
        <td>
-        <a href="http://guchongan.github.io/2024\0614-VitSwinMAE">
-         [Read Paper] 6.7-6.14 论文阅读（ViT/Text Summarization/LangChain）
+        <a href="http://guchongan.github.io/2024\0621-MultiModalQA">
+         [Read Paper] 6.14-6.21 论文阅读（CLIP/Multimodal QA）
         </a>
        </td>
       </tr>
@@ -373,8 +430,8 @@
         2024.06.14:
        </td>
        <td>
-        <a href="http://guchongan.github.io/2024\0621-MultiModalQA">
-         [Read Paper] 6.14-6.21 论文阅读（CLIP/Multimodal QA）
+        <a href="http://guchongan.github.io/2024\0614-VitSwinMAE">
+         [Read Paper] 6.7-6.14 论文阅读（ViT/Text Summarization/LangChain）
         </a>
        </td>
       </tr>

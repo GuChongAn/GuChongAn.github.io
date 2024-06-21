@@ -1,6 +1,6 @@
 ---
 name: [Read Paper] 6.14-6.21 论文阅读（CLIP/Multimodal QA）
-date: 20240614
+date: 20240621
 description: 补基础文章，读了CLIP一篇，然后读了四篇多模态QA相关的文章，Multimodal QA、WebQA、MMCoQA、MMToMQA
 keywords: readpaper
 ---
