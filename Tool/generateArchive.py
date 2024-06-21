@@ -39,7 +39,7 @@ for year, num in years.items():
     tmpSoup = BeautifulSoup(tmp, 'html.parser')
     soup.select("#list")[0].append(tmpSoup)
 
-    tmpPath = os.path.join("../archives/", year)
+    tmpPath = os.path.join("C:/Users/86181/Desktop/GuChongAn.github.io/archives/", year)
     if not os.path.exists(tmpPath):
         os.makedirs(tmpPath)
 

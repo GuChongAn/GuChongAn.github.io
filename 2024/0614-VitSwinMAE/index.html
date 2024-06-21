@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="https://www.facebook.com/2008/fbml" xmlns:og="http://ogp.me/ns#">
+ <head>
+  <title>
+   [Read Paper] 6.7-6.14 论文阅读（ViT/Text Summarization/LangChain） - Chongan's website
+  </title>
+  <!-- Using the latest rendering mode for IE -->
+  <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <link href="../../image/favicon.ico" rel="icon"/>
+  <link href="../../css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+  <link href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+  <link href="../../css/vs.css" rel="stylesheet" type="text/css"/>
+  <link href="../../css/style.css" rel="stylesheet" type="text/css"/>
+ </head>
+ <body>
+  <!-- navbar -->
+  <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+   <div class="container">
+    <div class="navbar-header">
+     <button class="navbar-toggle" data-target=".navbar-ex1-collapse" data-toggle="collapse" type="button">
+      <span class="sr-only">
+       Toggle navigation
+      </span>
+      <span class="icon-bar">
+      </span>
+      <span class="icon-bar">
+      </span>
+      <span class="icon-bar">
+      </span>
+     </button>
+     <a class="navbar-brand" href="https://guchongan.github.io/">
+      <img height="32" src="../../image/favicon-32x32.png" width="32"/>
+      Gu Chongan's website
+     </a>
+    </div>
+    <div class="collapse navbar-collapse navbar-ex1-collapse">
+     <ul class="nav navbar-nav navbar-right">
+      <li>
+       <a href="https://guchongan.github.io/about">
+        <i class="fa fa-question">
+        </i>
+        <span class="icon-label">
+         About
+        </span>
+       </a>
+      </li>
+      <li>
+       <a href="https://guchongan.github.io/projects">
+        <i class="fa fa-github">
+        </i>
+        <span class="icon-label">
+         Projects
+        </span>
+       </a>
+      </li>
+      <li>
+       <a href="https://guchongan.github.io/archives">
+        <i class="fa fa-th-list">
+        </i>
+        <span class="icon-label">
+         Archives
+        </span>
+       </a>
+      </li>
+     </ul>
+    </div>
+   </div>
+  </div>
+  <div class="container">
+   <div class="row">
+    <section id="content">
+     <article>
+      <header class="page-header">
+       <h1>
+        <a href="https://guchongan.github.io/2024/[Read Paper] 6.7-6.14 论文阅读（ViT/Text Summarization/LangChain）" rel="bookmark" title="[Read Paper] 6.7-6.14 论文阅读（ViT/Text Summarization/LangChain）">
+         [Read Paper] 6.7-6.14 论文阅读（ViT/Text Summarization/LangChain）
+        </a>
+       </h1>
+      </header>
+      <div class="entry-content">
+       <div class="panel">
+        <div class="panel-body">
+         <footer class="post-info">
+          <span class="published">
+           <i class="fa fa-calendar">
+           </i>
+           <time>
+            2024.06.14
+           </time>
+          </span>
+          <span class="label label-default">
+           Tags
+          </span>
+          <html>
+           <body>
+            <a>
+             readpaper
+            </a>
+           </body>
+          </html>
+         </footer>
+         <!-- /.post-info -->
+        </div>
+       </div>
+       <!-- /.entry-content -->
+       <html>
+        <body>
+         <p>
+          计划从这次总结开始，每周做一次论文阅读的总结，正好老师也要求写周报。这周计划读两个方面的文章，一个是补基础，读Vision Transformer相关的文章，读了三篇
+         </p>
+         <ul>
+          <li>
+           <p>
+            <a href="https://arxiv.org/abs/2103.14030">
+             Swin Transformer: Hierarchical Vision Transformer using Shifted Windows
+            </a>
+           </p>
+          </li>
+          <li>
+           <p>
+            <a href="https://arxiv.org/abs/2111.06377">
+             Masked Autoencoders Are Scalable Vision Learners
+            </a>
+            （MAE）
+           </p>
+          </li>
+          <li>
+           <p>
+            <a href="https://arxiv.org/abs/2010.11929">
+             An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale
+            </a>
+            （ViT）
+           </p>
+          </li>
+         </ul>
+         <p>
+          另一个是读文本总结相关的文章，略读了两篇，
+         </p>
+         <ul>
+          <li>
+           <a href="https://arxiv.org/abs/2303.15621">
+            ChatGPT as a Factual Inconsistency Evaluator for Text Summarization
+           </a>
+          </li>
+          <li>
+           <a href="https://arxiv.org/abs/2302.08081">
+            Exploring the Limits of ChatGPT for Query or Aspect-based Text Summarization
+           </a>
+          </li>
+         </ul>
+         <p>
+          但是我发现应该是大模型出来以后，文本总结就开始围绕大模型进行研究了，主要研究大模型做文本总结的一些特性，例如幻觉等问题，关于文本总结自身，好像没有特别多的说法。
+         </p>
+         <h2>
+          [arXiv] An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale
+         </h2>
+         <p>
+          <img alt="image-20240613132610468" src="..\../image/2024/image-20240613132610468.png"/>
+         </p>
+         <p>
+          ViT论文的思路其实很简单，就是把Transformer尽量不做过多的改动，直接用到CV（特别是图像分类）的任务上来，值得注意的可能有几个技术和实验上的细节，
+         </p>
+         <ul>
+          <li>
+           Linear Projection Layer
+          </li>
+         </ul>
+         <p>
+          一张图像首先会被切割成多个patch，每个patch会被输入一个全连接层，得到一个长度为D的向量（D是超参数）
+         </p>
+         <ul>
+          <li>
+           [class] token
+          </li>
+         </ul>
+         <p>
+          ViT仿照BERT的做法，设置了cls特殊token，使用该token最后的输出作为分类的特征
+         </p>
+         <ul>
+          <li>
+           主要实验结果
+          </li>
+         </ul>
+         <p>
+          <img alt="image-20240613133214955" src="..\../image/2024/image-20240613133214955.png"/>
+         </p>
+         <p>
+          本文最主要的实验结果其实就是这张图，比较了不同大小的ViT和最好的ResNet之间在不同大小数据训练下的性能差距
+         </p>
+         <h2>
+          [CVPR] Masked Autoencoders Are Scalable Vision Learners
+         </h2>
+         <p>
+          <img alt="image-20240613133428953" src="..\../image/2024/image-20240613133428953.png"/>
+         </p>
+         <p>
+          MAE的思路也很简单，主要有两个点，
+         </p>
+         <ul>
+          <li>
+           找到了一个Vision Transformer比较适配的自监督任务，对Masked图像的重建（特别是Masked比率较高的图像），文章标题中的Autoencoders的Auto就是自监督的意思（我之前一直没有反应过来）
+          </li>
+          <li>
+           在这个自监督的框架下做了优化，让encoder只处理没masked的图像，使得encoder可以设计得比较大，而对应的，decoder就比较小
+          </li>
+         </ul>
+         <p>
+          所以MAE在概念上其实类似于NLP中的BERT。
+         </p>
+         <h2>
+          [ICCV] Swin Transformer: Hierarchical Vision Transformer using Shifted Windows
+         </h2>
+         <p>
+          如果说ViT对应Tranformer，MAE对应BERT，那Swin Transformer可能就对应于卷积神经网络了，它把卷积神经网络设计的经验用到了Transformer架构中来。
+         </p>
+         <p>
+          <img alt="image-20240613134449021" src="..\../image/2024/image-20240613134449021.png"/>
+         </p>
+         <p>
+          我们按照前向过程的顺序来讨论他的技术细节，
+         </p>
+         <ul>
+          <li>
+           Patch Partition，和前面两篇文章类似，image首先会被分为多个patch（HxWx3 -&gt; H/4 x W/4 x 48）
+          </li>
+          <li>
+           Linear Embeding，和前面两篇文章类似，作投影变换，把48变换为C
+          </li>
+          <li>
+           Swin Transformer Block
+          </li>
+         </ul>
+         <p>
+          Swin Transformer Block中包含了两种不同的注意力基础（W-MSA 固定窗口注意力和 SW-MSA 滑动窗口注意力），如下图所示，
+         </p>
+         <p>
+          <img alt="image-20240613134859793" src="..\../image/2024/image-20240613134859793.png"/>
+         </p>
+         <p>
+          固定窗口注意力就是把图像分为多个窗口，每个窗口包含多个Patch，每个Patch只与同一窗口的其他Patch做注意力。当然这样有个问题，就是不同窗口间没有交互，所以有了第二步的滑动窗口注意力，将窗口向右下平移，形成新的窗口，再做注意力，当然实际的实现和理论还是有些区别，为了使得窗口的大小一致，便于计算，实际的操作如下图所示，
+         </p>
+         <p>
+          <img alt="image-20240613135319780" src="..\../image/2024/image-20240613135319780.png"/>
+         </p>
+         <p>
+          新的窗口A C B被移动到了右下角，使得滑动后的窗口还是保持规整的大小，但是新移来的窗口，比如绿色的C，是不应该和同一窗口内的灰色部分做注意力的，本文作者通过巧妙的掩码设计解决了这一问题，
+         </p>
+         <p>
+          <img alt="image-20240613135844521" src="..\../image/2024/image-20240613135844521.png"/>
+         </p>
+         <p>
+          在QK相乘计算注意力时，为不应该交互的部分加上-100的掩码（在经过softmax函数后，实际接近0）
+         </p>
+         <h2>
+          [arXiv] Text Summarization 两篇
+         </h2>
+         <p>
+          我在谷歌学术上，以Text Summarization为关键词搜索，按引用排序，找到了这两篇文章，但是这两篇文章好像没啥用，所以只做了个略读。
+         </p>
+         <ul>
+          <li>
+           ChatGPT as a Factual Inconsistency Evaluator for Text Summarization
+          </li>
+         </ul>
+         <p>
+          感觉上就是篇技术报告，使用ChatGPT评估文本总结的事实一致性，在蕴含推理（判断摘要与原文档是否一致），摘要排序，一致性评分等三个任务上做了实验。
+         </p>
+         <ul>
+          <li>
+           Exploring the Limits of ChatGPT for Query or Aspect-based Text Summarization
+          </li>
+         </ul>
+         <p>
+          也是篇技术报告，在QMSum（会议记录）、SQuALITY（故事）、CovidET（Reddit帖子）和NEWTS（新闻）四个数据集上评估了ChatGPT的文本总结能力。
+         </p>
+         <h2>
+          LangChain框架
+         </h2>
+         <p>
+          文本摘要的论文没看出东西来，就想着能不能先敲点什么代码，之前师兄提过LangChain，MetaGPT也是用LangChain写的，所以来学下这个框架，按照我对项目的理解，研究了两个demo，
+         </p>
+         <h4>
+          1）Summarize Text
+         </h4>
+         <p>
+          <img alt="image-20240613144419653" src="..\../image/2024/image-20240613144419653.png"/>
+         </p>
+         <p>
+          LangChain的手册中讲，文本总结主要有三种方法，
+         </p>
+         <ul>
+          <li>
+           Stuff，直接做总结
+          </li>
+          <li>
+           Map Reduce，要做总结的文本切块，分别做总结，然后把这一系列总结合在一起再做最后的总结
+          </li>
+          <li>
+           Refine，迭代的做法，不断对总结做总结直到得到想要的结果
+          </li>
+         </ul>
+         <p>
+          为了避免冗余，实例代码就不附在此处了
+         </p>
+         <h4>
+          2）Build an Extraction Chain
+         </h4>
+         <p>
+          从非结构化数据中提取结构化数据，先设置提取策略，
+         </p>
+         <div class="highlight">
+          <pre><span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span>
+<span class="kn">from</span> <span class="nn">langchain_core.pydantic_v1</span> <span class="kn">import</span> <span class="n">BaseModel</span><span class="p">,</span> <span class="n">Field</span>
+
+<span class="k">class</span> <span class="nc">Person</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Information about a person."""</span>
+    <span class="n">name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">"The name of the person"</span><span class="p">)</span>
+    <span class="n">hair_color</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">"The color of the person's hair if known"</span>
+    <span class="p">)</span>
+    <span class="n">height_in_meters</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">"Height measured in meters"</span>
+    <span class="p">)</span>
+</pre>
+         </div>
+         <p>
+          然后构造Chain，
+         </p>
+         <div class="highlight">
+          <pre><span></span><span class="n">prompt</span> <span class="o">=</span> <span class="n">ChatPromptTemplate</span><span class="o">.</span><span class="n">from_messages</span><span class="p">(</span>
+    <span class="p">[</span>
+        <span class="p">(</span>
+            <span class="s2">"system"</span><span class="p">,</span>
+            <span class="s2">"You are an expert extraction algorithm. "</span>
+            <span class="s2">"Only extract relevant information from the text. "</span>
+            <span class="s2">"If you do not know the value of an attribute asked to extract, "</span>
+            <span class="s2">"return null for the attribute's value."</span><span class="p">,</span>
+        <span class="p">),</span>
+        <span class="p">(</span><span class="s2">"human"</span><span class="p">,</span> <span class="s2">"</span><span class="si">{text}</span><span class="s2">"</span><span class="p">),</span>
+    <span class="p">]</span>
+<span class="p">)</span>
+<span class="n">llm</span> <span class="o">=</span> <span class="n">ChatMistralAI</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="s2">"mistral-large-latest"</span><span class="p">,</span> <span class="n">temperature</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">runnable</span> <span class="o">=</span> <span class="n">prompt</span> <span class="o">|</span> <span class="n">llm</span><span class="o">.</span><span class="n">with_structured_output</span><span class="p">(</span><span class="n">schema</span><span class="o">=</span><span class="n">Person</span><span class="p">)</span>
+<span class="n">runnable</span><span class="o">.</span><span class="n">invoke</span><span class="p">({</span><span class="s2">"text"</span><span class="p">:</span> <span class="n">text</span><span class="p">})</span>
+</pre>
+         </div>
+         <p>
+          LangChain的很多操作还是比较符合直觉的
+         </p>
+         <h2>
+          参考
+         </h2>
+         <ol>
+          <li>
+           <p>
+            <a href="https://python.langchain.com/v0.2/docs/tutorials/summarization/">
+             Summarize Text | 🦜️🔗 LangChain
+            </a>
+           </p>
+          </li>
+          <li>
+           <p>
+            <a href="https://python.langchain.com/v0.2/docs/tutorials/extraction/">
+             Build an Extraction Chain | 🦜️🔗 LangChain
+            </a>
+           </p>
+          </li>
+         </ol>
+        </body>
+       </html>
+      </div>
+      <hr/>
+      <div class="dotted-links">
+       <p class="align-center">
+        For comments, please send me
+        <a href="hu197136@gmail.com">
+         <i class="fa fa-envelope-o">
+         </i>
+         an email
+        </a>
+        .
+       </p>
+      </div>
+     </article>
+    </section>
+   </div>
+  </div>
+  <footer>
+   <div class="container">
+    <hr/>
+    <div class="row">
+     <div class="col-xs-10">
+      © 2024-2024 Gu Chongan
+     </div>
+     <div class="col-xs-2">
+      <p class="pull-right">
+       <i class="fa fa-arrow-up">
+       </i>
+       <a href="#">
+        Back to top
+       </a>
+      </p>
+     </div>
+    </div>
+   </div>
+  </footer>
+  <script src="../../css/jquery-2.2.4.min.js">
+  </script>
+  <script src="../../css/bootstrap.min.js">
+  </script>
+  <script type="text/x-mathjax-config">
+   var articlemathId = document.getElementById("articleContent");
+	var commentmathId = document.getElementById("commentlist-container");
+	MathJax.Hub.Config({
+		tex2jax: {
+			inlineMath: [ ['$','$'] ], //行内公式
+			displayMath: [ ['$$','$$'] ], //行间公式
+			skipTags: ['script', 'noscript', 'style', 'textarea', 'pre','code','a'], //渲染时跳过的html标签
+			ignoreClass: "summary", //忽略的class
+		}
+	});
+	MathJax.Hub.Queue(["Typeset", MathJax.Hub, articlemathId, commentmathId]); //指定渲染的html块，可以为多个
+  </script>
+  <script src="https://cdn.bootcss.com/mathjax/2.7.7/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script>
+ </body>
+</html>

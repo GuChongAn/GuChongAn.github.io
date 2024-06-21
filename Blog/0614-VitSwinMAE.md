@@ -1,11 +1,11 @@
 ---
-name: [Read Paper] 6.7-6.14 论文阅读（Vision Transformer）
+name: [Read Paper] 6.7-6.14 论文阅读（ViT/Text Summarization/LangChain）
 date: 20240614
-description: 精读了Vit，Swin Transformer, MAE三篇文章
+description: 精读了Vit，Swin Transformer, MAE和Text Summarization相关的两篇文章，学习了LangChain框架的使用
 keywords: readpaper
 ---
 
-计划从这次总结开始，按每周一次做论文阅读的总结，正好老师也要求写周报，就没必要写两次论文总结。这周计划读两个方面的文章，一个是补基础，读Vision Transformer相关的文章，读了三篇
+计划从这次总结开始，每周做一次论文阅读的总结，正好老师也要求写周报。这周计划读两个方面的文章，一个是补基础，读Vision Transformer相关的文章，读了三篇
 
 - [Swin Transformer: Hierarchical Vision Transformer using Shifted Windows](https://arxiv.org/abs/2103.14030)
 
