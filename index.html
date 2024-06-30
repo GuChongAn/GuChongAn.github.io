@@ -71,15 +71,15 @@
    <div class="row">
     <article>
      <h1>
-      <a href="https://guchongan.github.io/2024\0621-MultiModalQA">
-       [Read Paper] 6.14-6.21 论文阅读（CLIP/Multimodal QA）
+      <a href="https://guchongan.github.io/2024\0628-CVPRbest">
+       [Read Paper] 6.21-6.28 论文阅读（CVPRbest/ICLRoutstanding/Coca）
       </a>
      </h1>
      <span class="published">
       <i class="fa fa-calendar">
       </i>
       <time>
-       2024.06.21
+       2024.06.28
       </time>
      </span>
      <br/>
@@ -88,323 +88,313 @@
       <html>
        <body>
         <p>
-         2024年6月14日到6月21日，本周主要读了多模态QA相关的文章，包括
+         补的基础文章读的差不多，计划在开学前把各个顶会时间过一遍，确定下之后什么时候该关注什么论文，同时把最近一年的best paper有意思的读一遍，周末老师让看看图像分类和检索，看了下面这篇，
         </p>
         <ul>
          <li>
-          <p>
-           <a href="https://arxiv.org/abs/2104.06039">
-            MultiModalQA: Complex Question Answering over Text, Tables and Images
-           </a>
-           （ICLR21）
-          </p>
-         </li>
-         <li>
-          <p>
-           <a href="https://arxiv.org/abs/2109.00590">
-            WebQA: Multihop and Multimodal QA
-           </a>
-           （CVPR22）
-          </p>
-         </li>
-         <li>
-          <p>
-           <a href="https://aclanthology.org/2022.acl-long.290/">
-            MMCoQA: Conversational Question Answering over Text, Tables, and Images
-           </a>
-           （ACL22）
-          </p>
-         </li>
-         <li>
-          <p>
-           <a href="https://arxiv.org/abs/2401.08743">
-            MMToM-QA: Multimodal Theory of Mind Question Answering
-           </a>
-           （ACL24）
-          </p>
-         </li>
-        </ul>
-        <p>
-         补基础论文读了一篇CLIP
-        </p>
-        <ul>
-         <li>
-          <a href="https://arxiv.org/abs/2103.00020">
-           Learning Transferable Visual Models From Natural Language Supervision
+          <a href="https://paperswithcode.com/paper/coca-contrastive-captioners-are-image-text">
+           CoCa: Contrastive Captioners are Image-Text Foundation Models
           </a>
-          （ICML21）
-         </li>
-        </ul>
-        <h2>
-         [ICLR21] MultiModalQA: Complex Question Answering over Text, Tables and Images
-        </h2>
-        <p>
-         <img alt="image-20240620163907804" src="../image/2024/image-20240620163907804.png"/>
-        </p>
-        <p>
-         MultimodalQA，WebQA，MMCoQA这三篇文章在行文上都很类似，都没有过多的讲如何去做QA，而是把主要的篇幅放在了如何构造一个Multimodal QA的数据集上，在MMQA（MultiModalQA论文，简写为MMQA）中，构造MMQA数据集包含以下几步，
-        </p>
-        <ul>
-         <li>
-          <strong>
-           Wikipedia tables as anchors
-          </strong>
-          ，从维基百科的数据集中抽取表格数据作为开始
-         </li>
-         <li>
-          <strong>
-           Connecting Images and Text to Tables
-          </strong>
-          ，将拥有相同实体的图片和文字与上一步抽取的表格联系起来
-         </li>
-         <li>
-          <strong>
-           Generate single modality questions
-          </strong>
-          ，根据不同的模态，分别按照预先设计的模板（Table），众包人工生成（Image），在其他数据集的基础上让众包人工生成（Text）
-         </li>
-         <li>
-          <strong>
-           Generating multimodal complex questions
-          </strong>
-          ，通过预先定义的Compose，Intersect和Compare操作生成多模态的复杂问题
-         </li>
-         <li>
-          Paraphrasing using MAT，人工参与修改问题
-         </li>
-         <li>
-          Add distractors，添加误导负例样本
+          （arxiv22 引用1013）
          </li>
         </ul>
         <p>
-         总结起来其实就是，先获得相关联的表格，文本，图像数据，然后对每个模态的数据分别生成问题，并单模态问题合并，最后人工改述问题。
-        </p>
-        <p>
-         <img alt="image-20240620165151836" src="../image/2024/image-20240620165151836.png"/>
-        </p>
-        <p>
-         MMQA提出了Multi-Hop Implicit Decomposition（ImplicitDecomp）框架解决多模态问答问题，该框架有如下步骤，
-        </p>
-        <ul>
-         <li>
-          <strong>
-           问题分类
-          </strong>
-          ，MMQA数据集可以按TextQ、TableQ、Compose(TextQ, TableQ)等分为多个类型，该框架使用了一个BERT模型对问题进行分类
-         </li>
-         <li>
-          <strong>
-           按分类迭代处理
-          </strong>
-          ，问题分类指明了该问题相关的模态，例如上图展示了一个关于图像和文本模态的问题的处理流程，其实就是先过TextQA模块（RoBERT模型），然后合并该模块的输出，再过ImageQA模块（VILBERT Vision-and-Language BERT模型）
-         </li>
-        </ul>
-        <h2>
-         [CVPR22] WebQA: Multihop and Multimodal QA
-        </h2>
-        <p>
-         与前面讲的MMQA一样，WebQA首先花了比较多的篇幅讲如何构造数据集，因为这篇文章是bing搜索发表的，所以获取数据的操作和搜索相关，他们默认annotators已经问了一个问题，构造数据集只需要在这个问题的基础基础上，获得答案和上下文
-        </p>
-        <ul>
-         <li>
-          Answers from Images
-         </li>
-        </ul>
-        <p>
-         <img alt="image-20240620172809792" src="../image/2024/image-20240620172809792.png"/>
-        </p>
-        <ul>
-         <li>
-          Answers from Text
-         </li>
-        </ul>
-        <p>
-         <img alt="image-20240620173003381" src="../image/2024/image-20240620173003381.png"/>
-        </p>
-        <p>
-         然后本文用一个章节讲述了自己的评价指标，主要有三个
-        </p>
-        <ul>
-         <li>
-          F1分数，和MMQA类似，本文的框架也要首先判断问题的类型，用F1分数衡量分类能力
-         </li>
-         <li>
-          Fluency，本文通过BARTScore评价回答的流畅性，
-         </li>
-        </ul>
-        <p>
-         <img alt="image-20240620173238325" src="../image/2024/image-20240620173238325.png"/>
-        </p>
-        <p>
-         BARTScore(r, c)表示在给定参考r的情况下，生成候选c的可能性
-        </p>
-        <ul>
-         <li>
-          Accuracy，针对开放领域和非开放领域的问题，本文采取不同的公式计算准确度，
-         </li>
-        </ul>
-        <p>
-         <img alt="image-20240620173501745" src="../image/2024/image-20240620173501745.png"/>
-        </p>
-        <p>
-         对于非开放领域问题，例如颜色，形状等，用F1分数判断是否回答正确，对于开放领域问题，用召回率RE评价准确度，其中K是模型给出的回答的关键词，c是标签
-        </p>
-        <p>
-         本文解决多模态QA的框架也分为两步，
-        </p>
-        <ul>
-         <li>
-          <p>
-           <strong>
-            Input Representation
-           </strong>
-           ，对于文本数据用Bert-base-cased tokenizer；对于图像数据，用目标检测模型（Faster RCNN）预测100个区域，然后把目标检测模型中间某一层的输出作为特征
-          </p>
-         </li>
-         <li>
-          <p>
-           <strong>
-            Source Retrieval
-           </strong>
-           ，&lt;[CLS], si, [SEP], Q, [SEP]&gt;判断si是不是有用的上下文
-          </p>
-         </li>
-         <li>
-          <p>
-           <strong>
-            Question Answering
-           </strong>
-           ，&lt;[CLS], S, [SEP], Q,A, [SEP]&gt;生成回答A
-          </p>
-         </li>
-        </ul>
-        <h2>
-         [ACL22] MMCoQA: Conversational Question Answering over Text, Tables, and Images
-        </h2>
-        <p>
-         和前面两篇文章一样，本文先讲了如何构建数据集，但是和前文不同的是，本文构造了一个对话QA的数据集，具体流程如下图所示，
-        </p>
-        <p>
-         <img alt="image-20240620175722734" src="../image/2024/image-20240620175722734.png"/>
-        </p>
-        <p>
-         本文是在MMQA的数据集基础上构造的自己的数据集，
-        </p>
-        <ul>
-         <li>
-          <strong>
-           Potential Conversation
-          </strong>
-          ，在MMQA中挑选具有相同实体的问题作为潜在对话
-         </li>
-         <li>
-          <strong>
-           Decomposed Conversation
-          </strong>
-          ，按照MMQA中问题的分类对上一步挑选的问题进行分解，将问题分解为单模态问题
-         </li>
-         <li>
-          <strong>
-           Refined Conversation
-          </strong>
-          ，人工调整
-         </li>
-        </ul>
-        <p>
-         本文提出了一个Multimodal Conversational QA system with Adaptive Extractors（
+         这次先读CVPR24的文章，
          <strong>
-          MAE
+          CVPR一年一次
          </strong>
-         ）解决多模态对话QA问题，MAE主要有三个步骤，
-        </p>
-        <p>
-         <img alt="image-20240620180439464" src="../image/2024/image-20240620180439464.png"/>
+         ，通常在每年
+         <strong>
+          6月20日
+         </strong>
+         左右举办，
+         <a href="https://cvpr.thecvf.com/Conferences/2024/News/Awards">
+          CVPR 2024 Best Paper发布页
+         </a>
+         ，计划读以下几篇文章，
         </p>
         <ul>
          <li>
-          <strong>
-           conversational question understanding
-          </strong>
-          ，对话历史和问题被BERT模型编码
+          <a href="https://openaccess.thecvf.com/content/CVPR2024/papers/Liang_Rich_Human_Feedback_for_Text-to-Image_Generation_CVPR_2024_paper.pdf">
+           Rich Human Feedback for Text-to-Image Generation
+          </a>
+          （best paper），图生文
          </li>
          <li>
-          <strong>
-           multimodal evidence retrieval
-          </strong>
-          ，多模态的Knowledge同样分别别编码，然后按问题编码进行检索
+          <a href="https://openaccess.thecvf.com/content/CVPR2024/papers/Stevens_BioCLIP_A_Vision_Foundation_Model_for_the_Tree_of_Life_CVPR_2024_paper.pdf">
+           BioCLIP: A Vision Foundation Model for the Tree of Life
+          </a>
+          （best student paper），xxxCLIP
          </li>
          <li>
-          <strong>
-           adaptive answer extraction
-          </strong>
-          ，检索后得到多个模态的Knowledge，分别进行处理得到最后的答案
+          <a href="https://openaccess.thecvf.com/content/CVPR2024/papers/Jiang_Comparing_the_Decision-Making_Mechanisms_by_Transformers_and_CNNs_via_Explanation_CVPR_2024_paper.pdf">
+           Comparing the Decision-Making Mechanisms by Transformers and CNNs via Explanation Methods
+          </a>
+          （honorable mentions），看标题有点意思
          </li>
         </ul>
         <p>
-         |        | Context | Multimodal               |
-| ------ | ------- | ------------------------ |
-| MMQA   | 无处理  | 迭代                     |
-| WebQA  | 检索    | 图像encode后拼在一起输入 |
-| MMCoQA | 检索    | 分别处理，最后拼接       |
+         其他的best paper或者honorable mentions要不就不是AI，只有一篇
+         <a href="https://openaccess.thecvf.com/content/CVPR2024/papers/Tian_Image_Processing_GNN_Breaking_Rigidity_in_Super-Resolution_CVPR_2024_paper.pdf">
+          Image Processing GNN: Breaking Rigidity in Super-Resolution
+         </a>
+         ;
+         <a href="https://openaccess.thecvf.com/content/CVPR2024/papers/Miller_Objects_as_Volumes_A_Stochastic_Geometry_View_of_Opaque_Solids_CVPR_2024_paper.pdf">
+          Objects as Volumes: A Stochastic Geometry View of Opaque Solids
+         </a>
+         还和自然语言处理一点关系没有，所以都不读。
         </p>
+        <p>
+         然后看ICLR24的文章，
+         <strong>
+          ICLR也是一年一次
+         </strong>
+         ，一般每年
+         <strong>
+          4月底5月初
+         </strong>
+         开，
+         <a href="https://blog.iclr.cc/2024/05/06/iclr-2024-outstanding-paper-awards/">
+          ICLR 2024 Outstanding Paper发布页
+         </a>
+         ，计划读以下几篇，
+        </p>
+        <ul>
+         <li>
+          <a href="https://openreview.net/pdf?id=2dnO3LLiJ1">
+           Vision Transformers Need Registers
+          </a>
+          （outstanding paper），Vit
+         </li>
+        </ul>
+        <p>
+         有了被BioCLIP骗的经历，我先过了一遍ICLR这几篇Paper的简介，发现要不就是对大模型做更改做分析，要不就是什么奇怪的领域的，所以只看了上面这一篇，之前老师让看多模态QA的文章，正好把今年ICLR和CVPR的QA的文章找来看了,
+        </p>
+        <ul>
+         <li>
+          <a href="https://openreview.net/pdf?id=SQrHpTllXa">
+           CABINET: Content Relevance-based Noise Reduction for Table Question Answering
+          </a>
+          （ICLR24）
+         </li>
+         <li>
+          <a href="https://openreview.net/pdf?id=7gUrYE50Rb">
+           EQA-MX: Embodied Question Answering using Multimodal Expression
+          </a>
+          （ICLR24）
+         </li>
+        </ul>
         <h2>
-         [ACL24] MMToM-QA: Multimodal Theory of Mind Question Answering
+         [arXiv] CoCa: Contrastive Captioners are Image-Text Foundation Models
         </h2>
         <p>
-         和前面三篇Multimodal QA的文章有些不同，本文聚焦一个更小的领域Theory of Mind，我理解就是人类行为相关的问答，文中举了下面这个例子，
+         这篇文章其实很简单，就是把CLIP和传统的image captioning训练的方法结合了起来，如下图所示，
         </p>
         <p>
-         <img alt="image-20240621012436230" src="../image/2024/image-20240621012436230.png"/>
+         <img alt="image-20240625235154065" src="../image/2024/image-20240625235154065.png"/>
         </p>
         <p>
-         在有视频和文章说明的情况下，判断视频中人物可能的行为。和前三篇文章相同的是，本文也花一定的篇幅讲述了自己构建的数据集，但没有详细讲构建的方法（附录中应该有），只讲了自己数据集的分析，在它的数据集中包含了视频和文本的输入，以及对应的有两个选择的问题。本文数据集包含信念Belief和目标Goal两大类，共七小类的问题，如下图所示，
-        </p>
-        <p>
-         <img alt="image-20240621012821205" src="../image/2024/image-20240621012821205.png"/>
-        </p>
-        <p>
-         然后是本文的方法，Bayesian Inverse Planning Accelerated by Language Models（BIP-ALM），总体流程如下图，
-        </p>
-        <p>
-         <img alt="image-20240621013009488" src="../image/2024/image-20240621013009488.png"/>
+         作者认为以前的模型可以分成三类，
         </p>
         <ul>
          <li>
-          Unified Symbolic Representations，就是把视频、文本数据以及问题中的两个假设提取并对齐成上图所示的结果，得到了一系列的States和Actions
+          single-encoder models，一个图像的encoder，输出图像的编码结果
          </li>
          <li>
-          Inverse Symbolic Planner
+          dual-encoder models，一个image的encoder，一个test的encoder，通过对比学习损失训练（就是CLIP）
+         </li>
+         <li>
+          encoder-decoder models，文本分支最后有个输出，通常是图像的captioning或者其他多模态的表征，通过对应的标注训练
          </li>
         </ul>
         <p>
-         <img alt="image-20240621142323459" src="../image/2024/image-20240621142323459.png"/>
+         本文作者就是把后两者的训练方式结合了起来，看一下下图其实应该就明白了，就是
         </p>
         <p>
-         传统的方法都是用强化学习之类的方法计算上式，它这里用LLM计算，具体来说有如下步骤，
+         <img alt="image-20240625235228714" src="../image/2024/image-20240625235228714.png"/>
         </p>
         <ul>
          <li>
-          把每步的belief作为目标物体的可能位置
+          中间图像特征和文本特征做一个对比学习损失
          </li>
          <li>
-          对LLM输入state st，goal g，估计的belief b和行为 at，计算该行为at的概率
-         </li>
-         <li>
-          遍历计算出上式，得到结果
+          最后融合两个方面的特征输出captioning，做一个Caption损失
          </li>
         </ul>
         <h2>
-         [ICML21] Learning Transferable Visual Models From Natural Language Supervision
+         [CVPR24] Rich Human Feedback for Text-to-Image Generation
         </h2>
         <p>
-         CLIP的思路其实很简单，就是用对比学习目标来supervision一个image的encoder，具体内容其实就是下面两张图，本周主要还是看多模态QA，这个是上周末看的，所以只在这里做个简单的记录
+         顾名思义，就是RLHF（InstructGPT那篇文章）的Text to Image任务的版本，当然之前也有做类似工作的，本文的贡献主要在于他们收集了一个更rich的数据集，该数据集对每一张生成的图像包含了如下评价指标，
+        </p>
+        <ul>
+         <li>
+          不可行的区域和与输入文本未对齐的区域
+         </li>
+         <li>
+          输入文本中未在图上表达的词
+         </li>
+         <li>
+          对生成图像模糊程度、对齐程度、艺术性和总体的评分
+         </li>
+        </ul>
+        <p>
+         与数据集对应，本文设计了一个模型（RAHF，Rich Automatic Human Feedback）来自动生成上述评价，模型没什么好说的，如下图所示，比较常规，
         </p>
         <p>
-         <img alt="image-20240620181318024" src="../image/2024/image-20240620181318024.png"/>
+         <img alt="image-20240625231627333" src="../image/2024/image-20240625231627333.png"/>
+        </p>
+        <h2>
+         [CVPR24] BioCLIP: A Vision Foundation Model for the Tree of Life
+        </h2>
+        <p>
+         只读了摘要、引言和结论部分，被名字骗了，以为Tree of Life是什么高大上的概念，结果其实就是篇生物学和计算视觉交叉方向的文章，对生物图片作细粒度的分类，好像工作量也挺大的，或许会对该领域有比较深的影响吧，但是对我来说不值得细读，简单总结一下，本文做了两个工作，
         </p>
         <p>
-         <img alt="image-20240620181405874" src="../image/2024/image-20240620181405874.png"/>
+         <img alt="image-20240625150913492" src="../image/2024/image-20240625150913492.png"/>
         </p>
+        <ul>
+         <li>
+          提出了一个数据集TREEOFLIFE-10M
+         </li>
+         <li>
+          构造了一个CLIP的框架，用细粒度的生物类别作文本端的输入
+         </li>
+        </ul>
+        <h2>
+         [CVPR24] Comparing the Decision-Making Mechanisms by Transformers and CNNs via Explanation Methods
+        </h2>
+        <p>
+         看名字比较有意思，所以找来读读，本文主要是提出了两个方法，
+        </p>
+        <ul>
+         <li>
+          subexplanation count
+         </li>
+        </ul>
+        <p>
+         子解释计数要从Minimal Sufficient Explanations（MSE）开始讲起，MSE中的Explanation应该不是翻译为解释，我认为认为其实际的含义是图像中的patch，所以MSE其实就是图像的一组patchs，这组patchs在输入分类模型后可以取得和输入整张图像类似的分类概率（实践中是超过了某个阈值，例如0.9），同时这组patchs在删去任何一个patch后，都不能获得超过之前阈值的分类概率。
+        </p>
+        <p>
+         然后就是所谓的子解释计数，其实就是在MSE中逐步删去patch，选择删去后分类概率高于某个阈值（这里的阈值低于前面的MSE阈值）的组，最后通过在某个阈值设置下的所有子解释的数量。
+        </p>
+        <ul>
+         <li>
+          cross-testing
+         </li>
+        </ul>
+        <p>
+         理解cross-testing要先知道deletion/insertion metrics，就是用一个模型生成输入图片的显著图，然后然后将显著图上最显著的部分逐步替换为基线图像（实践中就是原图的模糊版本），并计算替换后的分类概率得到的一个分数。
+        </p>
+        <p>
+         cross-testing就是用模型A的显著图在模型B上计算deletion/insertion mertics，以此判断两个模型关注的区域是否一致。其实我认为本文的重点是前半部分，也就是子解释的部分，后面这个cross-testing有点像为了补足工作量凑上去的。
+        </p>
+        <p>
+         在这两个方法的基础上，作者在实验中提出了两个概念，
+        </p>
+        <p>
+         <img alt="image-20240625233939269" src="../image/2024/image-20240625233939269.png"/>
+        </p>
+        <ul>
+         <li>
+          compositional，该模型做出分类决定依赖于多个组合的小patch，删去其中的任何一个最模型分类性能的影响不大
+         </li>
+         <li>
+          disjunctive，模型实际只从很少的patch中提取信息做出分类决策
+         </li>
+        </ul>
+        <p>
+         有了概念和方法，作者做了一系列的实验，得出了一些结论，
+        </p>
+        <ul>
+         <li>
+          CNN和Transformer相比，前者的MSE数量多，后者的MSE数量少，所以前者更disjunctive，后者更compositional，这很大程度上是因为BN和LN的不同，BN导致更低的compositional
+         </li>
+         <li>
+          Cross-Testing部分的实验好像没啥用，就是讲那些模型和那些模型关注的区域比较类似之类，没提出需要关注的结论
+         </li>
+        </ul>
+        <h2>
+         [ICLR24] Vision Transformers Need Registers
+        </h2>
+        <p>
+         这篇文章故事讲了很长，但是最后构造的模型其实特简单，就是在正常的Transformer模型输入的序列的后面加了一些Register tokens，模型处理到最后又把这些tokens扔掉，如下图，
+        </p>
+        <p>
+         <img alt="image-20240626175834231" src="../image/2024/image-20240626175834231.png"/>
+        </p>
+        <p>
+         但是本文其实讲了一个挺有意思的故事，他们发现在Transformer模型处理流程中，讲其中几步的特征提取出来构成注意力图，图中会包含一些Artifacts（也就是outlier tokens），所谓outlier tokens就是与正常token值偏离较多的tokens，在下图中可以明显看出without registers中有一些异常tokens，
+        </p>
+        <p>
+         <img alt="image-20240626180139411" src="../image/2024/image-20240626180139411.png"/>
+        </p>
+        <p>
+         本文通过实验，确定了这些outlier tokens有如下特征，
+        </p>
+        <ul>
+         <li>
+          只有大模型在大规模训练时才会出现
+         </li>
+         <li>
+          出现在背景区域，且周围多个patch包含了相似的信息
+         </li>
+         <li>
+          具有全局信息，不具有局部信息
+         </li>
+        </ul>
+        <p>
+         然后作者就提出了前面说的方法来去除这些tokens，并通过实验证明这样对各种任务，特别是密集预测的任务有好处
+        </p>
+        <h2>
+         [ICLR24] CABINET: Content Relevance-based Noise Reduction for Table Question Answering
+        </h2>
+        <p>
+         思路很简单，Table QA任务中生成答案的时候并不需要所有Table cell的数据，只需要关注少部分的sub table，其他不需要关注的部分就是噪音，会影响QA的质量，所有通过一个相关分数使得LLM更关注需要关注的sub table，模型总览图如下，
+        </p>
+        <p>
+         <img alt="image-20240626211733305" src="../image/2024/image-20240626211733305.png"/>
+        </p>
+        <p>
+         生成相关分数有两个步骤，
+        </p>
+        <ul>
+         <li>
+          Unsupervised Relevance Scorer，用了给模型作无监督的相关分数评分，这里的无监督实际上通过聚类损失实现，就是把表中的每个元素分为相关和不相关两类
+         </li>
+         <li>
+          Relevent Cell Predictor，训练了一个模型来根据输入的问题和表格预测需要关注的部分，这里是有监督的训练，然后通过生成的预测打出相应的相关分数
+         </li>
+        </ul>
+        <p>
+         两个部分的相关分数加起来，然后和QA LLM的输入作乘法，相当于对不同的tokens施加注意力
+        </p>
+        <h2>
+         [ICLR24] EQA-MX: Embodied Question Answering using Multimodal Expression
+        </h2>
+        <p>
+         和之前读过的那片心智理论多模态QA类似，都是在一个更细的领域作多模态的QA，这篇文章是作的Embodied QA，我理解就是对与输入图片中人的行为相关（或者说与环境相关）的问题作回答（例如图片中有个人指向了西红柿，问：这个东西是什么，应该回答：西红柿），和之前看过的几篇多模态QA类似，本文也提出了数据集（EQA-MX），然后构造了框架处理EQA问题，模型总览图如下，
+        </p>
+        <p>
+         <img alt="image-20240626233606061" src="../image/2024/image-20240626233606061.png"/>
+        </p>
+        <p>
+         主要可以分为四个步骤，
+        </p>
+        <ul>
+         <li>
+          Visual Encoder和Language Encoder，用Vit和BERT之类的模型对图片和问题作编码
+         </li>
+         <li>
+          Discretization，作者认为图片编码出的特征是连续的，不能直接和离散的文本特征融合，所以首先对图片特征做了离散化，其实就是预先学习了一个CodeBooks，在训练之后Codebook就固定住，后面测试的时候就通过图片的特征从这个CodeBooks里面找最相似的特征，作为离散的图片特征和文本特征拼在一起
+         </li>
+         <li>
+          Discrete Multimodal Fusion，加权和，权重用了个全连接层学习
+         </li>
+         <li>
+          EQA Task，对不同的任务训练不同的任务头
+         </li>
+        </ul>
        </body>
       </html>
      </div>
@@ -415,6 +405,16 @@
     </h3>
     <table class="archive-list">
      <tbody>
+      <tr>
+       <td style="padding-right: 10px">
+        2024.06.28:
+       </td>
+       <td>
+        <a href="http://guchongan.github.io/2024\0628-CVPRbest">
+         [Read Paper] 6.21-6.28 论文阅读（CVPRbest/ICLRoutstanding/Coca）
+        </a>
+       </td>
+      </tr>
       <tr>
        <td style="padding-right: 10px">
         2024.06.21:
@@ -502,16 +502,6 @@
        <td>
         <a href="http://guchongan.github.io/2024\CogModel">
          [Read Paper] CogVLM&amp;CogAgent 两篇视觉大语言模型
-        </a>
-       </td>
-      </tr>
-      <tr>
-       <td style="padding-right: 10px">
-        2024.04.18:
-       </td>
-       <td>
-        <a href="http://guchongan.github.io/2024\CVPR-ICCV-underwater">
-         [Read Paper] CVPR/ICCV/WACV23 underwater相关文章总结（上）
         </a>
        </td>
       </tr>
