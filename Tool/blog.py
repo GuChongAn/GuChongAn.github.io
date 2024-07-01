@@ -28,7 +28,7 @@ class Blog():
         with open(path, 'r', encoding='UTF8') as f:
             md = f.read()
 
-        markdown = mistune.create_markdown(renderer=myBlogRenderer(), plugins=['math'])
+        markdown = mistune.create_markdown(renderer=myBlogRenderer(), plugins=['math', 'table'])
         self.info, md = self.getBlogInfo(md)
         self.blog = markdown(md)
 

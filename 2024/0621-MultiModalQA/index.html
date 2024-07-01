@@ -359,13 +359,55 @@
            ，检索后得到多个模态的Knowledge，分别进行处理得到最后的答案
           </li>
          </ul>
-         <p>
-          |        | Context | Multimodal               |
-| ------ | ------- | ------------------------ |
-| MMQA   | 无处理  | 迭代                     |
-| WebQA  | 检索    | 图像encode后拼在一起输入 |
-| MMCoQA | 检索    | 分别处理，最后拼接       |
-         </p>
+         <table>
+          <thead>
+           <tr>
+            <th>
+            </th>
+            <th>
+             Context
+            </th>
+            <th>
+             Multimodal
+            </th>
+           </tr>
+          </thead>
+          <tbody>
+           <tr>
+            <td>
+             MMQA
+            </td>
+            <td>
+             无处理
+            </td>
+            <td>
+             迭代
+            </td>
+           </tr>
+           <tr>
+            <td>
+             WebQA
+            </td>
+            <td>
+             检索
+            </td>
+            <td>
+             图像encode后拼在一起输入
+            </td>
+           </tr>
+           <tr>
+            <td>
+             MMCoQA
+            </td>
+            <td>
+             检索
+            </td>
+            <td>
+             分别处理，最后拼接
+            </td>
+           </tr>
+          </tbody>
+         </table>
          <h2>
           [ACL24] MMToM-QA: Multimodal Theory of Mind Question Answering
          </h2>
