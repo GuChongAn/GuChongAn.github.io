@@ -71,15 +71,15 @@
    <div class="row">
     <article>
      <h1>
-      <a href="https://guchongan.github.io/2024\0705-MultiModal">
-       [Read Paper] 6.28-7.5 论文阅读
+      <a href="https://guchongan.github.io/2024\0712-KGTTTLoRA">
+       [Read Paper] 7.5-7.15 论文阅读（Knowledge Graph/Test Time Train/LoRA）
       </a>
      </h1>
      <span class="published">
       <i class="fa fa-calendar">
       </i>
       <time>
-       2024.07.05
+       2024.07.12
       </time>
      </span>
      <br/>
@@ -88,210 +88,310 @@
       <html>
        <body>
         <p>
-         按照6月27号讨论时候说的，还是先从webQA，MMCoQA那几篇论文往后面找，找到这几篇，
+         看了几篇知识图谱方向的文章，
         </p>
         <ul>
          <li>
-          <a href="https://arxiv.org/pdf/2406.04292v1">
-           VISTA: Visualized Text Embedding For Universal Multi-Modal Retrieval
+          <a href="https://arxiv.org/abs/2406.17231">
+           CogMG: Collaborative Augmentation Between Large Language Model and Knowledge Graph
           </a>
-          （arXiv 2406，引WebQA)
+          （arXiv 2406，知识图谱推理）
          </li>
          <li>
-          <a href="https://arxiv.org/pdf/2403.04735v1">
-           SnapNTell: Enhancing Entity-Centric Visual Question Answering with Retrieval Augmented Multimodal LLM
+          <a href="http://arxiv.org/abs/2402.05391">
+           Knowledge Graphs Meet Multi-Modal Learning: A Comprehensive Survey
           </a>
-          （arXiv 2403，引WebQA）
+          （arXiv 2402，综述）
          </li>
          <li>
-          <a href="https://arxiv.org/pdf/2001.08034v1">
-           MANYMODALQA: Modality Disambiguation and QA over Diverse Inputs
+          <a href="https://arxiv.org/abs/2406.02030">
+           Multimodal Reasoning with Multimodal Knowledge Graph
           </a>
-          （AAAI 20，三模态QA）
-         </li>
-         <li>
-          <a href="https://aclanthology.org/2023.findings-acl.292.pdf">
-           Unified Language Representation for Question Answering over Text, Tables, and Images
-          </a>
-          （ACL findings 23，三模态QA）
-         </li>
-         <li>
-          <a href="https://aclanthology.org/2023.findings-emnlp.626/">
-           Unifying Text, Tables, and Images for Multimodal Question Answering
-          </a>
-          （EMNLP findings 23，三模态QA）
+          （arXiv 2406，多模态知识图谱QA）
          </li>
         </ul>
         <p>
-         然后看了之前讲的那篇知识图谱推理的文章，
+         然后看了TTT和LoRA，
         </p>
         <ul>
          <li>
-          <a href="https://arxiv.org/abs/2310.01061">
-           Reasoning on Graphs: Faithful and Interpretable Large Language Model Reasoning
+          <a href="https://arxiv.org/abs/2407.04620">
+           Learning to (Learn at Test Time): RNNs with Expressive Hidden States
           </a>
-          （ICLR 24）
+          （arXiv 2407）
+         </li>
+         <li>
+          <a href="https://arxiv.org/abs/2106.09685">
+           LoRA: Low-Rank Adaptation of Large Language Models
+          </a>
+          （arXiv 2106）
          </li>
         </ul>
         <h2>
-         [arXiv 24] VISTA: Visualized Text Embedding For Universal Multi-Modal Retrieval
+         [arXiv 24] CogMG: Collaborative Augmentation Between Large Language Model and Knowledge Graph
         </h2>
         <p>
-         本文主要提出了三个东西，
+         <img alt="image-20240708161946103" src="../image/2024/image-20240708161946103.png"/>
+        </p>
+        <p>
+         本文提出了一个统合LLM和KG的协作增强的框架，主要动机是作者认为之前的方法存在两个问题，
         </p>
         <ul>
          <li>
-          VISTA，针对多模态检索的一个数据文本嵌入模型
+          Incomplete Knowledge Coverage
+         </li>
+         <li>
+          Knowledge Update Misalignment
          </li>
         </ul>
         <p>
-         <img alt="image-20240701192646652" src="../image/2024/image-20240701192646652.png"/>
-        </p>
-        <p>
-         说起来其实很简单，就是图像用Vit处理得到编码表示，文本直接过一个Embedding，图里面写作Text Tokenizer
+         这个框架的步骤如上图所示，
         </p>
         <ul>
          <li>
-          两个数据集（IT2I和T2IT）
+          Question Decomposition，将用户的问题分解为多步
+         </li>
+         <li>
+          Formal Query Generation，把上一步分解的结果生成对应的KG查询
+         </li>
+         <li>
+          Querying KG，查询知识图谱，这是存在两种情况
+          <ul>
+           <li>
+            查到了，就拼上问题，输给LLM得到答案
+           </li>
+           <li>
+            没查到，就用大模型生成没查到的部分（Knowledge Decomposition/Completion）
+           </li>
+          </ul>
+         </li>
+         <li>
+          Answer Integration，LLM生成答案
+         </li>
+         <li>
+          RAG Verification，对于大模型补全的知识图谱，可以选择利用其他的数据库作RAG
          </li>
         </ul>
         <p>
-         Image&amp;Text to Image（IT2I）数据集，生成方式如下图，
+         本文给出了一个完整的例子，
         </p>
         <p>
-         <img alt="image-20240701192929370" src="../image/2024/image-20240701192929370.png"/>
+         <img alt="image-20240708162532440" src="../image/2024/image-20240708162532440.png"/>
+        </p>
+        <h2>
+         [arXiv 24] Learning to (Learn at Test Time): RNNs with Expressive Hidden States
+        </h2>
+        <p>
+         总结起来本文其实就是把RNN中间的隐藏状态换成了一个可学习的模型，如下图所示，
         </p>
         <p>
-         从一个原图像（Source Image&amp;Text），用GPT和扩散模型生成相应的困难负例。然后是Text To Image&amp;Text （T2IT）数据集，对ShareGPT4V数据集中的每一张图像的对应描述扩写成一段话T，并生成查询Q，然后图像，一段话和查询拼在一起作为数据集。
+         <img alt="image-20240710163118559" src="../image/2024/image-20240710163118559.png"/>
+        </p>
+        <p>
+         当然中间存在很多技术细节，主要有三个方面，
         </p>
         <ul>
          <li>
-          两段式的训练方法
+          <strong>
+           Hidden states换成的模型如何训练（使用什么损失函数）
+          </strong>
          </li>
         </ul>
         <p>
-         显示Cross-Modal Training，用下面这个损失函数，
+         <img alt="image-20240710163228513" src="../image/2024/image-20240710163228513.png"/>
         </p>
         <p>
-         <img alt="image-20240701193330618" src="../image/2024/image-20240701193330618.png"/>
+         一个典型的自监督损失，在具体的实现上，本文设置了两个可学习参数K，V对原始的x做映射，然后计算两者间的MSE
         </p>
         <p>
-         其中
+         <img alt="image-20240710163303750" src="../image/2024/image-20240710163303750.png"/>
+        </p>
+        <ul>
+         <li>
+          <strong>
+           如何并行化（RNN的常见问题）
+          </strong>
+         </li>
+        </ul>
+        <p>
+         <img alt="image-20240710163441395" src="../image/2024/image-20240710163441395.png"/>
+        </p>
+        <p>
+         具体来说作者做了两方面的设计，
+        </p>
+        <ul>
+         <li>
+          一方面，作者不对权重做单步更新，做mini-batch的更新，即一个小batch b内的所有G1-Gb都直接从W0计算得到
+         </li>
+         <li>
+          另一方面，作者实际上不存储G和W（除了W0），而是从W0和输入的x直接计算输出的z
+         </li>
+        </ul>
+        <p>
+         这部分参考以下两个公式，
+        </p>
+        <p>
+         <img alt="image-20240710163846509" src="../image/2024/image-20240710163846509.png"/>
+        </p>
+        <p>
+         <img alt="image-20240710163851510" src="../image/2024/image-20240710163851510.png"/>
+        </p>
+        <ul>
+         <li>
+          <strong>
+           与self-attention等价
+          </strong>
+         </li>
+        </ul>
+        <p>
+         然后作者做了个证明，证明了TTT实际上等价于自注意力，证明很简单，就是把令上式的W0=0，zt实际上就变成了三个xs的乘，当然在实际中这三个x都是从原始的x乘一个不同的可学习参数变来的
+        </p>
+        <p>
+         最后作者做了些实验，证明这个TTT在各方面优于Transformer和Mamba
+        </p>
+        <h2>
+         [arXiv 21] LoRA: Low-Rank Adaptation of Large Language Models
+        </h2>
+        <p>
+         <img alt="image-20240712221045613" src="../image/2024/image-20240712221045613.png"/>
+        </p>
+        <p>
+         本文的思路其实通过上面这一张简单的图就可以描述，对于Transformer架构的大模型，其中的可学习参数实际上主要都是一个一个的矩阵W，在学习的过程中，这些W通过
          <span class="math">
-          $L_{con}$
+          $W+{\Delta} W$
          </span>
-         表示对比损失，这个损失的目的是让Vit输出的
+         进行更新，作者根据之前的文章的结果假设
          <span class="math">
-          $e_i$
+          $\Delta W$
          </span>
-         和Text Embedding
+         都是低秩矩阵，所以可以被分解为AB，其中AB是维度为dxr和rxk的矩阵，只要r远小于d和k，那学习A B实际上就比计算
          <span class="math">
-          $e_i$
+          $\Delta W$
          </span>
-         尽可能的接近，这段训练中用的数据集是Laion-2B。然后是Multi-Modal Training，用下面这个损失函数，
-        </p>
-        <p>
-         <img alt="image-20240701193507404" src="../image/2024/image-20240701193507404.png"/>
-        </p>
-        <p>
-         其中查询Q和待选C都是前面提出的两个数据集中的数据。
-        </p>
-        <h2>
-         [arXiv 24] SnapNTell: Enhancing Entity-Centric Visual Question Answering with Retrieval Augmented Multimodal LLM
-        </h2>
-        <p>
-         和之前的多篇论文一样，提出了一个数据集SnapNTell，他在文中说自己是提出了一个SnapNTell任务，这个任务要求模型识别出图像的细粒度类别，并根据识别的类别生成深度理解的回答。然后提出了一个框架解决他提出的这个问题，数据集具体如下图，
-        </p>
-        <p>
-         <img alt="image-20240703141552752" src="../image/2024/image-20240703141552752.png"/>
-        </p>
-        <p>
-         <img alt="image-20240702152658336" src="../image/2024/image-20240702152658336.png"/>
-        </p>
-        <p>
-         框架结构如下图，
-        </p>
-        <p>
-         <img alt="image-20240702152710556" src="../image/2024/image-20240702152710556.png"/>
-        </p>
-        <h2>
-         [AAAI 20] MANYMODALQA: Modality Disambiguation and QA over Diverse Inputs
-        </h2>
-        <p>
-         三模态QA（文本，图像和表格，和MMCoQA一样），和之前看的文章一样，提出了一个数据集MMQA，提出了一个方法解决这个数据集，数据集示例如下图，
-        </p>
-        <p>
-         <img alt="image-20240702155205314" src="../image/2024/image-20240702155205314.png"/>
-        </p>
-        <p>
-         和MMCoQA一样，或者说MMCoQA和这篇论文一样，都没没有融合处理三模态，而是先确定问题关于那一个模态，然后用处理该模态的模型回答问题，模型结构如下图，
-        </p>
-        <p>
-         <img alt="image-20240702155317904" src="../image/2024/image-20240702155317904.png"/>
-        </p>
-        <h2>
-         [ACL findings 23] Unified Language Representation for Question Answering over Text, Tables, and Images
-        </h2>
-        <p>
-         思路很简单，就是把表格和图像都转成文本，然后三模态QA就变成了文本QA问题
-        </p>
-        <p>
-         <img alt="image-20240705145740189" src="../image/2024/image-20240705145740189.png"/>
-        </p>
-        <p>
-         具体有几个技术细节，都在上图中可以看到，
+         简单很多。这样做有很多好处，
         </p>
         <ul>
          <li>
-          Global和Local的文本caption生成
+          其一，很明显大大降低了需要更新的参数量，从全量微调直接更新W，变成了更新AB
          </li>
          <li>
-          检索后先排序再把排序后的结果拼起来
+          其二，作者认为这样可以方便大模型在不同的下游任务上进行迁移，只需要固定之前预训练好的W不变，更新不同的AB即可
+         </li>
+         <li>
+          其三，主要和之前流行的adapter layer的思路相比，这样不会引入更多的推理延迟
          </li>
         </ul>
         <h2>
-         [EMNLP findings 23] Unifying Text, Tables, and Images for Multimodal Question Answering
+         [arXiv 24] Knowledge Graphs Meet Multi-Modal Learning: A Comprehensive Survey
         </h2>
         <p>
-         和上文的思路完全一样，框架如下图所示，
-        </p>
-        <p>
-         <img alt="image-20240705150055209" src="../image/2024/image-20240705150055209.png"/>
-        </p>
-        <p>
-         唯一值得注意的是他有个Rationale Generator，是不是可以用知识图谱替代这部分，把三模态数据变成知识图谱，从知识图谱里面抓一条推理路径出来
-        </p>
-        <h2>
-         [ICLR 24] Reasoning on Graphs: Faithful and Interpretable Large Language Model Reasoning
-        </h2>
-        <p>
-         本文提出了一个RoG（Reasoning on Graphs）的框架，如下图所示，
-        </p>
-        <p>
-         <img alt="image-20240705164301922" src="../image/2024/image-20240705164301922.png"/>
-        </p>
-        <p>
-         主要有两个方面的细节，
+         这篇综述有些长，其他地方我都是泛读，主要关注想要了解的几个问题，
         </p>
         <ul>
          <li>
-          Planning-Retrieval-Reasoning的过程
-         </li>
-         <li>
-          训练模型的损失函数
+          <strong>
+           多模态（主要是图片和文本）知识图谱如何表示？
+          </strong>
          </li>
         </ul>
         <p>
-         <img alt="image-20240705164405152" src="../image/2024/image-20240705164405152.png"/>
+         本文将多模态知识图谱分为了两类，
+        </p>
+        <ol>
+         <li>
+          A-MMKG，将多模态数据作为知识图谱中实体的属性
+         </li>
+         <li>
+          N-MMKG，将多模态数据作为知识图谱中的实体
+         </li>
+        </ol>
+        <p>
+         其中N-MMKG可以视为A-MMKG的一种变体，只要A中的实体也采取某种多模态数据。虽然分类写的有点啰嗦，但实际是和常识的，就是把多模态数据和文本一样作为知识图谱的节点
         </p>
         <p>
-         其中前者使得模型可以根据检索出的推理路径得到最后的答案，实际上就是语言模型损失，计算预测下一个词正确的概率。后者使得模型可以得到正确的关系路径，具体公式如下，
+         我在想应该还有一类就是将一张图片直接转为知识图谱，图片中的物体作为图中的节点，物体间的关系作为图中的边，当然这样一来这个知识图谱实际就不包含多模态数据了
         </p>
         <p>
-         <img alt="image-20240705164545347" src="../image/2024/image-20240705164545347.png"/>
+         然后作者讲了如何构建多模态知识图谱，主要分为两种方法
+        </p>
+        <ol>
+         <li>
+          提取图中的视觉实体，关系，时间构建知识图谱（和我前面的想法类似）
+         </li>
+         <li>
+          从现有的知识图谱出发，将多模态数据直接联系到现有的知识图谱中
+         </li>
+        </ol>
+        <ul>
+         <li>
+          <p>
+           <strong>
+            现在多模态知识图谱QA是如何做的？
+           </strong>
+          </p>
+          <p>
+           <img alt="image-20240712224819195" src="../image/2024/image-20240712224819195.png"/>
+          </p>
+         </li>
+        </ul>
+        <p>
+         作者将知识图谱相关的理解和推理类的相关任务（QA是其中代表）划分为四个关键步骤，知识检索，知识表达，模态交互和回答确定，具体的方法看上图其实也比较明确，解释几个存在困惑的词，
+        </p>
+        <ol>
+         <li>
+          Pruning，剪枝
+         </li>
+         <li>
+          Dense Retrieval，就是编码后在编码空间比较相似度
+         </li>
+         <li>
+          PLM Generation，PLM就是Pre-trained Language Model
+         </li>
+         <li>
+          Dynamic Memory Network，作者给了很官方的说法，根本看不懂，但看他并列的几个，肯定就是一种网络模型
+         </li>
+        </ol>
+        <ul>
+         <li>
+          <strong>
+           其他
+          </strong>
+         </li>
+        </ul>
+        <p>
+         我还关注了一下Caption生成，因为我发现多模态QA对多模态信息的利用很多时候就是直接生成Caption（其实是两类，还有类是编码后处理）
         </p>
         <p>
-         和语言模型的损失类似，只是这里下一个词变成了关系路径中的下一个实体。
+         <img alt="image-20240712234706285" src="../image/2024/image-20240712234706285.png"/>
+        </p>
+        <p>
+         这个感觉有点用，我在想是不是可以不要生成的Caption，而是把他中间的知识图谱拿来做QA
+        </p>
+        <h2>
+         [arXiv 24] Multimodal Reasoning with Multimodal Knowledge Graph
+        </h2>
+        <p>
+         <img alt="image-20240714012237505" src="../image/2024/image-20240714012237505.png"/>
+        </p>
+        <p>
+         本文提出了一个框架利用多模态知识图谱（MMKG）辅助大模型进行推理，主体架构如上图所示，主要有以几个方面值得注意，
+        </p>
+        <ul>
+         <li>
+          KG Encoder，作者在文中直接引了篇文章（RGAT，relation graph attention network），说自己就是用的这个模型做多模态知识图谱的编码，我计划后面有空读下这篇
+         </li>
+         <li>
+          Knowledge/Visual Adapter，全连接层加交叉注意力（和Text的编码结果做交叉）
+         </li>
+         <li>
+          两个损失，一个语言模型，一个对比学习（也就上图中的Cross-Modal Alignment部分）
+         </li>
+        </ul>
+        <p>
+         还有个地方值得注意，作者在引言中说，自己是第一个用MMKG来辅助LLM做多模态推理的
+        </p>
+        <p>
+         <img alt="image-20240714012746455" src="../image/2024/image-20240714012746455.png"/>
         </p>
        </body>
       </html>
@@ -305,11 +405,21 @@
      <tbody>
       <tr>
        <td style="padding-right: 10px">
+        2024.07.12:
+       </td>
+       <td>
+        <a href="http://guchongan.github.io/2024\0712-KGTTTLoRA">
+         [Read Paper] 7.5-7.15 论文阅读（Knowledge Graph/Test Time Train/LoRA）
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <td style="padding-right: 10px">
         2024.07.05:
        </td>
        <td>
         <a href="http://guchongan.github.io/2024\0705-MultiModal">
-         [Read Paper] 6.28-7.5 论文阅读
+         [Read Paper] 6.28-7.5 论文阅读（MultiModalQA/KGQA）
         </a>
        </td>
       </tr>
@@ -390,16 +500,6 @@
        <td>
         <a href="http://guchongan.github.io/2024\DDPM-LDM">
          [Read Paper] DDPM 和 LDM 两篇扩散模型的论文
-        </a>
-       </td>
-      </tr>
-      <tr>
-       <td style="padding-right: 10px">
-        2024.05.08:
-       </td>
-       <td>
-        <a href="http://guchongan.github.io/2024\TransBertGPT">
-         [Read Paper] Transformer + Bert + GPT123 大模型基础论文
         </a>
        </td>
       </tr>

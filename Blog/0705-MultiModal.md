@@ -1,5 +1,5 @@
 ---
-name: [Read Paper] 6.28-7.5 论文阅读
+name: [Read Paper] 6.28-7.5 论文阅读（MultiModalQA/KGQA）
 date: 20240705
 description: 
 keywords: readpaper
