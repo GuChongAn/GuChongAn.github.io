@@ -71,15 +71,15 @@
    <div class="row">
     <article>
      <h1>
-      <a href="https://guchongan.github.io/2024\0712-KGTTTLoRA">
-       [Read Paper] 7.5-7.15 论文阅读（Knowledge Graph/Test Time Train/LoRA）
+      <a href="https://guchongan.github.io/2024\0721-ReActGraphRAG">
+       [Read Paper] 7.15-7.22 论文阅读（Analogical Reasoning/GraphRAG/ReAct）
       </a>
      </h1>
      <span class="published">
       <i class="fa fa-calendar">
       </i>
       <time>
-       2024.07.12
+       2024.07.22
       </time>
      </span>
      <br/>
@@ -88,310 +88,112 @@
       <html>
        <body>
         <p>
-         看了几篇知识图谱方向的文章，
+         主要读CogMG的代码去了，附带着看了三篇论文，
         </p>
         <ul>
          <li>
-          <a href="https://arxiv.org/abs/2406.17231">
-           CogMG: Collaborative Augmentation Between Large Language Model and Knowledge Graph
+          <a href="https://github.com/zjunlp/MKG_Analogy">
+           Multimodal Analogical Reasoning over Knowledge Graphs
           </a>
-          （arXiv 2406，知识图谱推理）
+          （MarKG数据集 ICLR 23）
          </li>
          <li>
-          <a href="http://arxiv.org/abs/2402.05391">
-           Knowledge Graphs Meet Multi-Modal Learning: A Comprehensive Survey
+          <a href="https://arxiv.org/abs/2210.03629">
+           ReAct: Synergizing Reasoning and Acting in Language Models
           </a>
-          （arXiv 2402，综述）
+          （arXiv 22）
          </li>
          <li>
-          <a href="https://arxiv.org/abs/2406.02030">
-           Multimodal Reasoning with Multimodal Knowledge Graph
+          <a href="https://arxiv.org/abs/2404.16130">
+           From Local to Global: A Graph RAG Approach to Query-Focused Summarization
           </a>
-          （arXiv 2406，多模态知识图谱QA）
-         </li>
-        </ul>
-        <p>
-         然后看了TTT和LoRA，
-        </p>
-        <ul>
-         <li>
-          <a href="https://arxiv.org/abs/2407.04620">
-           Learning to (Learn at Test Time): RNNs with Expressive Hidden States
-          </a>
-          （arXiv 2407）
-         </li>
-         <li>
-          <a href="https://arxiv.org/abs/2106.09685">
-           LoRA: Low-Rank Adaptation of Large Language Models
-          </a>
-          （arXiv 2106）
+          （arXiv 2404）
          </li>
         </ul>
         <h2>
-         [arXiv 24] CogMG: Collaborative Augmentation Between Large Language Model and Knowledge Graph
+         [ICLR 23] Multimodal Analogical Reasoning over Knowledge Graphs
         </h2>
         <p>
-         <img alt="image-20240708161946103" src="../image/2024/image-20240708161946103.png"/>
-        </p>
-        <p>
-         本文提出了一个统合LLM和KG的协作增强的框架，主要动机是作者认为之前的方法存在两个问题，
+         CogMG使用了这篇文章提出的数据集MarKG，这个数据集包含两个部分
         </p>
         <ul>
          <li>
-          Incomplete Knowledge Coverage
+          MarKG，一个多模态知识图谱，部分实体拥有图片属性，可能拥有多张图片
          </li>
          <li>
-          Knowledge Update Misalignment
+          MARS，一个类比推理的数据集，包含样例，问题和答案，示例如下
          </li>
         </ul>
+        <div class="highlight">
+         <pre><span></span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"example"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"Q14536140"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Q581459"</span><span class="p">],</span><span class="w"> </span>
+<span class="w">    </span><span class="nt">"question"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Q50000"</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="nt">"answer"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Q202875"</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="nt">"relation"</span><span class="p">:</span><span class="w"> </span><span class="s2">"P828"</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="nt">"mode"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span>
+<span class="p">}</span>
+</pre>
+        </div>
         <p>
-         这个框架的步骤如上图所示，
+         本文在方法部分做了两个方面的讨论，
         </p>
         <ul>
          <li>
-          Question Decomposition，将用户的问题分解为多步
-         </li>
-         <li>
-          Formal Query Generation，把上一步分解的结果生成对应的KG查询
-         </li>
-         <li>
-          Querying KG，查询知识图谱，这是存在两种情况
+          总结了之前多模态类比推理的额base line的方法
           <ul>
            <li>
-            查到了，就拼上问题，输给LLM得到答案
+            MKGE Methods，先推理样例中两个实体的关系，然后搜索得到答案
            </li>
            <li>
-            没查到，就用大模型生成没查到的部分（Knowledge Decomposition/Completion）
+            MPT Methods，先用掩码的方法训练大模型，然后Prompt
            </li>
           </ul>
          </li>
-         <li>
-          Answer Integration，LLM生成答案
-         </li>
-         <li>
-          RAG Verification，对于大模型补全的知识图谱，可以选择利用其他的数据库作RAG
-         </li>
         </ul>
         <p>
-         本文给出了一个完整的例子，
+         <img alt="image-20240723013324371" src="../image/2024/image-20240723013324371.png"/>
         </p>
-        <p>
-         <img alt="image-20240708162532440" src="../image/2024/image-20240708162532440.png"/>
-        </p>
-        <h2>
-         [arXiv 24] Learning to (Learn at Test Time): RNNs with Expressive Hidden States
-        </h2>
-        <p>
-         总结起来本文其实就是把RNN中间的隐藏状态换成了一个可学习的模型，如下图所示，
-        </p>
-        <p>
-         <img alt="image-20240710163118559" src="../image/2024/image-20240710163118559.png"/>
-        </p>
-        <p>
-         当然中间存在很多技术细节，主要有三个方面，
-        </p>
-        <ul>
-         <li>
-          <strong>
-           Hidden states换成的模型如何训练（使用什么损失函数）
-          </strong>
-         </li>
-        </ul>
-        <p>
-         <img alt="image-20240710163228513" src="../image/2024/image-20240710163228513.png"/>
-        </p>
-        <p>
-         一个典型的自监督损失，在具体的实现上，本文设置了两个可学习参数K，V对原始的x做映射，然后计算两者间的MSE
-        </p>
-        <p>
-         <img alt="image-20240710163303750" src="../image/2024/image-20240710163303750.png"/>
-        </p>
-        <ul>
-         <li>
-          <strong>
-           如何并行化（RNN的常见问题）
-          </strong>
-         </li>
-        </ul>
-        <p>
-         <img alt="image-20240710163441395" src="../image/2024/image-20240710163441395.png"/>
-        </p>
-        <p>
-         具体来说作者做了两方面的设计，
-        </p>
-        <ul>
-         <li>
-          一方面，作者不对权重做单步更新，做mini-batch的更新，即一个小batch b内的所有G1-Gb都直接从W0计算得到
-         </li>
-         <li>
-          另一方面，作者实际上不存储G和W（除了W0），而是从W0和输入的x直接计算输出的z
-         </li>
-        </ul>
-        <p>
-         这部分参考以下两个公式，
-        </p>
-        <p>
-         <img alt="image-20240710163846509" src="../image/2024/image-20240710163846509.png"/>
-        </p>
-        <p>
-         <img alt="image-20240710163851510" src="../image/2024/image-20240710163851510.png"/>
-        </p>
-        <ul>
-         <li>
-          <strong>
-           与self-attention等价
-          </strong>
-         </li>
-        </ul>
-        <p>
-         然后作者做了个证明，证明了TTT实际上等价于自注意力，证明很简单，就是把令上式的W0=0，zt实际上就变成了三个xs的乘，当然在实际中这三个x都是从原始的x乘一个不同的可学习参数变来的
-        </p>
-        <p>
-         最后作者做了些实验，证明这个TTT在各方面优于Transformer和Mamba
-        </p>
-        <h2>
-         [arXiv 21] LoRA: Low-Rank Adaptation of Large Language Models
-        </h2>
-        <p>
-         <img alt="image-20240712221045613" src="../image/2024/image-20240712221045613.png"/>
-        </p>
-        <p>
-         本文的思路其实通过上面这一张简单的图就可以描述，对于Transformer架构的大模型，其中的可学习参数实际上主要都是一个一个的矩阵W，在学习的过程中，这些W通过
-         <span class="math">
-          $W+{\Delta} W$
-         </span>
-         进行更新，作者根据之前的文章的结果假设
-         <span class="math">
-          $\Delta W$
-         </span>
-         都是低秩矩阵，所以可以被分解为AB，其中AB是维度为dxr和rxk的矩阵，只要r远小于d和k，那学习A B实际上就比计算
-         <span class="math">
-          $\Delta W$
-         </span>
-         简单很多。这样做有很多好处，
-        </p>
-        <ul>
-         <li>
-          其一，很明显大大降低了需要更新的参数量，从全量微调直接更新W，变成了更新AB
-         </li>
-         <li>
-          其二，作者认为这样可以方便大模型在不同的下游任务上进行迁移，只需要固定之前预训练好的W不变，更新不同的AB即可
-         </li>
-         <li>
-          其三，主要和之前流行的adapter layer的思路相比，这样不会引入更多的推理延迟
-         </li>
-        </ul>
-        <h2>
-         [arXiv 24] Knowledge Graphs Meet Multi-Modal Learning: A Comprehensive Survey
-        </h2>
-        <p>
-         这篇综述有些长，其他地方我都是泛读，主要关注想要了解的几个问题，
-        </p>
-        <ul>
-         <li>
-          <strong>
-           多模态（主要是图片和文本）知识图谱如何表示？
-          </strong>
-         </li>
-        </ul>
-        <p>
-         本文将多模态知识图谱分为了两类，
-        </p>
-        <ol>
-         <li>
-          A-MMKG，将多模态数据作为知识图谱中实体的属性
-         </li>
-         <li>
-          N-MMKG，将多模态数据作为知识图谱中的实体
-         </li>
-        </ol>
-        <p>
-         其中N-MMKG可以视为A-MMKG的一种变体，只要A中的实体也采取某种多模态数据。虽然分类写的有点啰嗦，但实际是和常识的，就是把多模态数据和文本一样作为知识图谱的节点
-        </p>
-        <p>
-         我在想应该还有一类就是将一张图片直接转为知识图谱，图片中的物体作为图中的节点，物体间的关系作为图中的边，当然这样一来这个知识图谱实际就不包含多模态数据了
-        </p>
-        <p>
-         然后作者讲了如何构建多模态知识图谱，主要分为两种方法
-        </p>
-        <ol>
-         <li>
-          提取图中的视觉实体，关系，时间构建知识图谱（和我前面的想法类似）
-         </li>
-         <li>
-          从现有的知识图谱出发，将多模态数据直接联系到现有的知识图谱中
-         </li>
-        </ol>
         <ul>
          <li>
           <p>
-           <strong>
-            现在多模态知识图谱QA是如何做的？
-           </strong>
+           本文提出了一个方法，主要在LLM的基础上做了两方面的改进
           </p>
+          <ul>
+           <li>
+            Adaptive Interaction Across Analogy，对于注意力机制的注意力分数做一个带参数的掩码，控制example tokens和question-answer tokens见的交互
+           </li>
+           <li>
+            Relation-Oriented Structure Mapping，类似于对比学习，一方面让example和answer的关系靠近，一方面让example和question的实体相互远离，公式如下
+           </li>
+          </ul>
           <p>
-           <img alt="image-20240712224819195" src="../image/2024/image-20240712224819195.png"/>
+           <img alt="image-20240723013901476" src="../image/2024/image-20240723013901476.png"/>
           </p>
          </li>
         </ul>
-        <p>
-         作者将知识图谱相关的理解和推理类的相关任务（QA是其中代表）划分为四个关键步骤，知识检索，知识表达，模态交互和回答确定，具体的方法看上图其实也比较明确，解释几个存在困惑的词，
-        </p>
-        <ol>
-         <li>
-          Pruning，剪枝
-         </li>
-         <li>
-          Dense Retrieval，就是编码后在编码空间比较相似度
-         </li>
-         <li>
-          PLM Generation，PLM就是Pre-trained Language Model
-         </li>
-         <li>
-          Dynamic Memory Network，作者给了很官方的说法，根本看不懂，但看他并列的几个，肯定就是一种网络模型
-         </li>
-        </ol>
-        <ul>
-         <li>
-          <strong>
-           其他
-          </strong>
-         </li>
-        </ul>
-        <p>
-         我还关注了一下Caption生成，因为我发现多模态QA对多模态信息的利用很多时候就是直接生成Caption（其实是两类，还有类是编码后处理）
-        </p>
-        <p>
-         <img alt="image-20240712234706285" src="../image/2024/image-20240712234706285.png"/>
-        </p>
-        <p>
-         这个感觉有点用，我在想是不是可以不要生成的Caption，而是把他中间的知识图谱拿来做QA
-        </p>
         <h2>
-         [arXiv 24] Multimodal Reasoning with Multimodal Knowledge Graph
+         [arXiv 22] ReAct: Synergizing Reasoning and Acting in Language Models
         </h2>
         <p>
-         <img alt="image-20240714012237505" src="../image/2024/image-20240714012237505.png"/>
+         CogMG说用了ReAct的框架，我看了下这篇文章，思路很简单，就是Reasoning + Action，例如下图，
         </p>
         <p>
-         本文提出了一个框架利用多模态知识图谱（MMKG）辅助大模型进行推理，主体架构如上图所示，主要有以几个方面值得注意，
-        </p>
-        <ul>
-         <li>
-          KG Encoder，作者在文中直接引了篇文章（RGAT，relation graph attention network），说自己就是用的这个模型做多模态知识图谱的编码，我计划后面有空读下这篇
-         </li>
-         <li>
-          Knowledge/Visual Adapter，全连接层加交叉注意力（和Text的编码结果做交叉）
-         </li>
-         <li>
-          两个损失，一个语言模型，一个对比学习（也就上图中的Cross-Modal Alignment部分）
-         </li>
-        </ul>
-        <p>
-         还有个地方值得注意，作者在引言中说，自己是第一个用MMKG来辅助LLM做多模态推理的
+         <img alt="image-20240723014024066" src="../image/2024/image-20240723014024066.png"/>
         </p>
         <p>
-         <img alt="image-20240714012746455" src="../image/2024/image-20240714012746455.png"/>
+         就是推理-&gt;行动-&gt;环境，如此循环。我看下实现，CogMG直接用的LangChain的实现，编写Tool函数和描述，让模型自己决定什么时候调用什么Tool。
+        </p>
+        <h2>
+         [arXiv 2404] From Local to Global: A Graph RAG Approach to Query-Focused Summarization
+        </h2>
+        <p>
+         GraphRAG，把知识图谱分成多个Communities，然后集成多个Community的回答，框架如下图，
+        </p>
+        <p>
+         <img alt="image-20240723014454954" src="../image/2024/image-20240723014454954.png"/>
+        </p>
+        <p>
+         感觉计算量会比搜个子图出来，只参考子图做处理的方法大很多，我简单看了下文章的实验部分，好像没有找到关于计算量的分析
         </p>
        </body>
       </html>
@@ -405,10 +207,20 @@
      <tbody>
       <tr>
        <td style="padding-right: 10px">
-        2024.07.12:
+        2024.07.22:
        </td>
        <td>
-        <a href="http://guchongan.github.io/2024\0712-KGTTTLoRA">
+        <a href="http://guchongan.github.io/2024\0721-ReActGraphRAG">
+         [Read Paper] 7.15-7.22 论文阅读（Analogical Reasoning/GraphRAG/ReAct）
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <td style="padding-right: 10px">
+        2024.07.15:
+       </td>
+       <td>
+        <a href="http://guchongan.github.io/2024\0714-KGTTTLoRA">
          [Read Paper] 7.5-7.15 论文阅读（Knowledge Graph/Test Time Train/LoRA）
         </a>
        </td>
@@ -490,16 +302,6 @@
        <td>
         <a href="http://guchongan.github.io/2024\csapp-4">
          [CSAPP] 第3章 程序的机器级表示
-        </a>
-       </td>
-      </tr>
-      <tr>
-       <td style="padding-right: 10px">
-        2024.05.16:
-       </td>
-       <td>
-        <a href="http://guchongan.github.io/2024\DDPM-LDM">
-         [Read Paper] DDPM 和 LDM 两篇扩散模型的论文
         </a>
        </td>
       </tr>

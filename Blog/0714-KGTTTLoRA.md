@@ -1,6 +1,6 @@
 ---
 name: [Read Paper] 7.5-7.15 论文阅读（Knowledge Graph/Test Time Train/LoRA）
-date: 20240712
+date: 20240715
 description: 
 keywords: readpaper
 ---
