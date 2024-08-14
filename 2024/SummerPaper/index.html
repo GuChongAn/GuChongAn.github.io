@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="https://www.facebook.com/2008/fbml" xmlns:og="http://ogp.me/ns#">
+ <head>
+  <title>
+   6月-8月 Summer vacation 论文阅读总结（Multimodal Graph/QA方向） - Chongan's website
+  </title>
+  <!-- Using the latest rendering mode for IE -->
+  <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <link href="../../image/favicon.ico" rel="icon"/>
+  <link href="../../css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+  <link href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+  <link href="../../css/vs.css" rel="stylesheet" type="text/css"/>
+  <link href="../../css/style.css" rel="stylesheet" type="text/css"/>
+ </head>
+ <body>
+  <!-- navbar -->
+  <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+   <div class="container">
+    <div class="navbar-header">
+     <button class="navbar-toggle" data-target=".navbar-ex1-collapse" data-toggle="collapse" type="button">
+      <span class="sr-only">
+       Toggle navigation
+      </span>
+      <span class="icon-bar">
+      </span>
+      <span class="icon-bar">
+      </span>
+      <span class="icon-bar">
+      </span>
+     </button>
+     <a class="navbar-brand" href="https://guchongan.github.io/">
+      <img height="32" src="../../image/favicon-32x32.png" width="32"/>
+      Gu Chongan's website
+     </a>
+    </div>
+    <div class="collapse navbar-collapse navbar-ex1-collapse">
+     <ul class="nav navbar-nav navbar-right">
+      <li>
+       <a href="https://guchongan.github.io/about">
+        <i class="fa fa-question">
+        </i>
+        <span class="icon-label">
+         About
+        </span>
+       </a>
+      </li>
+      <li>
+       <a href="https://guchongan.github.io/projects">
+        <i class="fa fa-github">
+        </i>
+        <span class="icon-label">
+         Projects
+        </span>
+       </a>
+      </li>
+      <li>
+       <a href="https://guchongan.github.io/archives">
+        <i class="fa fa-th-list">
+        </i>
+        <span class="icon-label">
+         Archives
+        </span>
+       </a>
+      </li>
+     </ul>
+    </div>
+   </div>
+  </div>
+  <div class="container">
+   <div class="row">
+    <section id="content">
+     <article>
+      <header class="page-header">
+       <h1>
+        <a href="https://guchongan.github.io/2024/6月-8月 Summer vacation 论文阅读总结（Multimodal Graph/QA方向）" rel="bookmark" title="6月-8月 Summer vacation 论文阅读总结（Multimodal Graph/QA方向）">
+         6月-8月 Summer vacation 论文阅读总结（Multimodal Graph/QA方向）
+        </a>
+       </h1>
+      </header>
+      <div class="entry-content">
+       <div class="panel">
+        <div class="panel-body">
+         <footer class="post-info">
+          <span class="published">
+           <i class="fa fa-calendar">
+           </i>
+           <time>
+            2024.08.14
+           </time>
+          </span>
+          <span class="label label-default">
+           Tags
+          </span>
+          <html>
+           <body>
+            <a>
+             readpaper
+            </a>
+           </body>
+          </html>
+         </footer>
+         <!-- /.post-info -->
+        </div>
+       </div>
+       <!-- /.entry-content -->
+       <html>
+        <body>
+         <p>
+          24年6月到8月，在考研结果尘埃落定后读了一些论文，主要涉及三个方面，首先是一些基础论文（Transformer/LLama/GPT等等），然后是CVPR，ICLR等会议24年的best paper，最后是多模态知识图谱和多模态QA方向的一些论文，这里主要对最后一个方面的论文写个总结。
+         </p>
+         <table>
+          <thead>
+           <tr>
+            <th>
+             paper
+            </th>
+            <th>
+             publication
+            </th>
+            <th>
+             comment
+            </th>
+           </tr>
+          </thead>
+          <tbody>
+           <tr>
+            <td>
+             ManyModalQA
+            </td>
+            <td>
+             AAAI 20
+            </td>
+            <td>
+             三模态，模态选择（实际单模态）
+            </td>
+           </tr>
+           <tr>
+            <td>
+             MultiModalQA
+            </td>
+            <td>
+             ICLR21
+            </td>
+            <td>
+             三模态，多跳
+            </td>
+           </tr>
+           <tr>
+            <td>
+             WebQA
+            </td>
+            <td>
+             CVPR22
+            </td>
+            <td>
+             三模态，编码+拼接
+            </td>
+           </tr>
+           <tr>
+            <td>
+             MMCoQA
+            </td>
+            <td>
+             ACL22
+            </td>
+            <td>
+             三模态，编码+模态选择（实际单模态）
+            </td>
+           </tr>
+           <tr>
+            <td>
+             Unified
+            </td>
+            <td>
+             ACL findings 23
+            </td>
+            <td>
+             三模态，转文本
+            </td>
+           </tr>
+           <tr>
+            <td>
+             Unifying
+            </td>
+            <td>
+             EMNLP findings 23
+            </td>
+            <td>
+             三模态，转文本
+            </td>
+           </tr>
+           <tr>
+            <td>
+             MarKG
+            </td>
+            <td>
+             ICLR 23
+            </td>
+            <td>
+             知识图谱，多模态类比推理
+            </td>
+           </tr>
+           <tr>
+            <td>
+             CogMG
+            </td>
+            <td>
+             arXiv 2406
+            </td>
+            <td>
+             知识图谱，LLM补全KG
+            </td>
+           </tr>
+           <tr>
+            <td>
+             MrKG
+            </td>
+            <td>
+             arXiv 2406
+            </td>
+            <td>
+             知识图谱，多模态QA
+            </td>
+           </tr>
+           <tr>
+            <td>
+             MMToM-QA
+            </td>
+            <td>
+             ACL24
+            </td>
+            <td>
+             细分方向，反向贝叶斯规划
+            </td>
+           </tr>
+           <tr>
+            <td>
+             EQA-MX
+            </td>
+            <td>
+             ICLR24
+            </td>
+            <td>
+             细分方向，图片特征离散化
+            </td>
+           </tr>
+           <tr>
+            <td>
+             CABINET
+            </td>
+            <td>
+             ICLR24
+            </td>
+            <td>
+             细分方向，TableQA，Table注意力
+            </td>
+           </tr>
+           <tr>
+            <td>
+             SnapNTell
+            </td>
+            <td>
+             arXiv 2403
+            </td>
+            <td>
+             其他
+            </td>
+           </tr>
+           <tr>
+            <td>
+             VISTA
+            </td>
+            <td>
+             arXiv 2406
+            </td>
+            <td>
+             其他，多模态编码模型
+            </td>
+           </tr>
+          </tbody>
+         </table>
+         <h2>
+          ManyModalQA / MultiModalQA / WebQA / MMCoQA
+         </h2>
+         <p>
+          这几篇文章都是三模态的QA（图像，文本和表格），写作上很类似，都是说自己提出了一个数据集，然后构建了一个框架来处理这个数据集，由于都是两三年前的文章，他们的框架都很简单，具体来说，
+         </p>
+         <ul>
+          <li>
+           ManyModalQA
+          </li>
+         </ul>
+         <p>
+          <img alt="image-20240702155317904" src="..\../image/2024/image-20240702155317904.png"/>
+         </p>
+         <p>
+          最早的一篇三模态QA的文章，方法也很简单，如上图所示，数据上自带上下文
+         </p>
+         <ul>
+          <li>
+           MultimodalQA
+          </li>
+         </ul>
+         <p>
+          <img alt="image-20240620165151836" src="..\../image/2024/image-20240620165151836.png"/>
+         </p>
+         <p>
+          框架：先对问题分类，然后针对不同类型的问题，根据该问题相关的模态进行多跳的处理
+         </p>
+         <p>
+          数据：没有检索步骤，每对QA数据都自带相关的text，image或者table知识
+         </p>
+         <ul>
+          <li>
+           WebQA
+          </li>
+         </ul>
+         <p>
+          框架：先编码，对于文本数据用Bert-base-cased tokenizer；对于图像数据，用目标检测模型（Faster RCNN）预测100个区域，把目标检测模型中间某一层的输出作为特征，然后&lt;[CLS], si, [SEP], Q, [SEP]&gt;判断si是不是有用的上下文，最后&lt;[CLS], S, [SEP], Q,A, [SEP]&gt;生成回答A
+         </p>
+         <p>
+          数据：两种设置，一种相关知识只有40个，一种包含全部知识库（900K）
+         </p>
+         <ul>
+          <li>
+           MMCoQA
+          </li>
+         </ul>
+         <p>
+          <img alt="image-20240620180439464" src="..\../image/2024/image-20240620180439464.png"/>
+         </p>
+         <p>
+          框架：如上图所示，先编码，然后密集检索，然后生成答案
+         </p>
+         <p>
+          <img alt="image-20240620175722734" src="..\../image/2024/image-20240620175722734.png"/>
+         </p>
+         <p>
+          数据：不同的是这篇文章的数据集是对话式问答，每个问题只关于一个模态，也自带上下文
+         </p>
+         <h2>
+          Unified / Unifying Text, Tables, and Images
+         </h2>
+         <p>
+          两篇23年的三模态QA的文章，思路一样，都是把三种模态都转成文本后处理，
+         </p>
+         <p>
+          <img alt="image-20240705145740189" src="..\../image/2024/image-20240705145740189.png"/>
+         </p>
+         <p>
+          <img alt="image-20240705150055209" src="..\../image/2024/image-20240705150055209.png"/>
+         </p>
+         <h2>
+          MarKG / CogMG / MrKG
+         </h2>
+         <p>
+          几篇关于知识图谱QA的文章
+         </p>
+         <ul>
+          <li>
+           MarKG
+          </li>
+         </ul>
+         <p>
+          MarKG提出多模态类比推理任务，其实是一种特定的QA任务，他构建了一个数据集，包含一个多模态知识图谱，和一系列问答对，示例如下，
+         </p>
+         <div class="highlight">
+          <pre><span></span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"example"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"Q14536140"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Q581459"</span><span class="p">],</span><span class="w"> </span>
+<span class="w">    </span><span class="nt">"question"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Q50000"</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="nt">"answer"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Q202875"</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="nt">"relation"</span><span class="p">:</span><span class="w"> </span><span class="s2">"P828"</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="nt">"mode"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span>
+<span class="p">}</span>
+</pre>
+         </div>
+         <p>
+          就是已知两个实体（特斯拉和青年特斯拉），这两个实体间有一个未知的关系（年轻），给定另一个实体（爱因斯坦），问知识图谱中和这个给给定实体具有未知关系的是那个实体（青年爱因斯坦）
+         </p>
+         <p>
+          <img alt="image-20240723013324371" src="..\../image/2024/image-20240723013324371.png"/>
+         </p>
+         <p>
+          提出了两条改进，
+         </p>
+         <ul>
+          <li>
+           Adaptive Interaction Across Analogy，对于注意力机制的注意力分数做一个带参数的掩码，控制example tokens和question-answer tokens间的交互
+          </li>
+          <li>
+           Relation-Oriented Structure Mapping，类似于对比学习，一方面让example和answer的关系靠近，一方面让example和question的实体相互远离，公式如下
+          </li>
+         </ul>
+         <p>
+          <img alt="image-20240723013901476" src="..\../image/2024/image-20240723013901476.png"/>
+         </p>
+         <ul>
+          <li>
+           CogMG
+          </li>
+         </ul>
+         <p>
+          一篇Agent的文章，具体步骤如下，主要的点是做了知识图谱和大模型的交互（有LLM补全知识图谱）
+         </p>
+         <p>
+          <img alt="image-20240708162532440" src="..\../image/2024/image-20240708162532440.png"/>
+         </p>
+         <ul>
+          <li>
+           MrKG
+          </li>
+         </ul>
+         <p>
+          他说自己是第一个做多模态知识图谱辅助LLM问答的
+         </p>
+         <p>
+          <img alt="image-20240714012746455" src="..\../image/2024/image-20240714012746455.png"/>
+         </p>
+         <p>
+          模型框架如下图，
+         </p>
+         <p>
+          <img alt="image-20240714012237505" src="..\../image/2024/image-20240714012237505.png"/>
+         </p>
+         <h2>
+          MMToM-QA / EQA-MX / CABINET
+         </h2>
+         <p>
+          这几篇文章都是细分方向的QA，具体如下，
+         </p>
+         <ul>
+          <li>
+           MMToM-QA
+          </li>
+         </ul>
+         <p>
+          心智理论（Theory of Mind）QA，我理解就是关于人类行为的问答，
+         </p>
+         <p>
+          <img alt="image-20240621012436230" src="..\../image/2024/image-20240621012436230.png"/>
+         </p>
+         <p>
+          方法有点传统方法符号主义的思路，Bayesian Inverse Planning Accelerated by Language Models（BIP-ALM），
+         </p>
+         <p>
+          <img alt="image-20240621013009488" src="..\../image/2024/image-20240621013009488.png"/>
+         </p>
+         <p>
+          写了一长串的公式，但是我看最后他的做法其实很简单，就是
+         </p>
+         <p>
+          <img alt="image-20240621142323459" src="..\../image/2024/image-20240621142323459.png"/>
+         </p>
+         <p>
+          先把每步的belief作为目标物体的可能位置，然后对LLM输入state st，goal g，估计的belief b和行为 at，计算该行为at的概率，遍历计算出上式，得到结果
+         </p>
+         <ul>
+          <li>
+           EQA-MX
+          </li>
+         </ul>
+         <p>
+          Embodied QA，我理解就是对与输入图片中人的行为相关（或者说与环境相关）的问题作回答（例如图片中有个人指向了西红柿，问：这个东西是什么，应该回答：西红柿），模型总览图如下，
+         </p>
+         <p>
+          <img alt="image-20240626233606061" src="..\../image/2024/image-20240626233606061.png"/>
+         </p>
+         <p>
+          这篇文章方法上有意思的地方是他对图片数据做了个离散化，就是类似学一个词典的感觉，作者认为图片编码出的特征是连续的，不能直接和离散的文本特征融合，所以首先对图片特征做了离散化，其实就是预先学习了一个CodeBooks，在训练之后Codebook就固定住，后面测试的时候就通过图片的特征从这个CodeBooks里面找最相似的特征，作为离散的图片特征和文本特征拼在一起
+         </p>
+         <ul>
+          <li>
+           CABINET
+          </li>
+         </ul>
+         <p>
+          思路很简单，Table QA任务中生成答案的时候并不需要所有Table cell的数据，只需要关注少部分的sub table，其他不需要关注的部分就是噪音，会影响QA的质量，所有通过一个相关分数使得LLM更关注需要关注的sub table，模型总览图如下，
+         </p>
+         <p>
+          <img alt="image-20240626211733305" src="..\../image/2024/image-20240626211733305.png"/>
+         </p>
+         <p>
+          生成相关分数有两个步骤，
+         </p>
+         <ul>
+          <li>
+           Unsupervised Relevance Scorer，用了给模型作无监督的相关分数评分，这里的无监督实际上通过聚类损失实现，就是把表中的每个元素分为相关和不相关两类
+          </li>
+          <li>
+           Relevent Cell Predictor，训练了一个模型来根据输入的问题和表格预测需要关注的部分，这里是有监督的训练，然后通过生成的预测打出相应的相关分数
+          </li>
+         </ul>
+         <p>
+          两个部分的相关分数加起来，然后和QA LLM的输入作乘法，相当于对不同的tokens施加注意力
+         </p>
+         <h2>
+          VISTA / SnapNTell
+         </h2>
+         <p>
+          不好分类的两篇文章，
+         </p>
+         <ul>
+          <li>
+           VISTA，针对多模态检索的一个数据文本嵌入模型
+          </li>
+         </ul>
+         <p>
+          <img alt="image-20240701192646652" src="..\../image/2024/image-20240701192646652.png"/>
+         </p>
+         <p>
+          他主要的点应该是提出了两个数据集，模型框架如上图，没什么特别好说的，
+         </p>
+         <p>
+          <img alt="image-20240701192929370" src="..\../image/2024/image-20240701192929370.png"/>
+         </p>
+         <ul>
+          <li>
+           SnapNTell，模型框架如下图
+          </li>
+         </ul>
+         <p>
+          <img alt="image-20240702152710556" src="..\../image/2024/image-20240702152710556.png"/>
+         </p>
+        </body>
+       </html>
+      </div>
+      <hr/>
+      <div class="dotted-links">
+       <p class="align-center">
+        For comments, please send me
+        <a href="hu197136@gmail.com">
+         <i class="fa fa-envelope-o">
+         </i>
+         an email
+        </a>
+        .
+       </p>
+      </div>
+     </article>
+    </section>
+   </div>
+  </div>
+  <footer>
+   <div class="container">
+    <hr/>
+    <div class="row">
+     <div class="col-xs-10">
+      © 2024-2024 Gu Chongan
+     </div>
+     <div class="col-xs-2">
+      <p class="pull-right">
+       <i class="fa fa-arrow-up">
+       </i>
+       <a href="#">
+        Back to top
+       </a>
+      </p>
+     </div>
+    </div>
+   </div>
+  </footer>
+  <script src="../../css/jquery-2.2.4.min.js">
+  </script>
+  <script src="../../css/bootstrap.min.js">
+  </script>
+  <script type="text/x-mathjax-config">
+   var articlemathId = document.getElementById("articleContent");
+	var commentmathId = document.getElementById("commentlist-container");
+	MathJax.Hub.Config({
+		tex2jax: {
+			inlineMath: [ ['$','$'] ], //行内公式
+			displayMath: [ ['$$','$$'] ], //行间公式
+			skipTags: ['script', 'noscript', 'style', 'textarea', 'pre','code','a'], //渲染时跳过的html标签
+			ignoreClass: "summary", //忽略的class
+		}
+	});
+	MathJax.Hub.Queue(["Typeset", MathJax.Hub, articlemathId, commentmathId]); //指定渲染的html块，可以为多个
+  </script>
+  <script src="https://cdn.bootcss.com/mathjax/2.7.7/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script>
+ </body>
+</html>
