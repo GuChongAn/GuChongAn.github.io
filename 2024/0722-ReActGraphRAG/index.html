@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="https://www.facebook.com/2008/fbml" xmlns:og="http://ogp.me/ns#">
+ <head>
+  <title>
+   [Read Paper] 7.15-7.22 论文阅读（Analogical Reasoning/GraphRAG/ReAct） - Chongan's website
+  </title>
+  <!-- Using the latest rendering mode for IE -->
+  <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <link href="../../image/favicon.ico" rel="icon"/>
+  <link href="../../css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+  <link href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+  <link href="../../css/vs.css" rel="stylesheet" type="text/css"/>
+  <link href="../../css/style.css" rel="stylesheet" type="text/css"/>
+ </head>
+ <body>
+  <!-- navbar -->
+  <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+   <div class="container">
+    <div class="navbar-header">
+     <button class="navbar-toggle" data-target=".navbar-ex1-collapse" data-toggle="collapse" type="button">
+      <span class="sr-only">
+       Toggle navigation
+      </span>
+      <span class="icon-bar">
+      </span>
+      <span class="icon-bar">
+      </span>
+      <span class="icon-bar">
+      </span>
+     </button>
+     <a class="navbar-brand" href="https://guchongan.github.io/">
+      <img height="32" src="../../image/favicon-32x32.png" width="32"/>
+      Gu Chongan's website
+     </a>
+    </div>
+    <div class="collapse navbar-collapse navbar-ex1-collapse">
+     <ul class="nav navbar-nav navbar-right">
+      <li>
+       <a href="https://guchongan.github.io/about">
+        <i class="fa fa-question">
+        </i>
+        <span class="icon-label">
+         About
+        </span>
+       </a>
+      </li>
+      <li>
+       <a href="https://guchongan.github.io/projects">
+        <i class="fa fa-github">
+        </i>
+        <span class="icon-label">
+         Projects
+        </span>
+       </a>
+      </li>
+      <li>
+       <a href="https://guchongan.github.io/archives">
+        <i class="fa fa-th-list">
+        </i>
+        <span class="icon-label">
+         Archives
+        </span>
+       </a>
+      </li>
+     </ul>
+    </div>
+   </div>
+  </div>
+  <div class="container">
+   <div class="row">
+    <section id="content">
+     <article>
+      <header class="page-header">
+       <h1>
+        <a href="https://guchongan.github.io/2024/[Read Paper] 7.15-7.22 论文阅读（Analogical Reasoning/GraphRAG/ReAct）" rel="bookmark" title="[Read Paper] 7.15-7.22 论文阅读（Analogical Reasoning/GraphRAG/ReAct）">
+         [Read Paper] 7.15-7.22 论文阅读（Analogical Reasoning/GraphRAG/ReAct）
+        </a>
+       </h1>
+      </header>
+      <div class="entry-content">
+       <div class="panel">
+        <div class="panel-body">
+         <footer class="post-info">
+          <span class="published">
+           <i class="fa fa-calendar">
+           </i>
+           <time>
+            2024.07.22
+           </time>
+          </span>
+          <span class="label label-default">
+           Tags
+          </span>
+          <html>
+           <body>
+            <a>
+             readpaper
+            </a>
+           </body>
+          </html>
+         </footer>
+         <!-- /.post-info -->
+        </div>
+       </div>
+       <!-- /.entry-content -->
+       <html>
+        <body>
+         <p>
+          主要读CogMG的代码去了，附带着看了三篇论文，
+         </p>
+         <ul>
+          <li>
+           <a href="https://github.com/zjunlp/MKG_Analogy">
+            Multimodal Analogical Reasoning over Knowledge Graphs
+           </a>
+           （MarKG数据集 ICLR 23）
+          </li>
+          <li>
+           <a href="https://arxiv.org/abs/2210.03629">
+            ReAct: Synergizing Reasoning and Acting in Language Models
+           </a>
+           （arXiv 22）
+          </li>
+          <li>
+           <a href="https://arxiv.org/abs/2404.16130">
+            From Local to Global: A Graph RAG Approach to Query-Focused Summarization
+           </a>
+           （arXiv 2404）
+          </li>
+         </ul>
+         <h2>
+          [ICLR 23] Multimodal Analogical Reasoning over Knowledge Graphs
+         </h2>
+         <p>
+          CogMG使用了这篇文章提出的数据集MarKG，这个数据集包含两个部分
+         </p>
+         <ul>
+          <li>
+           MarKG，一个多模态知识图谱，部分实体拥有图片属性，可能拥有多张图片
+          </li>
+          <li>
+           MARS，一个类比推理的数据集，包含样例，问题和答案，示例如下
+          </li>
+         </ul>
+         <div class="highlight">
+          <pre><span></span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"example"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"Q14536140"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Q581459"</span><span class="p">],</span><span class="w"> </span>
+<span class="w">    </span><span class="nt">"question"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Q50000"</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="nt">"answer"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Q202875"</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="nt">"relation"</span><span class="p">:</span><span class="w"> </span><span class="s2">"P828"</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="nt">"mode"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span>
+<span class="p">}</span>
+</pre>
+         </div>
+         <p>
+          本文在方法部分做了两个方面的讨论，
+         </p>
+         <ul>
+          <li>
+           总结了之前多模态类比推理的额base line的方法
+           <ul>
+            <li>
+             MKGE Methods，先推理样例中两个实体的关系，然后搜索得到答案
+            </li>
+            <li>
+             MPT Methods，先用掩码的方法训练大模型，然后Prompt
+            </li>
+           </ul>
+          </li>
+         </ul>
+         <p>
+          <img alt="image-20240723013324371" src="..\../image/2024/image-20240723013324371.png"/>
+         </p>
+         <ul>
+          <li>
+           <p>
+            本文提出了一个方法，主要在LLM的基础上做了两方面的改进
+           </p>
+           <ul>
+            <li>
+             Adaptive Interaction Across Analogy，对于注意力机制的注意力分数做一个带参数的掩码，控制example tokens和question-answer tokens见的交互
+            </li>
+            <li>
+             Relation-Oriented Structure Mapping，类似于对比学习，一方面让example和answer的关系靠近，一方面让example和question的实体相互远离，公式如下
+            </li>
+           </ul>
+           <p>
+            <img alt="image-20240723013901476" src="..\../image/2024/image-20240723013901476.png"/>
+           </p>
+          </li>
+         </ul>
+         <h2>
+          [arXiv 22] ReAct: Synergizing Reasoning and Acting in Language Models
+         </h2>
+         <p>
+          CogMG说用了ReAct的框架，我看了下这篇文章，思路很简单，就是Reasoning + Action，例如下图，
+         </p>
+         <p>
+          <img alt="image-20240723014024066" src="..\../image/2024/image-20240723014024066.png"/>
+         </p>
+         <p>
+          就是推理-&gt;行动-&gt;环境，如此循环。我看下实现，CogMG直接用的LangChain的实现，编写Tool函数和描述，让模型自己决定什么时候调用什么Tool。
+         </p>
+         <h2>
+          [arXiv 2404] From Local to Global: A Graph RAG Approach to Query-Focused Summarization
+         </h2>
+         <p>
+          GraphRAG，把知识图谱分成多个Communities，然后集成多个Community的回答，框架如下图，
+         </p>
+         <p>
+          <img alt="image-20240723014454954" src="..\../image/2024/image-20240723014454954.png"/>
+         </p>
+         <p>
+          感觉计算量会比搜个子图出来，只参考子图做处理的方法大很多，我简单看了下文章的实验部分，好像没有找到关于计算量的分析
+         </p>
+        </body>
+       </html>
+      </div>
+      <hr/>
+      <div class="dotted-links">
+       <p class="align-center">
+        For comments, please send me
+        <a href="hu197136@gmail.com">
+         <i class="fa fa-envelope-o">
+         </i>
+         an email
+        </a>
+        .
+       </p>
+      </div>
+     </article>
+    </section>
+   </div>
+  </div>
+  <footer>
+   <div class="container">
+    <hr/>
+    <div class="row">
+     <div class="col-xs-10">
+      © 2024-2024 Gu Chongan
+     </div>
+     <div class="col-xs-2">
+      <p class="pull-right">
+       <i class="fa fa-arrow-up">
+       </i>
+       <a href="#">
+        Back to top
+       </a>
+      </p>
+     </div>
+    </div>
+   </div>
+  </footer>
+  <script src="../../css/jquery-2.2.4.min.js">
+  </script>
+  <script src="../../css/bootstrap.min.js">
+  </script>
+  <script type="text/x-mathjax-config">
+   var articlemathId = document.getElementById("articleContent");
+	var commentmathId = document.getElementById("commentlist-container");
+	MathJax.Hub.Config({
+		tex2jax: {
+			inlineMath: [ ['$','$'] ], //行内公式
+			displayMath: [ ['$$','$$'] ], //行间公式
+			skipTags: ['script', 'noscript', 'style', 'textarea', 'pre','code','a'], //渲染时跳过的html标签
+			ignoreClass: "summary", //忽略的class
+		}
+	});
+	MathJax.Hub.Queue(["Typeset", MathJax.Hub, articlemathId, commentmathId]); //指定渲染的html块，可以为多个
+  </script>
+  <script src="https://cdn.bootcss.com/mathjax/2.7.7/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script>
+ </body>
+</html>

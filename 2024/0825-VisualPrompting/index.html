@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="https://www.facebook.com/2008/fbml" xmlns:og="http://ogp.me/ns#">
+ <head>
+  <title>
+   [Read Paper] 8.25-9.1 论文阅读（Visual Prompting/Dissecting Multimodality/LAION-5B） - Chongan's website
+  </title>
+  <!-- Using the latest rendering mode for IE -->
+  <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <link href="../../image/favicon.ico" rel="icon"/>
+  <link href="../../css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+  <link href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+  <link href="../../css/vs.css" rel="stylesheet" type="text/css"/>
+  <link href="../../css/style.css" rel="stylesheet" type="text/css"/>
+ </head>
+ <body>
+  <!-- navbar -->
+  <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+   <div class="container">
+    <div class="navbar-header">
+     <button class="navbar-toggle" data-target=".navbar-ex1-collapse" data-toggle="collapse" type="button">
+      <span class="sr-only">
+       Toggle navigation
+      </span>
+      <span class="icon-bar">
+      </span>
+      <span class="icon-bar">
+      </span>
+      <span class="icon-bar">
+      </span>
+     </button>
+     <a class="navbar-brand" href="https://guchongan.github.io/">
+      <img height="32" src="../../image/favicon-32x32.png" width="32"/>
+      Gu Chongan's website
+     </a>
+    </div>
+    <div class="collapse navbar-collapse navbar-ex1-collapse">
+     <ul class="nav navbar-nav navbar-right">
+      <li>
+       <a href="https://guchongan.github.io/about">
+        <i class="fa fa-question">
+        </i>
+        <span class="icon-label">
+         About
+        </span>
+       </a>
+      </li>
+      <li>
+       <a href="https://guchongan.github.io/projects">
+        <i class="fa fa-github">
+        </i>
+        <span class="icon-label">
+         Projects
+        </span>
+       </a>
+      </li>
+      <li>
+       <a href="https://guchongan.github.io/archives">
+        <i class="fa fa-th-list">
+        </i>
+        <span class="icon-label">
+         Archives
+        </span>
+       </a>
+      </li>
+     </ul>
+    </div>
+   </div>
+  </div>
+  <div class="container">
+   <div class="row">
+    <section id="content">
+     <article>
+      <header class="page-header">
+       <h1>
+        <a href="https://guchongan.github.io/2024/[Read Paper] 8.25-9.1 论文阅读（Visual Prompting/Dissecting Multimodality/LAION-5B）" rel="bookmark" title="[Read Paper] 8.25-9.1 论文阅读（Visual Prompting/Dissecting Multimodality/LAION-5B）">
+         [Read Paper] 8.25-9.1 论文阅读（Visual Prompting/Dissecting Multimodality/LAION-5B）
+        </a>
+       </h1>
+      </header>
+      <div class="entry-content">
+       <div class="panel">
+        <div class="panel-body">
+         <footer class="post-info">
+          <span class="published">
+           <i class="fa fa-calendar">
+           </i>
+           <time>
+            2024.09.01
+           </time>
+          </span>
+          <span class="label label-default">
+           Tags
+          </span>
+          <html>
+           <body>
+            <a>
+             readpaper
+            </a>
+           </body>
+          </html>
+         </footer>
+         <!-- /.post-info -->
+        </div>
+       </div>
+       <!-- /.entry-content -->
+       <html>
+        <body>
+         <p>
+          看了ICML 24的几篇文章，
+         </p>
+         <ul>
+          <li>
+           <a href="https://arxiv.org/abs/2310.10513">
+            Unifying Image Processing as Visual Prompting Question Answering
+           </a>
+           （ICML 24）
+          </li>
+          <li>
+           <a href="https://arxiv.org/abs/2306.08889">
+            Dissecting Multimodality in VideoQA Transformer Models by Impairing Modality Fusion
+           </a>
+           （ICML 24）
+          </li>
+          <li>
+           （*）
+           <a href="https://openreview.net/forum?id=EncFNR3hxM">
+            KnowFormer: Revisiting Transformers for Knowledge Graph Reasoning
+           </a>
+           （ICML 24）
+          </li>
+         </ul>
+         <p>
+          然后看了篇视觉大模型训练数据集制作的文章，
+         </p>
+         <ul>
+          <li>
+           <a href="https://arxiv.org/abs/2210.08402">
+            LAION-5B: An open large-scale dataset for training next generation image-text models
+           </a>
+           （NeurIPS 22）
+          </li>
+         </ul>
+         <p>
+          看了几篇知识图谱QA/Completion的文章，
+         </p>
+         <ul>
+          <li>
+           <a href="https://arxiv.org/abs/2310.08975">
+            ChatKBQA: A Generate-then-Retrieve Framework for Knowledge Base Question Answering with Fine-tuned Large Language Models
+           </a>
+           （ACL 24）
+          </li>
+          <li>
+           <a href="https://aclanthology.org/2022.acl-long.422/">
+            KQA Pro: A Dataset with Explicit Compositional Programs for Complex Question Answering over Knowledge Base
+           </a>
+           （ACL 22）
+          </li>
+          <li>
+           <a href="https://aclanthology.org/2022.findings-acl.282/">
+            Do Pre-trained Models Benefit Knowledge Graph Completion? A Reliable Evaluation and a Reasonable Approach
+           </a>
+           （ACL-findings 22）
+          </li>
+         </ul>
+         <p>
+          看了两篇大模型评估的文章，
+         </p>
+         <ul>
+          <li>
+           <a href="https://aclanthology.org/2023.emnlp-demo.44.pdf">
+            ZhuJiu: A Multi-dimensional, Multi-faceted Chinese Benchmark for Large Language Models
+           </a>
+           （EMNLP 23）
+          </li>
+          <li>
+           <a href="https://arxiv.org/abs/2403.04132">
+            Chatbot Arena: An Open Platform for Evaluating LLMs by Human Preference
+           </a>
+           （arXiv 2403）
+          </li>
+         </ul>
+         <h2>
+          [ICML 24] Unifying Image Processing as Visual Prompting Question Answering
+         </h2>
+         <p>
+          这篇文章在技术上很简单，看下面两张图就能直接看明白，就是用one-shot QA的方式来做low-level的图像处理，用Mask的方式训练模型，
+         </p>
+         <p>
+          &lt;img src="../image/2024/image-20240825123914131.png" alt="image-20240825123914131" style="zoom:50%;" /&gt;
+         </p>
+         <p>
+          <img alt="image-20240825124046348" src="..\../image/2024/image-20240825124046348.png"/>
+         </p>
+         <p>
+          然后做了比较丰富的实验，证明了自己的方法在15个任务上取得了不错的结果，对比了自己的方法和之前的方法
+         </p>
+         <h2>
+          [ICML 24] Dissecting Multimodality in VideoQA Transformer Models by Impairing Modality Fusion
+         </h2>
+         <p>
+          本文的动机来源于
+          <strong>
+           之前的多模态的模型是否充分利用了两种模态的信息
+          </strong>
+          这一问题，构建了QUAG（QUadrant AveraGe，象限平均）来证明并解决这一问题。对于注意力层的注意力矩阵有，
+         </p>
+         <p>
+          <img alt="image-20240826130449652" src="..\../image/2024/image-20240826130449652.png"/>
+         </p>
+         <p>
+          注意力矩阵和Value相乘有，
+         </p>
+         <p>
+          <img alt="image-20240826130517905" src="..\../image/2024/image-20240826130517905.png"/>
+         </p>
+         <p>
+          <img alt="image-20240826130523562" src="..\../image/2024/image-20240826130523562.png"/>
+         </p>
+         <p>
+          所以只要修改注意力矩阵的某些部分就能控制只利用某些模态的信息，本文使用了按行平均的修改方法，如下图，
+         </p>
+         <p>
+          <img alt="image-20240826130640507" src="..\../image/2024/image-20240826130640507.png"/>
+         </p>
+         <h2>
+          [NeurIPS 22] LAION-5B: An open large-scale dataset for training next generation image-text models
+         </h2>
+         <p>
+          本文提出了一个大规模的图片文字对的数据集，与当时其他数据集的比较如下图，
+         </p>
+         <p>
+          <img alt="image-20240826125210416" src="..\../image/2024/image-20240826125210416.png"/>
+         </p>
+         <p>
+          然后本文讲了以下它数据集的收集方法，大概分为以下三步，
+         </p>
+         <ul>
+          <li>
+           <strong>
+            Web page filtering
+           </strong>
+           ，在Common Crawl的页面中筛选有alt-text属性的img标签，并按语言种类给数据分类
+          </li>
+          <li>
+           <strong>
+            Downloading Image-Text Pairs
+           </strong>
+           ，下载原始图片
+          </li>
+          <li>
+           <strong>
+            Post-Processing
+           </strong>
+           ，删去有害的、过大过小的、冗余的数据，过滤文本图片相似度较低的数据
+          </li>
+         </ul>
+         <p>
+          <img alt="image-20240826125606862" src="..\../image/2024/image-20240826125606862.png"/>
+         </p>
+         <p>
+          最后本文做了一串实验，证明自己的数据集有效，
+         </p>
+         <p>
+          <img alt="image-20240826130106384" src="..\../image/2024/image-20240826130106384.png"/>
+         </p>
+         <h2>
+          [ICML 24] KnowFormer: Revisiting Transformers for Knowledge Graph Reasoning
+         </h2>
+         <p>
+          本文提出了一个针对知识图谱推理的注意力机制，并使用该注意力机制构建了一个Transformer模型，总结本文之前需要补充一些背景知识，
+         </p>
+         <ul>
+          <li>
+           <strong>
+            Transductive（直推）和Inductive（归纳）任务
+           </strong>
+           是知识图谱补全的两种任务，前者用已知的知识图谱信息（例如关系）补全未知的部分，后者需要补全的实体或关系在训练时是未知的
+          </li>
+          <li>
+           <strong>
+            Knowledge Graph Reasoning和Completing
+           </strong>
+           ，就是一个东西，有的论文叫它推理，有的论文叫他补全，其实就是一回事
+          </li>
+         </ul>
+         <p>
+          本文主要就是提出了一种新的注意力机制，其算法如下，
+         </p>
+         <p>
+          <img alt="image-20240827160535723" src="..\../image/2024/image-20240827160535723.png"/>
+         </p>
+         <p>
+          上图公式看着挺复杂，但其实要做的事情还是比较简单，如下图，
+         </p>
+         <p>
+          <img alt="image-20240827161149244" src="..\../image/2024/image-20240827161149244.png"/>
+         </p>
+         <p>
+          主要分为三个部分，
+         </p>
+         <ul>
+          <li>
+           <strong>
+            如何计算Query和Key
+           </strong>
+          </li>
+         </ul>
+         <p>
+          <img alt="image-20240827161330412" src="..\../image/2024/image-20240827161330412.png"/>
+         </p>
+         <ul>
+          <li>
+           <strong>
+            如何计算Value
+           </strong>
+          </li>
+         </ul>
+         <p>
+          <img alt="image-20240827161338160" src="..\../image/2024/image-20240827161338160.png"/>
+         </p>
+         <ul>
+          <li>
+           <strong>
+            如何计算注意力矩阵
+           </strong>
+          </li>
+         </ul>
+         <p>
+          <img alt="image-20240827161347153" src="..\../image/2024/image-20240827161347153.png"/>
+         </p>
+         <h2>
+          [ACL 24] ChatKBQA: A Generate-then-Retrieve Framework for Knowledge Base Question Answering with Fine-tuned Large Language Models
+         </h2>
+         <p>
+          本文实际解决的是类似知识图谱检索的问题，即给定一段文本，如何在知识图谱中检索到该文本相关的信息，本文给出的答案是生成-检索（Generate-then-Retrieve）框架，如下图，
+         </p>
+         <p>
+          <img alt="image-20240828173458751" src="..\../image/2024/image-20240828173458751.png"/>
+         </p>
+         <p>
+          本文的方法可以分为以下几步，
+         </p>
+         <ul>
+          <li>
+           <strong>
+            LLM Fine-Tuning
+           </strong>
+          </li>
+         </ul>
+         <p>
+          使用
+          <em>
+           question-SPARQL
+          </em>
+          对微调大模型，使大模型有能力针对输入的问题，输出对应的Logical Forms
+         </p>
+         <ul>
+          <li>
+           <strong>
+            Unsupervised Retrieval
+           </strong>
+          </li>
+         </ul>
+         <p>
+          上一步得到的Logical Forms实际是非严格的SPARQL，其中的实体和关系都是不一定按本名直接存在于KB中，所以需要通过检索，将entity和relation换为KB中的准确描述
+         </p>
+         <ul>
+          <li>
+           <strong>
+            SPARQL query
+           </strong>
+          </li>
+         </ul>
+         <p>
+          在上一步已经得到了正确的SPARQL查询语句，所以直接执行就能得到最后的答案
+         </p>
+         <h2>
+          [ACL 22] KQA Pro: A Dataset with Explicit Compositional Programs for Complex Question Answering over Knowledge Base
+         </h2>
+         <p>
+          本文提出了两个东西，一个数据集KQA Pro，一个知识图谱查询语言/方法 KoPL（Knowledge-oriented Pro-gramming Language），首先是他的数据集，构建方法如下图，
+         </p>
+         <p>
+          &lt;img src="../image/2024/image-20240829142043302.png" alt="image-20240829142043302" style="zoom:50%;" /&gt;
+         </p>
+         <p>
+          分为以下三步，
+         </p>
+         <ul>
+          <li>
+           知识提取，提取了Wikidata的一个子图
+          </li>
+          <li>
+           问题生成，按模板生成（问题，SPARQL，KoPL，Choices，Answer）对
+          </li>
+          <li>
+           问题重写，雇人众包重写问题
+          </li>
+         </ul>
+         <p>
+          然后是KoPL，这是一种描述如何查询知识图谱的语言，可以被表述成二叉树的格式，例如，
+         </p>
+         <p>
+          <img alt="image-20240829142317041" src="..\../image/2024/image-20240829142317041.png"/>
+         </p>
+         <p>
+          与SPARQL相比，KoPL提供了清晰的推理步骤，在中间出现错误的时候，人类可以快速的定位
+         </p>
+         <h2>
+          [ACL-findings 22] Do Pre-trained Models Benefit Knowledge Graph Completion? A Reliable Evaluation and a Reasonable Approach
+         </h2>
+         <p>
+          和之前看到的很多QA的文章类似，本文提出了一个数据集和一个方法，首先是数据集，本文没有过多的介绍自己数据集的细节，而是着重描写了自的数据集和之前数据集的区别，
+         </p>
+         <ul>
+          <li>
+           之前的数据集都是 Closed-world assumption (CWA)，在做link prediction任务的时候认为所有训练数据中的答案都是错误的
+          </li>
+          <li>
+           本提出的数据集是 Open-world assumption (OWA)，符合人类的认识，可以利用外部知识回答预测
+          </li>
+         </ul>
+         <p>
+          <img alt="image-20240830123710793" src="..\../image/2024/image-20240830123710793.png"/>
+         </p>
+         <p>
+          然后是本文提出的方法，主要就是用prompt模板来处理知识图谱的三元组，框架如下图，
+         </p>
+         <p>
+          <img alt="image-20240830123759726" src="..\../image/2024/image-20240830123759726.png"/>
+         </p>
+         <p>
+          分为了两个部分，
+         </p>
+         <ul>
+          <li>
+           <strong>
+            Triple Prompts
+           </strong>
+          </li>
+         </ul>
+         <p>
+          为每个关系构造了一个模板，例如
+         </p>
+         <p>
+          <img alt="image-20240830123842451" src="..\../image/2024/image-20240830123842451.png"/>
+         </p>
+         <p>
+          还使用了soft prompts技术，
+         </p>
+         <p>
+          <img alt="image-20240830124019073" src="..\../image/2024/image-20240830124019073.png"/>
+         </p>
+         <ul>
+          <li>
+           <strong>
+            Support Prompts
+           </strong>
+          </li>
+         </ul>
+         <p>
+          为每个属性构建了模板，例如上图中的Definition和Attribute
+         </p>
+         <h2>
+          [EMNLP 23] ZhuJiu: A Multi-dimensional, Multi-faceted Chinese Benchmark for Large Language Models
+         </h2>
+         <p>
+          提出了一个大模型评估系统，包含三方面的内容，
+         </p>
+         <p>
+          <strong>
+           1）评估方法
+          </strong>
+         </p>
+         <p>
+          本文使用了三种评估方法，
+         </p>
+         <ul>
+          <li>
+           Metrics Evaluation，和常见的模型测试类似，就是测试大模型在某些数据集上某些指标的高低
+          </li>
+          <li>
+           Scoring Evaluation，这个方法有点复杂，我理解就是用LLM生成数据然后评估其他模型，具体步骤如下，
+           <ul>
+            <li>
+             人工选取一些评估数据作为随机种子
+            </li>
+            <li>
+             使用上一步的数据让ChatGPT生成进一步的评估prompts
+            </li>
+            <li>
+             人工评估上一步生成的prompts，留下其中的100个
+            </li>
+            <li>
+             让要评估的LLM执行这些prompts，让GPT辅助评分
+            </li>
+           </ul>
+          </li>
+         </ul>
+         <p>
+          &lt;img src="../image/2024/image-20240831213157452.png" alt="image-20240831213157452" style="zoom:50%;" /&gt;
+         </p>
+         <ul>
+          <li>
+           Comparative Evaluation，Chatbot Arena式的方法，在不知道两个模型名字的情况下，人直接评价两个模型谁的回答更好
+          </li>
+         </ul>
+         <p>
+          <strong>
+           2）数据集
+          </strong>
+         </p>
+         <p>
+          本文使用了两种数据集，
+         </p>
+         <ul>
+          <li>
+           Collect Datasets，就是之前的公开数据集
+          </li>
+          <li>
+           Construct Datasets，就是上面讲Scoring Evaluation部分所述构造的数据
+          </li>
+         </ul>
+         <p>
+          <strong>
+           3）评估维度
+          </strong>
+         </p>
+         <p>
+          本文从七个维度评估LLMs，评估方法和数据集如上述，详见论文2.3节
+         </p>
+         <h2>
+          [arXiv 24] Chatbot Arena: An Open Platform for Evaluating LLMs by Human Preference
+         </h2>
+         <p>
+          本文基于自己
+          <a href="https://chat.lmsys.org">
+           竞技场
+          </a>
+          快1年的数据收集结果，做了三个方面的贡献，
+         </p>
+         <p>
+          <strong>
+           1）数据集
+          </strong>
+         </p>
+         <p>
+          本文提出了一个来自90K人的240K投票结果的关于超过50个模型的数据集，涉及超过100种语言
+         </p>
+         <p>
+          <img alt="image-20240901105456944" src="..\../image/2024/image-20240901105456944.png"/>
+         </p>
+         <p>
+          <strong>
+           2）Ranking方法
+          </strong>
+         </p>
+         <p>
+          本文使用了Bradley-Terry来对模型做排序，首先让用户对两个匿名模型作评价，得到一个模型对，以及该模型对中谁更好的评价结果，然后用BT算法对模型排序
+         </p>
+         <p>
+          <strong>
+           3）数据分析
+          </strong>
+         </p>
+         <p>
+          本文作了三个方面的数据分析，
+         </p>
+         <ul>
+          <li>
+           Topic Modeling，先给问题降维，然后聚类，得到600多个聚类簇
+          </li>
+          <li>
+           Distinguish Models，不同模型擅长不同类型的问题
+          </li>
+         </ul>
+         <p>
+          <img alt="image-20240901105941541" src="..\../image/2024/image-20240901105941541.png"/>
+         </p>
+         <ul>
+          <li>
+           Vote Quality，本文让自己学校的学生以及GPT也对模型作类似的比较，得到下表，证明了投票质量
+          </li>
+         </ul>
+         <p>
+          <img alt="image-20240901110113674" src="..\../image/2024/image-20240901110113674.png"/>
+         </p>
+        </body>
+       </html>
+      </div>
+      <hr/>
+      <div class="dotted-links">
+       <p class="align-center">
+        For comments, please send me
+        <a href="hu197136@gmail.com">
+         <i class="fa fa-envelope-o">
+         </i>
+         an email
+        </a>
+        .
+       </p>
+      </div>
+     </article>
+    </section>
+   </div>
+  </div>
+  <footer>
+   <div class="container">
+    <hr/>
+    <div class="row">
+     <div class="col-xs-10">
+      © 2024-2024 Gu Chongan
+     </div>
+     <div class="col-xs-2">
+      <p class="pull-right">
+       <i class="fa fa-arrow-up">
+       </i>
+       <a href="#">
+        Back to top
+       </a>
+      </p>
+     </div>
+    </div>
+   </div>
+  </footer>
+  <script src="../../css/jquery-2.2.4.min.js">
+  </script>
+  <script src="../../css/bootstrap.min.js">
+  </script>
+  <script type="text/x-mathjax-config">
+   var articlemathId = document.getElementById("articleContent");
+	var commentmathId = document.getElementById("commentlist-container");
+	MathJax.Hub.Config({
+		tex2jax: {
+			inlineMath: [ ['$','$'] ], //行内公式
+			displayMath: [ ['$$','$$'] ], //行间公式
+			skipTags: ['script', 'noscript', 'style', 'textarea', 'pre','code','a'], //渲染时跳过的html标签
+			ignoreClass: "summary", //忽略的class
+		}
+	});
+	MathJax.Hub.Queue(["Typeset", MathJax.Hub, articlemathId, commentmathId]); //指定渲染的html块，可以为多个
+  </script>
+  <script src="https://cdn.bootcss.com/mathjax/2.7.7/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script>
+ </body>
+</html>

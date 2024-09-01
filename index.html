@@ -71,15 +71,15 @@
    <div class="row">
     <article>
      <h1>
-      <a href="https://guchongan.github.io/2024\SummerPaper">
-       6月-8月 Summer vacation 论文阅读总结（Multimodal Graph/QA方向）
+      <a href="https://guchongan.github.io/2024\0825-VisualPrompting">
+       [Read Paper] 8.25-9.1 论文阅读（Visual Prompting/Dissecting Multimodality/LAION-5B）
       </a>
      </h1>
      <span class="published">
       <i class="fa fa-calendar">
       </i>
       <time>
-       2024.08.14
+       2024.09.01
       </time>
      </span>
      <br/>
@@ -88,420 +88,485 @@
       <html>
        <body>
         <p>
-         24年6月到8月，在考研结果尘埃落定后读了一些论文，主要涉及三个方面，首先是一些基础论文（Transformer/LLama/GPT等等），然后是CVPR，ICLR等会议24年的best paper，最后是多模态知识图谱和多模态QA方向的一些论文，这里主要对最后一个方面的论文写个总结。
+         看了ICML 24的几篇文章，
         </p>
-        <table>
-         <thead>
-          <tr>
-           <th>
-            paper
-           </th>
-           <th>
-            publication
-           </th>
-           <th>
-            comment
-           </th>
-          </tr>
-         </thead>
-         <tbody>
-          <tr>
-           <td>
-            ManyModalQA
-           </td>
-           <td>
-            AAAI 20
-           </td>
-           <td>
-            三模态，模态选择（实际单模态）
-           </td>
-          </tr>
-          <tr>
-           <td>
-            MultiModalQA
-           </td>
-           <td>
-            ICLR21
-           </td>
-           <td>
-            三模态，多跳
-           </td>
-          </tr>
-          <tr>
-           <td>
-            WebQA
-           </td>
-           <td>
-            CVPR22
-           </td>
-           <td>
-            三模态，编码+拼接
-           </td>
-          </tr>
-          <tr>
-           <td>
-            MMCoQA
-           </td>
-           <td>
-            ACL22
-           </td>
-           <td>
-            三模态，编码+模态选择（实际单模态）
-           </td>
-          </tr>
-          <tr>
-           <td>
-            Unified
-           </td>
-           <td>
-            ACL findings 23
-           </td>
-           <td>
-            三模态，转文本
-           </td>
-          </tr>
-          <tr>
-           <td>
-            Unifying
-           </td>
-           <td>
-            EMNLP findings 23
-           </td>
-           <td>
-            三模态，转文本
-           </td>
-          </tr>
-          <tr>
-           <td>
-            MarKG
-           </td>
-           <td>
-            ICLR 23
-           </td>
-           <td>
-            知识图谱，多模态类比推理
-           </td>
-          </tr>
-          <tr>
-           <td>
-            CogMG
-           </td>
-           <td>
-            arXiv 2406
-           </td>
-           <td>
-            知识图谱，LLM补全KG
-           </td>
-          </tr>
-          <tr>
-           <td>
-            MrKG
-           </td>
-           <td>
-            arXiv 2406
-           </td>
-           <td>
-            知识图谱，多模态QA
-           </td>
-          </tr>
-          <tr>
-           <td>
-            MMToM-QA
-           </td>
-           <td>
-            ACL24
-           </td>
-           <td>
-            细分方向，反向贝叶斯规划
-           </td>
-          </tr>
-          <tr>
-           <td>
-            EQA-MX
-           </td>
-           <td>
-            ICLR24
-           </td>
-           <td>
-            细分方向，图片特征离散化
-           </td>
-          </tr>
-          <tr>
-           <td>
-            CABINET
-           </td>
-           <td>
-            ICLR24
-           </td>
-           <td>
-            细分方向，TableQA，Table注意力
-           </td>
-          </tr>
-          <tr>
-           <td>
-            SnapNTell
-           </td>
-           <td>
-            arXiv 2403
-           </td>
-           <td>
-            其他
-           </td>
-          </tr>
-          <tr>
-           <td>
-            VISTA
-           </td>
-           <td>
-            arXiv 2406
-           </td>
-           <td>
-            其他，多模态编码模型
-           </td>
-          </tr>
-         </tbody>
-        </table>
+        <ul>
+         <li>
+          <a href="https://arxiv.org/abs/2310.10513">
+           Unifying Image Processing as Visual Prompting Question Answering
+          </a>
+          （ICML 24）
+         </li>
+         <li>
+          <a href="https://arxiv.org/abs/2306.08889">
+           Dissecting Multimodality in VideoQA Transformer Models by Impairing Modality Fusion
+          </a>
+          （ICML 24）
+         </li>
+         <li>
+          （*）
+          <a href="https://openreview.net/forum?id=EncFNR3hxM">
+           KnowFormer: Revisiting Transformers for Knowledge Graph Reasoning
+          </a>
+          （ICML 24）
+         </li>
+        </ul>
+        <p>
+         然后看了篇视觉大模型训练数据集制作的文章，
+        </p>
+        <ul>
+         <li>
+          <a href="https://arxiv.org/abs/2210.08402">
+           LAION-5B: An open large-scale dataset for training next generation image-text models
+          </a>
+          （NeurIPS 22）
+         </li>
+        </ul>
+        <p>
+         看了几篇知识图谱QA/Completion的文章，
+        </p>
+        <ul>
+         <li>
+          <a href="https://arxiv.org/abs/2310.08975">
+           ChatKBQA: A Generate-then-Retrieve Framework for Knowledge Base Question Answering with Fine-tuned Large Language Models
+          </a>
+          （ACL 24）
+         </li>
+         <li>
+          <a href="https://aclanthology.org/2022.acl-long.422/">
+           KQA Pro: A Dataset with Explicit Compositional Programs for Complex Question Answering over Knowledge Base
+          </a>
+          （ACL 22）
+         </li>
+         <li>
+          <a href="https://aclanthology.org/2022.findings-acl.282/">
+           Do Pre-trained Models Benefit Knowledge Graph Completion? A Reliable Evaluation and a Reasonable Approach
+          </a>
+          （ACL-findings 22）
+         </li>
+        </ul>
+        <p>
+         看了两篇大模型评估的文章，
+        </p>
+        <ul>
+         <li>
+          <a href="https://aclanthology.org/2023.emnlp-demo.44.pdf">
+           ZhuJiu: A Multi-dimensional, Multi-faceted Chinese Benchmark for Large Language Models
+          </a>
+          （EMNLP 23）
+         </li>
+         <li>
+          <a href="https://arxiv.org/abs/2403.04132">
+           Chatbot Arena: An Open Platform for Evaluating LLMs by Human Preference
+          </a>
+          （arXiv 2403）
+         </li>
+        </ul>
         <h2>
-         ManyModalQA / MultiModalQA / WebQA / MMCoQA
+         [ICML 24] Unifying Image Processing as Visual Prompting Question Answering
         </h2>
         <p>
-         这几篇文章都是三模态的QA（图像，文本和表格），写作上很类似，都是说自己提出了一个数据集，然后构建了一个框架来处理这个数据集，由于都是两三年前的文章，他们的框架都很简单，具体来说，
-        </p>
-        <ul>
-         <li>
-          ManyModalQA
-         </li>
-        </ul>
-        <p>
-         <img alt="image-20240702155317904" src="../image/2024/image-20240702155317904.png"/>
+         这篇文章在技术上很简单，看下面两张图就能直接看明白，就是用one-shot QA的方式来做low-level的图像处理，用Mask的方式训练模型，
         </p>
         <p>
-         最早的一篇三模态QA的文章，方法也很简单，如上图所示，数据上自带上下文
-        </p>
-        <ul>
-         <li>
-          MultimodalQA
-         </li>
-        </ul>
-        <p>
-         <img alt="image-20240620165151836" src="../image/2024/image-20240620165151836.png"/>
+         &lt;img src="../image/2024/image-20240825123914131.png" alt="image-20240825123914131" style="zoom:50%;" /&gt;
         </p>
         <p>
-         框架：先对问题分类，然后针对不同类型的问题，根据该问题相关的模态进行多跳的处理
+         <img alt="image-20240825124046348" src="../image/2024/image-20240825124046348.png"/>
         </p>
         <p>
-         数据：没有检索步骤，每对QA数据都自带相关的text，image或者table知识
-        </p>
-        <ul>
-         <li>
-          WebQA
-         </li>
-        </ul>
-        <p>
-         框架：先编码，对于文本数据用Bert-base-cased tokenizer；对于图像数据，用目标检测模型（Faster RCNN）预测100个区域，把目标检测模型中间某一层的输出作为特征，然后&lt;[CLS], si, [SEP], Q, [SEP]&gt;判断si是不是有用的上下文，最后&lt;[CLS], S, [SEP], Q,A, [SEP]&gt;生成回答A
-        </p>
-        <p>
-         数据：两种设置，一种相关知识只有40个，一种包含全部知识库（900K）
-        </p>
-        <ul>
-         <li>
-          MMCoQA
-         </li>
-        </ul>
-        <p>
-         <img alt="image-20240620180439464" src="../image/2024/image-20240620180439464.png"/>
-        </p>
-        <p>
-         框架：如上图所示，先编码，然后密集检索，然后生成答案
-        </p>
-        <p>
-         <img alt="image-20240620175722734" src="../image/2024/image-20240620175722734.png"/>
-        </p>
-        <p>
-         数据：不同的是这篇文章的数据集是对话式问答，每个问题只关于一个模态，也自带上下文
+         然后做了比较丰富的实验，证明了自己的方法在15个任务上取得了不错的结果，对比了自己的方法和之前的方法
         </p>
         <h2>
-         Unified / Unifying Text, Tables, and Images
+         [ICML 24] Dissecting Multimodality in VideoQA Transformer Models by Impairing Modality Fusion
         </h2>
         <p>
-         两篇23年的三模态QA的文章，思路一样，都是把三种模态都转成文本后处理，
+         本文的动机来源于
+         <strong>
+          之前的多模态的模型是否充分利用了两种模态的信息
+         </strong>
+         这一问题，构建了QUAG（QUadrant AveraGe，象限平均）来证明并解决这一问题。对于注意力层的注意力矩阵有，
         </p>
         <p>
-         <img alt="image-20240705145740189" src="../image/2024/image-20240705145740189.png"/>
+         <img alt="image-20240826130449652" src="../image/2024/image-20240826130449652.png"/>
         </p>
         <p>
-         <img alt="image-20240705150055209" src="../image/2024/image-20240705150055209.png"/>
+         注意力矩阵和Value相乘有，
+        </p>
+        <p>
+         <img alt="image-20240826130517905" src="../image/2024/image-20240826130517905.png"/>
+        </p>
+        <p>
+         <img alt="image-20240826130523562" src="../image/2024/image-20240826130523562.png"/>
+        </p>
+        <p>
+         所以只要修改注意力矩阵的某些部分就能控制只利用某些模态的信息，本文使用了按行平均的修改方法，如下图，
+        </p>
+        <p>
+         <img alt="image-20240826130640507" src="../image/2024/image-20240826130640507.png"/>
         </p>
         <h2>
-         MarKG / CogMG / MrKG
+         [NeurIPS 22] LAION-5B: An open large-scale dataset for training next generation image-text models
         </h2>
         <p>
-         几篇关于知识图谱QA的文章
+         本文提出了一个大规模的图片文字对的数据集，与当时其他数据集的比较如下图，
+        </p>
+        <p>
+         <img alt="image-20240826125210416" src="../image/2024/image-20240826125210416.png"/>
+        </p>
+        <p>
+         然后本文讲了以下它数据集的收集方法，大概分为以下三步，
         </p>
         <ul>
          <li>
-          MarKG
+          <strong>
+           Web page filtering
+          </strong>
+          ，在Common Crawl的页面中筛选有alt-text属性的img标签，并按语言种类给数据分类
+         </li>
+         <li>
+          <strong>
+           Downloading Image-Text Pairs
+          </strong>
+          ，下载原始图片
+         </li>
+         <li>
+          <strong>
+           Post-Processing
+          </strong>
+          ，删去有害的、过大过小的、冗余的数据，过滤文本图片相似度较低的数据
          </li>
         </ul>
         <p>
-         MarKG提出多模态类比推理任务，其实是一种特定的QA任务，他构建了一个数据集，包含一个多模态知识图谱，和一系列问答对，示例如下，
-        </p>
-        <div class="highlight">
-         <pre><span></span><span class="p">{</span>
-<span class="w">    </span><span class="nt">"example"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"Q14536140"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Q581459"</span><span class="p">],</span><span class="w"> </span>
-<span class="w">    </span><span class="nt">"question"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Q50000"</span><span class="p">,</span><span class="w"> </span>
-<span class="w">    </span><span class="nt">"answer"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Q202875"</span><span class="p">,</span><span class="w"> </span>
-<span class="w">    </span><span class="nt">"relation"</span><span class="p">:</span><span class="w"> </span><span class="s2">"P828"</span><span class="p">,</span><span class="w"> </span>
-<span class="w">    </span><span class="nt">"mode"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span>
-<span class="p">}</span>
-</pre>
-        </div>
-        <p>
-         就是已知两个实体（特斯拉和青年特斯拉），这两个实体间有一个未知的关系（年轻），给定另一个实体（爱因斯坦），问知识图谱中和这个给给定实体具有未知关系的是那个实体（青年爱因斯坦）
+         <img alt="image-20240826125606862" src="../image/2024/image-20240826125606862.png"/>
         </p>
         <p>
-         <img alt="image-20240723013324371" src="../image/2024/image-20240723013324371.png"/>
+         最后本文做了一串实验，证明自己的数据集有效，
         </p>
         <p>
-         提出了两条改进，
-        </p>
-        <ul>
-         <li>
-          Adaptive Interaction Across Analogy，对于注意力机制的注意力分数做一个带参数的掩码，控制example tokens和question-answer tokens间的交互
-         </li>
-         <li>
-          Relation-Oriented Structure Mapping，类似于对比学习，一方面让example和answer的关系靠近，一方面让example和question的实体相互远离，公式如下
-         </li>
-        </ul>
-        <p>
-         <img alt="image-20240723013901476" src="../image/2024/image-20240723013901476.png"/>
-        </p>
-        <ul>
-         <li>
-          CogMG
-         </li>
-        </ul>
-        <p>
-         一篇Agent的文章，具体步骤如下，主要的点是做了知识图谱和大模型的交互（有LLM补全知识图谱）
-        </p>
-        <p>
-         <img alt="image-20240708162532440" src="../image/2024/image-20240708162532440.png"/>
-        </p>
-        <ul>
-         <li>
-          MrKG
-         </li>
-        </ul>
-        <p>
-         他说自己是第一个做多模态知识图谱辅助LLM问答的
-        </p>
-        <p>
-         <img alt="image-20240714012746455" src="../image/2024/image-20240714012746455.png"/>
-        </p>
-        <p>
-         模型框架如下图，
-        </p>
-        <p>
-         <img alt="image-20240714012237505" src="../image/2024/image-20240714012237505.png"/>
+         <img alt="image-20240826130106384" src="../image/2024/image-20240826130106384.png"/>
         </p>
         <h2>
-         MMToM-QA / EQA-MX / CABINET
+         [ICML 24] KnowFormer: Revisiting Transformers for Knowledge Graph Reasoning
         </h2>
         <p>
-         这几篇文章都是细分方向的QA，具体如下，
+         本文提出了一个针对知识图谱推理的注意力机制，并使用该注意力机制构建了一个Transformer模型，总结本文之前需要补充一些背景知识，
         </p>
         <ul>
          <li>
-          MMToM-QA
+          <strong>
+           Transductive（直推）和Inductive（归纳）任务
+          </strong>
+          是知识图谱补全的两种任务，前者用已知的知识图谱信息（例如关系）补全未知的部分，后者需要补全的实体或关系在训练时是未知的
+         </li>
+         <li>
+          <strong>
+           Knowledge Graph Reasoning和Completing
+          </strong>
+          ，就是一个东西，有的论文叫它推理，有的论文叫他补全，其实就是一回事
          </li>
         </ul>
         <p>
-         心智理论（Theory of Mind）QA，我理解就是关于人类行为的问答，
+         本文主要就是提出了一种新的注意力机制，其算法如下，
         </p>
         <p>
-         <img alt="image-20240621012436230" src="../image/2024/image-20240621012436230.png"/>
+         <img alt="image-20240827160535723" src="../image/2024/image-20240827160535723.png"/>
         </p>
         <p>
-         方法有点传统方法符号主义的思路，Bayesian Inverse Planning Accelerated by Language Models（BIP-ALM），
+         上图公式看着挺复杂，但其实要做的事情还是比较简单，如下图，
         </p>
         <p>
-         <img alt="image-20240621013009488" src="../image/2024/image-20240621013009488.png"/>
+         <img alt="image-20240827161149244" src="../image/2024/image-20240827161149244.png"/>
         </p>
         <p>
-         写了一长串的公式，但是我看最后他的做法其实很简单，就是
-        </p>
-        <p>
-         <img alt="image-20240621142323459" src="../image/2024/image-20240621142323459.png"/>
-        </p>
-        <p>
-         先把每步的belief作为目标物体的可能位置，然后对LLM输入state st，goal g，估计的belief b和行为 at，计算该行为at的概率，遍历计算出上式，得到结果
+         主要分为三个部分，
         </p>
         <ul>
          <li>
-          EQA-MX
+          <strong>
+           如何计算Query和Key
+          </strong>
          </li>
         </ul>
         <p>
-         Embodied QA，我理解就是对与输入图片中人的行为相关（或者说与环境相关）的问题作回答（例如图片中有个人指向了西红柿，问：这个东西是什么，应该回答：西红柿），模型总览图如下，
-        </p>
-        <p>
-         <img alt="image-20240626233606061" src="../image/2024/image-20240626233606061.png"/>
-        </p>
-        <p>
-         这篇文章方法上有意思的地方是他对图片数据做了个离散化，就是类似学一个词典的感觉，作者认为图片编码出的特征是连续的，不能直接和离散的文本特征融合，所以首先对图片特征做了离散化，其实就是预先学习了一个CodeBooks，在训练之后Codebook就固定住，后面测试的时候就通过图片的特征从这个CodeBooks里面找最相似的特征，作为离散的图片特征和文本特征拼在一起
+         <img alt="image-20240827161330412" src="../image/2024/image-20240827161330412.png"/>
         </p>
         <ul>
          <li>
-          CABINET
+          <strong>
+           如何计算Value
+          </strong>
          </li>
         </ul>
         <p>
-         思路很简单，Table QA任务中生成答案的时候并不需要所有Table cell的数据，只需要关注少部分的sub table，其他不需要关注的部分就是噪音，会影响QA的质量，所有通过一个相关分数使得LLM更关注需要关注的sub table，模型总览图如下，
-        </p>
-        <p>
-         <img alt="image-20240626211733305" src="../image/2024/image-20240626211733305.png"/>
-        </p>
-        <p>
-         生成相关分数有两个步骤，
+         <img alt="image-20240827161338160" src="../image/2024/image-20240827161338160.png"/>
         </p>
         <ul>
          <li>
-          Unsupervised Relevance Scorer，用了给模型作无监督的相关分数评分，这里的无监督实际上通过聚类损失实现，就是把表中的每个元素分为相关和不相关两类
-         </li>
-         <li>
-          Relevent Cell Predictor，训练了一个模型来根据输入的问题和表格预测需要关注的部分，这里是有监督的训练，然后通过生成的预测打出相应的相关分数
+          <strong>
+           如何计算注意力矩阵
+          </strong>
          </li>
         </ul>
         <p>
-         两个部分的相关分数加起来，然后和QA LLM的输入作乘法，相当于对不同的tokens施加注意力
+         <img alt="image-20240827161347153" src="../image/2024/image-20240827161347153.png"/>
         </p>
         <h2>
-         VISTA / SnapNTell
+         [ACL 24] ChatKBQA: A Generate-then-Retrieve Framework for Knowledge Base Question Answering with Fine-tuned Large Language Models
         </h2>
         <p>
-         不好分类的两篇文章，
+         本文实际解决的是类似知识图谱检索的问题，即给定一段文本，如何在知识图谱中检索到该文本相关的信息，本文给出的答案是生成-检索（Generate-then-Retrieve）框架，如下图，
+        </p>
+        <p>
+         <img alt="image-20240828173458751" src="../image/2024/image-20240828173458751.png"/>
+        </p>
+        <p>
+         本文的方法可以分为以下几步，
         </p>
         <ul>
          <li>
-          VISTA，针对多模态检索的一个数据文本嵌入模型
+          <strong>
+           LLM Fine-Tuning
+          </strong>
          </li>
         </ul>
         <p>
-         <img alt="image-20240701192646652" src="../image/2024/image-20240701192646652.png"/>
-        </p>
-        <p>
-         他主要的点应该是提出了两个数据集，模型框架如上图，没什么特别好说的，
-        </p>
-        <p>
-         <img alt="image-20240701192929370" src="../image/2024/image-20240701192929370.png"/>
+         使用
+         <em>
+          question-SPARQL
+         </em>
+         对微调大模型，使大模型有能力针对输入的问题，输出对应的Logical Forms
         </p>
         <ul>
          <li>
-          SnapNTell，模型框架如下图
+          <strong>
+           Unsupervised Retrieval
+          </strong>
          </li>
         </ul>
         <p>
-         <img alt="image-20240702152710556" src="../image/2024/image-20240702152710556.png"/>
+         上一步得到的Logical Forms实际是非严格的SPARQL，其中的实体和关系都是不一定按本名直接存在于KB中，所以需要通过检索，将entity和relation换为KB中的准确描述
+        </p>
+        <ul>
+         <li>
+          <strong>
+           SPARQL query
+          </strong>
+         </li>
+        </ul>
+        <p>
+         在上一步已经得到了正确的SPARQL查询语句，所以直接执行就能得到最后的答案
+        </p>
+        <h2>
+         [ACL 22] KQA Pro: A Dataset with Explicit Compositional Programs for Complex Question Answering over Knowledge Base
+        </h2>
+        <p>
+         本文提出了两个东西，一个数据集KQA Pro，一个知识图谱查询语言/方法 KoPL（Knowledge-oriented Pro-gramming Language），首先是他的数据集，构建方法如下图，
+        </p>
+        <p>
+         &lt;img src="../image/2024/image-20240829142043302.png" alt="image-20240829142043302" style="zoom:50%;" /&gt;
+        </p>
+        <p>
+         分为以下三步，
+        </p>
+        <ul>
+         <li>
+          知识提取，提取了Wikidata的一个子图
+         </li>
+         <li>
+          问题生成，按模板生成（问题，SPARQL，KoPL，Choices，Answer）对
+         </li>
+         <li>
+          问题重写，雇人众包重写问题
+         </li>
+        </ul>
+        <p>
+         然后是KoPL，这是一种描述如何查询知识图谱的语言，可以被表述成二叉树的格式，例如，
+        </p>
+        <p>
+         <img alt="image-20240829142317041" src="../image/2024/image-20240829142317041.png"/>
+        </p>
+        <p>
+         与SPARQL相比，KoPL提供了清晰的推理步骤，在中间出现错误的时候，人类可以快速的定位
+        </p>
+        <h2>
+         [ACL-findings 22] Do Pre-trained Models Benefit Knowledge Graph Completion? A Reliable Evaluation and a Reasonable Approach
+        </h2>
+        <p>
+         和之前看到的很多QA的文章类似，本文提出了一个数据集和一个方法，首先是数据集，本文没有过多的介绍自己数据集的细节，而是着重描写了自的数据集和之前数据集的区别，
+        </p>
+        <ul>
+         <li>
+          之前的数据集都是 Closed-world assumption (CWA)，在做link prediction任务的时候认为所有训练数据中的答案都是错误的
+         </li>
+         <li>
+          本提出的数据集是 Open-world assumption (OWA)，符合人类的认识，可以利用外部知识回答预测
+         </li>
+        </ul>
+        <p>
+         <img alt="image-20240830123710793" src="../image/2024/image-20240830123710793.png"/>
+        </p>
+        <p>
+         然后是本文提出的方法，主要就是用prompt模板来处理知识图谱的三元组，框架如下图，
+        </p>
+        <p>
+         <img alt="image-20240830123759726" src="../image/2024/image-20240830123759726.png"/>
+        </p>
+        <p>
+         分为了两个部分，
+        </p>
+        <ul>
+         <li>
+          <strong>
+           Triple Prompts
+          </strong>
+         </li>
+        </ul>
+        <p>
+         为每个关系构造了一个模板，例如
+        </p>
+        <p>
+         <img alt="image-20240830123842451" src="../image/2024/image-20240830123842451.png"/>
+        </p>
+        <p>
+         还使用了soft prompts技术，
+        </p>
+        <p>
+         <img alt="image-20240830124019073" src="../image/2024/image-20240830124019073.png"/>
+        </p>
+        <ul>
+         <li>
+          <strong>
+           Support Prompts
+          </strong>
+         </li>
+        </ul>
+        <p>
+         为每个属性构建了模板，例如上图中的Definition和Attribute
+        </p>
+        <h2>
+         [EMNLP 23] ZhuJiu: A Multi-dimensional, Multi-faceted Chinese Benchmark for Large Language Models
+        </h2>
+        <p>
+         提出了一个大模型评估系统，包含三方面的内容，
+        </p>
+        <p>
+         <strong>
+          1）评估方法
+         </strong>
+        </p>
+        <p>
+         本文使用了三种评估方法，
+        </p>
+        <ul>
+         <li>
+          Metrics Evaluation，和常见的模型测试类似，就是测试大模型在某些数据集上某些指标的高低
+         </li>
+         <li>
+          Scoring Evaluation，这个方法有点复杂，我理解就是用LLM生成数据然后评估其他模型，具体步骤如下，
+          <ul>
+           <li>
+            人工选取一些评估数据作为随机种子
+           </li>
+           <li>
+            使用上一步的数据让ChatGPT生成进一步的评估prompts
+           </li>
+           <li>
+            人工评估上一步生成的prompts，留下其中的100个
+           </li>
+           <li>
+            让要评估的LLM执行这些prompts，让GPT辅助评分
+           </li>
+          </ul>
+         </li>
+        </ul>
+        <p>
+         &lt;img src="../image/2024/image-20240831213157452.png" alt="image-20240831213157452" style="zoom:50%;" /&gt;
+        </p>
+        <ul>
+         <li>
+          Comparative Evaluation，Chatbot Arena式的方法，在不知道两个模型名字的情况下，人直接评价两个模型谁的回答更好
+         </li>
+        </ul>
+        <p>
+         <strong>
+          2）数据集
+         </strong>
+        </p>
+        <p>
+         本文使用了两种数据集，
+        </p>
+        <ul>
+         <li>
+          Collect Datasets，就是之前的公开数据集
+         </li>
+         <li>
+          Construct Datasets，就是上面讲Scoring Evaluation部分所述构造的数据
+         </li>
+        </ul>
+        <p>
+         <strong>
+          3）评估维度
+         </strong>
+        </p>
+        <p>
+         本文从七个维度评估LLMs，评估方法和数据集如上述，详见论文2.3节
+        </p>
+        <h2>
+         [arXiv 24] Chatbot Arena: An Open Platform for Evaluating LLMs by Human Preference
+        </h2>
+        <p>
+         本文基于自己
+         <a href="https://chat.lmsys.org">
+          竞技场
+         </a>
+         快1年的数据收集结果，做了三个方面的贡献，
+        </p>
+        <p>
+         <strong>
+          1）数据集
+         </strong>
+        </p>
+        <p>
+         本文提出了一个来自90K人的240K投票结果的关于超过50个模型的数据集，涉及超过100种语言
+        </p>
+        <p>
+         <img alt="image-20240901105456944" src="../image/2024/image-20240901105456944.png"/>
+        </p>
+        <p>
+         <strong>
+          2）Ranking方法
+         </strong>
+        </p>
+        <p>
+         本文使用了Bradley-Terry来对模型做排序，首先让用户对两个匿名模型作评价，得到一个模型对，以及该模型对中谁更好的评价结果，然后用BT算法对模型排序
+        </p>
+        <p>
+         <strong>
+          3）数据分析
+         </strong>
+        </p>
+        <p>
+         本文作了三个方面的数据分析，
+        </p>
+        <ul>
+         <li>
+          Topic Modeling，先给问题降维，然后聚类，得到600多个聚类簇
+         </li>
+         <li>
+          Distinguish Models，不同模型擅长不同类型的问题
+         </li>
+        </ul>
+        <p>
+         <img alt="image-20240901105941541" src="../image/2024/image-20240901105941541.png"/>
+        </p>
+        <ul>
+         <li>
+          Vote Quality，本文让自己学校的学生以及GPT也对模型作类似的比较，得到下表，证明了投票质量
+         </li>
+        </ul>
+        <p>
+         <img alt="image-20240901110113674" src="../image/2024/image-20240901110113674.png"/>
         </p>
        </body>
       </html>
@@ -513,6 +578,16 @@
     </h3>
     <table class="archive-list">
      <tbody>
+      <tr>
+       <td style="padding-right: 10px">
+        2024.09.01:
+       </td>
+       <td>
+        <a href="http://guchongan.github.io/2024\0825-VisualPrompting">
+         [Read Paper] 8.25-9.1 论文阅读（Visual Prompting/Dissecting Multimodality/LAION-5B）
+        </a>
+       </td>
+      </tr>
       <tr>
        <td style="padding-right: 10px">
         2024.08.14:
@@ -528,18 +603,8 @@
         2024.07.22:
        </td>
        <td>
-        <a href="http://guchongan.github.io/2024\0721-ReActGraphRAG">
+        <a href="http://guchongan.github.io/2024\0722-ReActGraphRAG">
          [Read Paper] 7.15-7.22 论文阅读（Analogical Reasoning/GraphRAG/ReAct）
-        </a>
-       </td>
-      </tr>
-      <tr>
-       <td style="padding-right: 10px">
-        2024.07.22:
-       </td>
-       <td>
-        <a href="http://guchongan.github.io/2024\0818-ICML">
-         [Read Paper] 8.12-8.18 论文阅读（Analogical Reasoning/GraphRAG/ReAct）
         </a>
        </td>
       </tr>
@@ -548,7 +613,7 @@
         2024.07.15:
        </td>
        <td>
-        <a href="http://guchongan.github.io/2024\0714-KGTTTLoRA">
+        <a href="http://guchongan.github.io/2024\0715-KGTTTLoRA">
          [Read Paper] 7.5-7.15 论文阅读（Knowledge Graph/Test Time Train/LoRA）
         </a>
        </td>
