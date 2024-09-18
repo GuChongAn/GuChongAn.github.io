@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="https://www.facebook.com/2008/fbml" xmlns:og="http://ogp.me/ns#">
+ <head>
+  <title>
+   [Read Paper] 9.2-9.18 论文阅读（RAG/KICGPT/StructGPT/Seq2SeqKGC/KGLLMTest） - Chongan's website
+  </title>
+  <!-- Using the latest rendering mode for IE -->
+  <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <link href="../../image/favicon.ico" rel="icon"/>
+  <link href="../../css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+  <link href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+  <link href="../../css/vs.css" rel="stylesheet" type="text/css"/>
+  <link href="../../css/style.css" rel="stylesheet" type="text/css"/>
+ </head>
+ <body>
+  <!-- navbar -->
+  <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+   <div class="container">
+    <div class="navbar-header">
+     <button class="navbar-toggle" data-target=".navbar-ex1-collapse" data-toggle="collapse" type="button">
+      <span class="sr-only">
+       Toggle navigation
+      </span>
+      <span class="icon-bar">
+      </span>
+      <span class="icon-bar">
+      </span>
+      <span class="icon-bar">
+      </span>
+     </button>
+     <a class="navbar-brand" href="https://guchongan.github.io/">
+      <img height="32" src="../../image/favicon-32x32.png" width="32"/>
+      Gu Chongan's website
+     </a>
+    </div>
+    <div class="collapse navbar-collapse navbar-ex1-collapse">
+     <ul class="nav navbar-nav navbar-right">
+      <li>
+       <a href="https://guchongan.github.io/about">
+        <i class="fa fa-question">
+        </i>
+        <span class="icon-label">
+         About
+        </span>
+       </a>
+      </li>
+      <li>
+       <a href="https://guchongan.github.io/projects">
+        <i class="fa fa-github">
+        </i>
+        <span class="icon-label">
+         Projects
+        </span>
+       </a>
+      </li>
+      <li>
+       <a href="https://guchongan.github.io/archives">
+        <i class="fa fa-th-list">
+        </i>
+        <span class="icon-label">
+         Archives
+        </span>
+       </a>
+      </li>
+     </ul>
+    </div>
+   </div>
+  </div>
+  <div class="container">
+   <div class="row">
+    <section id="content">
+     <article>
+      <header class="page-header">
+       <h1>
+        <a href="https://guchongan.github.io/2024/[Read Paper] 9.2-9.18 论文阅读（RAG/KICGPT/StructGPT/Seq2SeqKGC/KGLLMTest）" rel="bookmark" title="[Read Paper] 9.2-9.18 论文阅读（RAG/KICGPT/StructGPT/Seq2SeqKGC/KGLLMTest）">
+         [Read Paper] 9.2-9.18 论文阅读（RAG/KICGPT/StructGPT/Seq2SeqKGC/KGLLMTest）
+        </a>
+       </h1>
+      </header>
+      <div class="entry-content">
+       <div class="panel">
+        <div class="panel-body">
+         <footer class="post-info">
+          <span class="published">
+           <i class="fa fa-calendar">
+           </i>
+           <time>
+            2024.09.18
+           </time>
+          </span>
+          <span class="label label-default">
+           Tags
+          </span>
+          <html>
+           <body>
+            <a>
+             readpaper
+            </a>
+           </body>
+          </html>
+         </footer>
+         <!-- /.post-info -->
+        </div>
+       </div>
+       <!-- /.entry-content -->
+       <html>
+        <body>
+         <p>
+          看了RAG的原始论文，
+         </p>
+         <ul>
+          <li>
+           <a href="https://arxiv.org/abs/2005.11401">
+            Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks
+           </a>
+           （NeurIPS 20）
+          </li>
+         </ul>
+         <p>
+          看了几篇知识图谱补全（Knowledge Graph Completion）和知识图谱QA的论文，
+         </p>
+         <ul>
+          <li>
+           <a href="https://aclanthology.org/2023.findings-emnlp.580/">
+            KICGPT: Large Language Model with Knowledge in Context for Knowledge Graph Completion
+           </a>
+           （EMNLP findings 23）
+          </li>
+          <li>
+           <a href="https://aclanthology.org/2023.emnlp-main.574/">
+            StructGPT: A General Framework for Large Language Model to Reason over Structured Data
+           </a>
+           （EMNLP 23）
+          </li>
+          <li>
+           <a href="https://aclanthology.org/2022.acl-long.201.pdf">
+            Sequence-to-Sequence Knowledge Graph Completion and Question Answering
+           </a>
+           （ACL 22）
+          </li>
+          <li>
+           <a href="https://arxiv.org/abs/2303.07992">
+            Can ChatGPT Replace Traditional KBQA Models? An In-depth Analysis of the Question Answering Performance of the GPT LLM Family
+           </a>
+           （ISWC 23）
+          </li>
+         </ul>
+         <h2>
+          [NeurIPS 20] Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks
+         </h2>
+         <h4>
+          1）问题
+         </h4>
+         <p>
+          <img alt="image-20240909221249088" src="..\../image/2024/image-20240909221249088.png"/>
+         </p>
+         <h4>
+          2）方法
+         </h4>
+         <p>
+          <img alt="image-20240909221321258" src="..\../image/2024/image-20240909221321258.png"/>
+         </p>
+         <p>
+          本文提出了两种RAG的范式，
+         </p>
+         <ul>
+          <li>
+           RAG-Sequence，就是现在常见的形式，检索出文档，输入LLM输出答案
+          </li>
+          <li>
+           RAG-Token，对于每个输出Token的生成检索不同的文档辅助
+          </li>
+         </ul>
+         <p>
+          这里了解到一个之前不知道的知识，文本生成解码策略，对于现在的文本生成模型，输入文本序列x1,x2,x3...模型会逐步生成xm,xm+1...，生成概率为，
+         </p>
+         <p>
+          &lt;img src="../image/2024/image-20240909222118863.png" alt="image-20240909222118863" style="zoom:50%;" /&gt;
+         </p>
+         <p>
+          我们最终目的是让生成正确文本的概率最大， 所以就有了如下的解码策略，
+         </p>
+         <ul>
+          <li>
+           <p>
+            贪心搜索，顾名思义
+           </p>
+          </li>
+          <li>
+           <p>
+            beam search（集束搜索），每步保留k个概率最大的文本序列，本文使用的就是这个方法
+           </p>
+          </li>
+          <li>
+           <p>
+            等等
+           </p>
+          </li>
+         </ul>
+         <h2>
+          [EMNLP findings 23] KICGPT: Large Language Model with Knowledge in Context for Knowledge Graph Completion
+         </h2>
+         <h4>
+          1）问题
+         </h4>
+         <p>
+          之前知识图谱补全的工作可以分为，
+         </p>
+         <ul>
+          <li>
+           Triple-based approaches
+          </li>
+         </ul>
+         <p>
+          我理解基于三元组的方法（Triple-based）就是对于一个待补全的三元组，你的回答只能基于训练的时候已知的知识图谱信息，所以会存在
+          <strong>
+           对于长尾实体
+          </strong>
+          （Long-tail entities，一个知识图谱中某些实体出现次数很少，但是这类实体很多）
+          <strong>
+           性能不好
+          </strong>
+          的问题
+         </p>
+         <ul>
+          <li>
+           Text-based approaches
+          </li>
+         </ul>
+         <p>
+          利用外部的文本信息来补全三元组（例如使用LLM预训练的知识），问题在于
+          <strong>
+           需要特定领域的知识或者对LLM的微调
+          </strong>
+          ，对于Text-based中的LLM相关的方法，具体还有
+          <strong>
+           1）LLM回答不受限制；2）LLM输入长度首先；3）当时不存在高效的prompt
+          </strong>
+          等问题（我觉得这几个问题就有点牵强了）
+         </p>
+         <h4>
+          2）方法
+         </h4>
+         <p>
+          本文提出了一套KGC的框架，具体如下图，
+         </p>
+         <p>
+          <img alt="image-20240909220017615" src="..\../image/2024/image-20240909220017615.png"/>
+         </p>
+         <p>
+          可以分为以下几步
+         </p>
+         <ul>
+          <li>
+           <p>
+            输入(h,r,?)给KGC检索器，得到最初的相关实体
+           </p>
+          </li>
+          <li>
+           <p>
+            让大模型给上一步的结果中最相关的m个实体排序，这里有两个细节
+           </p>
+           <ul>
+            <li>
+             使用prompt template将处理原始的输入
+            </li>
+            <li>
+             从anaplog pool和supplemet pool中选择示例，前者是r和输入相同的三元组，后者是h实体相同的
+            </li>
+           </ul>
+          </li>
+          <li>
+           <p>
+            Text Self-Alignment，知识图谱中的关系通常表示为xx_xxx_xxx类似的公式，这里将其转为自然语言
+           </p>
+          </li>
+         </ul>
+         <h4>
+          3）实验
+         </h4>
+         <ul>
+          <li>
+           数据集：FB15k-237和WN18RR
+          </li>
+          <li>
+           实现细节：KGC Retriever使用RotatE，LLM使用gpt-3.5-turbo
+          </li>
+          <li>
+           评价指标：Hit@1,3,10和MRR（Mean Reciprocal Rank）
+          </li>
+         </ul>
+         <p>
+          其中后者，平均倒数秩，是指第一个正确答案的排名的倒数，公式如下，
+         </p>
+         <p>
+          &lt;img src="../image/2024/image-20240909220904409.png" alt="image-20240909220904409" style="zoom:50%;" /&gt;
+         </p>
+         <ul>
+          <li>
+           主体实验如下图，
+          </li>
+         </ul>
+         <p>
+          <img alt="image-20240909221007235" src="..\../image/2024/image-20240909221007235.png"/>
+         </p>
+         <ul>
+          <li>
+           消融实验如下图，
+          </li>
+         </ul>
+         <p>
+          <img alt="image-20240909221025979" src="..\../image/2024/image-20240909221025979.png"/>
+         </p>
+         <h2>
+          [EMNLP 23] StructGPT: A General Framework for Large Language Model to Reason over Structured Data
+         </h2>
+         <h4>
+          1）问题
+         </h4>
+         <ul>
+          <li>
+           LLM回答问题可能会有
+           <strong>
+            幻觉
+           </strong>
+           或者需要
+           <strong>
+            特定领域的知识
+           </strong>
+          </li>
+          <li>
+           所以，用外部数据来增强LLM，其中结构化数据经常被使用，但是LLM不能很好的理解结构数据，之前的方法把结构数据直接转成文本输入给大模型，这种方法受限于
+           <strong>
+            大模型的输入长度
+           </strong>
+          </li>
+          <li>
+           （动机）现在有Tool manipulation strategy 来增强LLM的能力，可以设计Tool来处理外部结构数据，完成Tool的设计需要解决两个问题
+           <ul>
+            <li>
+             <strong>
+              对特定任务设计合适的接口
+             </strong>
+            </li>
+            <li>
+             <strong>
+              LLM如何使用结构数据推理
+             </strong>
+            </li>
+           </ul>
+          </li>
+         </ul>
+         <h4>
+          2）方法
+         </h4>
+         <p>
+          根据前述的两个问题，本文提出了Iterative Reading-then-Reasoning（IRR）的框架，如下图
+         </p>
+         <p>
+          <img alt="image-20240910212435693" src="..\../image/2024/image-20240910212435693.png"/>
+         </p>
+         <p>
+          主要分为Reading和Reasoning两个步骤，
+         </p>
+         <ul>
+          <li>
+           Reading
+          </li>
+         </ul>
+         <p>
+          对Knowledge Graph，Table和Database三种结构数据分别构建了处理接口，针对其特点提取有用的信息
+         </p>
+         <ul>
+          <li>
+           Reasoning
+          </li>
+         </ul>
+         <p>
+          Read到的结构数据会经过LLM提取有效部分，然后根据问题种类得到最后的答案
+         </p>
+         <h4>
+          3）实验
+         </h4>
+         <ul>
+          <li>
+           数据集（KGQA）：WebQuestionsSP（WebQSP）和MetaQA
+          </li>
+          <li>
+           评价指标（KGQA）：Hits@1
+          </li>
+          <li>
+           LLM：Davinici-003和gpt-3.5-turbo
+          </li>
+         </ul>
+         <p>
+          KGQA相关的主要结果如下，
+         </p>
+         <p>
+          <img alt="image-20240910212904846" src="..\../image/2024/image-20240910212904846.png"/>
+         </p>
+         <p>
+          这里我发现了个问题，好像我之前对KGQA的理解有误，这里的两个数据集都是有一个问题，这个问题中有个中心实体，模型的输出应该是在知识图谱中找到另一个实体，输出实体在问题实体的几跳范围之内（我记得KQA pro里面讲自己的第二个有点是问题的多样性，现在大概理解到这意思了）
+         </p>
+         <p>
+          然后本文提供了实例，如下图，
+         </p>
+         <p>
+          <img alt="image-20240910213220705" src="..\../image/2024/image-20240910213220705.png"/>
+         </p>
+         <h2>
+          [ACL 22] Sequence-to-Sequence Knowledge Graph Completion and Question Answering
+         </h2>
+         <h4>
+          1）问题
+         </h4>
+         <p>
+          之前都用Knowledge Graph Embeddings（KGEs）来解决Knowledge Graph Completion问题，但是KGEs的方法在拥有大量实体的知识图谱上会导致模型特别大
+         </p>
+         <h4>
+          2）方法
+         </h4>
+         <p>
+          说起来很简单，本文实际上是提出了一种大模型训练的目标函数，通过训练把知识图谱的信息训到大模型中去，具体来说，有如下步骤，
+         </p>
+         <ul>
+          <li>
+           Text mapping and Verbalization，把需要补全的三元组转成自然语言
+          </li>
+          <li>
+           使用上一步得到文本作为模型的输入，让模型输出可能补全的实体
+          </li>
+         </ul>
+         <p>
+          本文模型和KGEs的对比如下图，
+         </p>
+         <p>
+          <img alt="image-20240910214149035" src="..\../image/2024/image-20240910214149035.png"/>
+         </p>
+         <h4>
+          3）实验
+         </h4>
+         <ul>
+          <li>
+           数据集（KGQA方面）：MetaQA，WebQSP和ComplexWebQuestioon（CWQ），前两者之前都见过，最后的CWQ应该有点类似KQA pro，有些复杂问题
+          </li>
+         </ul>
+         <p>
+          实验的主体结果如下表，
+         </p>
+         <p>
+          <img alt="image-20240910214414680" src="..\../image/2024/image-20240910214414680.png"/>
+         </p>
+         <p>
+          <img alt="image-20240910214420307" src="..\../image/2024/image-20240910214420307.png"/>
+         </p>
+         <h2>
+          [ISWC 23] Can ChatGPT Replace Traditional KBQA Models? An In-depth Analysis of the Question Answering Performance of the GPT LLM Family
+         </h2>
+         <h4>
+          1）问题
+         </h4>
+         <p>
+          本文实际是一篇实验报告，比较了LLM在不依赖对应数据集KG的情况下和传统方法在KBQA任务上的性能，解决的问题自然是之前没有这类型的综合测试
+         </p>
+         <h4>
+          2）方法
+         </h4>
+         <p>
+          本文构建了一个测试框架，如下图，
+         </p>
+         <p>
+          &lt;img src="../image/2024/image-20240918192140571.png" alt="image-20240918192140571" style="zoom: 67%;" /&gt;
+         </p>
+         <p>
+          分为两步，
+         </p>
+         <p>
+          <strong>
+           1 问题打标签
+          </strong>
+         </p>
+         <p>
+          首先给问题分类打标签，根据其答案、推理和语言的类型打标签，具体标签如下表，
+         </p>
+         <p>
+          &lt;img src="../image/2024/image-20240918192309744.png" alt="image-20240918192309744" style="zoom:50%;" /&gt;
+         </p>
+         <p>
+          <strong>
+           2 回答测试
+          </strong>
+         </p>
+         <p>
+          为了解决LLM回答不能和数据集参考答案完全匹配的问题，本文提出了如下步骤，
+         </p>
+         <ul>
+          <li>
+           将LLM的回答做一致性分解，得到一致树，提取NP、VP节点得到候选答案池
+          </li>
+          <li>
+           使用wikidata的别名列表扩大候选答案池
+          </li>
+          <li>
+           使用bert模型计算候选答案池中答案和参考答案的相似度（实验后这里设置阈值为0.78）
+          </li>
+         </ul>
+         <h4>
+          3）实验
+         </h4>
+         <p>
+          本文的主题实验结果如下，
+         </p>
+         <p>
+          <img alt="image-20240918192917770" src="..\../image/2024/image-20240918192917770.png"/>
+         </p>
+         <p>
+          参考CheckList方法，本文还进行了三个方面的实验，
+         </p>
+         <p>
+          <strong>
+           1 Minimum Functionality Test (MFT)
+          </strong>
+         </p>
+         <p>
+          只测试有一个推理类型或多个同小类推理类型的问题，结果如下，
+         </p>
+         <p>
+          <img alt="image-20240918193033512" src="..\../image/2024/image-20240918193033512.png"/>
+         </p>
+         <p>
+          <strong>
+           2 Invariance Test (INV)
+          </strong>
+         </p>
+         <p>
+          在问题中引入拼写错误
+         </p>
+         <p>
+          <strong>
+           3 Directional Expectation Test (DET)
+          </strong>
+         </p>
+         <p>
+          分为三中，
+         </p>
+         <ul>
+          <li>
+           替换问题的推理类型
+          </li>
+          <li>
+           在问题中添加答案类型提示
+          </li>
+          <li>
+           使用CoT框架
+          </li>
+         </ul>
+         <p>
+          后两者的具体示例如下图，
+         </p>
+         <p>
+          &lt;img src="../image/2024/image-20240918193320717.png" alt="image-20240918193320717" style="zoom:50%;" /&gt;
+         </p>
+        </body>
+       </html>
+      </div>
+      <hr/>
+      <div class="dotted-links">
+       <p class="align-center">
+        For comments, please send me
+        <a href="hu197136@gmail.com">
+         <i class="fa fa-envelope-o">
+         </i>
+         an email
+        </a>
+        .
+       </p>
+      </div>
+     </article>
+    </section>
+   </div>
+  </div>
+  <footer>
+   <div class="container">
+    <hr/>
+    <div class="row">
+     <div class="col-xs-10">
+      © 2024-2024 Gu Chongan
+     </div>
+     <div class="col-xs-2">
+      <p class="pull-right">
+       <i class="fa fa-arrow-up">
+       </i>
+       <a href="#">
+        Back to top
+       </a>
+      </p>
+     </div>
+    </div>
+   </div>
+  </footer>
+  <script src="../../css/jquery-2.2.4.min.js">
+  </script>
+  <script src="../../css/bootstrap.min.js">
+  </script>
+  <script type="text/x-mathjax-config">
+   var articlemathId = document.getElementById("articleContent");
+	var commentmathId = document.getElementById("commentlist-container");
+	MathJax.Hub.Config({
+		tex2jax: {
+			inlineMath: [ ['$','$'] ], //行内公式
+			displayMath: [ ['$$','$$'] ], //行间公式
+			skipTags: ['script', 'noscript', 'style', 'textarea', 'pre','code','a'], //渲染时跳过的html标签
+			ignoreClass: "summary", //忽略的class
+		}
+	});
+	MathJax.Hub.Queue(["Typeset", MathJax.Hub, articlemathId, commentmathId]); //指定渲染的html块，可以为多个
+  </script>
+  <script src="https://cdn.bootcss.com/mathjax/2.7.7/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script>
+ </body>
+</html>

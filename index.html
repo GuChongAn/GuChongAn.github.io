@@ -71,15 +71,15 @@
    <div class="row">
     <article>
      <h1>
-      <a href="https://guchongan.github.io/2024\0825-VisualPrompting">
-       [Read Paper] 8.25-9.1 论文阅读（Visual Prompting/Dissecting Multimodality/LAION-5B）
+      <a href="https://guchongan.github.io/2024\0902-RAG">
+       [Read Paper] 9.2-9.18 论文阅读（RAG/KICGPT/StructGPT/Seq2SeqKGC/KGLLMTest）
       </a>
      </h1>
      <span class="published">
       <i class="fa fa-calendar">
       </i>
       <time>
-       2024.09.01
+       2024.09.18
       </time>
      </span>
      <br/>
@@ -88,485 +88,459 @@
       <html>
        <body>
         <p>
-         看了ICML 24的几篇文章，
+         看了RAG的原始论文，
         </p>
         <ul>
          <li>
-          <a href="https://arxiv.org/abs/2310.10513">
-           Unifying Image Processing as Visual Prompting Question Answering
+          <a href="https://arxiv.org/abs/2005.11401">
+           Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks
           </a>
-          （ICML 24）
-         </li>
-         <li>
-          <a href="https://arxiv.org/abs/2306.08889">
-           Dissecting Multimodality in VideoQA Transformer Models by Impairing Modality Fusion
-          </a>
-          （ICML 24）
-         </li>
-         <li>
-          （*）
-          <a href="https://openreview.net/forum?id=EncFNR3hxM">
-           KnowFormer: Revisiting Transformers for Knowledge Graph Reasoning
-          </a>
-          （ICML 24）
+          （NeurIPS 20）
          </li>
         </ul>
         <p>
-         然后看了篇视觉大模型训练数据集制作的文章，
+         看了几篇知识图谱补全（Knowledge Graph Completion）和知识图谱QA的论文，
         </p>
         <ul>
          <li>
-          <a href="https://arxiv.org/abs/2210.08402">
-           LAION-5B: An open large-scale dataset for training next generation image-text models
+          <a href="https://aclanthology.org/2023.findings-emnlp.580/">
+           KICGPT: Large Language Model with Knowledge in Context for Knowledge Graph Completion
           </a>
-          （NeurIPS 22）
-         </li>
-        </ul>
-        <p>
-         看了几篇知识图谱QA/Completion的文章，
-        </p>
-        <ul>
-         <li>
-          <a href="https://arxiv.org/abs/2310.08975">
-           ChatKBQA: A Generate-then-Retrieve Framework for Knowledge Base Question Answering with Fine-tuned Large Language Models
-          </a>
-          （ACL 24）
+          （EMNLP findings 23）
          </li>
          <li>
-          <a href="https://aclanthology.org/2022.acl-long.422/">
-           KQA Pro: A Dataset with Explicit Compositional Programs for Complex Question Answering over Knowledge Base
-          </a>
-          （ACL 22）
-         </li>
-         <li>
-          <a href="https://aclanthology.org/2022.findings-acl.282/">
-           Do Pre-trained Models Benefit Knowledge Graph Completion? A Reliable Evaluation and a Reasonable Approach
-          </a>
-          （ACL-findings 22）
-         </li>
-        </ul>
-        <p>
-         看了两篇大模型评估的文章，
-        </p>
-        <ul>
-         <li>
-          <a href="https://aclanthology.org/2023.emnlp-demo.44.pdf">
-           ZhuJiu: A Multi-dimensional, Multi-faceted Chinese Benchmark for Large Language Models
+          <a href="https://aclanthology.org/2023.emnlp-main.574/">
+           StructGPT: A General Framework for Large Language Model to Reason over Structured Data
           </a>
           （EMNLP 23）
          </li>
          <li>
-          <a href="https://arxiv.org/abs/2403.04132">
-           Chatbot Arena: An Open Platform for Evaluating LLMs by Human Preference
+          <a href="https://aclanthology.org/2022.acl-long.201.pdf">
+           Sequence-to-Sequence Knowledge Graph Completion and Question Answering
           </a>
-          （arXiv 2403）
+          （ACL 22）
+         </li>
+         <li>
+          <a href="https://arxiv.org/abs/2303.07992">
+           Can ChatGPT Replace Traditional KBQA Models? An In-depth Analysis of the Question Answering Performance of the GPT LLM Family
+          </a>
+          （ISWC 23）
          </li>
         </ul>
         <h2>
-         [ICML 24] Unifying Image Processing as Visual Prompting Question Answering
+         [NeurIPS 20] Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks
         </h2>
+        <h4>
+         1）问题
+        </h4>
         <p>
-         这篇文章在技术上很简单，看下面两张图就能直接看明白，就是用one-shot QA的方式来做low-level的图像处理，用Mask的方式训练模型，
+         <img alt="image-20240909221249088" src="../image/2024/image-20240909221249088.png"/>
+        </p>
+        <h4>
+         2）方法
+        </h4>
+        <p>
+         <img alt="image-20240909221321258" src="../image/2024/image-20240909221321258.png"/>
         </p>
         <p>
-         &lt;img src="../image/2024/image-20240825123914131.png" alt="image-20240825123914131" style="zoom:50%;" /&gt;
+         本文提出了两种RAG的范式，
+        </p>
+        <ul>
+         <li>
+          RAG-Sequence，就是现在常见的形式，检索出文档，输入LLM输出答案
+         </li>
+         <li>
+          RAG-Token，对于每个输出Token的生成检索不同的文档辅助
+         </li>
+        </ul>
+        <p>
+         这里了解到一个之前不知道的知识，文本生成解码策略，对于现在的文本生成模型，输入文本序列x1,x2,x3...模型会逐步生成xm,xm+1...，生成概率为，
         </p>
         <p>
-         <img alt="image-20240825124046348" src="../image/2024/image-20240825124046348.png"/>
+         &lt;img src="../image/2024/image-20240909222118863.png" alt="image-20240909222118863" style="zoom:50%;" /&gt;
         </p>
         <p>
-         然后做了比较丰富的实验，证明了自己的方法在15个任务上取得了不错的结果，对比了自己的方法和之前的方法
+         我们最终目的是让生成正确文本的概率最大， 所以就有了如下的解码策略，
         </p>
+        <ul>
+         <li>
+          <p>
+           贪心搜索，顾名思义
+          </p>
+         </li>
+         <li>
+          <p>
+           beam search（集束搜索），每步保留k个概率最大的文本序列，本文使用的就是这个方法
+          </p>
+         </li>
+         <li>
+          <p>
+           等等
+          </p>
+         </li>
+        </ul>
         <h2>
-         [ICML 24] Dissecting Multimodality in VideoQA Transformer Models by Impairing Modality Fusion
+         [EMNLP findings 23] KICGPT: Large Language Model with Knowledge in Context for Knowledge Graph Completion
         </h2>
+        <h4>
+         1）问题
+        </h4>
         <p>
-         本文的动机来源于
+         之前知识图谱补全的工作可以分为，
+        </p>
+        <ul>
+         <li>
+          Triple-based approaches
+         </li>
+        </ul>
+        <p>
+         我理解基于三元组的方法（Triple-based）就是对于一个待补全的三元组，你的回答只能基于训练的时候已知的知识图谱信息，所以会存在
          <strong>
-          之前的多模态的模型是否充分利用了两种模态的信息
+          对于长尾实体
          </strong>
-         这一问题，构建了QUAG（QUadrant AveraGe，象限平均）来证明并解决这一问题。对于注意力层的注意力矩阵有，
-        </p>
-        <p>
-         <img alt="image-20240826130449652" src="../image/2024/image-20240826130449652.png"/>
-        </p>
-        <p>
-         注意力矩阵和Value相乘有，
-        </p>
-        <p>
-         <img alt="image-20240826130517905" src="../image/2024/image-20240826130517905.png"/>
-        </p>
-        <p>
-         <img alt="image-20240826130523562" src="../image/2024/image-20240826130523562.png"/>
-        </p>
-        <p>
-         所以只要修改注意力矩阵的某些部分就能控制只利用某些模态的信息，本文使用了按行平均的修改方法，如下图，
-        </p>
-        <p>
-         <img alt="image-20240826130640507" src="../image/2024/image-20240826130640507.png"/>
-        </p>
-        <h2>
-         [NeurIPS 22] LAION-5B: An open large-scale dataset for training next generation image-text models
-        </h2>
-        <p>
-         本文提出了一个大规模的图片文字对的数据集，与当时其他数据集的比较如下图，
-        </p>
-        <p>
-         <img alt="image-20240826125210416" src="../image/2024/image-20240826125210416.png"/>
-        </p>
-        <p>
-         然后本文讲了以下它数据集的收集方法，大概分为以下三步，
-        </p>
-        <ul>
-         <li>
-          <strong>
-           Web page filtering
-          </strong>
-          ，在Common Crawl的页面中筛选有alt-text属性的img标签，并按语言种类给数据分类
-         </li>
-         <li>
-          <strong>
-           Downloading Image-Text Pairs
-          </strong>
-          ，下载原始图片
-         </li>
-         <li>
-          <strong>
-           Post-Processing
-          </strong>
-          ，删去有害的、过大过小的、冗余的数据，过滤文本图片相似度较低的数据
-         </li>
-        </ul>
-        <p>
-         <img alt="image-20240826125606862" src="../image/2024/image-20240826125606862.png"/>
-        </p>
-        <p>
-         最后本文做了一串实验，证明自己的数据集有效，
-        </p>
-        <p>
-         <img alt="image-20240826130106384" src="../image/2024/image-20240826130106384.png"/>
-        </p>
-        <h2>
-         [ICML 24] KnowFormer: Revisiting Transformers for Knowledge Graph Reasoning
-        </h2>
-        <p>
-         本文提出了一个针对知识图谱推理的注意力机制，并使用该注意力机制构建了一个Transformer模型，总结本文之前需要补充一些背景知识，
-        </p>
-        <ul>
-         <li>
-          <strong>
-           Transductive（直推）和Inductive（归纳）任务
-          </strong>
-          是知识图谱补全的两种任务，前者用已知的知识图谱信息（例如关系）补全未知的部分，后者需要补全的实体或关系在训练时是未知的
-         </li>
-         <li>
-          <strong>
-           Knowledge Graph Reasoning和Completing
-          </strong>
-          ，就是一个东西，有的论文叫它推理，有的论文叫他补全，其实就是一回事
-         </li>
-        </ul>
-        <p>
-         本文主要就是提出了一种新的注意力机制，其算法如下，
-        </p>
-        <p>
-         <img alt="image-20240827160535723" src="../image/2024/image-20240827160535723.png"/>
-        </p>
-        <p>
-         上图公式看着挺复杂，但其实要做的事情还是比较简单，如下图，
-        </p>
-        <p>
-         <img alt="image-20240827161149244" src="../image/2024/image-20240827161149244.png"/>
-        </p>
-        <p>
-         主要分为三个部分，
-        </p>
-        <ul>
-         <li>
-          <strong>
-           如何计算Query和Key
-          </strong>
-         </li>
-        </ul>
-        <p>
-         <img alt="image-20240827161330412" src="../image/2024/image-20240827161330412.png"/>
-        </p>
-        <ul>
-         <li>
-          <strong>
-           如何计算Value
-          </strong>
-         </li>
-        </ul>
-        <p>
-         <img alt="image-20240827161338160" src="../image/2024/image-20240827161338160.png"/>
-        </p>
-        <ul>
-         <li>
-          <strong>
-           如何计算注意力矩阵
-          </strong>
-         </li>
-        </ul>
-        <p>
-         <img alt="image-20240827161347153" src="../image/2024/image-20240827161347153.png"/>
-        </p>
-        <h2>
-         [ACL 24] ChatKBQA: A Generate-then-Retrieve Framework for Knowledge Base Question Answering with Fine-tuned Large Language Models
-        </h2>
-        <p>
-         本文实际解决的是类似知识图谱检索的问题，即给定一段文本，如何在知识图谱中检索到该文本相关的信息，本文给出的答案是生成-检索（Generate-then-Retrieve）框架，如下图，
-        </p>
-        <p>
-         <img alt="image-20240828173458751" src="../image/2024/image-20240828173458751.png"/>
-        </p>
-        <p>
-         本文的方法可以分为以下几步，
-        </p>
-        <ul>
-         <li>
-          <strong>
-           LLM Fine-Tuning
-          </strong>
-         </li>
-        </ul>
-        <p>
-         使用
-         <em>
-          question-SPARQL
-         </em>
-         对微调大模型，使大模型有能力针对输入的问题，输出对应的Logical Forms
-        </p>
-        <ul>
-         <li>
-          <strong>
-           Unsupervised Retrieval
-          </strong>
-         </li>
-        </ul>
-        <p>
-         上一步得到的Logical Forms实际是非严格的SPARQL，其中的实体和关系都是不一定按本名直接存在于KB中，所以需要通过检索，将entity和relation换为KB中的准确描述
-        </p>
-        <ul>
-         <li>
-          <strong>
-           SPARQL query
-          </strong>
-         </li>
-        </ul>
-        <p>
-         在上一步已经得到了正确的SPARQL查询语句，所以直接执行就能得到最后的答案
-        </p>
-        <h2>
-         [ACL 22] KQA Pro: A Dataset with Explicit Compositional Programs for Complex Question Answering over Knowledge Base
-        </h2>
-        <p>
-         本文提出了两个东西，一个数据集KQA Pro，一个知识图谱查询语言/方法 KoPL（Knowledge-oriented Pro-gramming Language），首先是他的数据集，构建方法如下图，
-        </p>
-        <p>
-         &lt;img src="../image/2024/image-20240829142043302.png" alt="image-20240829142043302" style="zoom:50%;" /&gt;
-        </p>
-        <p>
-         分为以下三步，
-        </p>
-        <ul>
-         <li>
-          知识提取，提取了Wikidata的一个子图
-         </li>
-         <li>
-          问题生成，按模板生成（问题，SPARQL，KoPL，Choices，Answer）对
-         </li>
-         <li>
-          问题重写，雇人众包重写问题
-         </li>
-        </ul>
-        <p>
-         然后是KoPL，这是一种描述如何查询知识图谱的语言，可以被表述成二叉树的格式，例如，
-        </p>
-        <p>
-         <img alt="image-20240829142317041" src="../image/2024/image-20240829142317041.png"/>
-        </p>
-        <p>
-         与SPARQL相比，KoPL提供了清晰的推理步骤，在中间出现错误的时候，人类可以快速的定位
-        </p>
-        <h2>
-         [ACL-findings 22] Do Pre-trained Models Benefit Knowledge Graph Completion? A Reliable Evaluation and a Reasonable Approach
-        </h2>
-        <p>
-         和之前看到的很多QA的文章类似，本文提出了一个数据集和一个方法，首先是数据集，本文没有过多的介绍自己数据集的细节，而是着重描写了自的数据集和之前数据集的区别，
-        </p>
-        <ul>
-         <li>
-          之前的数据集都是 Closed-world assumption (CWA)，在做link prediction任务的时候认为所有训练数据中的答案都是错误的
-         </li>
-         <li>
-          本提出的数据集是 Open-world assumption (OWA)，符合人类的认识，可以利用外部知识回答预测
-         </li>
-        </ul>
-        <p>
-         <img alt="image-20240830123710793" src="../image/2024/image-20240830123710793.png"/>
-        </p>
-        <p>
-         然后是本文提出的方法，主要就是用prompt模板来处理知识图谱的三元组，框架如下图，
-        </p>
-        <p>
-         <img alt="image-20240830123759726" src="../image/2024/image-20240830123759726.png"/>
-        </p>
-        <p>
-         分为了两个部分，
-        </p>
-        <ul>
-         <li>
-          <strong>
-           Triple Prompts
-          </strong>
-         </li>
-        </ul>
-        <p>
-         为每个关系构造了一个模板，例如
-        </p>
-        <p>
-         <img alt="image-20240830123842451" src="../image/2024/image-20240830123842451.png"/>
-        </p>
-        <p>
-         还使用了soft prompts技术，
-        </p>
-        <p>
-         <img alt="image-20240830124019073" src="../image/2024/image-20240830124019073.png"/>
-        </p>
-        <ul>
-         <li>
-          <strong>
-           Support Prompts
-          </strong>
-         </li>
-        </ul>
-        <p>
-         为每个属性构建了模板，例如上图中的Definition和Attribute
-        </p>
-        <h2>
-         [EMNLP 23] ZhuJiu: A Multi-dimensional, Multi-faceted Chinese Benchmark for Large Language Models
-        </h2>
-        <p>
-         提出了一个大模型评估系统，包含三方面的内容，
-        </p>
-        <p>
+         （Long-tail entities，一个知识图谱中某些实体出现次数很少，但是这类实体很多）
          <strong>
-          1）评估方法
+          性能不好
          </strong>
-        </p>
-        <p>
-         本文使用了三种评估方法，
+         的问题
         </p>
         <ul>
          <li>
-          Metrics Evaluation，和常见的模型测试类似，就是测试大模型在某些数据集上某些指标的高低
+          Text-based approaches
+         </li>
+        </ul>
+        <p>
+         利用外部的文本信息来补全三元组（例如使用LLM预训练的知识），问题在于
+         <strong>
+          需要特定领域的知识或者对LLM的微调
+         </strong>
+         ，对于Text-based中的LLM相关的方法，具体还有
+         <strong>
+          1）LLM回答不受限制；2）LLM输入长度首先；3）当时不存在高效的prompt
+         </strong>
+         等问题（我觉得这几个问题就有点牵强了）
+        </p>
+        <h4>
+         2）方法
+        </h4>
+        <p>
+         本文提出了一套KGC的框架，具体如下图，
+        </p>
+        <p>
+         <img alt="image-20240909220017615" src="../image/2024/image-20240909220017615.png"/>
+        </p>
+        <p>
+         可以分为以下几步
+        </p>
+        <ul>
+         <li>
+          <p>
+           输入(h,r,?)给KGC检索器，得到最初的相关实体
+          </p>
          </li>
          <li>
-          Scoring Evaluation，这个方法有点复杂，我理解就是用LLM生成数据然后评估其他模型，具体步骤如下，
+          <p>
+           让大模型给上一步的结果中最相关的m个实体排序，这里有两个细节
+          </p>
           <ul>
            <li>
-            人工选取一些评估数据作为随机种子
+            使用prompt template将处理原始的输入
            </li>
            <li>
-            使用上一步的数据让ChatGPT生成进一步的评估prompts
+            从anaplog pool和supplemet pool中选择示例，前者是r和输入相同的三元组，后者是h实体相同的
+           </li>
+          </ul>
+         </li>
+         <li>
+          <p>
+           Text Self-Alignment，知识图谱中的关系通常表示为xx_xxx_xxx类似的公式，这里将其转为自然语言
+          </p>
+         </li>
+        </ul>
+        <h4>
+         3）实验
+        </h4>
+        <ul>
+         <li>
+          数据集：FB15k-237和WN18RR
+         </li>
+         <li>
+          实现细节：KGC Retriever使用RotatE，LLM使用gpt-3.5-turbo
+         </li>
+         <li>
+          评价指标：Hit@1,3,10和MRR（Mean Reciprocal Rank）
+         </li>
+        </ul>
+        <p>
+         其中后者，平均倒数秩，是指第一个正确答案的排名的倒数，公式如下，
+        </p>
+        <p>
+         &lt;img src="../image/2024/image-20240909220904409.png" alt="image-20240909220904409" style="zoom:50%;" /&gt;
+        </p>
+        <ul>
+         <li>
+          主体实验如下图，
+         </li>
+        </ul>
+        <p>
+         <img alt="image-20240909221007235" src="../image/2024/image-20240909221007235.png"/>
+        </p>
+        <ul>
+         <li>
+          消融实验如下图，
+         </li>
+        </ul>
+        <p>
+         <img alt="image-20240909221025979" src="../image/2024/image-20240909221025979.png"/>
+        </p>
+        <h2>
+         [EMNLP 23] StructGPT: A General Framework for Large Language Model to Reason over Structured Data
+        </h2>
+        <h4>
+         1）问题
+        </h4>
+        <ul>
+         <li>
+          LLM回答问题可能会有
+          <strong>
+           幻觉
+          </strong>
+          或者需要
+          <strong>
+           特定领域的知识
+          </strong>
+         </li>
+         <li>
+          所以，用外部数据来增强LLM，其中结构化数据经常被使用，但是LLM不能很好的理解结构数据，之前的方法把结构数据直接转成文本输入给大模型，这种方法受限于
+          <strong>
+           大模型的输入长度
+          </strong>
+         </li>
+         <li>
+          （动机）现在有Tool manipulation strategy 来增强LLM的能力，可以设计Tool来处理外部结构数据，完成Tool的设计需要解决两个问题
+          <ul>
+           <li>
+            <strong>
+             对特定任务设计合适的接口
+            </strong>
            </li>
            <li>
-            人工评估上一步生成的prompts，留下其中的100个
-           </li>
-           <li>
-            让要评估的LLM执行这些prompts，让GPT辅助评分
+            <strong>
+             LLM如何使用结构数据推理
+            </strong>
            </li>
           </ul>
          </li>
         </ul>
+        <h4>
+         2）方法
+        </h4>
         <p>
-         &lt;img src="../image/2024/image-20240831213157452.png" alt="image-20240831213157452" style="zoom:50%;" /&gt;
+         根据前述的两个问题，本文提出了Iterative Reading-then-Reasoning（IRR）的框架，如下图
+        </p>
+        <p>
+         <img alt="image-20240910212435693" src="../image/2024/image-20240910212435693.png"/>
+        </p>
+        <p>
+         主要分为Reading和Reasoning两个步骤，
         </p>
         <ul>
          <li>
-          Comparative Evaluation，Chatbot Arena式的方法，在不知道两个模型名字的情况下，人直接评价两个模型谁的回答更好
+          Reading
          </li>
         </ul>
         <p>
-         <strong>
-          2）数据集
-         </strong>
-        </p>
-        <p>
-         本文使用了两种数据集，
+         对Knowledge Graph，Table和Database三种结构数据分别构建了处理接口，针对其特点提取有用的信息
         </p>
         <ul>
          <li>
-          Collect Datasets，就是之前的公开数据集
-         </li>
-         <li>
-          Construct Datasets，就是上面讲Scoring Evaluation部分所述构造的数据
+          Reasoning
          </li>
         </ul>
         <p>
-         <strong>
-          3）评估维度
-         </strong>
+         Read到的结构数据会经过LLM提取有效部分，然后根据问题种类得到最后的答案
+        </p>
+        <h4>
+         3）实验
+        </h4>
+        <ul>
+         <li>
+          数据集（KGQA）：WebQuestionsSP（WebQSP）和MetaQA
+         </li>
+         <li>
+          评价指标（KGQA）：Hits@1
+         </li>
+         <li>
+          LLM：Davinici-003和gpt-3.5-turbo
+         </li>
+        </ul>
+        <p>
+         KGQA相关的主要结果如下，
         </p>
         <p>
-         本文从七个维度评估LLMs，评估方法和数据集如上述，详见论文2.3节
+         <img alt="image-20240910212904846" src="../image/2024/image-20240910212904846.png"/>
+        </p>
+        <p>
+         这里我发现了个问题，好像我之前对KGQA的理解有误，这里的两个数据集都是有一个问题，这个问题中有个中心实体，模型的输出应该是在知识图谱中找到另一个实体，输出实体在问题实体的几跳范围之内（我记得KQA pro里面讲自己的第二个有点是问题的多样性，现在大概理解到这意思了）
+        </p>
+        <p>
+         然后本文提供了实例，如下图，
+        </p>
+        <p>
+         <img alt="image-20240910213220705" src="../image/2024/image-20240910213220705.png"/>
         </p>
         <h2>
-         [arXiv 24] Chatbot Arena: An Open Platform for Evaluating LLMs by Human Preference
+         [ACL 22] Sequence-to-Sequence Knowledge Graph Completion and Question Answering
         </h2>
+        <h4>
+         1）问题
+        </h4>
         <p>
-         本文基于自己
-         <a href="https://chat.lmsys.org">
-          竞技场
-         </a>
-         快1年的数据收集结果，做了三个方面的贡献，
+         之前都用Knowledge Graph Embeddings（KGEs）来解决Knowledge Graph Completion问题，但是KGEs的方法在拥有大量实体的知识图谱上会导致模型特别大
         </p>
+        <h4>
+         2）方法
+        </h4>
         <p>
-         <strong>
-          1）数据集
-         </strong>
-        </p>
-        <p>
-         本文提出了一个来自90K人的240K投票结果的关于超过50个模型的数据集，涉及超过100种语言
-        </p>
-        <p>
-         <img alt="image-20240901105456944" src="../image/2024/image-20240901105456944.png"/>
-        </p>
-        <p>
-         <strong>
-          2）Ranking方法
-         </strong>
-        </p>
-        <p>
-         本文使用了Bradley-Terry来对模型做排序，首先让用户对两个匿名模型作评价，得到一个模型对，以及该模型对中谁更好的评价结果，然后用BT算法对模型排序
-        </p>
-        <p>
-         <strong>
-          3）数据分析
-         </strong>
-        </p>
-        <p>
-         本文作了三个方面的数据分析，
+         说起来很简单，本文实际上是提出了一种大模型训练的目标函数，通过训练把知识图谱的信息训到大模型中去，具体来说，有如下步骤，
         </p>
         <ul>
          <li>
-          Topic Modeling，先给问题降维，然后聚类，得到600多个聚类簇
+          Text mapping and Verbalization，把需要补全的三元组转成自然语言
          </li>
          <li>
-          Distinguish Models，不同模型擅长不同类型的问题
+          使用上一步得到文本作为模型的输入，让模型输出可能补全的实体
          </li>
         </ul>
         <p>
-         <img alt="image-20240901105941541" src="../image/2024/image-20240901105941541.png"/>
+         本文模型和KGEs的对比如下图，
+        </p>
+        <p>
+         <img alt="image-20240910214149035" src="../image/2024/image-20240910214149035.png"/>
+        </p>
+        <h4>
+         3）实验
+        </h4>
+        <ul>
+         <li>
+          数据集（KGQA方面）：MetaQA，WebQSP和ComplexWebQuestioon（CWQ），前两者之前都见过，最后的CWQ应该有点类似KQA pro，有些复杂问题
+         </li>
+        </ul>
+        <p>
+         实验的主体结果如下表，
+        </p>
+        <p>
+         <img alt="image-20240910214414680" src="../image/2024/image-20240910214414680.png"/>
+        </p>
+        <p>
+         <img alt="image-20240910214420307" src="../image/2024/image-20240910214420307.png"/>
+        </p>
+        <h2>
+         [ISWC 23] Can ChatGPT Replace Traditional KBQA Models? An In-depth Analysis of the Question Answering Performance of the GPT LLM Family
+        </h2>
+        <h4>
+         1）问题
+        </h4>
+        <p>
+         本文实际是一篇实验报告，比较了LLM在不依赖对应数据集KG的情况下和传统方法在KBQA任务上的性能，解决的问题自然是之前没有这类型的综合测试
+        </p>
+        <h4>
+         2）方法
+        </h4>
+        <p>
+         本文构建了一个测试框架，如下图，
+        </p>
+        <p>
+         &lt;img src="../image/2024/image-20240918192140571.png" alt="image-20240918192140571" style="zoom: 67%;" /&gt;
+        </p>
+        <p>
+         分为两步，
+        </p>
+        <p>
+         <strong>
+          1 问题打标签
+         </strong>
+        </p>
+        <p>
+         首先给问题分类打标签，根据其答案、推理和语言的类型打标签，具体标签如下表，
+        </p>
+        <p>
+         &lt;img src="../image/2024/image-20240918192309744.png" alt="image-20240918192309744" style="zoom:50%;" /&gt;
+        </p>
+        <p>
+         <strong>
+          2 回答测试
+         </strong>
+        </p>
+        <p>
+         为了解决LLM回答不能和数据集参考答案完全匹配的问题，本文提出了如下步骤，
         </p>
         <ul>
          <li>
-          Vote Quality，本文让自己学校的学生以及GPT也对模型作类似的比较，得到下表，证明了投票质量
+          将LLM的回答做一致性分解，得到一致树，提取NP、VP节点得到候选答案池
+         </li>
+         <li>
+          使用wikidata的别名列表扩大候选答案池
+         </li>
+         <li>
+          使用bert模型计算候选答案池中答案和参考答案的相似度（实验后这里设置阈值为0.78）
+         </li>
+        </ul>
+        <h4>
+         3）实验
+        </h4>
+        <p>
+         本文的主题实验结果如下，
+        </p>
+        <p>
+         <img alt="image-20240918192917770" src="../image/2024/image-20240918192917770.png"/>
+        </p>
+        <p>
+         参考CheckList方法，本文还进行了三个方面的实验，
+        </p>
+        <p>
+         <strong>
+          1 Minimum Functionality Test (MFT)
+         </strong>
+        </p>
+        <p>
+         只测试有一个推理类型或多个同小类推理类型的问题，结果如下，
+        </p>
+        <p>
+         <img alt="image-20240918193033512" src="../image/2024/image-20240918193033512.png"/>
+        </p>
+        <p>
+         <strong>
+          2 Invariance Test (INV)
+         </strong>
+        </p>
+        <p>
+         在问题中引入拼写错误
+        </p>
+        <p>
+         <strong>
+          3 Directional Expectation Test (DET)
+         </strong>
+        </p>
+        <p>
+         分为三中，
+        </p>
+        <ul>
+         <li>
+          替换问题的推理类型
+         </li>
+         <li>
+          在问题中添加答案类型提示
+         </li>
+         <li>
+          使用CoT框架
          </li>
         </ul>
         <p>
-         <img alt="image-20240901110113674" src="../image/2024/image-20240901110113674.png"/>
+         后两者的具体示例如下图，
+        </p>
+        <p>
+         &lt;img src="../image/2024/image-20240918193320717.png" alt="image-20240918193320717" style="zoom:50%;" /&gt;
         </p>
        </body>
       </html>
@@ -578,6 +552,16 @@
     </h3>
     <table class="archive-list">
      <tbody>
+      <tr>
+       <td style="padding-right: 10px">
+        2024.09.18:
+       </td>
+       <td>
+        <a href="http://guchongan.github.io/2024\0902-RAG">
+         [Read Paper] 9.2-9.18 论文阅读（RAG/KICGPT/StructGPT/Seq2SeqKGC/KGLLMTest）
+        </a>
+       </td>
+      </tr>
       <tr>
        <td style="padding-right: 10px">
         2024.09.01:
@@ -665,16 +649,6 @@
        <td>
         <a href="http://guchongan.github.io/2024\0614-VitSwinMAE">
          [Read Paper] 6.7-6.14 论文阅读（ViT/Text Summarization/LangChain）
-        </a>
-       </td>
-      </tr>
-      <tr>
-       <td style="padding-right: 10px">
-        2024.06.03:
-       </td>
-       <td>
-        <a href="http://guchongan.github.io/2024\InstructLLAMATool">
-         [Read Paper] InstruceGPT、LLAMA和Toolformer三篇论文
         </a>
        </td>
       </tr>
