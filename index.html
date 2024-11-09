@@ -71,15 +71,15 @@
    <div class="row">
     <article>
      <h1>
-      <a href="https://guchongan.github.io/2024\0918-BGE">
-       [Read Paper] 9.18-9.28 论文阅读（BEG M3/BGE/FiEDLis/ToG/KAG）
+      <a href="https://guchongan.github.io/2024\0928-chatlaw">
+       [Read Paper] 9.28-10.28 论文阅读（chatlaw/Multimodal prove）
       </a>
      </h1>
      <span class="published">
       <i class="fa fa-calendar">
       </i>
       <time>
-       2024.09.28
+       2024.10.28
       </time>
      </span>
      <br/>
@@ -88,691 +88,185 @@
       <html>
        <body>
         <p>
-         看了BGE的两篇论文，C-Pack和M3-Embedding，
+         看了篇Multi-Agent的论文Chatlaw，
         </p>
         <ul>
          <li>
-          <a href="https://aclanthology.org/2024.findings-acl.137.pdf">
-           M3-Embedding: Multi-Linguality, Multi-Functionality, Multi-Granularity Text Embeddings Through Self-Knowledge Distillation
+          <a href="https://arxiv.org/pdf/2306.16092">
+           Chatlaw: A Multi-Agent Collaborative Legal Assistant with Knowledge Graph Enhanced Mixture-of-Experts Large Language Model
           </a>
-          （ACL findings 24）
+          （arXiv 2306）
          </li>
+        </ul>
+        <p>
+         看了篇多模态学习理论的论文，
+        </p>
+        <ul>
          <li>
-          <a href="https://arxiv.org/abs/2309.07597">
-           C-Pack: Packaged Resources To Advance General Chinese Embedding
+          <a href="https://arxiv.org/abs/2106.04538">
+           What Makes Multi-modal Learning Better than Single (Provably)
           </a>
-          （arXiv 2309）
-         </li>
-        </ul>
-        <p>
-         然后看了两篇KGQA的文章，
-        </p>
-        <ul>
-         <li>
-          <p>
-           <a href="https://arxiv.org/abs/2405.13873">
-            FiDeLiS: Faithful Reasoning in Large Language Model for Knowledge Graph Question Answering
-           </a>
-           （arXiv 2405）
-          </p>
-         </li>
-         <li>
-          <p>
-           <a href="https://arxiv.org/abs/2307.07697">
-            Think-on-Graph: Deep and Responsible Reasoning of Large Language Model on Knowledge Graph
-           </a>
-           （ICLR 24）
-          </p>
-         </li>
-        </ul>
-        <p>
-         然后看了蚂蚁的KAG技术报告，
-        </p>
-        <ul>
-         <li>
-          <a href="https://arxiv.org/abs/2409.13731">
-           KAG: Boosting LLMs in Professional Domains via Knowledge Augmented Generation
-          </a>
-          （arXiv 2409）
+          （NeurIPS 21）
          </li>
         </ul>
         <h2>
-         [ACL findings 24] M3-Embedding: Multi-Linguality, Multi-Functionality, Multi-Granularity Text Embeddings Through Self-Knowledge Distillation
-        </h2>
-        <h4>
-         1）问题
-        </h4>
-        <p>
-         之前的Embedding模型有三个问题，
-        </p>
-        <ul>
-         <li>
-          多语言、跨语言能力弱
-         </li>
-         <li>
-          只针对某一种检索方式训练
-         </li>
-         <li>
-          支持的输入长度跨度不够大
-         </li>
-        </ul>
-        <p>
-         所以本文提出了M3-Embedding，一个multi-linguality、multi-functionality and multi-granularity(n. 间隔尺寸)的模型
-        </p>
-        <h4>
-         2）方法
-        </h4>
-        <p>
-         为了做到前面提到的三个能力，本文做了如下设计，
-        </p>
-        <ol>
-         <li>
-          <p>
-           使用大量多语言、跨语言数据集以获得多语言能力
-          </p>
-         </li>
-         <li>
-          <p>
-           设计了self-knowledge distillation的训练框架以获得多功能能力，具体如下图
-          </p>
-         </li>
-        </ol>
-        <p>
-         <img alt="image-20240919233128271" src="../image/2024/image-20240919233128271.png"/>
-        </p>
-        <p>
-         这里的多功能是指，
-        </p>
-        <ul>
-         <li>
-          <p>
-           Dense retrieval，就是query和passage编码，只使用[CLS] token计算相似度
-          </p>
-         </li>
-         <li>
-          <p>
-           Lexical retrieval，每个token分别编码，计算query和passage重叠token的相似度和
-          </p>
-         </li>
-         <li>
-          <p>
-           Multi-Vector retrieval，使用模型全部输出计算相似度和
-          </p>
-         </li>
-        </ul>
-        <p>
-         主要的损失函数是典型的对比学习损失InfoNCE，
-        </p>
-        <p>
-         <img alt="image-20240919233524635" src="../image/2024/image-20240919233524635.png"/>
-        </p>
-        <p>
-         然后本文使用不同的s，得到知识蒸馏的指导标签，
-        </p>
-        <p>
-         <img alt="image-20240919233558784" src="../image/2024/image-20240919233558784.png"/>
-        </p>
-        <p>
-         然后构造了如下损失函数，
-        </p>
-        <p>
-         <img alt="image-20240919233614780" src="../image/2024/image-20240919233614780.png"/>
-        </p>
-        <p>
-         <img alt="image-20240919233630107" src="../image/2024/image-20240919233630107.png"/>
-        </p>
-        <p>
-         <img alt="image-20240919233635177" src="../image/2024/image-20240919233635177.png"/>
-        </p>
-        <ol start="3">
-         <li>
-          设计了Efficient Batching来获得处理不同长度的输出的能力
-         </li>
-        </ol>
-        <p>
-         这里其实很简单，就是先把输入文本按长度分类，然后分布式处理，每个GPU只处理相同长度的数据，如下图，
-        </p>
-        <p>
-         <img alt="image-20240919233803242" src="../image/2024/image-20240919233803242.png"/>
-        </p>
-        <h4>
-         3）实验
-        </h4>
-        <p>
-         因为不做这个方向，所以没有特别关注实验部分，主体实验结果如下，
-        </p>
-        <p>
-         <img alt="image-20240919233845450" src="../image/2024/image-20240919233845450.png"/>
-        </p>
-        <p>
-         <img alt="image-20240919233900398" src="../image/2024/image-20240919233900398.png"/>
-        </p>
-        <p>
-         评价指标是nDCG（normalized Discounted Cumulative Gain，归一化折损累计增益），公式如下，
-        </p>
-        <p>
-         <img alt="image-20240919234129448" src="../image/2024/image-20240919234129448.png"/>
-        </p>
-        <p>
-         <img alt="image-20240919234134083" src="../image/2024/image-20240919234134083.png"/>
-        </p>
-        <p>
-         <img alt="image-20240919234144099" src="../image/2024/image-20240919234144099.png"/>
-        </p>
-        <p>
-         DCG的分母部分是为了给排序更靠前的输出更大的权重，IDCG就是DCG的理论最大值，用来做归一化，rel是第i个位置的输出（BGE实际是搜索算法，所以就是搜索得到的排序第i的结果）是否正确（@10，所以就是参考输出是否在搜索前十个输出内）
-        </p>
-        <h2>
-         [arXiv 2309] C-Pack: Packaged Resources To Advance General Chinese Embedding
-        </h2>
-        <h3>
-         1）问题
-        </h3>
-        <p>
-         C-Pack解决的问题很简单也很直接，就是之前没有好的开源的中文Embeddings model相关的一系列东西，包括模型、数据集、评价方法和训练方法
-        </p>
-        <h3>
-         2）方法
-        </h3>
-        <p>
-         C-Pack主要包含四个部分，如下图，
-        </p>
-        <p>
-         <img alt="image-20240924211725964" src="../image/2024/image-20240924211725964.png"/>
-        </p>
-        <ul>
-         <li>
-          C-MTEB（Chinese Massive Text Embedding Benchmark）
-         </li>
-         <li>
-          C-MTP（Chinese Massive Text Pair）
-         </li>
-        </ul>
-        <p>
-         包含一个labeled子集和一个unlabeled子集
-        </p>
-        <ul>
-         <li>
-          BGE（BAAI General Embeddings）
-         </li>
-        </ul>
-        <p>
-         BERT-like architecture
-        </p>
-        <ul>
-         <li>
-          Recipe（训练技巧）
-         </li>
-        </ul>
-        <p>
-         三步，先是训练用的MAE的方法，掩码掉一部分数据做预测，然后是在C-MTP（unlabeled）子集上的对比学习，最后是在C-MTP（labeled）子集上的指令式微调
-        </p>
-        <h3>
-         3）实验
-        </h3>
-        <p>
-         主体实验结果如下表，
-        </p>
-        <p>
-         <img alt="image-20240924212149982" src="../image/2024/image-20240924212149982.png"/>
-        </p>
-        <h2>
-         [arXiv 2405] FiDeLiS: Faithful Reasoning in Large Language Model for Knowledge Graph Question Answering
-        </h2>
-        <h3>
-         1）问题
-        </h3>
-        <p>
-         KGQA的框架解决的问题其实大都是相似的逻辑，即
-        </p>
-        <ul>
-         <li>
-          <p>
-           LLM有幻觉 -&gt; 需要外部知识，知识图谱是有结构的良好知识库，所以引入知识图谱
-          </p>
-         </li>
-         <li>
-          <p>
-           KG的使用没有得到充分的探索 -&gt; 本文提出EiDeLiS框架，解决了如下问题
-          </p>
-          <ul>
-           <li>
-            如何从知识图谱中检索
-           </li>
-           <li>
-            如何利用知识图谱检索得到的知识
-           </li>
-          </ul>
-         </li>
-        </ul>
-        <h3>
-         2）方法
-        </h3>
-        <p>
-         本文方法的框架总览图如下，
-        </p>
-        <p>
-         <img alt="image-20240926105016434" src="../image/2024/image-20240926105016434.png"/>
-        </p>
-        <p>
-         可以分为以下几步，
-        </p>
-        <ul>
-         <li>
-          Path-RAG
-          <ul>
-           <li>
-            知识图谱中的所有实体和关系都embedding
-           </li>
-           <li>
-            question分解为关键字
-           </li>
-           <li>
-            用keywords list检索相关节点和关系（按相似度评分），N表示i步的邻居
-           </li>
-          </ul>
-         </li>
-        </ul>
-        <p>
-         &lt;img src="../image/2024/image-20240926105646600.png" alt="image-20240926105646600" style="zoom:50%;" /&gt;
-        </p>
-        <ul>
-         <li>
-          DVBS（Deductive-Verification Guided Beam Search）
-         </li>
-        </ul>
-        <p>
-         对上一步得到的候选Path用LLM做评判，用Beam Search的方法，每步取排序最高的k个下一步，得到最终的推理路径
-        </p>
-        <h3>
-         3）实验
-        </h3>
-        <ul>
-         <li>
-          <p>
-           数据集：WebQSP、CWQ（用的RoG处理后的版本）和CR-LT-KGQA
-          </p>
-         </li>
-         <li>
-          <p>
-           主体实验结果如下，
-          </p>
-         </li>
-        </ul>
-        <p>
-         &lt;img src="../image/2024/image-20240926105454478.png" alt="image-20240926105454478" style="zoom:50%;" /&gt;
-        </p>
-        <h2>
-         [ICLR 24] THINK-ON-GRAPH: DEEP AND RESPONSIBLE REASON-ING OF LARGE LANGUAGE MODEL ON KNOWLEDGEGRAPH
-        </h2>
-        <h3>
-         1）问题
-        </h3>
-        <p>
-         之前的KGQA的方法大部分都是LLM+KG的方法，没有实现LLM和KG的深度交互，本文提出了LLM x KG的方法，示例如下，
-        </p>
-        <p>
-         <img alt="image-20240926110109242" src="../image/2024/image-20240926110109242.png"/>
-        </p>
-        <h3>
-         2）方法
-        </h3>
-        <p>
-         本文方法如下图，
-        </p>
-        <p>
-         <img alt="image-20240926110137719" src="../image/2024/image-20240926110137719.png"/>
-        </p>
-        <p>
-         可以分为如下几步，
-        </p>
-        <ul>
-         <li>
-          提取问题的中心实体
-         </li>
-         <li>
-          Relation Exploration
-          <ul>
-           <li>
-            在知识图谱中找到中心节点的相邻关系（Relation Search）
-           </li>
-           <li>
-            在相邻关系中用LLM判断top-k（Relation Prune）
-           </li>
-          </ul>
-         </li>
-         <li>
-          Entity Exploration
-          <ul>
-           <li>
-            找上步的top-k关系的相邻实体（Entity Search）
-           </li>
-           <li>
-            LLM找tok-k实体（Entity Prune）
-           </li>
-          </ul>
-         </li>
-         <li>
-          重复上述两步，由LLM判断是否得到充分信息回答问题
-         </li>
-         <li>
-          LLM根据最终得到的Path推理
-         </li>
-        </ul>
-        <p>
-         本文还有个Relation-based Think-on-Graph，就是最后得到的Path只有关系，不包含实体，实现和正常版本的ToG差不多
-        </p>
-        <h3>
-         3）实验
-        </h3>
-        <ul>
-         <li>
-          数据集：CWQ、WebQSP、GrailQA、QALD10-en、Simple Question
-          <ul>
-           <li>
-            本文除了使用KGQA的数据集还用了
-            <ul>
-             <li>
-              WebQuestions
-             </li>
-             <li>
-              两个slot filling datasets：T-REx、Zero-Shot RE
-             </li>
-             <li>
-              fact-checking dataset：Creak
-             </li>
-            </ul>
-           </li>
-          </ul>
-         </li>
-         <li>
-          本文的主要实验结果如下
-         </li>
-        </ul>
-        <p>
-         <img alt="image-20240926110859899" src="../image/2024/image-20240926110859899.png"/>
-        </p>
-        <h2>
-         [arXiv 2409] KAG: Boosting LLMs in Professional Domains via Knowledge Augmented Generation
+         [arXiv 2306] Chatlaw: A Multi-Agent Collaborative Legal Assistant with Knowledge Graph Enhanced Mixture-of-Experts Large Language Model
         </h2>
         <blockquote>
          <p>
-          本文是一篇技术报告，而不是正常的论文，所以这里不按问题、方法、实验进行记录，而是重点关注本文的几个技术重点
+          这篇的github有6k的stars，但是实际没有开源？我看issur也没人复现成果，感觉是买的stars......
          </p>
         </blockquote>
-        <p>
-         本文提出了KAG（Knowledge Augmented Generation）框架，如下图，
-        </p>
-        <p>
-         <img alt="image-20240928154119045" src="../image/2024/image-20240928154119045.png"/>
-        </p>
-        <p>
-         大致可以分为三个部分，
-        </p>
-        <ul>
-         <li>
-          KAG-Builder，从原始的Documents开始，构建一个知识图谱
-          <ul>
-           <li>
-            LLMFriSPG（LLM Friednly Semantic-Enhanced Programmable Graph）
-           </li>
-           <li>
-            Mutual Index，原始文本的chunks也作为知识图谱的实体
-           </li>
-           <li>
-            Knowledge Alignment，利用外部知识和Concept Graph做知识对齐
-           </li>
-          </ul>
-         </li>
-         <li>
-          KAG-Solver，基于KAG-Builder构建的知识图谱，使用大模型进行问答
-          <ul>
-           <li>
-            Logical Form Solver，将检索和推理动作用逻辑格式语言定义
-           </li>
-          </ul>
-         </li>
-         <li>
-          KAG-Model，本文的很多操作是利用LLM完成的，所以他们微调了一个LLM
-         </li>
-        </ul>
-        <h3>
-         1）KAG-Builder：知识图谱的构建
-        </h3>
-        <p>
-         不同于一般的KGQA任务，知识图谱由测试数据集直接给定，本文实际解决的是KBQA任务，需要参考的知识以文档格式存在，所以第一步需要将Documents变成Knowledge Graph，执行流程如下，
-        </p>
-        <p>
-         <img alt="image-20240928155017511" src="../image/2024/image-20240928155017511.png"/>
-        </p>
         <h4>
-         1.1 LLM Frendly Knowledge Representation（LLMFriSPG）
+         1）问题
         </h4>
         <p>
-         本文在SPG的基础上提出了一种大模型友好的知识图谱构建范式（LLMFriSPG），对于该范式下的知识图谱包含以下几部分，
+         本文解决的问题也是老生常谈的hallucination
+        </p>
+        <h4>
+         2）方法
+        </h4>
+        <p>
+         本文提出了一个数据集，一个模型，一个框架，其中数据集因为是法律领域，和我的方向不同，这里不做记录，主要来看看模型和框架，如下图，
         </p>
         <p>
-         &lt;img src="../image/2024/image-20240928155601693.png" alt="image-20240928155601693" style="zoom: 67%;" /&gt;
+         <img alt="image-20241004165427933" src="../image/2024/image-20241004165427933.png"/>
+        </p>
+        <p>
+         首先是Misture-of-Experts LLM，本文具体的模型细节讲的很少，可能要后面看了代码才能弄懂这个MoE LLM的细节，根据本文的描述，我理解这个模型就是之前常见的多模型混合中的一种方法，同时又多个LLM，然后选几个LLM出来投票（结果相加）
+        </p>
+        <p>
+         然后是Multi-Agent Collaborative Framework，就是一个多智体框架，分为四步，
         </p>
         <ul>
          <li>
-          T表示EntityType，EventType和预定义的属性
+          根据问题检索知识图谱
          </li>
          <li>
-          ρ表示instance和concepts之间的关系
+          根据知识图谱检索数据库
          </li>
          <li>
-          C表示ConceptType
+          根据数据检索案例
          </li>
          <li>
-          L表示可以执行的操作
+          根据案例生成结果
          </li>
         </ul>
+        <h2>
+         [NeurIPS 21] What Makes Multi-modal Learning Better than Single (Provably)
+        </h2>
+        <h4>
+         1）问题
+        </h4>
         <p>
-         以下面的知识图谱为例，
-        </p>
-        <p>
-         <img alt="image-20240928155853165" src="../image/2024/image-20240928155853165.png"/>
-        </p>
-        <p>
-         对于T下面的每一个实体t，都有
-        </p>
-        <p>
-         <img alt="image-20240928160543672" src="../image/2024/image-20240928160543672.png"/>
-        </p>
-        <p>
-         这里包含三类该实体的关系和属性，
+         本文解决的问题很直接，就是如题所示，为什么多模态学习比单模态好，作者从两个方面回答了这个问题，
         </p>
         <ul>
          <li>
-          <span class="math">
-           $p^c$
-          </span>
-          ：static，pre-defined
+          （When）什么时候多模态学习优于单模态学习
          </li>
          <li>
-          <span class="math">
-           $p^f$
-          </span>
-          ：dynamic，ad-hoc
-         </li>
-         <li>
-          <span class="math">
-           $p^b$
-          </span>
-          ：内置属性（summary，desciption，supporting_chunks，belongTo）
-         </li>
-        </ul>
-        <p>
-         然后本文给构建好的知识图谱中的知识做了分层，如下图，
-        </p>
-        <p>
-         <img alt="image-20240928161112589" src="../image/2024/image-20240928161112589.png"/>
-        </p>
-        <p>
-         将知识图谱中的数据分为了三类，
-        </p>
-        <ul>
-         <li>
-          <span class="math">
-           $KG_{cs}$
-          </span>
-          ：经过了总结、融合和评估的领域知识
-         </li>
-         <li>
-          <span class="math">
-           $KG_{fr}$
-          </span>
-          ：OpenIE提取出的节点
-         </li>
-         <li>
-          RC（Raw Chunks）
+          （Why）什么导致了多模态学习优于单模态学习
          </li>
         </ul>
         <h4>
-         1.2 Mutual Indexing：知识图谱和Chunks的互索引
+         2）方法
         </h4>
         <p>
-         其实就是Chunks也作为知识图谱中的Entity
+         本文的方法部分可以分成两块，首先作者抽象了一个多模态学习的框架以备后面的学习证明，如下图，
+        </p>
+        <p>
+         <img alt="image-20241028132211952" src="../image/2024/image-20241028132211952.png"/>
+        </p>
+        <p>
+         作者把多模态学习分为两步，首先从不同模态编码数据X编码到同一个隐藏空间Z，然后从隐藏空间Z映射到任务空间Y，这两个映射过程分别通过函数族G和H完成。
+        </p>
+        <p>
+         然后作者做了两个证明，
+        </p>
+        <ul>
+         <li>
+          <strong>
+           隐藏空间质量影响模型表现
+          </strong>
+         </li>
+        </ul>
+        <p>
+         作者首先定义了隐藏空间质量，如下式，
+        </p>
+        <p>
+         &lt;img src="../image/2024/image-20241028132626683.png" alt="image-20241028132626683" style="zoom: 80%;" /&gt;
+        </p>
+        <p>
+         这了的r(·)，就是模型输出和参考值的损失。然后作者利用Rademacher complexity measure得到了下面的不等式，
+        </p>
+        <p>
+         &lt;img src="../image/2024/image-20241028132735745.png" alt="image-20241028132735745" style="zoom:80%;" /&gt;
+        </p>
+        <p>
+         这个式子的右边是M个模态学习结果和N个模态学习结果的差值，左边可以分为两块，后面三项是模型复杂度的衡量，前面rS是M个模态和N个模态隐藏空间质量的差值，模型复杂度的部分可以简化为O(sqrt(1/m))，所以这里其实就证明了模型表现受限于隐藏空间质量。
+        </p>
+        <ul>
+         <li>
+          <strong>
+           数据量影响隐藏空间质量
+          </strong>
+         </li>
+        </ul>
+        <p>
+         <img alt="image-20241028133338031" src="../image/2024/image-20241028133338031.png"/>
+        </p>
+        <p>
+         这个式子也可以分为两个部分，前面三项是模型复杂度，后面的L可以理解为模型表现，然后作者做了一些替换，
+        </p>
+        <p>
+         <img alt="image-20241028133506948" src="../image/2024/image-20241028133506948.png"/>
+        </p>
+        <p>
+         最后作者把N个模态的不等式和M个模态的不等式相减，得到要M个模态的隐藏空间质量大于N个模态的隐藏空间质量，需要满足，
+        </p>
+        <p>
+         <img alt="image-20241028133616536" src="../image/2024/image-20241028133616536.png"/>
+        </p>
+        <p>
+         其实就是m足够大，也就是数据量足够多，多模态训练的隐藏空间就会比单一模态的好
+        </p>
+        <ul>
+         <li>
+          <strong>
+           线性模型的例子
+          </strong>
+         </li>
+        </ul>
+        <p>
+         然后作者具体分析了线性模型的例子，主要是证明了M个模态的隐藏空间质量一定优于N个模态的隐藏空间质量，
+        </p>
+        <p>
+         <img alt="image-20241028134405120" src="../image/2024/image-20241028134405120.png"/>
+        </p>
+        <p>
+         然后把这个带入隐藏空间质量的计算中
         </p>
         <h4>
-         1.3 Knowledge Alignment
+         3）实验
         </h4>
         <p>
-         这里技术细节有点多，具体记录如下，
-        </p>
-        <ul>
-         <li>
-          <p>
-           Domain Knowledge Injection And Constraints，领域知识注入
-          </p>
-          <ul>
-           <li>
-            存储该领域的主要concepts和term在KG中
-           </li>
-           <li>
-            从documents中提取instance（IE），vector retrieval相关的concetps和term
-           </li>
-           <li>
-            根据上一步得到的相关concepts和term再做IE
-           </li>
-          </ul>
-         </li>
-         <li>
-          <p>
-           Schema-constraint Extraction（范式约束的提取）和Pre-defined文档知识结构
-          </p>
-          <ul>
-           <li>
-            不同领域的document有不同的格式，政府报告有主管部门、服务程序、需要材料等
-           </li>
-          </ul>
-         </li>
-         <li>
-          <p>
-           Enhance Indexing
-          </p>
-          <ul>
-           <li>
-            Disambiguation and fusion of knowledg instances
-           </li>
-           <li>
-            Predict relation between instances and concepts
-           </li>
-           <li>
-            Complete concepts and relations between concepts
-           </li>
-          </ul>
-         </li>
-        </ul>
-        <h3>
-         2）KAG-Solver：基于知识图谱的问答框架
-        </h3>
-        <p>
-         本文有一个基于知识图谱的问答框架，如下图，
+         本文的实验部分倒是很简单，作者找了个情感分类的数据集，有文本、视频和音频三个模态然后分析了不同模态的结果，
         </p>
         <p>
-         <img alt="image-20240928163504358" src="../image/2024/image-20240928163504358.png"/>
+         <img alt="image-20241028134639058" src="../image/2024/image-20241028134639058.png"/>
         </p>
         <p>
-         也是比较常见的planning-reasoning-generation的框架，具体分为以下三步，
-        </p>
-        <ul>
-         <li>
-          Planning：将问题分解为多个子问题，每个子问题对应一个Logical Form
-         </li>
-         <li>
-          Reasoning and Retrieval：根据子问题的Logical Form执行操作，回答子问题
-         </li>
-         <li>
-          Generation：判断是否能回答最初的问题，不能就回到Planning步骤，提出补充计划
-         </li>
-        </ul>
-        <h4>
-         2.1 Logical Form
-        </h4>
-        <p>
-         这里本文主要的点应该是Logical Form，其实类似于之前ReAct的Action或者ToolGPT的Tool的概念，就是一些给LLM的工具，有不同的具体执行方法，本文给了5个Function，如下表，
+         作者还做了个有意思的实验，他合成了几个数据，
         </p>
         <p>
-         <img alt="image-20240928163937899" src="../image/2024/image-20240928163937899.png"/>
+         <img alt="image-20241028134910369" src="../image/2024/image-20241028134910369.png"/>
         </p>
         <p>
-         和之前的ReAct或者ToolGPT不同可能在于本文的逻辑格式，类似于KGQA中语义解析的方法，将自然语言转换为程序语言，然后按特定的程序执行
-        </p>
-        <h3>
-         3）KAG-Model
-        </h3>
-        <p>
-         前面提到的很多操作都需要LLM来完成，如下图，
+         然后分析了数据重叠对多模态学习的影响，
         </p>
         <p>
-         <img alt="image-20240928164201924" src="../image/2024/image-20240928164201924.png"/>
-        </p>
-        <p>
-         所以本文提出了一套针对性的训练方法，然后训了几个模型，主要是将LLM需要的能力分为了三块，
-        </p>
-        <ul>
-         <li>
-          NLU（Understanding），和正常的LLM训练差不多
-         </li>
-         <li>
-          NLI（Inference）
-          <ul>
-           <li>
-            构造了一个有8000个concepts和他们语义关系的数据集
-           </li>
-           <li>
-            在6中不同的推理指令下作训练
-           </li>
-          </ul>
-         </li>
-         <li>
-          NLG（Generation）
-          <ul>
-           <li>
-            triples-to-text generation task
-           </li>
-           <li>
-            收到RLHF，用KG反馈作强化学习，评分是大模型输出匹配到KG中三元组或者实体的个数
-           </li>
-          </ul>
-         </li>
-        </ul>
-        <p>
-         然后本文提出虽然有这么多步骤，但是应该使用同一个大模型来降低不同模型间传递的消耗，其他任务都还好，主要有一个embedding任务输出不太一样，所以本文专门设置了一个retrieval tokens（类似BERT的[CLS] token）
-        </p>
-        <h3>
-         4）实验
-        </h3>
-        <p>
-         本文主体实验结果如下表，
-        </p>
-        <p>
-         <img alt="image-20240928165052056" src="../image/2024/image-20240928165052056.png"/>
-        </p>
-        <p>
-         <img alt="image-20240928165138620" src="../image/2024/image-20240928165138620.png"/>
+         <img alt="image-20241028134942842" src="../image/2024/image-20241028134942842.png"/>
         </p>
        </body>
       </html>
@@ -784,6 +278,16 @@
     </h3>
     <table class="archive-list">
      <tbody>
+      <tr>
+       <td style="padding-right: 10px">
+        2024.10.28:
+       </td>
+       <td>
+        <a href="http://guchongan.github.io/2024\0928-chatlaw">
+         [Read Paper] 9.28-10.28 论文阅读（chatlaw/Multimodal prove）
+        </a>
+       </td>
+      </tr>
       <tr>
        <td style="padding-right: 10px">
         2024.09.28:
@@ -871,16 +375,6 @@
        <td>
         <a href="http://guchongan.github.io/2024\0628-CVPRbest">
          [Read Paper] 6.21-6.28 论文阅读（CVPRbest/ICLRoutstanding/Coca）
-        </a>
-       </td>
-      </tr>
-      <tr>
-       <td style="padding-right: 10px">
-        2024.06.21:
-       </td>
-       <td>
-        <a href="http://guchongan.github.io/2024\0621-MultiModalQA">
-         [Read Paper] 6.14-6.21 论文阅读（CLIP/Multimodal QA）
         </a>
        </td>
       </tr>

@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="https://www.facebook.com/2008/fbml" xmlns:og="http://ogp.me/ns#">
+ <head>
+  <title>
+   [Read Paper] 9.28-10.28 论文阅读（chatlaw/Multimodal prove） - Chongan's website
+  </title>
+  <!-- Using the latest rendering mode for IE -->
+  <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <link href="../../image/favicon.ico" rel="icon"/>
+  <link href="../../css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+  <link href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+  <link href="../../css/vs.css" rel="stylesheet" type="text/css"/>
+  <link href="../../css/style.css" rel="stylesheet" type="text/css"/>
+ </head>
+ <body>
+  <!-- navbar -->
+  <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+   <div class="container">
+    <div class="navbar-header">
+     <button class="navbar-toggle" data-target=".navbar-ex1-collapse" data-toggle="collapse" type="button">
+      <span class="sr-only">
+       Toggle navigation
+      </span>
+      <span class="icon-bar">
+      </span>
+      <span class="icon-bar">
+      </span>
+      <span class="icon-bar">
+      </span>
+     </button>
+     <a class="navbar-brand" href="https://guchongan.github.io/">
+      <img height="32" src="../../image/favicon-32x32.png" width="32"/>
+      Gu Chongan's website
+     </a>
+    </div>
+    <div class="collapse navbar-collapse navbar-ex1-collapse">
+     <ul class="nav navbar-nav navbar-right">
+      <li>
+       <a href="https://guchongan.github.io/about">
+        <i class="fa fa-question">
+        </i>
+        <span class="icon-label">
+         About
+        </span>
+       </a>
+      </li>
+      <li>
+       <a href="https://guchongan.github.io/projects">
+        <i class="fa fa-github">
+        </i>
+        <span class="icon-label">
+         Projects
+        </span>
+       </a>
+      </li>
+      <li>
+       <a href="https://guchongan.github.io/archives">
+        <i class="fa fa-th-list">
+        </i>
+        <span class="icon-label">
+         Archives
+        </span>
+       </a>
+      </li>
+     </ul>
+    </div>
+   </div>
+  </div>
+  <div class="container">
+   <div class="row">
+    <section id="content">
+     <article>
+      <header class="page-header">
+       <h1>
+        <a href="https://guchongan.github.io/2024/[Read Paper] 9.28-10.28 论文阅读（chatlaw/Multimodal prove）" rel="bookmark" title="[Read Paper] 9.28-10.28 论文阅读（chatlaw/Multimodal prove）">
+         [Read Paper] 9.28-10.28 论文阅读（chatlaw/Multimodal prove）
+        </a>
+       </h1>
+      </header>
+      <div class="entry-content">
+       <div class="panel">
+        <div class="panel-body">
+         <footer class="post-info">
+          <span class="published">
+           <i class="fa fa-calendar">
+           </i>
+           <time>
+            2024.10.28
+           </time>
+          </span>
+          <span class="label label-default">
+           Tags
+          </span>
+          <html>
+           <body>
+            <a>
+             readpaper
+            </a>
+           </body>
+          </html>
+         </footer>
+         <!-- /.post-info -->
+        </div>
+       </div>
+       <!-- /.entry-content -->
+       <html>
+        <body>
+         <p>
+          看了篇Multi-Agent的论文Chatlaw，
+         </p>
+         <ul>
+          <li>
+           <a href="https://arxiv.org/pdf/2306.16092">
+            Chatlaw: A Multi-Agent Collaborative Legal Assistant with Knowledge Graph Enhanced Mixture-of-Experts Large Language Model
+           </a>
+           （arXiv 2306）
+          </li>
+         </ul>
+         <p>
+          看了篇多模态学习理论的论文，
+         </p>
+         <ul>
+          <li>
+           <a href="https://arxiv.org/abs/2106.04538">
+            What Makes Multi-modal Learning Better than Single (Provably)
+           </a>
+           （NeurIPS 21）
+          </li>
+         </ul>
+         <h2>
+          [arXiv 2306] Chatlaw: A Multi-Agent Collaborative Legal Assistant with Knowledge Graph Enhanced Mixture-of-Experts Large Language Model
+         </h2>
+         <blockquote>
+          <p>
+           这篇的github有6k的stars，但是实际没有开源？我看issur也没人复现成果，感觉是买的stars......
+          </p>
+         </blockquote>
+         <h4>
+          1）问题
+         </h4>
+         <p>
+          本文解决的问题也是老生常谈的hallucination
+         </p>
+         <h4>
+          2）方法
+         </h4>
+         <p>
+          本文提出了一个数据集，一个模型，一个框架，其中数据集因为是法律领域，和我的方向不同，这里不做记录，主要来看看模型和框架，如下图，
+         </p>
+         <p>
+          <img alt="image-20241004165427933" src="..\../image/2024/image-20241004165427933.png"/>
+         </p>
+         <p>
+          首先是Misture-of-Experts LLM，本文具体的模型细节讲的很少，可能要后面看了代码才能弄懂这个MoE LLM的细节，根据本文的描述，我理解这个模型就是之前常见的多模型混合中的一种方法，同时又多个LLM，然后选几个LLM出来投票（结果相加）
+         </p>
+         <p>
+          然后是Multi-Agent Collaborative Framework，就是一个多智体框架，分为四步，
+         </p>
+         <ul>
+          <li>
+           根据问题检索知识图谱
+          </li>
+          <li>
+           根据知识图谱检索数据库
+          </li>
+          <li>
+           根据数据检索案例
+          </li>
+          <li>
+           根据案例生成结果
+          </li>
+         </ul>
+         <h2>
+          [NeurIPS 21] What Makes Multi-modal Learning Better than Single (Provably)
+         </h2>
+         <h4>
+          1）问题
+         </h4>
+         <p>
+          本文解决的问题很直接，就是如题所示，为什么多模态学习比单模态好，作者从两个方面回答了这个问题，
+         </p>
+         <ul>
+          <li>
+           （When）什么时候多模态学习优于单模态学习
+          </li>
+          <li>
+           （Why）什么导致了多模态学习优于单模态学习
+          </li>
+         </ul>
+         <h4>
+          2）方法
+         </h4>
+         <p>
+          本文的方法部分可以分成两块，首先作者抽象了一个多模态学习的框架以备后面的学习证明，如下图，
+         </p>
+         <p>
+          <img alt="image-20241028132211952" src="..\../image/2024/image-20241028132211952.png"/>
+         </p>
+         <p>
+          作者把多模态学习分为两步，首先从不同模态编码数据X编码到同一个隐藏空间Z，然后从隐藏空间Z映射到任务空间Y，这两个映射过程分别通过函数族G和H完成。
+         </p>
+         <p>
+          然后作者做了两个证明，
+         </p>
+         <ul>
+          <li>
+           <strong>
+            隐藏空间质量影响模型表现
+           </strong>
+          </li>
+         </ul>
+         <p>
+          作者首先定义了隐藏空间质量，如下式，
+         </p>
+         <p>
+          &lt;img src="../image/2024/image-20241028132626683.png" alt="image-20241028132626683" style="zoom: 80%;" /&gt;
+         </p>
+         <p>
+          这了的r(·)，就是模型输出和参考值的损失。然后作者利用Rademacher complexity measure得到了下面的不等式，
+         </p>
+         <p>
+          &lt;img src="../image/2024/image-20241028132735745.png" alt="image-20241028132735745" style="zoom:80%;" /&gt;
+         </p>
+         <p>
+          这个式子的右边是M个模态学习结果和N个模态学习结果的差值，左边可以分为两块，后面三项是模型复杂度的衡量，前面rS是M个模态和N个模态隐藏空间质量的差值，模型复杂度的部分可以简化为O(sqrt(1/m))，所以这里其实就证明了模型表现受限于隐藏空间质量。
+         </p>
+         <ul>
+          <li>
+           <strong>
+            数据量影响隐藏空间质量
+           </strong>
+          </li>
+         </ul>
+         <p>
+          <img alt="image-20241028133338031" src="..\../image/2024/image-20241028133338031.png"/>
+         </p>
+         <p>
+          这个式子也可以分为两个部分，前面三项是模型复杂度，后面的L可以理解为模型表现，然后作者做了一些替换，
+         </p>
+         <p>
+          <img alt="image-20241028133506948" src="..\../image/2024/image-20241028133506948.png"/>
+         </p>
+         <p>
+          最后作者把N个模态的不等式和M个模态的不等式相减，得到要M个模态的隐藏空间质量大于N个模态的隐藏空间质量，需要满足，
+         </p>
+         <p>
+          <img alt="image-20241028133616536" src="..\../image/2024/image-20241028133616536.png"/>
+         </p>
+         <p>
+          其实就是m足够大，也就是数据量足够多，多模态训练的隐藏空间就会比单一模态的好
+         </p>
+         <ul>
+          <li>
+           <strong>
+            线性模型的例子
+           </strong>
+          </li>
+         </ul>
+         <p>
+          然后作者具体分析了线性模型的例子，主要是证明了M个模态的隐藏空间质量一定优于N个模态的隐藏空间质量，
+         </p>
+         <p>
+          <img alt="image-20241028134405120" src="..\../image/2024/image-20241028134405120.png"/>
+         </p>
+         <p>
+          然后把这个带入隐藏空间质量的计算中
+         </p>
+         <h4>
+          3）实验
+         </h4>
+         <p>
+          本文的实验部分倒是很简单，作者找了个情感分类的数据集，有文本、视频和音频三个模态然后分析了不同模态的结果，
+         </p>
+         <p>
+          <img alt="image-20241028134639058" src="..\../image/2024/image-20241028134639058.png"/>
+         </p>
+         <p>
+          作者还做了个有意思的实验，他合成了几个数据，
+         </p>
+         <p>
+          <img alt="image-20241028134910369" src="..\../image/2024/image-20241028134910369.png"/>
+         </p>
+         <p>
+          然后分析了数据重叠对多模态学习的影响，
+         </p>
+         <p>
+          <img alt="image-20241028134942842" src="..\../image/2024/image-20241028134942842.png"/>
+         </p>
+        </body>
+       </html>
+      </div>
+      <hr/>
+      <div class="dotted-links">
+       <p class="align-center">
+        For comments, please send me
+        <a href="hu197136@gmail.com">
+         <i class="fa fa-envelope-o">
+         </i>
+         an email
+        </a>
+        .
+       </p>
+      </div>
+     </article>
+    </section>
+   </div>
+  </div>
+  <footer>
+   <div class="container">
+    <hr/>
+    <div class="row">
+     <div class="col-xs-10">
+      © 2024-2024 Gu Chongan
+     </div>
+     <div class="col-xs-2">
+      <p class="pull-right">
+       <i class="fa fa-arrow-up">
+       </i>
+       <a href="#">
+        Back to top
+       </a>
+      </p>
+     </div>
+    </div>
+   </div>
+  </footer>
+  <script src="../../css/jquery-2.2.4.min.js">
+  </script>
+  <script src="../../css/bootstrap.min.js">
+  </script>
+  <script type="text/x-mathjax-config">
+   var articlemathId = document.getElementById("articleContent");
+	var commentmathId = document.getElementById("commentlist-container");
+	MathJax.Hub.Config({
+		tex2jax: {
+			inlineMath: [ ['$','$'] ], //行内公式
+			displayMath: [ ['$$','$$'] ], //行间公式
+			skipTags: ['script', 'noscript', 'style', 'textarea', 'pre','code','a'], //渲染时跳过的html标签
+			ignoreClass: "summary", //忽略的class
+		}
+	});
+	MathJax.Hub.Queue(["Typeset", MathJax.Hub, articlemathId, commentmathId]); //指定渲染的html块，可以为多个
+  </script>
+  <script src="https://cdn.bootcss.com/mathjax/2.7.7/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script>
+ </body>
+</html>
