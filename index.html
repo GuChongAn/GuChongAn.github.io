@@ -71,15 +71,15 @@
    <div class="row">
     <article>
      <h1>
-      <a href="https://guchongan.github.io/2024\0928-chatlaw">
-       [Read Paper] 9.28-10.28 论文阅读（chatlaw/Multimodal prove）
+      <a href="https://guchongan.github.io/2024\1028-LSTK">
+       [Read Paper] 10.28-11. 论文阅读（LSTK）
       </a>
      </h1>
      <span class="published">
       <i class="fa fa-calendar">
       </i>
       <time>
-       2024.10.28
+       2024.11.
       </time>
      </span>
      <br/>
@@ -88,185 +88,251 @@
       <html>
        <body>
         <p>
-         看了篇Multi-Agent的论文Chatlaw，
+         11月7号做分享，所以顺着一篇知识图谱补全的文章（LSTK），往前读了相关的几篇知识图谱的文章，包括关系抽取和Logical Rules的知识图谱补全，
         </p>
         <ul>
          <li>
-          <a href="https://arxiv.org/pdf/2306.16092">
-           Chatlaw: A Multi-Agent Collaborative Legal Assistant with Knowledge Graph Enhanced Mixture-of-Experts Large Language Model
+          <a href="https://proceedings.neurips.cc/paper_files/paper/2023/hash/544242770e8333875325d013328b2079-Abstract-Conference.html">
+           Learning from Both Structural and Textual Knowledge for Inductive Knowledge Graph Completion
           </a>
-          （arXiv 2306）
+          （NeurIPS 23）
          </li>
-        </ul>
-        <p>
-         看了篇多模态学习理论的论文，
-        </p>
-        <ul>
          <li>
-          <a href="https://arxiv.org/abs/2106.04538">
-           What Makes Multi-modal Learning Better than Single (Provably)
+          <a href="https://aclanthology.org/P09-1113/">
+           Distant supervision for relation extraction without labeled data
           </a>
-          （NeurIPS 21）
+          （ACL 09）
+         </li>
+         <li>
+          <a href="https://aclanthology.org/D15-1203/">
+           Distant Supervision for Relation Extraction via Piecewise Convolutional Neural Networks
+          </a>
+          （EMNLP 15）
+         </li>
+         <li>
+          <a href="https://aclanthology.org/2021.emnlp-main.92/">
+           Label Verbalization and Entailment for Effective Zero and Few-Shot Relation Extraction
+          </a>
+          （EMNLP 21)
+         </li>
+         <li>
+          <a href="https://arxiv.org/abs/1702.08367">
+           Differentiable Learning of Logical Rules for Knowledge Base Reasoning
+          </a>
+          （NeurIPS 17）
          </li>
         </ul>
         <h2>
-         [arXiv 2306] Chatlaw: A Multi-Agent Collaborative Legal Assistant with Knowledge Graph Enhanced Mixture-of-Experts Large Language Model
-        </h2>
-        <blockquote>
-         <p>
-          这篇的github有6k的stars，但是实际没有开源？我看issur也没人复现成果，感觉是买的stars......
-         </p>
-        </blockquote>
-        <h4>
-         1）问题
-        </h4>
-        <p>
-         本文解决的问题也是老生常谈的hallucination
-        </p>
-        <h4>
-         2）方法
-        </h4>
-        <p>
-         本文提出了一个数据集，一个模型，一个框架，其中数据集因为是法律领域，和我的方向不同，这里不做记录，主要来看看模型和框架，如下图，
-        </p>
-        <p>
-         <img alt="image-20241004165427933" src="../image/2024/image-20241004165427933.png"/>
-        </p>
-        <p>
-         首先是Misture-of-Experts LLM，本文具体的模型细节讲的很少，可能要后面看了代码才能弄懂这个MoE LLM的细节，根据本文的描述，我理解这个模型就是之前常见的多模型混合中的一种方法，同时又多个LLM，然后选几个LLM出来投票（结果相加）
-        </p>
-        <p>
-         然后是Multi-Agent Collaborative Framework，就是一个多智体框架，分为四步，
-        </p>
-        <ul>
-         <li>
-          根据问题检索知识图谱
-         </li>
-         <li>
-          根据知识图谱检索数据库
-         </li>
-         <li>
-          根据数据检索案例
-         </li>
-         <li>
-          根据案例生成结果
-         </li>
-        </ul>
-        <h2>
-         [NeurIPS 21] What Makes Multi-modal Learning Better than Single (Provably)
+         [NeurIPS 23] Learning from Both Structural and Textual Knowledge for Inductive Knowledge Graph Completion
         </h2>
         <h4>
          1）问题
         </h4>
         <p>
-         本文解决的问题很直接，就是如题所示，为什么多模态学习比单模态好，作者从两个方面回答了这个问题，
+         本文研究的问题是Inductive Knowledge Graph Completion，我发现Knowledge Graph Completion、Knowlegde Base Reasoning和Knowledge Graph Reasoning这几个任务在大部分时候都是类似的意思，只是严格来说Completion可以分为Inductive和NoInductive，前者在补全的过程中会遇到训练集中不存在的entity，也就是需要所谓的Reasoning，现在的测试集应该都是这一类，所以现在KGC、KGR和KBR实际就是一个东西。
         </p>
-        <ul>
-         <li>
-          （When）什么时候多模态学习优于单模态学习
-         </li>
-         <li>
-          （Why）什么导致了多模态学习优于单模态学习
-         </li>
-        </ul>
+        <p>
+         本文指出之前的KGC方法只利用结构知识，可能会丢失有用信息（所有加模态的论文中最扯的一类解释）
+        </p>
         <h4>
          2）方法
         </h4>
         <p>
-         本文的方法部分可以分成两块，首先作者抽象了一个多模态学习的框架以备后面的学习证明，如下图，
+         <img alt="image-20241109232844258" src="../image/2024/image-20241109232844258.png"/>
         </p>
         <p>
-         <img alt="image-20241028132211952" src="../image/2024/image-20241028132211952.png"/>
-        </p>
-        <p>
-         作者把多模态学习分为两步，首先从不同模态编码数据X编码到同一个隐藏空间Z，然后从隐藏空间Z映射到任务空间Y，这两个映射过程分别通过函数族G和H完成。
-        </p>
-        <p>
-         然后作者做了两个证明，
+         本文的方法说起来其实很简单，就是两个阶段，
         </p>
         <ul>
          <li>
-          <strong>
-           隐藏空间质量影响模型表现
-          </strong>
+          First Stage：将文本数据转换为软三元组
          </li>
         </ul>
         <p>
-         作者首先定义了隐藏空间质量，如下式，
+         本阶段的目标就是把数据集中的文本数据转换Soft triples，所以其实是个关系抽取任务，本文也是按关系抽取任务的思路来完成的，具体涉及了之前三篇论文的方法（会在下面介绍），先利用Distant Supervision的假设获得大量标注数据，也就是训练集，
         </p>
         <p>
-         &lt;img src="../image/2024/image-20241028132626683.png" alt="image-20241028132626683" style="zoom: 80%;" /&gt;
+         <img alt="image-20241110162738676" src="../image/2024/image-20241110162738676.png"/>
         </p>
         <p>
-         这了的r(·)，就是模型输出和参考值的损失。然后作者利用Rademacher complexity measure得到了下面的不等式，
-        </p>
-        <p>
-         &lt;img src="../image/2024/image-20241028132735745.png" alt="image-20241028132735745" style="zoom:80%;" /&gt;
-        </p>
-        <p>
-         这个式子的右边是M个模态学习结果和N个模态学习结果的差值，左边可以分为两块，后面三项是模型复杂度的衡量，前面rS是M个模态和N个模态隐藏空间质量的差值，模型复杂度的部分可以简化为O(sqrt(1/m))，所以这里其实就证明了模型表现受限于隐藏空间质量。
+         这里的训练集每组数据包含三个部分，三元组，三元组对应的文本（根据distant supervision假设得到），标签y（就是0和1，表示句子能否突出三元组，作者通过更改三元组关系从正例中得到负例）。然后利用该训练集微调一个BERT做文本蕴含任务，输入"[CLS]&lt;triple&gt;[SEP]&lt;sentence&gt;[SEP]"，然后通过输出的CLS token计算蕴含概率，这里还用到了multi-instance learning来缓解distant supervision假设带来的噪声。最后就得到了一个模型可以判断某个三元组能否从某个句子中推出，将这个模型用于测试集就能完成将文本数据转换为软三元组的任务。
         </p>
         <ul>
          <li>
-          <strong>
-           数据量影响隐藏空间质量
-          </strong>
+          Second Stage：从软硬三元组中计算出Logical Rules
          </li>
         </ul>
         <p>
-         <img alt="image-20241028133338031" src="../image/2024/image-20241028133338031.png"/>
+         本文第二个阶段的任务是从上阶段得到的soft triples和知识图谱原有的hard triples中计算得到Logical Rules，这个计算通过学习模型完成，利用机器学习的参数表示某个逻辑规则是否成立，然后学习该参数。具体公式如下，
         </p>
         <p>
-         这个式子也可以分为两个部分，前面三项是模型复杂度，后面的L可以理解为模型表现，然后作者做了一些替换，
+         <img alt="image-20241110163412347" src="../image/2024/image-20241110163412347.png"/>
         </p>
         <p>
-         <img alt="image-20241028133506948" src="../image/2024/image-20241028133506948.png"/>
-        </p>
-        <p>
-         最后作者把N个模态的不等式和M个模态的不等式相减，得到要M个模态的隐藏空间质量大于N个模态的隐藏空间质量，需要满足，
-        </p>
-        <p>
-         <img alt="image-20241028133616536" src="../image/2024/image-20241028133616536.png"/>
-        </p>
-        <p>
-         其实就是m足够大，也就是数据量足够多，多模态训练的隐藏空间就会比单一模态的好
-        </p>
-        <ul>
-         <li>
-          <strong>
-           线性模型的例子
-          </strong>
-         </li>
-        </ul>
-        <p>
-         然后作者具体分析了线性模型的例子，主要是证明了M个模态的隐藏空间质量一定优于N个模态的隐藏空间质量，
-        </p>
-        <p>
-         <img alt="image-20241028134405120" src="../image/2024/image-20241028134405120.png"/>
-        </p>
-        <p>
-         然后把这个带入隐藏空间质量的计算中
+         <img alt="image-20241110163420008" src="../image/2024/image-20241110163420008.png"/>
         </p>
         <h4>
          3）实验
         </h4>
+        <ul>
+         <li>
+          数据集：HacRED2、DocRED3和BioRel4 （应该是关系抽取常用的数据集，因为本文需要用到text数据，而一般的KGC数据集不会自带text数据）
+         </li>
+         <li>
+          指标：MRR和Hit@n
+         </li>
+         <li>
+          主要结果：
+         </li>
+        </ul>
         <p>
-         本文的实验部分倒是很简单，作者找了个情感分类的数据集，有文本、视频和音频三个模态然后分析了不同模态的结果，
+         <img alt="image-20241110163642288" src="../image/2024/image-20241110163642288.png"/>
         </p>
         <p>
-         <img alt="image-20241028134639058" src="../image/2024/image-20241028134639058.png"/>
+         可能是Logical Rules领域的问题，这里甚至还有17年的方法（NeuralLP）
+        </p>
+        <h2>
+         [ACL 09] Distant supervision for relation extraction without labeled data
+        </h2>
+        <h4>
+         1）问题
+        </h4>
+        <p>
+         本文研究的问题其实很直观，训练关系抽取的模态无监督的方法效果不够好，有监督的方法数据不够多，所以本提出了一种半监督的方法，自动得到大量标注数据。
+        </p>
+        <h4>
+         2）方法
+        </h4>
+        <p>
+         本文虽然花了大量的篇幅讲了如何对一个句子做特征的提取，然后训练一个分类器以区分某句子中两实体间的关系，但是我们现在其实没必要关注他如何做特征的处理和他计算的过程，本文方法部分最终要的其实就是distant supervision假设，
         </p>
         <p>
-         作者还做了个有意思的实验，他合成了几个数据，
+         <img alt="image-20241110164224279" src="../image/2024/image-20241110164224279.png"/>
         </p>
         <p>
-         <img alt="image-20241028134910369" src="../image/2024/image-20241028134910369.png"/>
+         任何一对已知三元组的两个实体，如果出现在某句子中，则该句子表达的实体间关系就是该三元组的关系。
+        </p>
+        <h2>
+         [EMNLP 15] Distant Supervision for Relation Extraction via Piecewise Convolutional Neural Networks
+        </h2>
+        <h4>
+         1）问题
+        </h4>
+        <p>
+         本文解决的问题其实是跟着Distant supervision（也就是上一篇文章）来的，上篇文章提出的假设其实有点扯，因为一个句子就算有和三元组相同的两个实体，它表达的关系也不一定和三元组一样。所以本文利用多实例学习（multi-instance learning）解决这个问题（多实例学习可以追溯到更久之前，不是本文提出的，但是本文是第一个用多实例学习解决distant supervision问题的，有比较大的影响力）
+        </p>
+        <h4>
+         2）方法
+        </h4>
+        <p>
+         <img alt="image-20241110164747511" src="../image/2024/image-20241110164747511.png"/>
         </p>
         <p>
-         然后分析了数据重叠对多模态学习的影响，
+         所谓多实例学习，其实也很直观，既然每种关系标签下可能有标错的数据，那我就把同种关系的数据分为多个mini-batch，然后每个mini-batch下我只去分类为该关系概率最高的那条数据做为训练数据，其他数据就丢掉，具体算法如下，
         </p>
         <p>
-         <img alt="image-20241028134942842" src="../image/2024/image-20241028134942842.png"/>
+         <img alt="image-20241110164923866" src="../image/2024/image-20241110164923866.png"/>
+        </p>
+        <h2>
+         [EMNLP 21] Label Verbalization and Entailment for Effective Zero- and Few-Shot Relation Extraction
+        </h2>
+        <h4>
+         1）问题
+        </h4>
+        <p>
+         这是篇更近的文章或者说大模型时代的文章，所以本文解决的问题其实是如何用大模型做zero-shot的关系抽取，因为大模型在文本蕴含任务上做了比较多的训练，所以本文提出把关系抽取任务转换为文本蕴含任务来做，以充分利用大模型的能力。
+        </p>
+        <h4>
+         2）方法
+        </h4>
+        <p>
+         本文的方法也很直接，具体如下图，
+        </p>
+        <p>
+         <img alt="image-20241110165225594" src="../image/2024/image-20241110165225594.png"/>
+        </p>
+        <p>
+         可以分为两个阶段，
+        </p>
+        <ul>
+         <li>
+          Verbalizer
+         </li>
+        </ul>
+        <p>
+         关系抽取任务其实先要从句子中识别出两个实体，图中省略了这一步，直接得到了两个实体，然后就两个实体间可能的关系生成一句话。
+        </p>
+        <ul>
+         <li>
+          NLI Model
+         </li>
+        </ul>
+        <p>
+         上一步得到了(entity pair, Hypothesis, Sentence)的数据对，这一步就调用文本蕴含的模型来判断hypothesis能否从句子中推出，也就是hypothesis是否蕴含在sentence中。
+        </p>
+        <h2>
+         [NeurIPS 17] Differentiable Learning of Logical Rules for Knowledge Base Reasoning
+        </h2>
+        <p>
+         前面几篇文章都是LSTK在第一阶段中完成关系抽取任务参考的方法，而本文就是LSTK第二阶段的主要参考
+        </p>
+        <h4>
+         1）问题
+        </h4>
+        <p>
+         本文的问题很直接，Logical Rules如何通过可学习的模型建模
+        </p>
+        <h4>
+         2）方法
+        </h4>
+        <p>
+         所谓的Logical Rules其实就形如下式，
+        </p>
+        <p>
+         <img alt="image-20241110165953999" src="../image/2024/image-20241110165953999.png"/>
+        </p>
+        <p>
+         如果箭头右边的关系成立，则可以推出箭头左边的关系。本文首先介绍了TensorLog的标记，将Logical Rules表示为下式，
+        </p>
+        <p>
+         <img alt="image-20241110165835240" src="../image/2024/image-20241110165835240.png"/>
+        </p>
+        <p>
+         其中
+         <span class="math">
+          $\alpha$
+         </span>
+         表示某条规则是否成立，
+         <span class="math">
+          $\beta$
+         </span>
+         表示规则，M是某个关系的矩阵（如果实体i和实体j存在关系Rk，则该矩阵的i,j 位置上为1），然后假设我们有标记好的数据，就可以计算下面的分数，
+        </p>
+        <p>
+         <img alt="image-20241110170202533" src="../image/2024/image-20241110170202533.png"/>
+        </p>
+        <p>
+         最后的目标就是使得score尽可能的大，所以有，
+        </p>
+        <p>
+         <img alt="image-20241110170228086" src="../image/2024/image-20241110170228086.png"/>
+        </p>
+        <p>
+         但是这里有个问题，因为上式中需要学习的参数都是离散的，所以不能直接通过梯度下降来构造一个学习模型，所以本文都上式做了修改，得到了一个循环计算公式，
+        </p>
+        <p>
+         <img alt="image-20241110170414417" src="../image/2024/image-20241110170414417.png"/>
+        </p>
+        <p>
+         这里的a、b在形式上对应于上文中的
+         <span class="math">
+          $\alpha$
+         </span>
+         和
+         <span class="math">
+          $\beta$
+         </span>
+         ，分别表示了关系注意力和对之前计算步骤的注意力，是连续可学习的参数。
         </p>
        </body>
       </html>
@@ -278,6 +344,16 @@
     </h3>
     <table class="archive-list">
      <tbody>
+      <tr>
+       <td style="padding-right: 10px">
+        2024.11.:
+       </td>
+       <td>
+        <a href="http://guchongan.github.io/2024\1028-LSTK">
+         [Read Paper] 10.28-11. 论文阅读（LSTK）
+        </a>
+       </td>
+      </tr>
       <tr>
        <td style="padding-right: 10px">
         2024.10.28:
@@ -365,16 +441,6 @@
        <td>
         <a href="http://guchongan.github.io/2024\plan2406">
          [总结] 2024年6月学习总结
-        </a>
-       </td>
-      </tr>
-      <tr>
-       <td style="padding-right: 10px">
-        2024.06.28:
-       </td>
-       <td>
-        <a href="http://guchongan.github.io/2024\0628-CVPRbest">
-         [Read Paper] 6.21-6.28 论文阅读（CVPRbest/ICLRoutstanding/Coca）
         </a>
        </td>
       </tr>
