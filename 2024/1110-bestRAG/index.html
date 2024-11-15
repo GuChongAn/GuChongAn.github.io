@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="https://www.facebook.com/2008/fbml" xmlns:og="http://ogp.me/ns#">
+ <head>
+  <title>
+   [Read Paper] 11.10-11. 论文阅读（bestRAG/） - Chongan's website
+  </title>
+  <!-- Using the latest rendering mode for IE -->
+  <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <link href="../../image/favicon.ico" rel="icon"/>
+  <link href="../../css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+  <link href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+  <link href="../../css/vs.css" rel="stylesheet" type="text/css"/>
+  <link href="../../css/style.css" rel="stylesheet" type="text/css"/>
+ </head>
+ <body>
+  <!-- navbar -->
+  <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+   <div class="container">
+    <div class="navbar-header">
+     <button class="navbar-toggle" data-target=".navbar-ex1-collapse" data-toggle="collapse" type="button">
+      <span class="sr-only">
+       Toggle navigation
+      </span>
+      <span class="icon-bar">
+      </span>
+      <span class="icon-bar">
+      </span>
+      <span class="icon-bar">
+      </span>
+     </button>
+     <a class="navbar-brand" href="https://guchongan.github.io/">
+      <img height="32" src="../../image/favicon-32x32.png" width="32"/>
+      Gu Chongan's website
+     </a>
+    </div>
+    <div class="collapse navbar-collapse navbar-ex1-collapse">
+     <ul class="nav navbar-nav navbar-right">
+      <li>
+       <a href="https://guchongan.github.io/about">
+        <i class="fa fa-question">
+        </i>
+        <span class="icon-label">
+         About
+        </span>
+       </a>
+      </li>
+      <li>
+       <a href="https://guchongan.github.io/projects">
+        <i class="fa fa-github">
+        </i>
+        <span class="icon-label">
+         Projects
+        </span>
+       </a>
+      </li>
+      <li>
+       <a href="https://guchongan.github.io/archives">
+        <i class="fa fa-th-list">
+        </i>
+        <span class="icon-label">
+         Archives
+        </span>
+       </a>
+      </li>
+     </ul>
+    </div>
+   </div>
+  </div>
+  <div class="container">
+   <div class="row">
+    <section id="content">
+     <article>
+      <header class="page-header">
+       <h1>
+        <a href="https://guchongan.github.io/2024/[Read Paper] 11.10-11. 论文阅读（bestRAG/）" rel="bookmark" title="[Read Paper] 11.10-11. 论文阅读（bestRAG/）">
+         [Read Paper] 11.10-11. 论文阅读（bestRAG/）
+        </a>
+       </h1>
+      </header>
+      <div class="entry-content">
+       <div class="panel">
+        <div class="panel-body">
+         <footer class="post-info">
+          <span class="published">
+           <i class="fa fa-calendar">
+           </i>
+           <time>
+            2024.11.
+           </time>
+          </span>
+          <span class="label label-default">
+           Tags
+          </span>
+          <html>
+           <body>
+            <a>
+             readpaper
+            </a>
+           </body>
+          </html>
+         </footer>
+         <!-- /.post-info -->
+        </div>
+       </div>
+       <!-- /.entry-content -->
+       <html>
+        <body>
+         <p>
+          先看了老师发我的RAG最佳实践的论文，
+         </p>
+         <ul>
+          <li>
+           <a href="https://aclanthology.org/2024.emnlp-main.981/">
+            Searching for Best Practices in Retrieval-Augmented Generation
+           </a>
+           （EMNLP 24）
+          </li>
+         </ul>
+         <p>
+          然后看了几篇知识图谱+RAG的论文，
+         </p>
+         <ul>
+          <li>
+           <a href="https://aclanthology.org/2024.acl-long.115/">
+            REANO: Optimising Retrieval-Augmented Reader Models through Knowledge Graph Generation
+           </a>
+           （ACL 24）
+          </li>
+          <li>
+           <a href="https://aclanthology.org/2024.findings-emnlp.496/">
+            TRACE the Evidence: Constructing Knowledge-Grounded Reasoning Chains for Retrieval-Augmented Generation
+           </a>
+           （EMNLP 24）
+          </li>
+         </ul>
+         <h2>
+          [EMNLP 24] Searching for Best Practices in Retrieval-Augmented Generation
+         </h2>
+         <h4>
+          1）问题
+         </h4>
+         <p>
+          如题所示，就是找到RAG的最佳实践。本文还在discussion的部分讨论了一点多模态，但是感觉有点画蛇添足，虽然我能get到他想讲检索图然后回答比直接生成的好处。
+         </p>
+         <h4>
+          2）方法
+         </h4>
+         <p>
+          <img alt="image-20241112202935569" src="..\../image/2024/image-20241112202935569.png"/>
+         </p>
+         <p>
+          作者把RAG的流程分为了上图所示的步骤，
+         </p>
+         <ul>
+          <li>
+           Retrieval Source（黄色）
+          </li>
+         </ul>
+         <p>
+          对要检索资料的处理，可以分为chunking，embedding和vector databse三大块
+         </p>
+         <ul>
+          <li>
+           Retrieval（蓝色）
+          </li>
+         </ul>
+         <p>
+          从资料中检索出query相关文档，然后排序，打包和总结处理
+         </p>
+         <ul>
+          <li>
+           Fine-tune（绿色）
+          </li>
+         </ul>
+         <p>
+          微调大模型以使之更好利用检索回来的数据
+         </p>
+         <ul>
+          <li>
+           Evaluation（红色）
+          </li>
+         </ul>
+         <p>
+          大模型评估
+         </p>
+         <h4>
+          3）实验
+         </h4>
+         <p>
+          本文最后得到了RAG最佳实践的结论，实验结果如下图，
+         </p>
+         <p>
+          <img alt="image-20241112203306565" src="..\../image/2024/image-20241112203306565.png"/>
+         </p>
+         <h2>
+          [ACL 24] REANO: Optimising Retrieval-Augmented Reader Models through Knowledge Graph Generation
+         </h2>
+         <h4>
+          1）问题
+         </h4>
+         <p>
+          本文的逻辑是这样的，
+         </p>
+         <ul>
+          <li>
+           Open domain question answering任务需要外部数据（他没提幻觉，然后将使用外部数据归因于任务本身）
+          </li>
+          <li>
+           外部数据的passages之间的关系被之前的方法忽视 -&gt; 使用KG利用passages之间的关系
+          </li>
+          <li>
+           之前的方法直接使用现存的知识图谱，存在incompleteness -&gt; 从检索的passages生成知识图谱
+          </li>
+         </ul>
+         <p>
+          有一点点问题是第二和第三条间好像不关联，但是问题不大。本文还给了个图例，
+         </p>
+         <p>
+          &lt;img src="../image/2024/image-20241113154314071.png" alt="image-20241113154314071" style="zoom:67%;" /&gt;
+         </p>
+         <h4>
+          2）方法
+         </h4>
+         <p>
+          <img alt="image-20241113154336842" src="..\../image/2024/image-20241113154336842.png"/>
+         </p>
+         <p>
+          本文的方法可以分为两个阶段，
+         </p>
+         <ul>
+          <li>
+           KG Generator
+          </li>
+         </ul>
+         <p>
+          从passages生成知识图谱（本文假设相关的passages已经获得），其实就是关系抽取任务，本文也直接使用了最近的关系抽取方法，只是分了intra-context（一篇passage内做关系抽取）和inter-context（所有passage间作关系抽取，这里其实就是实体识别后查wikidata）
+         </p>
+         <ul>
+          <li>
+           Answer Predictor
+          </li>
+         </ul>
+         <p>
+          在得到passages生成的KG后，本文先用了个GNN来找到最相关的K个三元组，然后把这K个三元组和在一起作为新的passage和原来的passages一起作最后答案的生成。
+         </p>
+         <p>
+          他这里答案生成用的是Fusion-in-Decoder的模型，就是就是每篇passage和问题拼在一起编码，然后所有passage的编码结果拼在一起解码出最后的答案
+         </p>
+         <h4>
+          3）实验
+         </h4>
+         <ul>
+          <li>
+           数据集：Natural Questions (NQ), TriviaQA (TQA), EntityQuestions (EQ), 2WikiMultiHopQA (2WQA)和MuSiQue
+          </li>
+          <li>
+           评价指标：Exact Match (EM)，预测的答案是否能匹配到任何参考答案
+          </li>
+          <li>
+           实验结果：
+          </li>
+         </ul>
+         <p>
+          <img alt="image-20241113155125783" src="..\../image/2024/image-20241113155125783.png"/>
+         </p>
+         <h2>
+          [EMNLP 24] TRACE the Evidence: Constructing Knowledge-Grounded Reasoning Chains for Retrieval-Augmented Generation
+         </h2>
+        </body>
+       </html>
+      </div>
+      <hr/>
+      <div class="dotted-links">
+       <p class="align-center">
+        For comments, please send me
+        <a href="hu197136@gmail.com">
+         <i class="fa fa-envelope-o">
+         </i>
+         an email
+        </a>
+        .
+       </p>
+      </div>
+     </article>
+    </section>
+   </div>
+  </div>
+  <footer>
+   <div class="container">
+    <hr/>
+    <div class="row">
+     <div class="col-xs-10">
+      © 2024-2024 Gu Chongan
+     </div>
+     <div class="col-xs-2">
+      <p class="pull-right">
+       <i class="fa fa-arrow-up">
+       </i>
+       <a href="#">
+        Back to top
+       </a>
+      </p>
+     </div>
+    </div>
+   </div>
+  </footer>
+  <script src="../../css/jquery-2.2.4.min.js">
+  </script>
+  <script src="../../css/bootstrap.min.js">
+  </script>
+  <script type="text/x-mathjax-config">
+   var articlemathId = document.getElementById("articleContent");
+	var commentmathId = document.getElementById("commentlist-container");
+	MathJax.Hub.Config({
+		tex2jax: {
+			inlineMath: [ ['$','$'] ], //行内公式
+			displayMath: [ ['$$','$$'] ], //行间公式
+			skipTags: ['script', 'noscript', 'style', 'textarea', 'pre','code','a'], //渲染时跳过的html标签
+			ignoreClass: "summary", //忽略的class
+		}
+	});
+	MathJax.Hub.Queue(["Typeset", MathJax.Hub, articlemathId, commentmathId]); //指定渲染的html块，可以为多个
+  </script>
+  <script src="https://cdn.bootcss.com/mathjax/2.7.7/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script>
+ </body>
+</html>

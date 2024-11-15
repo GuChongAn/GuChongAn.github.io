@@ -1,0 +1,1135 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="https://www.facebook.com/2008/fbml" xmlns:og="http://ogp.me/ns#">
+ <head>
+  <title>
+   [CS229 Machine Learning] 00 数学基础回顾（线性代数和概率论） - Chongan's website
+  </title>
+  <!-- Using the latest rendering mode for IE -->
+  <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <link href="../../image/favicon.ico" rel="icon"/>
+  <link href="../../css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+  <link href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+  <link href="../../css/vs.css" rel="stylesheet" type="text/css"/>
+  <link href="../../css/style.css" rel="stylesheet" type="text/css"/>
+ </head>
+ <body>
+  <!-- navbar -->
+  <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+   <div class="container">
+    <div class="navbar-header">
+     <button class="navbar-toggle" data-target=".navbar-ex1-collapse" data-toggle="collapse" type="button">
+      <span class="sr-only">
+       Toggle navigation
+      </span>
+      <span class="icon-bar">
+      </span>
+      <span class="icon-bar">
+      </span>
+      <span class="icon-bar">
+      </span>
+     </button>
+     <a class="navbar-brand" href="https://guchongan.github.io/">
+      <img height="32" src="../../image/favicon-32x32.png" width="32"/>
+      Gu Chongan's website
+     </a>
+    </div>
+    <div class="collapse navbar-collapse navbar-ex1-collapse">
+     <ul class="nav navbar-nav navbar-right">
+      <li>
+       <a href="https://guchongan.github.io/about">
+        <i class="fa fa-question">
+        </i>
+        <span class="icon-label">
+         About
+        </span>
+       </a>
+      </li>
+      <li>
+       <a href="https://guchongan.github.io/projects">
+        <i class="fa fa-github">
+        </i>
+        <span class="icon-label">
+         Projects
+        </span>
+       </a>
+      </li>
+      <li>
+       <a href="https://guchongan.github.io/archives">
+        <i class="fa fa-th-list">
+        </i>
+        <span class="icon-label">
+         Archives
+        </span>
+       </a>
+      </li>
+     </ul>
+    </div>
+   </div>
+  </div>
+  <div class="container">
+   <div class="row">
+    <section id="content">
+     <article>
+      <header class="page-header">
+       <h1>
+        <a href="https://guchongan.github.io/2024/[CS229 Machine Learning] 00 数学基础回顾（线性代数和概率论）" rel="bookmark" title="[CS229 Machine Learning] 00 数学基础回顾（线性代数和概率论）">
+         [CS229 Machine Learning] 00 数学基础回顾（线性代数和概率论）
+        </a>
+       </h1>
+      </header>
+      <div class="entry-content">
+       <div class="panel">
+        <div class="panel-body">
+         <footer class="post-info">
+          <span class="published">
+           <i class="fa fa-calendar">
+           </i>
+           <time>
+            2024.11.
+           </time>
+          </span>
+          <span class="label label-default">
+           Tags
+          </span>
+          <html>
+           <body>
+            <a>
+             course
+            </a>
+           </body>
+          </html>
+         </footer>
+         <!-- /.post-info -->
+        </div>
+       </div>
+       <!-- /.entry-content -->
+       <html>
+        <body>
+         <p>
+          最近在看CS229 Machine Learning的课程，计划做下记录，本文是该课程的数学基础回顾的内容，对应第一周和第二周周末的TA课，主要是回顾了机器学习需要的线性代数和概率论的内容。
+         </p>
+         <h2>
+          一 线性代数回顾
+         </h2>
+         <h3>
+          1）Basic Concepts and Notation
+         </h3>
+         <ul>
+          <li>
+           向量和矩阵长什么样
+          </li>
+          <li>
+           单位矩阵（The Indentity Matrix）和对角矩阵（Diagonal matrices)
+          </li>
+         </ul>
+         <h3>
+          2）Matrix Multiplication
+         </h3>
+         <ul>
+          <li>
+           向量间乘法
+           <ul>
+            <li>
+             内积（inner product/dot product）
+            </li>
+            <li>
+             外积（outer product）
+            </li>
+           </ul>
+          </li>
+          <li>
+           矩阵向量间乘法
+          </li>
+          <li>
+           矩阵乘法
+           <ul>
+            <li>
+             不同视角，其实就是按行和按列表示矩阵（我觉得没啥用）
+            </li>
+            <li>
+             性质（结合律，分配律，不满足交换律）
+            </li>
+           </ul>
+          </li>
+         </ul>
+         <h3>
+          3）Operations and Properties
+         </h3>
+         <ul>
+          <li>
+           <p>
+            矩阵的转置
+           </p>
+           <ul>
+            <li>
+             定义
+            </li>
+            <li>
+             性质（
+             <span class="math">
+              $(A^T)^T=A^T$
+             </span>
+             ，
+             <span class="math">
+              $(AB)^T=B^TA^T$
+             </span>
+             ，
+             <span class="math">
+              $(A+B)^T=A^T+B^T$
+             </span>
+             ）
+            </li>
+           </ul>
+          </li>
+          <li>
+           <p>
+            矩阵的迹（trace）
+           </p>
+           <ul>
+            <li>
+             定义（
+             <span class="math">
+              $trA=\sum^n_{i=1}a_{ii}$
+             </span>
+             ，就是对角元素和）
+            </li>
+            <li>
+             性质（对于方阵，
+             <span class="math">
+              $trA=trA^T$
+             </span>
+             ,
+             <span class="math">
+              $tr(A+B)=trA+trB$
+             </span>
+             ，
+             <span class="math">
+              $tr(mA)=mtrA$
+             </span>
+             ，
+             <span class="math">
+              $trAB=trBA, if AB是方阵$
+             </span>
+             ）
+            </li>
+           </ul>
+          </li>
+          <li>
+           <p>
+            向量的正则
+           </p>
+           <ul>
+            <li>
+             定义，a norm is any function：vectore-&gt;scaler，满足下面的性质，
+             <ul>
+              <li>
+               非负
+              </li>
+              <li>
+               definiteness（只有输入为0，输出才为0）
+              </li>
+              <li>
+               homogeneity（乘常数输入等于输出乘常数）
+              </li>
+              <li>
+               triangle inequality（
+               <span class="math">
+                $f(x+y) \leq f(x)+f(y)$
+               </span>
+               ）
+              </li>
+             </ul>
+            </li>
+            <li>
+             示例（
+             <span class="math">
+              $L_2\space norm: ||x||_2 = \sqrt{\sum^n_{i=1}x_i^2}$
+             </span>
+             ）
+            </li>
+            <li>
+             矩阵的正则（
+             <span class="math">
+              $Frobenius\space norm:||A||_F=\sqrt(\sum^m_{i=1}\sum^n_{j=1}a_{ij}^2)=\sqrt{tr(A^TA)}$
+             </span>
+             ）
+            </li>
+           </ul>
+          </li>
+          <li>
+           <p>
+            线性相关
+           </p>
+           <ul>
+            <li>
+             定义（一组向量线性相关，如果存在某个向量可以被其他向量线性表示，否则线性无关）
+            </li>
+           </ul>
+          </li>
+          <li>
+           <p>
+            矩阵的秩
+           </p>
+           <ul>
+            <li>
+             定义（矩阵的极大线性无关集的行\列数）
+            </li>
+            <li>
+             性质
+             <ul>
+              <li>
+               <span class="math">
+                $rank(A)\leq min(m,n)$
+               </span>
+               ，如果
+               <span class="math">
+                $rank(A)=min(m,n)$
+               </span>
+               ，则称A满秩
+              </li>
+              <li>
+               <span class="math">
+                $rank(A)=rank(A^T)$
+               </span>
+              </li>
+              <li>
+               <span class="math">
+                $rank(AB)\leq min(rank(A),rank(B))$
+               </span>
+              </li>
+              <li>
+               <span class="math">
+                $rank(A+B)\leq rank(A)+rank(B)$
+               </span>
+              </li>
+             </ul>
+            </li>
+           </ul>
+          </li>
+          <li>
+           <p>
+            矩阵的逆（invertible=non-singular，non-invertible=singular）
+           </p>
+           <ul>
+            <li>
+             定义（
+             <span class="math">
+              $A^{-1}A=E=AA^{-1}$
+             </span>
+             ，只有满秩矩阵可逆）
+            </li>
+            <li>
+             性质
+             <ul>
+              <li>
+               <span class="math">
+                $(A^{-1})^{-1}=A$
+               </span>
+              </li>
+              <li>
+               <span class="math">
+                $(AB)^{-1}=B^{-1}A^{-1}$
+               </span>
+              </li>
+              <li>
+               <span class="math">
+                $(A^{-1})^T=(A^T)^{-1}$
+               </span>
+              </li>
+             </ul>
+            </li>
+           </ul>
+          </li>
+          <li>
+           <p>
+            正交矩阵（Orthogonal Matrices）
+           </p>
+           <ul>
+            <li>
+             定义，如果一矩阵的所有列相互正交且正则，则该矩阵为正交矩阵
+             <ul>
+              <li>
+               两向量正交，则
+               <span class="math">
+                $x^Ty=0$
+               </span>
+              </li>
+              <li>
+               向量正则，则
+               <span class="math">
+                $||x||_2=1$
+               </span>
+              </li>
+             </ul>
+            </li>
+            <li>
+             性质
+             <ul>
+              <li>
+               正交矩阵的逆等于他的转置
+              </li>
+              <li>
+               正交阵乘向量不会改变向量的L2正则
+              </li>
+             </ul>
+            </li>
+           </ul>
+          </li>
+          <li>
+           <p>
+            Span and 投影（projection）
+           </p>
+           <ul>
+            <li>
+             span定义：一组向量的span就是所有能被这组向量线性表示的向量的集合
+            </li>
+            <li>
+             projection定义：向量y到某组向量span的投影就是这组向量中的v，且v和y的L2正则尽可能小
+            </li>
+            <li>
+             range定义：矩阵A的range（
+             <span class="math">
+              $R(A)$
+             </span>
+             ），就是A的列向量组的span
+            </li>
+            <li>
+             null space定义（
+             <span class="math">
+              $N(A)$
+             </span>
+             ），就是所有乘A为0的向量
+            </li>
+           </ul>
+          </li>
+          <li>
+           <p>
+            行列式（The Determinant）
+           </p>
+           <ul>
+            <li>
+             定义，计算，直觉
+            </li>
+            <li>
+             性质
+             <ul>
+              <li>
+               <span class="math">
+                $|E|=1$
+               </span>
+              </li>
+              <li>
+               单行乘t，最后结果乘t
+              </li>
+              <li>
+               交换两行，行列式取负
+              </li>
+              <li>
+               <span class="math">
+                $|A|=|A^T|$
+               </span>
+               ，
+               <span class="math">
+                $|AB|=|A||B|$
+               </span>
+               ，
+               <span class="math">
+                $|A|=0$
+               </span>
+               （当A is singular），
+               <span class="math">
+                $|A^{-1}|=1/|A|$
+               </span>
+              </li>
+             </ul>
+            </li>
+           </ul>
+          </li>
+          <li>
+           <p>
+            二次型（Quadratic Forms）
+           </p>
+           <ul>
+            <li>
+             定义：
+             <span class="math">
+              $x^TAx=\sum^n_{i=1}\sum^n_{j=1}A_{ij}x_ix_j$
+             </span>
+             ，通常假设A是对称的
+            </li>
+            <li>
+             正定和半正定（positive\negative definite\semidefinite）
+             <ul>
+              <li>
+               positive definite（PD），对任意的非零向量x，有
+               <span class="math">
+                $x^TAx&gt;0$
+               </span>
+              </li>
+              <li>
+               positive semidefinite（PSD），对任意向量x，有
+               <span class="math">
+                $x^TAx\geq0$
+               </span>
+              </li>
+              <li>
+               negative definite（ND），negative semidifinite（NSD），indefinite
+              </li>
+              <li>
+               PD和ND的矩阵一定满秩
+              </li>
+              <li>
+               <span class="math">
+                $G=A^TA$
+               </span>
+               总是半正定，如果m&gt;=n且A是满秩的，则G是正定的
+              </li>
+             </ul>
+            </li>
+           </ul>
+          </li>
+          <li>
+           <p>
+            特征值和特征向量（Eigenvalues and Eigenvectors）
+           </p>
+           <ul>
+            <li>
+             <p>
+              定义：
+              <span class="math">
+               $Ax=\lambda x, x\neq0$
+              </span>
+              ，其中x是特征向量，
+              <span class="math">
+               $\lambda$
+              </span>
+              是特征值
+             </p>
+            </li>
+            <li>
+             <p>
+              求解：
+              <span class="math">
+               $(\lambda E-A)x=0, x\neq0$
+              </span>
+              ，当
+              <span class="math">
+               $|\lambda E-A|=0$
+              </span>
+              时，x有非零解
+             </p>
+            </li>
+            <li>
+             <p>
+              性质
+             </p>
+             <ul>
+              <li>
+               <span class="math">
+                $trA=\sum^n_{i=1}\lambda_i$
+               </span>
+              </li>
+              <li>
+               <span class="math">
+                $|A|=\prod^n_{i=1}\lambda_i$
+               </span>
+              </li>
+              <li>
+               A的秩等于A的非零特征值数
+              </li>
+              <li>
+               对角阵的特征值是它对角线上的值，A的逆的特征值是A的特征值的倒数
+              </li>
+             </ul>
+            </li>
+            <li>
+             <p>
+              对称矩阵的特征值
+             </p>
+             <ul>
+              <li>
+               A的特征值都是实数
+              </li>
+              <li>
+               存在一组特征向量，他们相互正交
+              </li>
+             </ul>
+            </li>
+           </ul>
+          </li>
+          <li>
+           <p>
+            对角化
+           </p>
+           <ul>
+            <li>
+             <span class="math">
+              $A=AUU^T=U\bigwedge U^T$
+             </span>
+             ，对称矩阵的新表示，其中U的各列正交
+            </li>
+            <li>
+             二次型对角化
+            </li>
+           </ul>
+          </li>
+         </ul>
+         <h3>
+          4）Matrix Calculus
+         </h3>
+         <ul>
+          <li>
+           梯度（The Gradient）
+           <ul>
+            <li>
+             <span class="math">
+              $f(A)$
+             </span>
+             的梯度等于f相对于每个位置上的
+             <span class="math">
+              $a_{ij}$
+             </span>
+             求偏导的矩阵
+            </li>
+            <li>
+             性质
+             <ul>
+              <li>
+               <span class="math">
+                $\nabla(f(x)+g(x)) = \nabla f(x)+ \nabla g(x)$
+               </span>
+              </li>
+              <li>
+               <span class="math">
+                $\nabla (tf(x)) = t \nabla f(X)$
+               </span>
+              </li>
+             </ul>
+            </li>
+           </ul>
+          </li>
+          <li>
+           Hessian（海森矩阵）
+           <ul>
+            <li>
+             <span class="math">
+              $(\nabla^2_xf(x))_{ij}= \frac{\partial^2f(x)}{\partial x_i\partial x_j}$
+             </span>
+            </li>
+            <li>
+             Hessian总是对称矩阵
+            </li>
+           </ul>
+          </li>
+          <li>
+           梯度示例
+           <ul>
+            <li>
+             线性函数求梯度和二次型求梯度
+            </li>
+            <li>
+             结论
+             <ul>
+              <li>
+               <span class="math">
+                $\nabla b^Tx=b$
+               </span>
+               ，
+               <span class="math">
+                $\nabla^2 b^Tx=0$
+               </span>
+              </li>
+              <li>
+               <span class="math">
+                $\nabla x^TAx=2Ax$
+               </span>
+               ，
+               <span class="math">
+                $\nabla^2 x^TAx=2A$
+               </span>
+              </li>
+             </ul>
+            </li>
+           </ul>
+          </li>
+         </ul>
+         <h2>
+          二 概率论回顾
+         </h2>
+         <h3>
+          1）Basics
+         </h3>
+         <ul>
+          <li>
+           <p>
+            Definitions，公理（Axioms）和推论（Corollaries）
+           </p>
+           <ul>
+            <li>
+             定义：采样空间，事件，概率
+            </li>
+            <li>
+             公理
+             <ul>
+              <li>
+               Axiom 1：
+               <span class="math">
+                $0\leq P(E)\leq1$
+               </span>
+              </li>
+              <li>
+               Axiom 2：
+               <span class="math">
+                $P(S)=1$
+               </span>
+              </li>
+              <li>
+               Axiom 3：
+               <span class="math">
+                $P(E)+P(F)=P(E\cup F)$
+               </span>
+              </li>
+             </ul>
+            </li>
+            <li>
+             推论
+             <ul>
+              <li>
+               补集的概率，E属于F的概率
+              </li>
+              <li>
+               Inclusion-Exclusion Principle：
+               <span class="math">
+                $P(E\cup F)=P(E)+P(F)-P(EF)$
+               </span>
+              </li>
+             </ul>
+            </li>
+           </ul>
+          </li>
+          <li>
+           <p>
+            条件概率和贝叶斯规则
+           </p>
+           <ul>
+            <li>
+             条件概率：
+             <span class="math">
+              $P(A|B)=\frac{P(A\cap B)}{P(B)}$
+             </span>
+            </li>
+            <li>
+             全概率公式：
+             <span class="math">
+              $P(A)=\sum^n_{i=1}P(A|B_i)P(B_i)$
+             </span>
+            </li>
+            <li>
+             贝叶斯公式：
+             <span class="math">
+              $P(B_k|A)=\frac{P(B_k)P(A|B_k)}{\sum^n_{i=1}P(A|B_i)P(B_i)}$
+             </span>
+            </li>
+           </ul>
+          </li>
+          <li>
+           <p>
+            链式规则：
+            <span class="math">
+             $P(A_1\cap A_2...\cap A_n)=P(A_1)P(A_2|A_1)...P(A_n|A_{n-1}\cap...\cap A_1)$
+            </span>
+           </p>
+          </li>
+          <li>
+           <p>
+            独立性
+           </p>
+           <ul>
+            <li>
+             定义：
+             <span class="math">
+              $P(AB)=P(A)P(B)$
+             </span>
+            </li>
+            <li>
+             性质
+             <ul>
+              <li>
+               <span class="math">
+                $P(A|B)=P(A)$
+               </span>
+              </li>
+              <li>
+               可以推广到n个事件相互独立
+              </li>
+             </ul>
+            </li>
+           </ul>
+          </li>
+         </ul>
+         <h3>
+          2）Random Variables
+         </h3>
+         <ul>
+          <li>
+           <p>
+            随机变量：离散型随机变量和连续性随机变量
+           </p>
+          </li>
+          <li>
+           <p>
+            Probaility Mass Function和Cumulative Distribution Function（概率分布函数）
+           </p>
+           <ul>
+            <li>
+             PMF：
+             <span class="math">
+              $p_X(x)=P(X=x)$
+             </span>
+            </li>
+            <li>
+             CDF：
+             <span class="math">
+              $F_X(a)=P(X\leq a)$
+             </span>
+             <ul>
+              <li>
+               趋向无穷时是0，趋向负无穷时是1
+              </li>
+              <li>
+               单调递增
+              </li>
+              <li>
+               <span class="math">
+                $P(a\leq X\leq b)=F_X(b)-F_X(a)$
+               </span>
+              </li>
+             </ul>
+            </li>
+           </ul>
+          </li>
+          <li>
+           <p>
+            Probability Density Function（概率密度函数）
+           </p>
+           <ul>
+            <li>
+             定义：
+             <span class="math">
+              $f_X(x)=\frac{dF_X(x)}{dx}$
+             </span>
+            </li>
+            <li>
+             性质
+             <ul>
+              <li>
+               大于等于0，从负无穷到无穷的积分为1
+              </li>
+              <li>
+               <span class="math">
+                $P(a\leq X\leq b)=\int^a_bf_X(x)dx$
+               </span>
+              </li>
+             </ul>
+            </li>
+           </ul>
+          </li>
+         </ul>
+         <h3>
+          3）Expectation-Variance
+         </h3>
+         <ul>
+          <li>
+           <p>
+            Expectation（期望）
+           </p>
+           <ul>
+            <li>
+             离散随机变量：
+             <span class="math">
+              $\Epsilon[g(X)]=\sum_{x\in Val(X)}g(x)P_X(x)$
+             </span>
+            </li>
+            <li>
+             连续随机变量：
+             <span class="math">
+              $\Epsilon[g(X)]=\int^\infty_{-\infty}g(x)f_X(x)$
+             </span>
+             ​
+            </li>
+            <li>
+             性质
+             <ul>
+              <li>
+               <span class="math">
+                $Epsilon[a]=a$
+               </span>
+              </li>
+              <li>
+               <span class="math">
+                $\Epsilon[af(X)]=a\Epsilon[f(X)]$
+               </span>
+              </li>
+              <li>
+               <span class="math">
+                $\Epsilon[\Epsilon[X|Y]]=\Epsilon[X]$
+               </span>
+              </li>
+             </ul>
+            </li>
+           </ul>
+          </li>
+          <li>
+           <p>
+            Variance（方差）
+           </p>
+           <ul>
+            <li>
+             定义：
+             <span class="math">
+              $Var(X)=\Epsilon[(X-\Epsilon[X]^2)]=\Epsilon[X^2]-\Epsilon[X]^2$
+             </span>
+            </li>
+            <li>
+             性质
+             <ul>
+              <li>
+               <span class="math">
+                $Var[a]=0$
+               </span>
+              </li>
+              <li>
+               <span class="math">
+                $Var[af(X)]=a^2Var[f(X)]$
+               </span>
+              </li>
+             </ul>
+            </li>
+           </ul>
+          </li>
+          <li>
+           <p>
+            常见概率分布的均值和方差
+           </p>
+          </li>
+         </ul>
+         <p>
+          <img alt="image-20241114235229011" src="..\../image/2024/image-20241114235229011.png"/>
+         </p>
+         <h3>
+          4）Joint Distributions
+         </h3>
+         <ul>
+          <li>
+           离散变量的联合分布和边缘分布
+           <ul>
+            <li>
+             Joint PMF：
+             <span class="math">
+              $p_{XY}(x,y)=P(X=x,Y=y)$
+             </span>
+            </li>
+            <li>
+             Marginal PMF：
+             <span class="math">
+              $p_X(x)=\sum_xP_{XY}(x,y)$
+             </span>
+            </li>
+           </ul>
+          </li>
+          <li>
+           连续变量的联合分布和边缘分布
+           <ul>
+            <li>
+             Joint PDF：
+             <span class="math">
+              $f_{XY}(x,y)=\frac{\delta^2F_{XY}(x,y)}{\delta x \delta y}$
+             </span>
+            </li>
+            <li>
+             Marginal PDF：
+             <span class="math">
+              $f_X(x)=\int^{\infty}_{-\infty}f_{XY}(x,y)dy$
+             </span>
+            </li>
+           </ul>
+          </li>
+          <li>
+           多变量的形式
+          </li>
+          <li>
+           多随机变量的均值
+           <ul>
+            <li>
+             离散变量：
+             <span class="math">
+              $E[g(X,Y)]=\sum_{x\in Val(x)}\sum_{y\in Val(y)}g(x,y)p_{XY}(x,y)$
+             </span>
+            </li>
+            <li>
+             连续变量：
+             <span class="math">
+              $E[g(X,Y)]=\int^{\infty}_{-\infty}\int^{\infty}_{-\infty}g(x,y)f_{XY}(x,y)dxdy$
+             </span>
+            </li>
+            <li>
+             可以扩展到多变量的形式
+            </li>
+           </ul>
+          </li>
+         </ul>
+         <h3>
+          5）Covariance（协方差）
+         </h3>
+         <ul>
+          <li>
+           Covariance
+           <ul>
+            <li>
+             定义：
+             <span class="math">
+              $Cov[X,Y]=E[(X-E[X])(Y-E[Y])]=E[XY]-E[X]E[Y]$
+             </span>
+            </li>
+            <li>
+             性质
+             <ul>
+              <li>
+               如果
+               <span class="math">
+                $Cov[X,Y]&lt;0$
+               </span>
+               ，则X和Y负相关；大于0，则正相关；等于0，则不相关
+              </li>
+              <li>
+               独立一定不相关，因为独立有
+               <span class="math">
+                $E[XY]=E[X]E[Y]$
+               </span>
+              </li>
+              <li>
+               不相关不一定独立
+              </li>
+              <li>
+               <span class="math">
+                $Var[X+Y]=Var[X]+Var[Y]+2Cov[X,Y]$
+               </span>
+              </li>
+              <li>
+               <span class="math">
+                $Cov[X,X]=Var[X]$
+               </span>
+              </li>
+             </ul>
+            </li>
+           </ul>
+          </li>
+         </ul>
+         <h3>
+          6）RV Conditional
+         </h3>
+         <ul>
+          <li>
+           离散变量的条件分布：
+           <span class="math">
+            $p_{Y|X}(y|x)=\frac{p_{XY}(x,y)}{p_X(x)}$
+           </span>
+          </li>
+          <li>
+           连续变量的条件分布：
+           <span class="math">
+            $f_{Y|X}(y|x)=\frac{f_{XY}(x,y)}{f_X(x)}$
+           </span>
+          </li>
+          <li>
+           贝叶斯公式和链式法则
+          </li>
+          <li>
+           独立性：
+           <span class="math">
+            $F_{XY}(x,y)=F_X(x)F_Y(y)$
+           </span>
+          </li>
+         </ul>
+         <h3>
+          7）Random Vectors
+         </h3>
+         <ul>
+          <li>
+           就把随机变量列成一个矩阵
+          </li>
+          <li>
+           Covariance matrix：
+           <span class="math">
+            $\sum = E[(X-E[X])(X-E[X])^T]$
+           </span>
+          </li>
+         </ul>
+         <h3>
+          8）Multivariate Gaussian
+         </h3>
+         <ul>
+          <li>
+           多变量高斯分布
+          </li>
+         </ul>
+        </body>
+       </html>
+      </div>
+      <hr/>
+      <div class="dotted-links">
+       <p class="align-center">
+        For comments, please send me
+        <a href="hu197136@gmail.com">
+         <i class="fa fa-envelope-o">
+         </i>
+         an email
+        </a>
+        .
+       </p>
+      </div>
+     </article>
+    </section>
+   </div>
+  </div>
+  <footer>
+   <div class="container">
+    <hr/>
+    <div class="row">
+     <div class="col-xs-10">
+      © 2024-2024 Gu Chongan
+     </div>
+     <div class="col-xs-2">
+      <p class="pull-right">
+       <i class="fa fa-arrow-up">
+       </i>
+       <a href="#">
+        Back to top
+       </a>
+      </p>
+     </div>
+    </div>
+   </div>
+  </footer>
+  <script src="../../css/jquery-2.2.4.min.js">
+  </script>
+  <script src="../../css/bootstrap.min.js">
+  </script>
+  <script type="text/x-mathjax-config">
+   var articlemathId = document.getElementById("articleContent");
+	var commentmathId = document.getElementById("commentlist-container");
+	MathJax.Hub.Config({
+		tex2jax: {
+			inlineMath: [ ['$','$'] ], //行内公式
+			displayMath: [ ['$$','$$'] ], //行间公式
+			skipTags: ['script', 'noscript', 'style', 'textarea', 'pre','code','a'], //渲染时跳过的html标签
+			ignoreClass: "summary", //忽略的class
+		}
+	});
+	MathJax.Hub.Queue(["Typeset", MathJax.Hub, articlemathId, commentmathId]); //指定渲染的html块，可以为多个
+  </script>
+  <script src="https://cdn.bootcss.com/mathjax/2.7.7/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script>
+ </body>
+</html>
