@@ -1,6 +1,6 @@
 ---
 name: [CS229 Machine Learning] 00 数学基础回顾（线性代数和概率论） 
-date: 202411
+date: 20241115
 description: 
 keywords: course
 ---

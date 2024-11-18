@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="https://www.facebook.com/2008/fbml" xmlns:og="http://ogp.me/ns#">
+ <head>
+  <title>
+   [CS229 Machine Learning] 01 线性模型 - Chongan's website
+  </title>
+  <!-- Using the latest rendering mode for IE -->
+  <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <link href="../../image/favicon.ico" rel="icon"/>
+  <link href="../../css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+  <link href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+  <link href="../../css/vs.css" rel="stylesheet" type="text/css"/>
+  <link href="../../css/style.css" rel="stylesheet" type="text/css"/>
+ </head>
+ <body>
+  <!-- navbar -->
+  <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+   <div class="container">
+    <div class="navbar-header">
+     <button class="navbar-toggle" data-target=".navbar-ex1-collapse" data-toggle="collapse" type="button">
+      <span class="sr-only">
+       Toggle navigation
+      </span>
+      <span class="icon-bar">
+      </span>
+      <span class="icon-bar">
+      </span>
+      <span class="icon-bar">
+      </span>
+     </button>
+     <a class="navbar-brand" href="https://guchongan.github.io/">
+      <img height="32" src="../../image/favicon-32x32.png" width="32"/>
+      Gu Chongan's website
+     </a>
+    </div>
+    <div class="collapse navbar-collapse navbar-ex1-collapse">
+     <ul class="nav navbar-nav navbar-right">
+      <li>
+       <a href="https://guchongan.github.io/about">
+        <i class="fa fa-question">
+        </i>
+        <span class="icon-label">
+         About
+        </span>
+       </a>
+      </li>
+      <li>
+       <a href="https://guchongan.github.io/projects">
+        <i class="fa fa-github">
+        </i>
+        <span class="icon-label">
+         Projects
+        </span>
+       </a>
+      </li>
+      <li>
+       <a href="https://guchongan.github.io/archives">
+        <i class="fa fa-th-list">
+        </i>
+        <span class="icon-label">
+         Archives
+        </span>
+       </a>
+      </li>
+     </ul>
+    </div>
+   </div>
+  </div>
+  <div class="container">
+   <div class="row">
+    <section id="content">
+     <article>
+      <header class="page-header">
+       <h1>
+        <a href="https://guchongan.github.io/2024/[CS229 Machine Learning] 01 线性模型" rel="bookmark" title="[CS229 Machine Learning] 01 线性模型">
+         [CS229 Machine Learning] 01 线性模型
+        </a>
+       </h1>
+      </header>
+      <div class="entry-content">
+       <div class="panel">
+        <div class="panel-body">
+         <footer class="post-info">
+          <span class="published">
+           <i class="fa fa-calendar">
+           </i>
+           <time>
+            2024.11.16
+           </time>
+          </span>
+          <span class="label label-default">
+           Tags
+          </span>
+          <html>
+           <body>
+            <a>
+             course
+            </a>
+           </body>
+          </html>
+         </footer>
+         <!-- /.post-info -->
+        </div>
+       </div>
+       <!-- /.entry-content -->
+       <html>
+        <body>
+         <p>
+          最近在看CS229 Machine Learning的课程，计划做下记录，本文是该课程第一周和第二周的内容（第一节导论课除外），主要包括
+         </p>
+         <ul>
+          <li>
+           Linear Regression
+          </li>
+          <li>
+           Classification 和 Logistic Regression
+          </li>
+          <li>
+           Generalized Linear Models
+          </li>
+         </ul>
+         <h2>
+          一 Linear Regression
+         </h2>
+         <p>
+          线性回归算法（或者说Least Mean Squares回顾模型）的引入其实很自然，作者用一个房价预测的例子构建了下面的
+          <strong>
+           线性回归模型
+          </strong>
+          ，
+         </p>
+         <p>
+          <span class="math">
+           $$h_\theta (x) = \theta_0+\theta_1 x_1 + ... + \theta_n x_n$
+          </span>
+          $
+         </p>
+         <p>
+          函数的输入是房价相关的特征（面积，卧室数等），输出是预测的房价。下面的问题就变成了
+          <strong>
+           如何找到
+           <span class="math">
+            $\theta$
+           </span>
+          </strong>
+          ，作者就抛出了一个最小二乘损失函数，
+         </p>
+         <p>
+          <span class="math">
+           $$J(\theta)=\frac{1}{2}\sum_{i=1}^n(h_\theta (x^{i})-y^{i})^2$
+          </span>
+          $
+         </p>
+         <p>
+          所以问题又变成找到最小二乘损失函数最小时的
+          <span class="math">
+           $\theta$
+          </span>
+          ，也就引入了
+          <strong>
+           梯度下降算法
+          </strong>
+          ；然后解释了如何推出该损失函数，也就是
+          <strong>
+           线性回归模型的概率视角
+          </strong>
+          。
+         </p>
+         <p>
+          本章的重点有，
+         </p>
+         <ul>
+          <li>
+           线性回归模型
+          </li>
+          <li>
+           最小二乘损失函数的概率视角
+          </li>
+          <li>
+           梯度下降算法
+          </li>
+         </ul>
+         <h2>
+          二 Classification
+         </h2>
+         <p>
+          这部分是从二分类问题引入的，也就是有对任意的输入，输出应该为{1，0}，然后皆介绍了
+          <strong>
+           logistic regression
+          </strong>
+          ，就是在上面的线性回归的基础上，加加上了logistic/sigmoid函数，
+         </p>
+         <p>
+          <span class="math">
+           $$h_\theta (x) = \frac{1}{1+e^{-\theta^Tx}}$
+          </span>
+          $
+         </p>
+         <p>
+          logistic函数的图像如下图，
+         </p>
+         <p>
+          &lt;img src="../image/2024/image-20241116165230742.png" alt="image-20241116165230742" style="zoom:50%;" /&gt;
+         </p>
+         <p>
+          然后就是类似的概率视角，来推出我们现在常见的
+          <strong>
+           二分类交叉熵损失函数
+          </strong>
+          。首先假设模型的输出应该就是y分类为1或0的概率，所以y服从参数为
+          <span class="math">
+           $h_\theta (x)$
+          </span>
+          的二项分布，也就有，
+         </p>
+         <p>
+          <span class="math">
+           $$p(y|x;\theta)=(h_\theta(x))^y(1-h_\theta(x))^{1-y}$
+          </span>
+          $
+         </p>
+         <p>
+          然后取log，最后可以得到下式，
+         </p>
+         <p>
+          <span class="math">
+           $$J(\theta)=\sum^n_{i=1}y^ilogh(x^i)+(1-y^i)log(1-h(x^i))$
+          </span>
+          $
+         </p>
+         <p>
+          然后就可以通过类似的梯度下降算法求解
+          <span class="math">
+           $\theta$
+          </span>
+          。最后这章介绍了
+          <strong>
+           牛顿方法（Newton‘s method）
+          </strong>
+          来求解
+          <span class="math">
+           $\theta$
+          </span>
+          ，与随机梯度下降的
+          <span class="math">
+           $\theta_j = \theta_j+\alpha \frac{\partial J(\theta)}{\partial \theta_j}$
+          </span>
+          不同，牛顿法遵循
+          <span class="math">
+           $\theta=\theta-\frac{J'(\theta)}{J''(\theta)}$
+          </span>
+          ，直观的理解如下图，所以牛顿法不是求最小大值，它是求函数的根，所以牛顿法针对的是损失函数的导数，但是牛顿法要求二阶导，所以计算复杂度更高。
+         </p>
+         <p>
+          <img alt="image-20241116170805355" src="..\../image/2024/image-20241116170805355.png"/>
+         </p>
+         <p>
+          本章的重点有，
+         </p>
+         <ul>
+          <li>
+           Logistic回归
+          </li>
+          <li>
+           二分类的交叉熵损失函数
+          </li>
+          <li>
+           牛顿方法
+          </li>
+         </ul>
+         <h2>
+          三 Generalized Linear Models
+         </h2>
+         <p>
+          本章首先抛出了
+          <strong>
+           exponential family distributions
+          </strong>
+          的定义，
+         </p>
+         <p>
+          <span class="math">
+           $$p(y;\eta)=b(y)exp(\eta^TT(y)-a(\eta))$
+          </span>
+          $
+         </p>
+         <p>
+          然后证明了正态分布和二项分布都是expoential family（当然还有很多其他分布）。然后构建了
+          <strong>
+           GLM（标准线性模型）
+          </strong>
+          ，其输入、输出和模型参数满足
+         </p>
+         <ol>
+          <li>
+           输出y服从exponential family分布
+          </li>
+          <li>
+           给定x，目标是预测y，其实是求
+           <span class="math">
+            $h(x)=E[y|x]$
+           </span>
+          </li>
+          <li>
+           <span class="math">
+            $\eta=\theta^Tx$
+           </span>
+          </li>
+         </ol>
+         <p>
+          然后介绍了多分类任务的
+          <strong>
+           Softmax regression
+          </strong>
+          ，有
+         </p>
+         <p>
+          <span class="math">
+           $$h_\theta(x)=\frac{exp(\theta_i^Tx)}{\sum_{j=1}^kexp(\theta_j^Tx)}$
+          </span>
+          $
+         </p>
+         <p>
+          损失函数的推到也和前面两个类似。
+         </p>
+         <p>
+          本章的重点有，
+         </p>
+         <ul>
+          <li>
+           exponential family distributions
+          </li>
+          <li>
+           Generalized Linear Models
+          </li>
+          <li>
+           Softmax regression
+          </li>
+         </ul>
+        </body>
+       </html>
+      </div>
+      <hr/>
+      <div class="dotted-links">
+       <p class="align-center">
+        For comments, please send me
+        <a href="hu197136@gmail.com">
+         <i class="fa fa-envelope-o">
+         </i>
+         an email
+        </a>
+        .
+       </p>
+      </div>
+     </article>
+    </section>
+   </div>
+  </div>
+  <footer>
+   <div class="container">
+    <hr/>
+    <div class="row">
+     <div class="col-xs-10">
+      © 2024-2024 Gu Chongan
+     </div>
+     <div class="col-xs-2">
+      <p class="pull-right">
+       <i class="fa fa-arrow-up">
+       </i>
+       <a href="#">
+        Back to top
+       </a>
+      </p>
+     </div>
+    </div>
+   </div>
+  </footer>
+  <script src="../../css/jquery-2.2.4.min.js">
+  </script>
+  <script src="../../css/bootstrap.min.js">
+  </script>
+  <script type="text/x-mathjax-config">
+   var articlemathId = document.getElementById("articleContent");
+	var commentmathId = document.getElementById("commentlist-container");
+	MathJax.Hub.Config({
+		tex2jax: {
+			inlineMath: [ ['$','$'] ], //行内公式
+			displayMath: [ ['$$','$$'] ], //行间公式
+			skipTags: ['script', 'noscript', 'style', 'textarea', 'pre','code','a'], //渲染时跳过的html标签
+			ignoreClass: "summary", //忽略的class
+		}
+	});
+	MathJax.Hub.Queue(["Typeset", MathJax.Hub, articlemathId, commentmathId]); //指定渲染的html块，可以为多个
+  </script>
+  <script src="https://cdn.bootcss.com/mathjax/2.7.7/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script>
+ </body>
+</html>

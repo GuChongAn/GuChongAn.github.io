@@ -71,15 +71,15 @@
    <div class="row">
     <article>
      <h1>
-      <a href="https://guchongan.github.io/2024\1028-LSTK">
-       [Read Paper] 10.28-11.10 论文阅读（LSTK/distant supervision/multi-instance Learning）
+      <a href="https://guchongan.github.io/2024\1110-bestRAG">
+       [Read Paper] 11.10-11.18 论文阅读（bestRAG/REANO/MRE）
       </a>
      </h1>
      <span class="published">
       <i class="fa fa-calendar">
       </i>
       <time>
-       2024.11.10
+       2024.11.18
       </time>
      </span>
      <br/>
@@ -88,251 +88,311 @@
       <html>
        <body>
         <p>
-         11月7号做分享，所以顺着一篇知识图谱补全的文章（LSTK），往前读了相关的几篇知识图谱的文章，包括关系抽取和Logical Rules的知识图谱补全，
+         先看了老师发我的RAG最佳实践的论文，
         </p>
         <ul>
          <li>
-          <a href="https://proceedings.neurips.cc/paper_files/paper/2023/hash/544242770e8333875325d013328b2079-Abstract-Conference.html">
-           Learning from Both Structural and Textual Knowledge for Inductive Knowledge Graph Completion
+          <a href="https://aclanthology.org/2024.emnlp-main.981/">
+           Searching for Best Practices in Retrieval-Augmented Generation
           </a>
-          （NeurIPS 23）
+          （EMNLP 24）
+         </li>
+        </ul>
+        <p>
+         然后看了两篇知识图谱+RAG的论文，
+        </p>
+        <ul>
+         <li>
+          <a href="https://aclanthology.org/2024.acl-long.115/">
+           REANO: Optimising Retrieval-Augmented Reader Models through Knowledge Graph Generation
+          </a>
+          （ACL 24）
          </li>
          <li>
-          <a href="https://aclanthology.org/P09-1113/">
-           Distant supervision for relation extraction without labeled data
+          <a href="https://aclanthology.org/2024.findings-emnlp.496/">
+           TRACE the Evidence: Constructing Knowledge-Grounded Reasoning Chains for Retrieval-Augmented Generation
           </a>
-          （ACL 09）
+          （EMNLP findings 24）
+         </li>
+        </ul>
+        <p>
+         然后看了两篇多模态关系抽取（Multimodal Relation Extraction）的两篇文章，
+        </p>
+        <ul>
+         <li>
+          [Multimodal Relation Extraction with Efficient Graph Alignment](https://njuhugn.github.io/paper/Multimodal Relation Extraction with Efficient Graph Alignment-Zheng-mm21.pdf)（MM 21）
          </li>
          <li>
-          <a href="https://aclanthology.org/D15-1203/">
-           Distant Supervision for Relation Extraction via Piecewise Convolutional Neural Networks
+          <a href="https://aclanthology.org/2023.acl-short.27/">
+           Multimodal Relation Extraction with Cross-Modal Retrieval and Synthesis
           </a>
-          （EMNLP 15）
-         </li>
-         <li>
-          <a href="https://aclanthology.org/2021.emnlp-main.92/">
-           Label Verbalization and Entailment for Effective Zero and Few-Shot Relation Extraction
-          </a>
-          （EMNLP 21)
-         </li>
-         <li>
-          <a href="https://arxiv.org/abs/1702.08367">
-           Differentiable Learning of Logical Rules for Knowledge Base Reasoning
-          </a>
-          （NeurIPS 17）
+          （ACL 23）
          </li>
         </ul>
         <h2>
-         [NeurIPS 23] Learning from Both Structural and Textual Knowledge for Inductive Knowledge Graph Completion
+         [EMNLP 24] Searching for Best Practices in Retrieval-Augmented Generation
         </h2>
         <h4>
          1）问题
         </h4>
         <p>
-         本文研究的问题是Inductive Knowledge Graph Completion，我发现Knowledge Graph Completion、Knowlegde Base Reasoning和Knowledge Graph Reasoning这几个任务在大部分时候都是类似的意思，只是严格来说Completion可以分为Inductive和NoInductive，前者在补全的过程中会遇到训练集中不存在的entity，也就是需要所谓的Reasoning，现在的测试集应该都是这一类，所以现在KGC、KGR和KBR实际就是一个东西。
-        </p>
-        <p>
-         本文指出之前的KGC方法只利用结构知识，可能会丢失有用信息（所有加模态的论文中最扯的一类解释）
+         如题所示，就是找到RAG的最佳实践。本文还在discussion的部分讨论了一点多模态，但是感觉有点画蛇添足，虽然我能get到他想讲检索图然后回答比直接生成的好处。
         </p>
         <h4>
          2）方法
         </h4>
         <p>
-         <img alt="image-20241109232844258" src="../image/2024/image-20241109232844258.png"/>
+         <img alt="image-20241112202935569" src="../image/2024/image-20241112202935569.png"/>
         </p>
         <p>
-         本文的方法说起来其实很简单，就是两个阶段，
-        </p>
-        <ul>
-         <li>
-          First Stage：将文本数据转换为软三元组
-         </li>
-        </ul>
-        <p>
-         本阶段的目标就是把数据集中的文本数据转换Soft triples，所以其实是个关系抽取任务，本文也是按关系抽取任务的思路来完成的，具体涉及了之前三篇论文的方法（会在下面介绍），先利用Distant Supervision的假设获得大量标注数据，也就是训练集，
-        </p>
-        <p>
-         <img alt="image-20241110162738676" src="../image/2024/image-20241110162738676.png"/>
-        </p>
-        <p>
-         这里的训练集每组数据包含三个部分，三元组，三元组对应的文本（根据distant supervision假设得到），标签y（就是0和1，表示句子能否突出三元组，作者通过更改三元组关系从正例中得到负例）。然后利用该训练集微调一个BERT做文本蕴含任务，输入"[CLS]&lt;triple&gt;[SEP]&lt;sentence&gt;[SEP]"，然后通过输出的CLS token计算蕴含概率，这里还用到了multi-instance learning来缓解distant supervision假设带来的噪声。最后就得到了一个模型可以判断某个三元组能否从某个句子中推出，将这个模型用于测试集就能完成将文本数据转换为软三元组的任务。
+         作者把RAG的流程分为了上图所示的步骤，
         </p>
         <ul>
          <li>
-          Second Stage：从软硬三元组中计算出Logical Rules
+          Retrieval Source（黄色）
          </li>
         </ul>
         <p>
-         本文第二个阶段的任务是从上阶段得到的soft triples和知识图谱原有的hard triples中计算得到Logical Rules，这个计算通过学习模型完成，利用机器学习的参数表示某个逻辑规则是否成立，然后学习该参数。具体公式如下，
+         对要检索资料的处理，可以分为chunking，embedding和vector databse三大块
+        </p>
+        <ul>
+         <li>
+          Retrieval（蓝色）
+         </li>
+        </ul>
+        <p>
+         从资料中检索出query相关文档，然后排序，打包和总结处理
+        </p>
+        <ul>
+         <li>
+          Fine-tune（绿色）
+         </li>
+        </ul>
+        <p>
+         微调大模型以使之更好利用检索回来的数据
+        </p>
+        <ul>
+         <li>
+          Evaluation（红色）
+         </li>
+        </ul>
+        <p>
+         大模型评估
+        </p>
+        <h4>
+         3）实验
+        </h4>
+        <p>
+         本文最后得到了RAG最佳实践的结论，实验结果如下图，
         </p>
         <p>
-         <img alt="image-20241110163412347" src="../image/2024/image-20241110163412347.png"/>
+         <img alt="image-20241112203306565" src="../image/2024/image-20241112203306565.png"/>
+        </p>
+        <h2>
+         [ACL 24] REANO: Optimising Retrieval-Augmented Reader Models through Knowledge Graph Generation
+        </h2>
+        <h4>
+         1）问题
+        </h4>
+        <p>
+         本文的逻辑是这样的，
+        </p>
+        <ul>
+         <li>
+          Open domain question answering任务需要外部数据（他没提幻觉，然后将使用外部数据归因于任务本身）
+         </li>
+         <li>
+          外部数据的passages之间的关系被之前的方法忽视 -&gt; 使用KG利用passages之间的关系
+         </li>
+         <li>
+          之前的方法直接使用现存的知识图谱，存在incompleteness -&gt; 从检索的passages生成知识图谱
+         </li>
+        </ul>
+        <p>
+         有一点点问题是第二和第三条间好像不关联，但是问题不大。本文还给了个图例，
         </p>
         <p>
-         <img alt="image-20241110163420008" src="../image/2024/image-20241110163420008.png"/>
+         &lt;img src="../image/2024/image-20241113154314071.png" alt="image-20241113154314071" style="zoom:67%;" /&gt;
+        </p>
+        <h4>
+         2）方法
+        </h4>
+        <p>
+         <img alt="image-20241113154336842" src="../image/2024/image-20241113154336842.png"/>
+        </p>
+        <p>
+         本文的方法可以分为两个阶段，
+        </p>
+        <ul>
+         <li>
+          KG Generator
+         </li>
+        </ul>
+        <p>
+         从passages生成知识图谱（本文假设相关的passages已经获得），其实就是关系抽取任务，本文也直接使用了最近的关系抽取方法，只是分了intra-context（一篇passage内做关系抽取）和inter-context（所有passage间作关系抽取，这里其实就是实体识别后查wikidata）
+        </p>
+        <ul>
+         <li>
+          Answer Predictor
+         </li>
+        </ul>
+        <p>
+         在得到passages生成的KG后，本文先用了个GNN来找到最相关的K个三元组，然后把这K个三元组和在一起作为新的passage和原来的passages一起作最后答案的生成。
+        </p>
+        <p>
+         他这里答案生成用的是Fusion-in-Decoder的模型，就是就是每篇passage和问题拼在一起编码，然后所有passage的编码结果拼在一起解码出最后的答案
         </p>
         <h4>
          3）实验
         </h4>
         <ul>
          <li>
-          数据集：HacRED2、DocRED3和BioRel4 （应该是关系抽取常用的数据集，因为本文需要用到text数据，而一般的KGC数据集不会自带text数据）
+          数据集：Natural Questions (NQ), TriviaQA (TQA), EntityQuestions (EQ), 2WikiMultiHopQA (2WQA)和MuSiQue
          </li>
          <li>
-          指标：MRR和Hit@n
+          评价指标：Exact Match (EM)，预测的答案是否能匹配到任何参考答案
          </li>
          <li>
-          主要结果：
+          实验结果：
          </li>
         </ul>
         <p>
-         <img alt="image-20241110163642288" src="../image/2024/image-20241110163642288.png"/>
-        </p>
-        <p>
-         可能是Logical Rules领域的问题，这里甚至还有17年的方法（NeuralLP）
+         <img alt="image-20241113155125783" src="../image/2024/image-20241113155125783.png"/>
         </p>
         <h2>
-         [ACL 09] Distant supervision for relation extraction without labeled data
+         [EMNLP 24] TRACE the Evidence: Constructing Knowledge-Grounded Reasoning Chains for Retrieval-Augmented Generation
         </h2>
         <h4>
          1）问题
         </h4>
         <p>
-         本文研究的问题其实很直观，训练关系抽取的模态无监督的方法效果不够好，有监督的方法数据不够多，所以本提出了一种半监督的方法，自动得到大量标注数据。
-        </p>
-        <h4>
-         2）方法
-        </h4>
-        <p>
-         本文虽然花了大量的篇幅讲了如何对一个句子做特征的提取，然后训练一个分类器以区分某句子中两实体间的关系，但是我们现在其实没必要关注他如何做特征的处理和他计算的过程，本文方法部分最终要的其实就是distant supervision假设，
-        </p>
-        <p>
-         <img alt="image-20241110164224279" src="../image/2024/image-20241110164224279.png"/>
-        </p>
-        <p>
-         任何一对已知三元组的两个实体，如果出现在某句子中，则该句子表达的实体间关系就是该三元组的关系。
-        </p>
-        <h2>
-         [EMNLP 15] Distant Supervision for Relation Extraction via Piecewise Convolutional Neural Networks
-        </h2>
-        <h4>
-         1）问题
-        </h4>
-        <p>
-         本文解决的问题其实是跟着Distant supervision（也就是上一篇文章）来的，上篇文章提出的假设其实有点扯，因为一个句子就算有和三元组相同的两个实体，它表达的关系也不一定和三元组一样。所以本文利用多实例学习（multi-instance learning）解决这个问题（多实例学习可以追溯到更久之前，不是本文提出的，但是本文是第一个用多实例学习解决distant supervision问题的，有比较大的影响力）
-        </p>
-        <h4>
-         2）方法
-        </h4>
-        <p>
-         <img alt="image-20241110164747511" src="../image/2024/image-20241110164747511.png"/>
-        </p>
-        <p>
-         所谓多实例学习，其实也很直观，既然每种关系标签下可能有标错的数据，那我就把同种关系的数据分为多个mini-batch，然后每个mini-batch下我只去分类为该关系概率最高的那条数据做为训练数据，其他数据就丢掉，具体算法如下，
-        </p>
-        <p>
-         <img alt="image-20241110164923866" src="../image/2024/image-20241110164923866.png"/>
-        </p>
-        <h2>
-         [EMNLP 21] Label Verbalization and Entailment for Effective Zero- and Few-Shot Relation Extraction
-        </h2>
-        <h4>
-         1）问题
-        </h4>
-        <p>
-         这是篇更近的文章或者说大模型时代的文章，所以本文解决的问题其实是如何用大模型做zero-shot的关系抽取，因为大模型在文本蕴含任务上做了比较多的训练，所以本文提出把关系抽取任务转换为文本蕴含任务来做，以充分利用大模型的能力。
-        </p>
-        <h4>
-         2）方法
-        </h4>
-        <p>
-         本文的方法也很直接，具体如下图，
-        </p>
-        <p>
-         <img alt="image-20241110165225594" src="../image/2024/image-20241110165225594.png"/>
-        </p>
-        <p>
-         可以分为两个阶段，
+         本文虽然也和上面这篇做法是几乎一致的，都是将相关文档转为知识图谱，然后利用知识图谱生成回答，但是对于为什么要转为知识图谱的理由不一样，
         </p>
         <ul>
          <li>
-          Verbalizer
+          上文的理由是：利用知识图谱提取passage间的关系
          </li>
-        </ul>
-        <p>
-         关系抽取任务其实先要从句子中识别出两个实体，图中省略了这一步，直接得到了两个实体，然后就两个实体间可能的关系生成一句话。
-        </p>
-        <ul>
          <li>
-          NLI Model
+          本文的理由是：利用知识图谱提取更相关的信息
          </li>
         </ul>
+        <h4>
+         2）方法
+        </h4>
         <p>
-         上一步得到了(entity pair, Hypothesis, Sentence)的数据对，这一步就调用文本蕴含的模型来判断hypothesis能否从句子中推出，也就是hypothesis是否蕴含在sentence中。
+         <img alt="image-20241115165151561" src="../image/2024/image-20241115165151561.png"/>
+        </p>
+        <p>
+         本文的方法很简单，和上文的框架基本一致，看上图也能看明白，所以这里不赘述
+        </p>
+        <h4>
+         3）实验
+        </h4>
+        <p>
+         本文的实验有点取巧了，它实际没有在各个数据集上达到sota的结果，但是它只比了对文档的不同处理方式，如下图，
+        </p>
+        <p>
+         <img alt="image-20241115165346817" src="../image/2024/image-20241115165346817.png"/>
+        </p>
+        <p>
+         而没有正经的和其他方法做比较
         </p>
         <h2>
-         [NeurIPS 17] Differentiable Learning of Logical Rules for Knowledge Base Reasoning
+         [MM 21] Multimodal Relation Extraction with Efficient Graph Alignment
         </h2>
-        <p>
-         前面几篇文章都是LSTK在第一阶段中完成关系抽取任务参考的方法，而本文就是LSTK第二阶段的主要参考
-        </p>
         <h4>
          1）问题
         </h4>
         <p>
-         本文的问题很直接，Logical Rules如何通过可学习的模型建模
+         本文应该是Multimodal Relation Extraction的第一篇文章，也提出了一个数据集。本文提出MRE任务是为了利用image补全noisy social media texts的lack of contexts，具体来说本文举了个例子，
+        </p>
+        <ul>
+         <li>
+          sentence：JFK and Obama at Harvard.
+         </li>
+        </ul>
+        <p>
+         对于这个句子可以识别出JFK和Obama两个实体（我其实有点疑问为啥没Harvard实体），但是不知道两者间的关系，而实际这个句子隐含的关系应该是两者是校友（Alumni），如果有两者一起穿学士服的照片，这个关系比较好提取
         </p>
         <h4>
          2）方法
         </h4>
         <p>
-         所谓的Logical Rules其实就形如下式，
+         本文的方法如下图，
         </p>
         <p>
-         <img alt="image-20241110165953999" src="../image/2024/image-20241110165953999.png"/>
+         <img alt="image-20241118094253457" src="../image/2024/image-20241118094253457.png"/>
         </p>
         <p>
-         如果箭头右边的关系成立，则可以推出箭头左边的关系。本文首先介绍了TensorLog的标记，将Logical Rules表示为下式，
+         这个图其实思路很清晰，具体有三步，
+        </p>
+        <ul>
+         <li>
+          信息提取
+          <ul>
+           <li>
+            语义信息，就是encode、embedding，只是image是先做目标识别，然后分块做编码
+           </li>
+           <li>
+            结构信息，图像好理解，目标识别然后场景图生成，文本这里用了dependency-based的方法，如下图，
+           </li>
+          </ul>
+         </li>
+        </ul>
+        <p>
+         <img alt="image-20241118094622473" src="../image/2024/image-20241118094622473.png"/>
+        </p>
+        <ul>
+         <li>
+          Multimodal 对齐
+         </li>
+        </ul>
+        <p>
+         上一步分别得到了语义特征和结构特征，这一步对这两种特征分别做图片和文本的对齐。语义的图片文本对齐就是注意力机制；结构的对齐主要利用了节点的度作为结构特征。
+        </p>
+        <ul>
+         <li>
+          特征融合和关系预测
+         </li>
+        </ul>
+        <p>
+         就是上图最右边的融合操作，最后做个MLP的分类
+        </p>
+        <h4>
+         3）实验
+        </h4>
+        <p>
+         主要实验结果如下图，
         </p>
         <p>
-         <img alt="image-20241110165835240" src="../image/2024/image-20241110165835240.png"/>
+         <img alt="image-20241118095151665" src="../image/2024/image-20241118095151665.png"/>
+        </p>
+        <h2>
+         [ACL 23] Multimodal Relation Extraction with Cross-Modal Retrieval and Synthesis
+        </h2>
+        <h4>
+         1）问题
+        </h4>
+        <p>
+         和上面这篇文章处理的是同样的任务（MRE），但是思路不一样，这篇文章有点RAG的感觉
+        </p>
+        <h4>
+         2）方法
+        </h4>
+        <p>
+         &lt;img src="../image/2024/image-20241118095548380.png" alt="image-20241118095548380" style="zoom:50%;" /&gt;
         </p>
         <p>
-         其中
-         <span class="math">
-          $\alpha$
-         </span>
-         表示某条规则是否成立，
-         <span class="math">
-          $\beta$
-         </span>
-         表示规则，M是某个关系的矩阵（如果实体i和实体j存在关系Rk，则该矩阵的i,j 位置上为1），然后假设我们有标记好的数据，就可以计算下面的分数，
+         文本编码、图像编码，然后模态融合，没啥好说的。这里值得注意的是，本文利用输入的文本和图像做了检索（用的Google的API），获得了图像相关的实体信息，以及更多的图像信息，然后把检索到的知识一样做了encode。
+        </p>
+        <h4>
+         3）实验
+        </h4>
+        <p>
+         主要实验结果如下图，
         </p>
         <p>
-         <img alt="image-20241110170202533" src="../image/2024/image-20241110170202533.png"/>
-        </p>
-        <p>
-         最后的目标就是使得score尽可能的大，所以有，
-        </p>
-        <p>
-         <img alt="image-20241110170228086" src="../image/2024/image-20241110170228086.png"/>
-        </p>
-        <p>
-         但是这里有个问题，因为上式中需要学习的参数都是离散的，所以不能直接通过梯度下降来构造一个学习模型，所以本文都上式做了修改，得到了一个循环计算公式，
-        </p>
-        <p>
-         <img alt="image-20241110170414417" src="../image/2024/image-20241110170414417.png"/>
-        </p>
-        <p>
-         这里的a、b在形式上对应于上文中的
-         <span class="math">
-          $\alpha$
-         </span>
-         和
-         <span class="math">
-          $\beta$
-         </span>
-         ，分别表示了关系注意力和对之前计算步骤的注意力，是连续可学习的参数。
+         <img alt="image-20241118095848772" src="../image/2024/image-20241118095848772.png"/>
         </p>
        </body>
       </html>
@@ -346,31 +406,41 @@
      <tbody>
       <tr>
        <td style="padding-right: 10px">
+        2024.11.18:
+       </td>
+       <td>
+        <a href="http://guchongan.github.io/2024\1110-bestRAG">
+         [Read Paper] 11.10-11.18 论文阅读（bestRAG/REANO/MRE）
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <td style="padding-right: 10px">
+        2024.11.16:
+       </td>
+       <td>
+        <a href="http://guchongan.github.io/2024\cs229-01-linear-model">
+         [CS229 Machine Learning] 01 线性模型
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <td style="padding-right: 10px">
+        2024.11.15:
+       </td>
+       <td>
+        <a href="http://guchongan.github.io/2024\cs229-00-math">
+         [CS229 Machine Learning] 00 数学基础回顾（线性代数和概率论）
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <td style="padding-right: 10px">
         2024.11.10:
        </td>
        <td>
         <a href="http://guchongan.github.io/2024\1028-LSTK">
          [Read Paper] 10.28-11.10 论文阅读（LSTK/distant supervision/multi-instance Learning）
-        </a>
-       </td>
-      </tr>
-      <tr>
-       <td style="padding-right: 10px">
-        2024.11.:
-       </td>
-       <td>
-        <a href="http://guchongan.github.io/2024\1110-bestRAG">
-         [Read Paper] 11.10-11. 论文阅读（bestRAG/）
-        </a>
-       </td>
-      </tr>
-      <tr>
-       <td style="padding-right: 10px">
-        2024.11.:
-       </td>
-       <td>
-        <a href="http://guchongan.github.io/2024\cs229-00-math">
-         [CS229 Machine Learning] 00 数学基础回顾（线性代数和概率论）
         </a>
        </td>
       </tr>
@@ -431,16 +501,6 @@
        <td>
         <a href="http://guchongan.github.io/2024\0722-ReActGraphRAG">
          [Read Paper] 7.15-7.22 论文阅读（Analogical Reasoning/GraphRAG/ReAct）
-        </a>
-       </td>
-      </tr>
-      <tr>
-       <td style="padding-right: 10px">
-        2024.07.15:
-       </td>
-       <td>
-        <a href="http://guchongan.github.io/2024\0715-KGTTTLoRA">
-         [Read Paper] 7.5-7.15 论文阅读（Knowledge Graph/Test Time Train/LoRA）
         </a>
        </td>
       </tr>
