@@ -31,7 +31,7 @@ $$J(\theta)=\frac{1}{2}\sum_{i=1}^n(h_\theta (x^{i})-y^{i})^2$$
 
 ## 二 Classification 
 
-这部分是从二分类问题引入的，也就是有对任意的输入，输出应该为{1，0}，然后皆介绍了**logistic regression**，就是在上面的线性回归的基础上，加加上了logistic/sigmoid函数，
+这部分是从二分类问题引入的，也就是有对任意的输入，输出应该为{1，0}，然后皆介绍了**logistic regression**，就是在上面的线性回归的基础上，加上了logistic/sigmoid函数，
 
 $$h_\theta (x) = \frac{1}{1+e^{-\theta^Tx}}$$
 
@@ -47,7 +47,7 @@ $$p(y|x;\theta)=(h_\theta(x))^y(1-h_\theta(x))^{1-y}$$
 
 $$J(\theta)=\sum^n_{i=1}y^ilogh(x^i)+(1-y^i)log(1-h(x^i))$$
 
-然后就可以通过类似的梯度下降算法求解$\theta$。最后这章介绍了**牛顿方法（Newton‘s method）**来求解$\theta$，与随机梯度下降的$\theta_j = \theta_j+\alpha \frac{\partial J(\theta)}{\partial \theta_j}$不同，牛顿法遵循$\theta=\theta-\frac{J'(\theta)}{J''(\theta)}$，直观的理解如下图，所以牛顿法不是求最小大值，它是求函数的根，所以牛顿法针对的是损失函数的导数，但是牛顿法要求二阶导，所以计算复杂度更高。
+然后就可以通过类似的梯度下降算法求解$\theta$。最后这章介绍了**牛顿方法（Newton‘s method）**来求解$\theta$，与随机梯度下降的$\theta_j = \theta_j+\alpha \frac{\partial J(\theta)}{\partial \theta_j}$不同，牛顿法遵循$\theta=\theta-\frac{J'(\theta)}{J''(\theta)}$，直观的理解如下图，牛顿法不是求最小大值，它是求函数的根，所以牛顿法针对的是损失函数的导数，但是牛顿法要求二阶导，所以计算复杂度更高。
 
 ![image-20241116170805355](../image/2024/image-20241116170805355.png)
 
@@ -73,7 +73,7 @@ $$p(y;\eta)=b(y)exp(\eta^TT(y)-a(\eta))$$
 
 $$h_\theta(x)=\frac{exp(\theta_i^Tx)}{\sum_{j=1}^kexp(\theta_j^Tx)}$$
 
-损失函数的推到也和前面两个类似。
+损失函数的推导也和前面两个类似。
 
 本章的重点有，
 

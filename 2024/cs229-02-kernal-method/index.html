@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="https://www.facebook.com/2008/fbml" xmlns:og="http://ogp.me/ns#">
  <head>
   <title>
-   [CS229 Machine Learning] 01 线性模型 - Chongan's website
+   [CS229 Machine Learning] 02 生成学习算法、核方法和神经网络 - Chongan's website
   </title>
   <!-- Using the latest rendering mode for IE -->
   <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
@@ -73,8 +73,8 @@
      <article>
       <header class="page-header">
        <h1>
-        <a href="https://guchongan.github.io/2024/[CS229 Machine Learning] 01 线性模型" rel="bookmark" title="[CS229 Machine Learning] 01 线性模型">
-         [CS229 Machine Learning] 01 线性模型
+        <a href="https://guchongan.github.io/2024/[CS229 Machine Learning] 02 生成学习算法、核方法和神经网络" rel="bookmark" title="[CS229 Machine Learning] 02 生成学习算法、核方法和神经网络">
+         [CS229 Machine Learning] 02 生成学习算法、核方法和神经网络
         </a>
        </h1>
       </header>
@@ -107,89 +107,106 @@
        <html>
         <body>
          <p>
-          最近在看CS229 Machine Learning的课程，计划做下记录，本文是该课程第一周和第二周的内容（第一节导论课除外），主要包括
+          最近在看CS229 Machine Learning的课程，计划做下记录，本文是该课程第三周和第四周的内容，主要包括
          </p>
          <ul>
           <li>
-           Linear Regression
+           Generative Learning algorithms
           </li>
           <li>
-           Classification 和 Logistic Regression
+           Kernel methods
           </li>
           <li>
-           Generalized Linear Models
+           Neural Network 1
           </li>
          </ul>
          <h2>
-          一 Linear Regression
+          一 Generative Learning algorithms
          </h2>
          <p>
-          线性回归算法（或者说Least Mean Squares回顾模型）的引入其实很自然，作者用一个房价预测的例子构建了下面的
-          <strong>
-           线性回归模型
-          </strong>
-          ，
-         </p>
-         <p>
-          <span class="math">
-           $$h_\theta (x) = \theta_0+\theta_1 x_1 + ... + \theta_n x_n$
-          </span>
-          $
-         </p>
-         <p>
-          函数的输入是房价相关的特征（面积，卧室数等），输出是预测的房价。下面的问题就变成了
-          <strong>
-           如何找到
-           <span class="math">
-            $\theta$
-           </span>
-          </strong>
-          ，作者就抛出了一个最小二乘损失函数，
-         </p>
-         <p>
-          <span class="math">
-           $$J(\theta)=\frac{1}{2}\sum_{i=1}^n(h_\theta (x^{i})-y^{i})^2$
-          </span>
-          $
-         </p>
-         <p>
-          所以问题又变成找到最小二乘损失函数最小时的
-          <span class="math">
-           $\theta$
-          </span>
-          ，也就引入了
-          <strong>
-           梯度下降算法
-          </strong>
-          ；然后解释了如何推出该损失函数，也就是
-          <strong>
-           线性回归模型的概率视角
-          </strong>
-          。
-         </p>
-         <p>
-          本章的重点有，
+          课程首先介绍了生成学习算法和判别学习算法
          </p>
          <ul>
           <li>
-           线性回归模型
+           <strong>
+            discriminative learning algorithms
+           </strong>
+           （判别学习算法），尝试直接学习
+           <span class="math">
+            $p(y|x)$
+           </span>
+           ，之前学习的Linear regression、Logistic regression和softmax regression都属于此类
           </li>
           <li>
-           最小二乘损失函数的概率视角
-          </li>
-          <li>
-           梯度下降算法
+           <strong>
+            generative learning algorithms
+           </strong>
+           （生成学习算法），通过估计
+           <span class="math">
+            $p(y)$
+           </span>
+           和
+           <span class="math">
+            $p(x|y)$
+           </span>
+           利用贝叶斯规则计算
+           <span class="math">
+            $p(y|x)$
+           </span>
           </li>
          </ul>
+         <p>
+          然后具体介绍了两种生成学习算法，
+         </p>
+         <ul>
+          <li>
+           <strong>
+            Gaussian discriminant analysis（GDA）
+           </strong>
+          </li>
+         </ul>
+         <p>
+          对于二分类问题，首先假设y服从伯努利分布，x|y=0和x|y=1服从均值不同，方差一致的多变量正态分布，然后还是和之前一样，构建概率的损失函数，找到对应的参数，使得训练数据的概率最大，只是这里的x，y联合分布，也可以分解为
+          <span class="math">
+           $p(y)p(x|y)$
+          </span>
+          ，然后可以计算出几个参数对应的数值
+         </p>
+         <ul>
+          <li>
+           <strong>
+            Naive Bays
+           </strong>
+          </li>
+         </ul>
+         <p>
+          朴素贝叶斯算法的核心是朴素贝叶斯假设（NB assumption），其实就是对于输入的多维向量x，假设每个位置上的
+          <span class="math">
+           $x_i$
+          </span>
+          都条件独立于给定的y，然后就有，
+         </p>
+         <p>
+          <img alt="image-20241219235122013" src="..\../image/2024/image-20241219235122013.png"/>
+         </p>
+         <p>
+          最后和之前一样，构建一个损失函数，
+         </p>
+         <p>
+          <img alt="image-20241219235215298" src="..\../image/2024/image-20241219235215298.png"/>
+         </p>
+         <p>
+          然后本节还介绍了Laplace smoothing，其实就是如果数据中存在某个未出现的值，按前面算法计算出的参数会有问题，所以计算的时候在分子和分母的部分分别加上对应的数值
+         </p>
          <h2>
-          二 Classification
+          二 Kernel methods
          </h2>
          <p>
           这部分是从二分类问题引入的，也就是有对任意的输入，输出应该为{1，0}，然后皆介绍了
           <strong>
            logistic regression
           </strong>
-          ，就是在上面的线性回归的基础上，加上了logistic/sigmoid函数，
+          ，就是在上面的线性回归的基础上，加加上了logistic/sigmoid函数，
          </p>
          <p>
           <span class="math">
@@ -250,7 +267,7 @@
           <span class="math">
            $\theta=\theta-\frac{J'(\theta)}{J''(\theta)}$
           </span>
-          ，直观的理解如下图，牛顿法不是求最小大值，它是求函数的根，所以牛顿法针对的是损失函数的导数，但是牛顿法要求二阶导，所以计算复杂度更高。
+          ，直观的理解如下图，所以牛顿法不是求最小大值，它是求函数的根，所以牛顿法针对的是损失函数的导数，但是牛顿法要求二阶导，所以计算复杂度更高。
          </p>
          <p>
           <img alt="image-20241116170805355" src="..\../image/2024/image-20241116170805355.png"/>
@@ -270,7 +287,7 @@
           </li>
          </ul>
          <h2>
-          三 Generalized Linear Models
+          三 Neural Network 1
          </h2>
          <p>
           本章首先抛出了
@@ -322,7 +339,7 @@
           $
          </p>
          <p>
-          损失函数的推导也和前面两个类似。
+          损失函数的推到也和前面两个类似。
          </p>
          <p>
           本章的重点有，

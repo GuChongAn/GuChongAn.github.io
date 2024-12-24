@@ -71,15 +71,15 @@
    <div class="row">
     <article>
      <h1>
-      <a href="https://guchongan.github.io/2024\1110-bestRAG">
-       [Read Paper] 11.10-11.18 论文阅读（bestRAG/REANO/MRE）
+      <a href="https://guchongan.github.io/2024\1118-KGCOT">
+       [Read Paper] 11.18-12.24 论文阅读（KG-COT、BloombergGPT、MMVQA）
       </a>
      </h1>
      <span class="published">
       <i class="fa fa-calendar">
       </i>
       <time>
-       2024.11.18
+       2024.12.24
       </time>
      </span>
      <br/>
@@ -88,276 +88,160 @@
       <html>
        <body>
         <p>
-         先看了老师发我的RAG最佳实践的论文，
+         看了IJCAI 24的几篇KGQA和多模态QA的文章，
         </p>
         <ul>
          <li>
-          <a href="https://aclanthology.org/2024.emnlp-main.981/">
-           Searching for Best Practices in Retrieval-Augmented Generation
+          <a href="https://www.ijcai.org/proceedings/2024/734">
+           KG-CoT: Chain-of-Thought Prompting of Large Language Models over Knowledge Graphs for Knowledge-Aware Question Answering
           </a>
-          （EMNLP 24）
+          （IJCAI 24）
+         </li>
+         <li>
+          <a href="https://www.ijcai.org/proceedings/2024/690">
+           MMVQA: A Comprehensive Dataset for Investigating Multipage Multimodal Information Retrieval in PDF-based Visual Question Answering
+          </a>
+          （IJCAI 24）
+         </li>
+         <li>
+          <a href="https://www.ijcai.org/proceedings/2024/659">
+           Enhancing Multimodal Knowledge Graph Representation Learning through Triple Contrastive Learning
+          </a>
+          （IJCAI 24）
          </li>
         </ul>
         <p>
-         然后看了两篇知识图谱+RAG的论文，
+         然后看了彭博社提出的金融LLM，
         </p>
         <ul>
          <li>
-          <a href="https://aclanthology.org/2024.acl-long.115/">
-           REANO: Optimising Retrieval-Augmented Reader Models through Knowledge Graph Generation
+          <a href="https://arxiv.org/abs/2303.17564">
+           BloombergGPT: A Large Language Model for Finance
           </a>
-          （ACL 24）
-         </li>
-         <li>
-          <a href="https://aclanthology.org/2024.findings-emnlp.496/">
-           TRACE the Evidence: Constructing Knowledge-Grounded Reasoning Chains for Retrieval-Augmented Generation
-          </a>
-          （EMNLP findings 24）
-         </li>
-        </ul>
-        <p>
-         然后看了两篇多模态关系抽取（Multimodal Relation Extraction）的两篇文章，
-        </p>
-        <ul>
-         <li>
-          [Multimodal Relation Extraction with Efficient Graph Alignment](https://njuhugn.github.io/paper/Multimodal Relation Extraction with Efficient Graph Alignment-Zheng-mm21.pdf)（MM 21）
-         </li>
-         <li>
-          <a href="https://aclanthology.org/2023.acl-short.27/">
-           Multimodal Relation Extraction with Cross-Modal Retrieval and Synthesis
-          </a>
-          （ACL 23）
+          （arXiv 2303）
          </li>
         </ul>
         <h2>
-         [EMNLP 24] Searching for Best Practices in Retrieval-Augmented Generation
+         [IJCAI 24] KG-CoT: Chain-of-Thought Prompting of Large Language Models over Knowledge Graphs for Knowledge-Aware Question Answering
         </h2>
         <h4>
          1）问题
         </h4>
         <p>
-         如题所示，就是找到RAG的最佳实践。本文还在discussion的部分讨论了一点多模态，但是感觉有点画蛇添足，虽然我能get到他想讲检索图然后回答比直接生成的好处。
+         我一开始以为这篇文章没在KGQA的数据集上做，结果被题目骗了，这就是篇KGQA的文章，所以它的思路和其他KGQA的思路是一样的，
         </p>
+        <ul>
+         <li>
+          LLM特定知识缺乏，幻觉 （Lack of Responsible Factual Knowledge）
+         </li>
+         <li>
+          Cognition Gap with Knowledge Retrievers（query -&gt; knowledge通过相似度，但是相似度不保证有用）
+         </li>
+        </ul>
         <h4>
          2）方法
         </h4>
         <p>
-         <img alt="image-20241112202935569" src="../image/2024/image-20241112202935569.png"/>
+         <img alt="image-20241122170314173" src="../image/2024/image-20241122170314173.png"/>
         </p>
         <p>
-         作者把RAG的流程分为了上图所示的步骤，
-        </p>
-        <ul>
-         <li>
-          Retrieval Source（黄色）
-         </li>
-        </ul>
-        <p>
-         对要检索资料的处理，可以分为chunking，embedding和vector databse三大块
+         如上图所示，本文可以分为三步（两步）
         </p>
         <ul>
          <li>
-          Retrieval（蓝色）
+          Graph Reasoning
          </li>
         </ul>
         <p>
-         从资料中检索出query相关文档，然后排序，打包和总结处理
+         作者训了个小的Graph Reasoning model，具体其实就如上图所示
         </p>
         <ul>
          <li>
-          Fine-tune（绿色）
+          Reasoning Path Generation
          </li>
         </ul>
         <p>
-         微调大模型以使之更好利用检索回来的数据
+         就是根据前一步的知识图谱推理模型生成推理路径
         </p>
         <ul>
          <li>
-          Evaluation（红色）
+          Joint Reasoning
          </li>
         </ul>
         <p>
-         大模型评估
-        </p>
-        <h4>
-         3）实验
-        </h4>
-        <p>
-         本文最后得到了RAG最佳实践的结论，实验结果如下图，
-        </p>
-        <p>
-         <img alt="image-20241112203306565" src="../image/2024/image-20241112203306565.png"/>
-        </p>
-        <h2>
-         [ACL 24] REANO: Optimising Retrieval-Augmented Reader Models through Knowledge Graph Generation
-        </h2>
-        <h4>
-         1）问题
-        </h4>
-        <p>
-         本文的逻辑是这样的，
-        </p>
-        <ul>
-         <li>
-          Open domain question answering任务需要外部数据（他没提幻觉，然后将使用外部数据归因于任务本身）
-         </li>
-         <li>
-          外部数据的passages之间的关系被之前的方法忽视 -&gt; 使用KG利用passages之间的关系
-         </li>
-         <li>
-          之前的方法直接使用现存的知识图谱，存在incompleteness -&gt; 从检索的passages生成知识图谱
-         </li>
-        </ul>
-        <p>
-         有一点点问题是第二和第三条间好像不关联，但是问题不大。本文还给了个图例，
-        </p>
-        <p>
-         &lt;img src="../image/2024/image-20241113154314071.png" alt="image-20241113154314071" style="zoom:67%;" /&gt;
-        </p>
-        <h4>
-         2）方法
-        </h4>
-        <p>
-         <img alt="image-20241113154336842" src="../image/2024/image-20241113154336842.png"/>
-        </p>
-        <p>
-         本文的方法可以分为两个阶段，
-        </p>
-        <ul>
-         <li>
-          KG Generator
-         </li>
-        </ul>
-        <p>
-         从passages生成知识图谱（本文假设相关的passages已经获得），其实就是关系抽取任务，本文也直接使用了最近的关系抽取方法，只是分了intra-context（一篇passage内做关系抽取）和inter-context（所有passage间作关系抽取，这里其实就是实体识别后查wikidata）
-        </p>
-        <ul>
-         <li>
-          Answer Predictor
-         </li>
-        </ul>
-        <p>
-         在得到passages生成的KG后，本文先用了个GNN来找到最相关的K个三元组，然后把这K个三元组和在一起作为新的passage和原来的passages一起作最后答案的生成。
-        </p>
-        <p>
-         他这里答案生成用的是Fusion-in-Decoder的模型，就是就是每篇passage和问题拼在一起编码，然后所有passage的编码结果拼在一起解码出最后的答案
+         把推理路径和问题拼一起问LLM答案
         </p>
         <h4>
          3）实验
         </h4>
         <ul>
          <li>
-          数据集：Natural Questions (NQ), TriviaQA (TQA), EntityQuestions (EQ), 2WikiMultiHopQA (2WQA)和MuSiQue
-         </li>
-         <li>
-          评价指标：Exact Match (EM)，预测的答案是否能匹配到任何参考答案
+          数据集：WebQSP、CWQ、SimpleQuestions、WebQuestions
          </li>
          <li>
           实验结果：
          </li>
         </ul>
         <p>
-         <img alt="image-20241113155125783" src="../image/2024/image-20241113155125783.png"/>
+         <img alt="image-20241122170610059" src="../image/2024/image-20241122170610059.png"/>
+        </p>
+        <ul>
+         <li>
+          它在实验中还有一个有意思的点是说他很便宜
+         </li>
+        </ul>
+        <p>
+         <img alt="image-20241122170826391" src="../image/2024/image-20241122170826391.png"/>
         </p>
         <h2>
-         [EMNLP 24] TRACE the Evidence: Constructing Knowledge-Grounded Reasoning Chains for Retrieval-Augmented Generation
+         [IJCAI 24]  MMVQA: A Comprehensive Dataset for Investigating Multipage Multimodal Information Retrieval in PDF-based Visual Question Answering
         </h2>
         <h4>
          1）问题
         </h4>
         <p>
-         本文虽然也和上面这篇做法是几乎一致的，都是将相关文档转为知识图谱，然后利用知识图谱生成回答，但是对于为什么要转为知识图谱的理由不一样，
-        </p>
-        <ul>
-         <li>
-          上文的理由是：利用知识图谱提取passage间的关系
-         </li>
-         <li>
-          本文的理由是：利用知识图谱提取更相关的信息
-         </li>
-        </ul>
-        <h4>
-         2）方法
-        </h4>
-        <p>
-         <img alt="image-20241115165151561" src="../image/2024/image-20241115165151561.png"/>
-        </p>
-        <p>
-         本文的方法很简单，和上文的框架基本一致，看上图也能看明白，所以这里不赘述
-        </p>
-        <h4>
-         3）实验
-        </h4>
-        <p>
-         本文的实验有点取巧了，它实际没有在各个数据集上达到sota的结果，但是它只比了对文档的不同处理方式，如下图，
-        </p>
-        <p>
-         <img alt="image-20241115165346817" src="../image/2024/image-20241115165346817.png"/>
-        </p>
-        <p>
-         而没有正经的和其他方法做比较
-        </p>
-        <h2>
-         [MM 21] Multimodal Relation Extraction with Efficient Graph Alignment
-        </h2>
-        <h4>
-         1）问题
-        </h4>
-        <p>
-         本文应该是Multimodal Relation Extraction的第一篇文章，也提出了一个数据集。本文提出MRE任务是为了利用image补全noisy social media texts的lack of contexts，具体来说本文举了个例子，
-        </p>
-        <ul>
-         <li>
-          sentence：JFK and Obama at Harvard.
-         </li>
-        </ul>
-        <p>
-         对于这个句子可以识别出JFK和Obama两个实体（我其实有点疑问为啥没Harvard实体），但是不知道两者间的关系，而实际这个句子隐含的关系应该是两者是校友（Alumni），如果有两者一起穿学士服的照片，这个关系比较好提取
+         本文主要提出了一个DQA（Document QA）的数据集，这个数据集和之前的数据集主要的不同是它需要multipage的推理
         </p>
         <h4>
          2）方法
         </h4>
         <p>
-         本文的方法如下图，
+         本文数据集的生成很简单，如下图，
         </p>
         <p>
-         <img alt="image-20241118094253457" src="../image/2024/image-20241118094253457.png"/>
-        </p>
-        <p>
-         这个图其实思路很清晰，具体有三步，
+         <img alt="image-20241213191954914" src="../image/2024/image-20241213191954914.png"/>
         </p>
         <ul>
          <li>
-          信息提取
-          <ul>
-           <li>
-            语义信息，就是encode、embedding，只是image是先做目标识别，然后分块做编码
-           </li>
-           <li>
-            结构信息，图像好理解，目标识别然后场景图生成，文本这里用了dependency-based的方法，如下图，
-           </li>
-          </ul>
+          首先从PubMed收集一些pdf和xml格式的document
+         </li>
+         <li>
+          然后调chatgpt，分别对parageraph和table/figure格式的问题做生成
          </li>
         </ul>
         <p>
-         <img alt="image-20241118094622473" src="../image/2024/image-20241118094622473.png"/>
+         然后本文提出了DIR（Document Information Retrieval）任务，即输入问题和相关实体，输出问题的目标实体，如下图，
+        </p>
+        <p>
+         <img alt="image-20241213192143744" src="../image/2024/image-20241213192143744.png"/>
+        </p>
+        <p>
+         最后本文提出了几个解决该问题的benchmark方法
         </p>
         <ul>
          <li>
-          Multimodal 对齐
+          Multimodal Multi-Page Retriever框架
          </li>
-        </ul>
-        <p>
-         上一步分别得到了语义特征和结构特征，这一步对这两种特征分别做图片和文本的对齐。语义的图片文本对齐就是注意力机制；结构的对齐主要利用了节点的度作为结构特征。
-        </p>
-        <ul>
          <li>
-          特征融合和关系预测
+          RoI-Based Frameworks
+         </li>
+         <li>
+          Image Patch-Based Frameworks
+         </li>
+         <li>
+          Joint-Grained Retriever
          </li>
         </ul>
-        <p>
-         就是上图最右边的融合操作，最后做个MLP的分类
-        </p>
         <h4>
          3）实验
         </h4>
@@ -365,34 +249,198 @@
          主要实验结果如下图，
         </p>
         <p>
-         <img alt="image-20241118095151665" src="../image/2024/image-20241118095151665.png"/>
+         <img alt="image-20241213192413586" src="../image/2024/image-20241213192413586.png"/>
         </p>
         <h2>
-         [ACL 23] Multimodal Relation Extraction with Cross-Modal Retrieval and Synthesis
+         [arXiv 2303] BloombergGPT: A Large Language Model for Finance
+        </h2>
+        <p>
+         读了下这篇论文，感觉虽然工作量很大，但是实际上都是工程性的东西，收集了大量的数据，然后训了个很大的模型，这里主要记录一下在阅读论文时对Tokenizer的问题，回顾一下通用的Token方法
+        </p>
+        <table>
+         <thead>
+          <tr>
+           <th>
+            Method
+           </th>
+           <th>
+            Model
+           </th>
+          </tr>
+         </thead>
+         <tbody>
+          <tr>
+           <td>
+            BPE
+           </td>
+           <td>
+            GPT-1/2/3，ChatGLM
+           </td>
+          </tr>
+          <tr>
+           <td>
+            WordPiece
+           </td>
+           <td>
+            BERT
+           </td>
+          </tr>
+          <tr>
+           <td>
+            Unigram
+           </td>
+           <td>
+            T5、BloombergGPT
+           </td>
+          </tr>
+         </tbody>
+        </table>
+        <h4>
+         1）分词
+        </h4>
+        <p>
+         所谓Tokenizer，其实就是将输入的句子进行切分的操作，根据切分粒度可以分为，
+        </p>
+        <ul>
+         <li>
+          基于词的切分
+         </li>
+         <li>
+          基于字的切分
+         </li>
+         <li>
+          基于subword的切分
+         </li>
+        </ul>
+        <p>
+         其中基于subword的切分是目前的主流形式，其实就是高频词依旧是完成的词、低频词会变成有意义的子词，例如dogs会变成[dog,##s]
+        </p>
+        <h4>
+         2）切分流程
+        </h4>
+        <p>
+         通常如下图所示分为4步，
+        </p>
+        <p>
+         <img alt="image-20241214210310656" src="../image/2024/image-20241214210310656.png"/>
+        </p>
+        <ul>
+         <li>
+          Normalization：去除停用词，多余的空格，大小写等
+         </li>
+         <li>
+          Pre-tokenization：不同tokenizer的实现不一样，通常就是直接基于空格和标点切分
+         </li>
+         <li>
+          Postprocessor：添加特殊Token等
+         </li>
+        </ul>
+        <h4>
+         3）Byte-Pair Encoding（BPE）
+        </h4>
+        <p>
+         BPE的思路其实很简单，在训练阶段，
+        </p>
+        <ul>
+         <li>
+          <p>
+           首先将所有训练数据按字母分词，形成初始词表（helllo -&gt; h, e, l, l, l, o）
+          </p>
+         </li>
+         <li>
+          <p>
+           然后按词表2gram统计pair的词频（he 1, el 1, ll 2, lo 1）
+          </p>
+         </li>
+         <li>
+          <p>
+           然后将频率最高的pair合并为一个词添加到词表中（词表：h, e, l, o, ll）
+          </p>
+         </li>
+         <li>
+          <p>
+           重复前一步直到词表大小到达设置的结果
+          </p>
+         </li>
+        </ul>
+        <p>
+         在推理阶段，也是将数据切分为字符，然后按训练阶段得到的词表作最长匹配
+        </p>
+        <h4>
+         4）WordPiece
+        </h4>
+        <p>
+         WordPiece和BPE的思路基本一致，只是不是选择频率最高的pair，而是按下面的公式计算互信息，
+        </p>
+        <p>
+         <img alt="image-20241214220250843" src="../image/2024/image-20241214220250843.png"/>
+        </p>
+        <p>
+         这里的a和b是计划合并的词表中的两个词，这里的思想是一个pair的频率很高，但是其中pair的一部分的频率更高，这时候不一定需要进行该pair的合并。 而如果一个pair的频率很高，并且这个pair的两个部分都是只出现在这个pair中，就说明这个pair很值得合并。
+        </p>
+        <h4>
+         5）Unigram
+        </h4>
+        <p>
+         Unigram分词与BPE和WordPiece不同，是基于一个大词表逐步裁剪成一个小词表。具体来说，在训练阶段，
+        </p>
+        <ul>
+         <li>
+          首先将训练数据按单词划分，并统计词频，得到初始词表
+         </li>
+         <li>
+          然后统计初始词表中每个词的子词和对应词频，取前n个词构成最初的大词表
+         </li>
+         <li>
+          统计词表中每个词的概率，转换为Unigram loss：-log(count / total_count)
+         </li>
+         <li>
+          作动态规划（Viterbi算法）找到使得一个词的loss最小的分词路径
+         </li>
+         <li>
+          计算所有词对总体loss的影响，删除影响小的，直到词表大小符合要求
+         </li>
+        </ul>
+        <p>
+         在推理阶段，也是将数据按word切分，然后按训练阶段得到的词表作最长匹配
+        </p>
+        <h2>
+         [IJCAI 24] Enhancing Multimodal Knowledge Graph Representation Learning through Triple Contrastive Learning
         </h2>
         <h4>
          1）问题
         </h4>
         <p>
-         和上面这篇文章处理的是同样的任务（MRE），但是思路不一样，这篇文章有点RAG的感觉
+         本文实际做的是Knowledge Graph embedding，就是输入一个知识图谱，输出该知识图谱的每个节点和关系，输出这些节点和关系对应的embedding，所以本文解决的问题很简单，
+        </p>
+        <ul>
+         <li>
+          单模态方法变多模态
+         </li>
+         <li>
+          构造了一个多模态的知识图谱（每个entity，附有图片和解释）
+         </li>
+        </ul>
+        <p>
+         我觉得后者才是本文实际的难点所在
         </p>
         <h4>
          2）方法
         </h4>
         <p>
-         &lt;img src="../image/2024/image-20241118095548380.png" alt="image-20241118095548380" style="zoom:50%;" /&gt;
+         如下图所示，
         </p>
         <p>
-         文本编码、图像编码，然后模态融合，没啥好说的。这里值得注意的是，本文利用输入的文本和图像做了检索（用的Google的API），获得了图像相关的实体信息，以及更多的图像信息，然后把检索到的知识一样做了encode。
+         <img alt="image-20241224165249312" src="../image/2024/image-20241224165249312.png"/>
+        </p>
+        <p>
+         其实就是在原有的KGE的方法的基础上，加入了其他模态的信息，这个加入的方式是用对比学习来实现的
         </p>
         <h4>
          3）实验
         </h4>
         <p>
-         主要实验结果如下图，
-        </p>
-        <p>
-         <img alt="image-20241118095848772" src="../image/2024/image-20241118095848772.png"/>
+         <img alt="image-20241224165423202" src="../image/2024/image-20241224165423202.png"/>
         </p>
        </body>
       </html>
@@ -404,6 +452,16 @@
     </h3>
     <table class="archive-list">
      <tbody>
+      <tr>
+       <td style="padding-right: 10px">
+        2024.12.24:
+       </td>
+       <td>
+        <a href="http://guchongan.github.io/2024\1118-KGCOT">
+         [Read Paper] 11.18-12.24 论文阅读（KG-COT、BloombergGPT、MMVQA）
+        </a>
+       </td>
+      </tr>
       <tr>
        <td style="padding-right: 10px">
         2024.11.18:
@@ -421,6 +479,16 @@
        <td>
         <a href="http://guchongan.github.io/2024\cs229-01-linear-model">
          [CS229 Machine Learning] 01 线性模型
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <td style="padding-right: 10px">
+        2024.11.16:
+       </td>
+       <td>
+        <a href="http://guchongan.github.io/2024\cs229-02-kernal-method">
+         [CS229 Machine Learning] 02 生成学习算法、核方法和神经网络
         </a>
        </td>
       </tr>
@@ -481,26 +549,6 @@
        <td>
         <a href="http://guchongan.github.io/2024\0825-VisualPrompting">
          [Read Paper] 8.25-9.1 论文阅读（Visual Prompting/Dissecting Multimodality/LAION-5B）
-        </a>
-       </td>
-      </tr>
-      <tr>
-       <td style="padding-right: 10px">
-        2024.08.14:
-       </td>
-       <td>
-        <a href="http://guchongan.github.io/2024\SummerPaper">
-         6月-8月 Summer vacation 论文阅读总结（Multimodal Graph/QA方向）
-        </a>
-       </td>
-      </tr>
-      <tr>
-       <td style="padding-right: 10px">
-        2024.07.22:
-       </td>
-       <td>
-        <a href="http://guchongan.github.io/2024\0722-ReActGraphRAG">
-         [Read Paper] 7.15-7.22 论文阅读（Analogical Reasoning/GraphRAG/ReAct）
         </a>
        </td>
       </tr>
