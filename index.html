@@ -71,15 +71,15 @@
    <div class="row">
     <article>
      <h1>
-      <a href="https://guchongan.github.io/2024\1118-KGCOT">
-       [Read Paper] 11.18-12.24 论文阅读（KG-COT、BloombergGPT、MMVQA）
+      <a href="https://guchongan.github.io/2025\zotero-tool">
+       [Tool] Zotero 使用指南
       </a>
      </h1>
      <span class="published">
       <i class="fa fa-calendar">
       </i>
       <time>
-       2024.12.24
+       2025.01.09
       </time>
      </span>
      <br/>
@@ -88,359 +88,210 @@
       <html>
        <body>
         <p>
-         看了IJCAI 24的几篇KGQA和多模态QA的文章，
+         最近刚放寒假，我计划把论文阅读的工具换成zotero，因为有时候用readpaper有点卡，而且他没有内置的笔记（只有注释），同时正好能整理一下去年读过的有意思的论文。首先理一下用zotero，我需要它达成什么功能，对应需要什么插件，
         </p>
         <ul>
          <li>
-          <a href="https://www.ijcai.org/proceedings/2024/734">
-           KG-CoT: Chain-of-Thought Prompting of Large Language Models over Knowledge Graphs for Knowledge-Aware Question Answering
-          </a>
-          （IJCAI 24）
+          基础的论文阅读功能
+          <ul>
+           <li>
+            文本高亮、注释、勾勾画画之类的，Zotero原生就可以解决
+           </li>
+           <li>
+            划词翻译：Translate for Zotero插件
+           </li>
+           <li>
+            参考文献的便捷显示：Zotero Reference 插件
+           </li>
+          </ul>
          </li>
          <li>
-          <a href="https://www.ijcai.org/proceedings/2024/690">
-           MMVQA: A Comprehensive Dataset for Investigating Multipage Multimodal Information Retrieval in PDF-based Visual Question Answering
-          </a>
-          （IJCAI 24）
+          论文条目展示页面显示漂亮一点：Ethereal Style插件
          </li>
          <li>
-          <a href="https://www.ijcai.org/proceedings/2024/659">
-           Enhancing Multimodal Knowledge Graph Representation Learning through Triple Contrastive Learning
-          </a>
-          （IJCAI 24）
+          每篇论文对应的一篇笔记，最好支持Markdown：Better Notes插件
          </li>
-        </ul>
-        <p>
-         然后看了彭博社提出的金融LLM，
-        </p>
-        <ul>
          <li>
-          <a href="https://arxiv.org/abs/2303.17564">
-           BloombergGPT: A Large Language Model for Finance
-          </a>
-          （arXiv 2303）
+          写论文的时候需要导出引用
+         </li>
+         <li>
+          最好能有同步服务（~~环境~~和论文），回所后所里的电脑也能直接看
          </li>
         </ul>
         <h2>
-         [IJCAI 24] KG-CoT: Chain-of-Thought Prompting of Large Language Models over Knowledge Graphs for Knowledge-Aware Question Answering
+         软件操作
         </h2>
-        <h4>
-         1）问题
-        </h4>
+        <h3>
+         1 导出引用
+        </h3>
         <p>
-         我一开始以为这篇文章没在KGQA的数据集上做，结果被题目骗了，这就是篇KGQA的文章，所以它的思路和其他KGQA的思路是一样的，
+         有两种方式，
         </p>
         <ul>
          <li>
-          LLM特定知识缺乏，幻觉 （Lack of Responsible Factual Knowledge）
+          导出文本引用：按住
+          <code>
+           Shift
+          </code>
+          选择要导出的论文，然后右键
+          <code>
+           用所选条目创建参考文献表
+          </code>
          </li>
          <li>
-          Cognition Gap with Knowledge Retrievers（query -&gt; knowledge通过相似度，但是相似度不保证有用）
+          导出.bib：右键文件夹，导出分类，选择BibTex格式
          </li>
         </ul>
-        <h4>
-         2）方法
-        </h4>
+        <h3>
+         2 同步
+        </h3>
+        <blockquote>
+         <p>
+          没找到环境同步的功能或者插件
+         </p>
+        </blockquote>
         <p>
-         <img alt="image-20241122170314173" src="../image/2024/image-20241122170314173.png"/>
-        </p>
-        <p>
-         如上图所示，本文可以分为三步（两步）
-        </p>
-        <ul>
-         <li>
-          Graph Reasoning
-         </li>
-        </ul>
-        <p>
-         作者训了个小的Graph Reasoning model，具体其实就如上图所示
-        </p>
-        <ul>
-         <li>
-          Reasoning Path Generation
-         </li>
-        </ul>
-        <p>
-         就是根据前一步的知识图谱推理模型生成推理路径
-        </p>
-        <ul>
-         <li>
-          Joint Reasoning
-         </li>
-        </ul>
-        <p>
-         把推理路径和问题拼一起问LLM答案
-        </p>
-        <h4>
-         3）实验
-        </h4>
-        <ul>
-         <li>
-          数据集：WebQSP、CWQ、SimpleQuestions、WebQuestions
-         </li>
-         <li>
-          实验结果：
-         </li>
-        </ul>
-        <p>
-         <img alt="image-20241122170610059" src="../image/2024/image-20241122170610059.png"/>
-        </p>
-        <ul>
-         <li>
-          它在实验中还有一个有意思的点是说他很便宜
-         </li>
-        </ul>
-        <p>
-         <img alt="image-20241122170826391" src="../image/2024/image-20241122170826391.png"/>
+         由于Zotero自带的空间好像有点小，我决定使用坚果云完成同步，按照Zotero 中文社区的：
+         <a href="https://zotero-chinese.com/user-guide/sync">
+          数据与文件的同步
+         </a>
+         逐步操作即可。
         </p>
         <h2>
-         [IJCAI 24]  MMVQA: A Comprehensive Dataset for Investigating Multipage Multimodal Information Retrieval in PDF-based Visual Question Answering
+         插件配置
         </h2>
-        <h4>
-         1）问题
-        </h4>
-        <p>
-         本文主要提出了一个DQA（Document QA）的数据集，这个数据集和之前的数据集主要的不同是它需要multipage的推理
-        </p>
-        <h4>
-         2）方法
-        </h4>
-        <p>
-         本文数据集的生成很简单，如下图，
-        </p>
-        <p>
-         <img alt="image-20241213191954914" src="../image/2024/image-20241213191954914.png"/>
-        </p>
-        <ul>
-         <li>
-          首先从PubMed收集一些pdf和xml格式的document
-         </li>
-         <li>
-          然后调chatgpt，分别对parageraph和table/figure格式的问题做生成
-         </li>
-        </ul>
-        <p>
-         然后本文提出了DIR（Document Information Retrieval）任务，即输入问题和相关实体，输出问题的目标实体，如下图，
-        </p>
-        <p>
-         <img alt="image-20241213192143744" src="../image/2024/image-20241213192143744.png"/>
-        </p>
-        <p>
-         最后本文提出了几个解决该问题的benchmark方法
-        </p>
-        <ul>
-         <li>
-          Multimodal Multi-Page Retriever框架
-         </li>
-         <li>
-          RoI-Based Frameworks
-         </li>
-         <li>
-          Image Patch-Based Frameworks
-         </li>
-         <li>
-          Joint-Grained Retriever
-         </li>
-        </ul>
-        <h4>
-         3）实验
-        </h4>
-        <p>
-         主要实验结果如下图，
-        </p>
-        <p>
-         <img alt="image-20241213192413586" src="../image/2024/image-20241213192413586.png"/>
-        </p>
-        <h2>
-         [arXiv 2303] BloombergGPT: A Large Language Model for Finance
-        </h2>
-        <p>
-         读了下这篇论文，感觉虽然工作量很大，但是实际上都是工程性的东西，收集了大量的数据，然后训了个很大的模型，这里主要记录一下在阅读论文时对Tokenizer的问题，回顾一下通用的Token方法
-        </p>
-        <table>
-         <thead>
-          <tr>
-           <th>
-            Method
-           </th>
-           <th>
-            Model
-           </th>
-          </tr>
-         </thead>
-         <tbody>
-          <tr>
-           <td>
-            BPE
-           </td>
-           <td>
-            GPT-1/2/3，ChatGLM
-           </td>
-          </tr>
-          <tr>
-           <td>
-            WordPiece
-           </td>
-           <td>
-            BERT
-           </td>
-          </tr>
-          <tr>
-           <td>
-            Unigram
-           </td>
-           <td>
-            T5、BloombergGPT
-           </td>
-          </tr>
-         </tbody>
-        </table>
-        <h4>
-         1）分词
-        </h4>
-        <p>
-         所谓Tokenizer，其实就是将输入的句子进行切分的操作，根据切分粒度可以分为，
-        </p>
-        <ul>
-         <li>
-          基于词的切分
-         </li>
-         <li>
-          基于字的切分
-         </li>
-         <li>
-          基于subword的切分
-         </li>
-        </ul>
-        <p>
-         其中基于subword的切分是目前的主流形式，其实就是高频词依旧是完成的词、低频词会变成有意义的子词，例如dogs会变成[dog,##s]
-        </p>
-        <h4>
-         2）切分流程
-        </h4>
-        <p>
-         通常如下图所示分为4步，
-        </p>
-        <p>
-         <img alt="image-20241214210310656" src="../image/2024/image-20241214210310656.png"/>
-        </p>
-        <ul>
-         <li>
-          Normalization：去除停用词，多余的空格，大小写等
-         </li>
-         <li>
-          Pre-tokenization：不同tokenizer的实现不一样，通常就是直接基于空格和标点切分
-         </li>
-         <li>
-          Postprocessor：添加特殊Token等
-         </li>
-        </ul>
-        <h4>
-         3）Byte-Pair Encoding（BPE）
-        </h4>
-        <p>
-         BPE的思路其实很简单，在训练阶段，
-        </p>
+        <blockquote>
+         <p>
+          我主要使用了下面的插件，
+         </p>
+         <p>
+          &lt;img src="../image/2024/image-20250109131416858.png" alt="image-20250109131416858" style="zoom:50%;" /&gt;
+         </p>
+        </blockquote>
+        <h3>
+         1 Translate for Zotero 插件
+        </h3>
         <ul>
          <li>
           <p>
-           首先将所有训练数据按字母分词，形成初始词表（helllo -&gt; h, e, l, l, l, o）
+           Github仓库：
+           <a href="https://github.com/windingwind/zotero-pdf-translate?tab=readme-ov-file">
+            windingwind/zotero-pdf-translate
+           </a>
           </p>
          </li>
          <li>
           <p>
-           然后按词表2gram统计pair的词频（he 1, el 1, ll 2, lo 1）
+           手册：
+           <a href="https://github.com/windingwind/zotero-pdf-translate?tab=readme-ov-file">
+            Zotero PDF Translate手册
+           </a>
+          </p>
+         </li>
+        </ul>
+        <p>
+         直接Github下载，然后添加到Zotero中，因为一方面我有梯子所以可以直接用Google的不需要密钥的翻译服务，另一方面，我没有整个pdf一下翻译的需求，只是遇到不懂的单词或者句子的时候需要翻译一下，所以只用到了最基础的功能，几乎是开箱即用。感觉没有什么需要配置或者注意的地方。
+        </p>
+        <h3>
+         2 Zotero Reference 插件
+        </h3>
+        <ul>
+         <li>
+          Github仓库：[
+          <a href="https://github.com/windingwind/zotero-pdf-translate?tab=readme-ov-file">
+           MuiseDestiny/zotero-reference
+          </a>
+         </li>
+        </ul>
+        <p>
+         配置没什么好说的，但是感觉用处不大，只是有时候可能可以看一眼参考文献大概的样子
+        </p>
+        <h3>
+         3 Ethereal Style 插件
+        </h3>
+        <ul>
+         <li>
+          <p>
+           Github仓库：
+           <a href="https://github.com/MuiseDestiny/zotero-style">
+            MuiseDestiny/zotero-style
+           </a>
           </p>
          </li>
          <li>
           <p>
-           然后将频率最高的pair合并为一个词添加到词表中（词表：h, e, l, o, ll）
+           手册：
+           <a href="https://www.notion.so/Zotero-Style-bc2aebbbb6df4b7baa858e376e4fc5be">
+            Ethereal Style 中文文档
+           </a>
+          </p>
+         </li>
+        </ul>
+        <p>
+         也是一样Github下载，但是设置要更复杂一点，我主要设置了以下几个方面，
+        </p>
+        <ol>
+         <li>
+          应该显示那些列，下图是我的设置
+         </li>
+        </ol>
+        <p>
+         <img alt="image-20250109112355646" src="../image/2024/image-20250109112355646.png"/>
+        </p>
+        <ol start="2">
+         <li>
+          期刊标签的显示，按手册配置
+          <a href="https://www.easyscholar.cc/">
+           easyScholar
+          </a>
+          ，值得注意的是，如果需要使用ccf评级，应该在自建数据集中选择ccf数据集
+         </li>
+         <li>
+          我还希望显示期刊名称，通过
+          <code>
+           #标签
+          </code>
+          实现
+         </li>
+        </ol>
+        <p>
+         遇到了一个问题，
+        </p>
+        <ol>
+         <li>
+          期刊标签的配置中，CCF应该大写（或者说，在右键论文条目，选择更新期刊标签后，应该根据跟新的显示，填写Field参数）
+         </li>
+        </ol>
+        <h3>
+         4 Better Notes 插件
+        </h3>
+        <ul>
+         <li>
+          <p>
+           Github仓库：
+           <a href="https://github.com/MuiseDestiny/zotero-style">
+            windingwind/zotero-better-notes
+           </a>
           </p>
          </li>
          <li>
           <p>
-           重复前一步直到词表大小到达设置的结果
+           手册：
+           <a href="https://github.com/windingwind/zotero-better-notes?tab=readme-ov-file#-quick-start">
+            Better Notes手册
+           </a>
           </p>
          </li>
         </ul>
         <p>
-         在推理阶段，也是将数据切分为字符，然后按训练阶段得到的词表作最长匹配
-        </p>
-        <h4>
-         4）WordPiece
-        </h4>
-        <p>
-         WordPiece和BPE的思路基本一致，只是不是选择频率最高的pair，而是按下面的公式计算互信息，
+         也是直接下载按照，配置没啥好说的，感觉除了支持markdown，还有点像Notion，可以通过斜杠做一些操作，以及支持不同的连接之类的，但是我一般也用不上，我应该在zotero内只会针对每篇论文写读书笔记。
         </p>
         <p>
-         <img alt="image-20241214220250843" src="../image/2024/image-20241214220250843.png"/>
-        </p>
-        <p>
-         这里的a和b是计划合并的词表中的两个词，这里的思想是一个pair的频率很高，但是其中pair的一部分的频率更高，这时候不一定需要进行该pair的合并。 而如果一个pair的频率很高，并且这个pair的两个部分都是只出现在这个pair中，就说明这个pair很值得合并。
-        </p>
-        <h4>
-         5）Unigram
-        </h4>
-        <p>
-         Unigram分词与BPE和WordPiece不同，是基于一个大词表逐步裁剪成一个小词表。具体来说，在训练阶段，
-        </p>
-        <ul>
-         <li>
-          首先将训练数据按单词划分，并统计词频，得到初始词表
-         </li>
-         <li>
-          然后统计初始词表中每个词的子词和对应词频，取前n个词构成最初的大词表
-         </li>
-         <li>
-          统计词表中每个词的概率，转换为Unigram loss：-log(count / total_count)
-         </li>
-         <li>
-          作动态规划（Viterbi算法）找到使得一个词的loss最小的分词路径
-         </li>
-         <li>
-          计算所有词对总体loss的影响，删除影响小的，直到词表大小符合要求
-         </li>
-        </ul>
-        <p>
-         在推理阶段，也是将数据按word切分，然后按训练阶段得到的词表作最长匹配
-        </p>
-        <h2>
-         [IJCAI 24] Enhancing Multimodal Knowledge Graph Representation Learning through Triple Contrastive Learning
-        </h2>
-        <h4>
-         1）问题
-        </h4>
-        <p>
-         本文实际做的是Knowledge Graph embedding，就是输入一个知识图谱，输出该知识图谱的每个节点和关系，输出这些节点和关系对应的embedding，所以本文解决的问题很简单，
-        </p>
-        <ul>
-         <li>
-          单模态方法变多模态
-         </li>
-         <li>
-          构造了一个多模态的知识图谱（每个entity，附有图片和解释）
-         </li>
-        </ul>
-        <p>
-         我觉得后者才是本文实际的难点所在
-        </p>
-        <h4>
-         2）方法
-        </h4>
-        <p>
-         如下图所示，
-        </p>
-        <p>
-         <img alt="image-20241224165249312" src="../image/2024/image-20241224165249312.png"/>
-        </p>
-        <p>
-         其实就是在原有的KGE的方法的基础上，加入了其他模态的信息，这个加入的方式是用对比学习来实现的
-        </p>
-        <h4>
-         3）实验
-        </h4>
-        <p>
-         <img alt="image-20241224165423202" src="../image/2024/image-20241224165423202.png"/>
+         然后我用它的模板功能创建了一个论文的读书模板，直接参考的这篇模板：[
+         <a href="https://github.com/windingwind/zotero-better-notes/discussions/771#discussioncomment-7432015">
+          Item] PaperNote 适配Zotero 6 7 中英文文献 自用SCI笔记模版
+         </a>
+         ，在他的基础上做了些简单的修改
         </p>
        </body>
       </html>
@@ -452,6 +303,16 @@
     </h3>
     <table class="archive-list">
      <tbody>
+      <tr>
+       <td style="padding-right: 10px">
+        2025.01.09:
+       </td>
+       <td>
+        <a href="http://guchongan.github.io/2025\zotero-tool">
+         [Tool] Zotero 使用指南
+        </a>
+       </td>
+      </tr>
       <tr>
        <td style="padding-right: 10px">
         2024.12.24:
@@ -539,16 +400,6 @@
        <td>
         <a href="http://guchongan.github.io/2024\0902-RAG">
          [Read Paper] 9.2-9.18 论文阅读（RAG/KICGPT/StructGPT/Seq2SeqKGC/KGLLMTest）
-        </a>
-       </td>
-      </tr>
-      <tr>
-       <td style="padding-right: 10px">
-        2024.09.01:
-       </td>
-       <td>
-        <a href="http://guchongan.github.io/2024\0825-VisualPrompting">
-         [Read Paper] 8.25-9.1 论文阅读（Visual Prompting/Dissecting Multimodality/LAION-5B）
         </a>
        </td>
       </tr>
